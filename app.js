@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
+// establish database connection
 var dbUrl = 'mongodb://localhost/timetable';
 mongoose.connect(dbUrl, function(err, res) {
   if(err) {
