@@ -42,13 +42,13 @@ var taskSchema = mongoose.Schema({
         type: String, 
         default: ''
     },
-    temporary: {
-        type: Boolean,
-        default: false
-    },
     username: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    },
+    slot: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Slot'
     }
 });
 
