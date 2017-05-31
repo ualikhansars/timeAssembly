@@ -1,51 +1,147 @@
 var express = require('express');
 var router = express.Router();
-var controller = require('../controllers/taskController');
+var controllers = require('../controllers');
 
-/* GET home page. */
-router.get('/tasks', function(req, res, next) {
-  controller.find({}, function(err, tasks){
-    if(err) {
-      res.json({
-        confirmation: 'failed',
-        message: 'Invalid resource request'
-      });
-    }
+
+
+// find all
+router.get('/:resource', function(req, res, next) {
+  var resource = req.params.resource;
+  var controller = controller[resource];
+
+  if(controller == null) {
     res.json({
-      confirmation: 'success',
-      resource: tasks
-    });
-
-  })
-});
-
-router.get('/tasks/:id', function(req, res, next) {
-  var id = req.params.id;
-  controller.findById(id, function(err, task) {
-    if(err) {
-      res.json({
-        confirmation: 'failed',
-        message: 'Not Found'
-      });
-    }
-    res.json({
-      confirmation: 'success',
-      resource: task
-    });
-  });
-});
-
-router.post('/task', function(req, res, next) {
-  controller.create(req.body, function(err, task) {
+      confirmation: 'failed',
+      message: 'Invalid resource request ' + resource
+    })
+    return;
+  }
+  controller.find( req.query, function(err, results){
     if(err) {
       res.json({
         confirmation: 'failed',
         message: err
       });
+      return;
     }
     res.json({
       confirmation: 'success',
-      result: task
+      resource: results
+    });
+
+  })
+});
+
+
+// find By Id
+router.get('/:resource/:id', function(req, res, next) {
+  var resource = req.params.resource;
+  var controller = controller[resource];
+  var id = req.params.id;
+
+  if(controller == null) {
+    res.json({
+      confirmation: 'failed',
+      message: 'Invalid resource request ' + resource
+    })
+    return;
+  }
+
+  controller.findById(id, function(err, result) {
+    if(err) {
+      res.json({
+        confirmation: 'failed',
+        message: 'Not Found'
+      });
+      return;
+    }
+    res.json({
+      confirmation: 'success',
+      resource: result
+    });
+  });
+});
+
+// create 
+router.post('/:resource', function(req, res, next) {
+  var resource = req.params.resource;
+  var controller = controller[resource];
+
+  if(controller == null) {
+    res.json({
+      confirmation: 'failed',
+      message: 'Invalid resource request ' + resource
+    })
+    return;
+  }
+
+  controller.create(req.body, function(err, result) {
+    if(err) {
+      res.json({
+        confirmation: 'failed',
+        message: err
+      });
+      return;
+    }
+    res.json({
+      confirmation: 'success',
+      result: result
+    });
+  });
+});
+
+// update
+router.put('/:resource/:id', function(req, res, next) {
+  var resource = req.params.resource;
+  var controller = controller[resource];
+
+  if(controller == null) {
+    res.json({
+      confirmation: 'failed',
+      message: 'Invalid resource request ' + resource
+    })
+    return;
+  }
+
+  controller.update(id, req.body, function(err, result) {
+    if(err) {
+      res.json({
+        confirmation: 'error',
+        message: err
+      });
+      return;
+    }
+    res.json({
+      confirmation: 'success',
+      resource: result
+    });
+  });
+});
+
+// remove
+router.put('/:resource/:id', function(req, res, next) {
+  var resource = req.params.resource;
+  var controller = controller[resource];
+
+  if(controller == null) {
+    res.json({
+      confirmation: 'failed',
+      message: 'Invalid resource request ' + resource
+    })
+    return;
+  }
+
+  controller.remove(id, function(err, result) {
+    if(err) {
+      res.json({
+        confirmation: 'error',
+        message: err
+      });
+      return;
+    }
+    res.json({
+      confirmation: 'success',
+      resource: ''
     });
   });
 });

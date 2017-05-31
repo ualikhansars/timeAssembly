@@ -10,4 +10,12 @@ router.get('/createTask', function(req, res, next) {
   res.render('createTask', {});
 });
 
+router.get('/createSlot', function(req, res, next) {
+  res.render('createSlot', {});
+});
+
+router.get('/createUser', function(req, res, next) {
+  res.render('createSlot', {});
+});
+
 module.exports = router;

@@ -18,7 +18,7 @@ module.exports = {
                 return;
             }
             callback(null, task);
-        })
+        });
     },
 
     create: function(params, callback) {
@@ -29,7 +29,7 @@ module.exports = {
                 return;
             }
             callback(null, task);
-        })
+        });
     },
 
     update: function(id, params, callback) {
@@ -49,6 +49,6 @@ module.exports = {
                 return;
             }
             callback(null, null);
-        })
+        });
     }
 }
