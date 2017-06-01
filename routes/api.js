@@ -7,7 +7,7 @@ var controllers = require('../controllers');
 // find all
 router.get('/:resource', function(req, res, next) {
   var resource = req.params.resource;
-  var controller = controller[resource];
+  var controller = controllers[resource];
 
   if(controller == null) {
     res.json({
@@ -16,7 +16,7 @@ router.get('/:resource', function(req, res, next) {
     })
     return;
   }
-  controller.find( req.query, function(err, results){
+  controller.find(req.query, function(err, results){
     if(err) {
       res.json({
         confirmation: 'failed',
@@ -36,7 +36,7 @@ router.get('/:resource', function(req, res, next) {
 // find By Id
 router.get('/:resource/:id', function(req, res, next) {
   var resource = req.params.resource;
-  var controller = controller[resource];
+  var controller = controllers[resource];
   var id = req.params.id;
 
   if(controller == null) {
@@ -65,7 +65,7 @@ router.get('/:resource/:id', function(req, res, next) {
 // create 
 router.post('/:resource', function(req, res, next) {
   var resource = req.params.resource;
-  var controller = controller[resource];
+  var controller = controllers[resource];
 
   if(controller == null) {
     res.json({
@@ -93,7 +93,7 @@ router.post('/:resource', function(req, res, next) {
 // update
 router.put('/:resource/:id', function(req, res, next) {
   var resource = req.params.resource;
-  var controller = controller[resource];
+  var controller = controllers[resource];
 
   if(controller == null) {
     res.json({
@@ -121,7 +121,7 @@ router.put('/:resource/:id', function(req, res, next) {
 // remove
 router.put('/:resource/:id', function(req, res, next) {
   var resource = req.params.resource;
-  var controller = controller[resource];
+  var controller = controllers[resource];
 
   if(controller == null) {
     res.json({

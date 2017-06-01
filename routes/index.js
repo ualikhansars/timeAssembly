@@ -15,7 +15,7 @@ router.get('/createSlot', function(req, res, next) {
 });
 
 router.get('/createUser', function(req, res, next) {
-  res.render('createSlot', {});
+  res.render('createUser', {});
 });
 
 module.exports = router;

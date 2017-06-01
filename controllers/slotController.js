@@ -23,7 +23,7 @@ module.exports = {
             if(err) {
                callback(err, null);
             }
-            callback(null, task);
+            callback(null, slot);
         });
     },
     update: function(id, params, callback) {

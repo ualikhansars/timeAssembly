@@ -1,8 +1,11 @@
-const mongoose = require('mongoose');
+var mongoose = require('mongoose');
+var User = require('./user');
+var Slot = require('./slot');
 
 var taskSchema = mongoose.Schema({
     title: {type: String, required: true},
     category: {type: String},
+    description: {type: String},
     duration: {
         type: Number,
         get: v => Math.round(v),
