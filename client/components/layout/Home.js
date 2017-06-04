@@ -1,7 +1,7 @@
 import React from 'react';
 import {Dynamic} from '../containers/Dynamic';
 import {Navbar} from '../containers/Navbar';
-import {Settings} from '../containers/Settings'; 
+import {Sidebar} from '../containers/Sidebar'; 
 import {Tasks} from '../containers/Tasks'; 
 
 
@@ -22,7 +22,7 @@ export class Home extends React.Component {
                         <Dynamic/>
                     </div>
                     <div className="col-md-2 settings">
-                        <Settings/>
+                        <Sidebar/>
                     </div>
                 </div>
             </div>
