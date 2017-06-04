@@ -93,6 +93,7 @@ router.post('/:resource', function(req, res, next) {
 // update
 router.put('/:resource/:id', function(req, res, next) {
   var resource = req.params.resource;
+  var id = req.params.id;
   var controller = controllers[resource];
 
   if(controller == null) {
@@ -113,14 +114,15 @@ router.put('/:resource/:id', function(req, res, next) {
     }
     res.json({
       confirmation: 'success',
-      resource: result
+      result: result
     });
   });
 });
 
 // remove
-router.put('/:resource/:id', function(req, res, next) {
+router.delete('/:resource/:id', function(req, res, next) {
   var resource = req.params.resource;
+  var id = req.params.id;
   var controller = controllers[resource];
 
   if(controller == null) {
@@ -141,9 +143,32 @@ router.put('/:resource/:id', function(req, res, next) {
     }
     res.json({
       confirmation: 'success',
-      resource: ''
+      resource: 'deleted'
     });
   });
+});
+
+
+// update tests
+
+router.get('/task/:id/update', function(req, res, next) {
+  var id = req.params.id;
+  res.render('updateTask', {id: id});
+});
+
+router.get('/slot/:id/update', function(req, res, next) {
+  var id = req.params.id;
+  res.render('updateSlot', {id: id});
+});
+
+router.get('/user/:id/update', function(req, res, next) {
+  var id = req.params.id;
+  res.render('updateUser', {id: id});
+});
+
+router.get('/task/:id/remove', function(req, res, next) {
+  var id = req.params.id;
+  res.redirect('/api/task')
 });
 
 module.exports = router;

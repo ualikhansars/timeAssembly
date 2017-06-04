@@ -9,7 +9,7 @@ module.exports = {
             callback(null, slots);
         });
     },
-    findByID: function(id, callback) {
+    findById: function(id, callback) {
         Slot.findById(id, function(err, slot) {
             if(err) {
                 callback(err, null);
