@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import {Home} from './components/layout/Home';
 
 class App extends React.Component {
     render() {
         return(
-            <h1>Hello React</h1>
+            <Home/>
         );
     }
 }
