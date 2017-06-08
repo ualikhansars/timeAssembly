@@ -1,10 +1,16 @@
 // fire this function after sidebar element were clicked
 // e.g setting or slots
-function displaySlots() {
-    console.log('Sidebar were clicked');
+export const displaySlots = () => {
+    console.log('Slots in sidebar was clicked');
     return {
         type: 'DISPLAY_SLOTS'
     }
-}  
+} 
 
-export default displaySlots; 
+export const displaySettings = () => {
+    console.log('Settings in sidebar were clicked');
+    return {
+        type: 'DISPLAY_SETTINGS'
+    }
+} 
+
