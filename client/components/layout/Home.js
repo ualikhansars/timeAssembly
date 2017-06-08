@@ -1,7 +1,7 @@
 import React from 'react';
-import {Dynamic} from '../components/Dynamic';
-import {Navbar} from '../components/Navbar';
-import Sidebar from '../components/Sidebar'; 
+import {Dynamic} from '../presentation/Dynamic';
+import {Navbar} from '../presentation/Navbar';
+import Sidebar from '../containers/Sidebar'; 
 import {Tasks} from '../containers/Tasks'; 
 
 

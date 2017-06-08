@@ -1,7 +1,7 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import displaySlots from '../actions/displaySlots';
+import displaySlots from '../../actions/displaySlots';
 
 
 class Sidebar extends React.Component {
