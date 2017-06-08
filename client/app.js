@@ -2,11 +2,8 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Home} from './components/layout/Home';
 
-import {createStore} from 'redux';
 import {Provider} from 'react-redux';
-import reducers from './reducers';
-
-const store = createStore(reducers);
+import store from './store';
 
 class App extends React.Component {
     render() {

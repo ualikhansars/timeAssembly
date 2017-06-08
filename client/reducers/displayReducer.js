@@ -6,18 +6,17 @@ const initialState = {
 const displayReducer = (state=initialState, action) => {
     switch(action.type) {
         case 'DISPLAY_SLOTS':
-           state = {
-               displaySlots: true,
-               displaySettings: false
-           }
-           break;
+           return Object.assign({}, state, {
+                displaySlots: true,
+                displaySettings: false
+           });
         case 'DISPLAY_SETTINGS':
-            state = {
+            return Object.assign({}, state, {
                 displaySlots: false,
                 displaySettings: true
-            }
+           });
     }
-    return initialState;
+    return state;
 }
 
 export default displayReducer;
