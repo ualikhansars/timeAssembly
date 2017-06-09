@@ -1,5 +1,4 @@
-// fire this function after sidebar element were clicked
-// e.g setting or slots
+// fire this function after sidebar element slots were clicked
 export const displaySlots = () => {
     console.log('Slots in sidebar was clicked');
     return {
@@ -7,6 +6,7 @@ export const displaySlots = () => {
     }
 } 
 
+// fire this function after sidebar element settings were clicked
 export const displaySettings = () => {
     console.log('Settings in sidebar were clicked');
     return {

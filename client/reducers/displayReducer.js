@@ -1,3 +1,6 @@
+// this reducer is change display slots and display settings state
+// to true or false depending on what element in sidebar has been clicked
+
 const initialState = {
     displaySlots: false,
     displaySettings: false
