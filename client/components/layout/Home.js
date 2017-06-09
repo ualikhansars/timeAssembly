@@ -1,5 +1,5 @@
 import React from 'react';
-import Dynamic from '../presentation/Dynamic';
+import Dynamic from '../containers/Dynamic';
 import {Navbar} from '../presentation/Navbar';
 import Sidebar from '../containers/Sidebar'; 
 import Days from '../containers/Days'; 

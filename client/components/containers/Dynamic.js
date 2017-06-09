@@ -2,20 +2,21 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
+import Tasks from './Tasks';
+import Settings from './Settings';
+
 class Dynamic extends React.Component {
     render() {
         let isShowSlots = this.props.display.displaySlots;
         let isShowSettings = this.props.display.displaySettings;
         if(isShowSlots) {
             return(
-                <div>
-                    <h2>Tasks</h2>
-                </div>
+                <Tasks/>
             );
         }
         if(isShowSettings) {
             return(
-                <h2>Settings</h2>
+                <Settings/>
             );
         } else {
              return(
