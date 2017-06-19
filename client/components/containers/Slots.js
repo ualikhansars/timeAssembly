@@ -1,4 +1,7 @@
 import React from 'react';
+
+import Slot from '../presentation/Slot';
+
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {fetchSlots} from '../../actions/slotAction';
@@ -31,8 +34,18 @@ class Slots extends React.Component {
         // display every slots
         if(loaded) {
                 resource = slots.resource.map((slot, i) => {
+                    let property = {
+                        title: slot.title,
+                        category: slot.category,
+                        total: slot.category,
+                        free: slot.free,
+                        tempotary: slot.tempotary,
+                        dueDate: slot.dueDate,
+                    }
                     return (
-                        <div>{slot.title}</div>
+                        <div key={i}>
+                            <Slot property={property}/>
+                        </div>
                     );
             });
         }
@@ -45,7 +58,7 @@ class Slots extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                      Slots {resource}
+                        {resource}
                     </div>
                 </div>
             </div>
