@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {fetchSlots} from '../../actions/slotAction';
 
-class Tasks extends React.Component {
+class Slots extends React.Component {
 
     componentDidMount() {
         this.props.fetchSlots();
@@ -28,6 +28,7 @@ class Tasks extends React.Component {
         }
 
         // when data loaded
+        // display every slots
         if(loaded) {
                 resource = slots.resource.map((slot, i) => {
                     return (
@@ -54,7 +55,7 @@ class Tasks extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        // slots info
+        // slots infoz
         slotsInfo: state.slots
     };
 }
@@ -68,4 +69,4 @@ const mapDispatchToProps = (dispatch) => {
     );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Tasks);
+export default connect(mapStateToProps, mapDispatchToProps)(Slots);

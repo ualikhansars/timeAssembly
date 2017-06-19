@@ -12854,9 +12854,9 @@ var _redux = __webpack_require__(22);
 
 var _reactRedux = __webpack_require__(28);
 
-var _Tasks = __webpack_require__(131);
+var _Slots = __webpack_require__(264);
 
-var _Tasks2 = _interopRequireDefault(_Tasks);
+var _Slots2 = _interopRequireDefault(_Slots);
 
 var _Settings = __webpack_require__(129);
 
@@ -12885,7 +12885,7 @@ var Dynamic = function (_React$Component) {
             var isShowSlots = this.props.display.displaySlots;
             var isShowSettings = this.props.display.displaySettings;
             if (isShowSlots) {
-                return _react2.default.createElement(_Tasks2.default, null);
+                return _react2.default.createElement(_Slots2.default, null);
             }
             if (isShowSettings) {
                 return _react2.default.createElement(_Settings2.default, null);
@@ -13064,139 +13064,7 @@ function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Sidebar);
 
 /***/ }),
-/* 131 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(11);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _redux = __webpack_require__(22);
-
-var _reactRedux = __webpack_require__(28);
-
-var _slotAction = __webpack_require__(125);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Tasks = function (_React$Component) {
-    _inherits(Tasks, _React$Component);
-
-    function Tasks() {
-        _classCallCheck(this, Tasks);
-
-        return _possibleConstructorReturn(this, (Tasks.__proto__ || Object.getPrototypeOf(Tasks)).apply(this, arguments));
-    }
-
-    _createClass(Tasks, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            this.props.fetchSlots();
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _props$slotsInfo = this.props.slotsInfo,
-                loading = _props$slotsInfo.loading,
-                loaded = _props$slotsInfo.loaded,
-                errors = _props$slotsInfo.errors,
-                slots = _props$slotsInfo.slots;
-
-            var resource = null;
-            console.log('Slots info', slots);
-            // when data is loading
-            if (loading) {
-                return _react2.default.createElement(
-                    'div',
-                    null,
-                    'loading'
-                );
-            }
-
-            // if errors occurs
-            if (errors) {
-                return _react2.default.createElement(
-                    'div',
-                    null,
-                    'Errors'
-                );
-            }
-
-            // when data loaded
-            if (loaded) {
-                resource = slots.resource.map(function (slot, i) {
-                    return _react2.default.createElement(
-                        'div',
-                        null,
-                        slot.title
-                    );
-                });
-            }
-            return _react2.default.createElement(
-                'div',
-                { className: 'container-fluid' },
-                _react2.default.createElement(
-                    'div',
-                    { className: 'row' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-md-4 offset-md-4' },
-                        _react2.default.createElement(
-                            'span',
-                            null,
-                            'Tasks'
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'row' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-md-12' },
-                        'Slots ',
-                        resource
-                    )
-                )
-            );
-        }
-    }]);
-
-    return Tasks;
-}(_react2.default.Component);
-
-var mapStateToProps = function mapStateToProps(state) {
-    return {
-        // slots info
-        slotsInfo: state.slots
-    };
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-    return (0, _redux.bindActionCreators)({
-        // fetch slots from database
-        fetchSlots: _slotAction.fetchSlots
-    }, dispatch);
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Tasks);
-
-/***/ }),
+/* 131 */,
 /* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26765,6 +26633,140 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+/* 264 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(11);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _redux = __webpack_require__(22);
+
+var _reactRedux = __webpack_require__(28);
+
+var _slotAction = __webpack_require__(125);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Slots = function (_React$Component) {
+    _inherits(Slots, _React$Component);
+
+    function Slots() {
+        _classCallCheck(this, Slots);
+
+        return _possibleConstructorReturn(this, (Slots.__proto__ || Object.getPrototypeOf(Slots)).apply(this, arguments));
+    }
+
+    _createClass(Slots, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.props.fetchSlots();
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _props$slotsInfo = this.props.slotsInfo,
+                loading = _props$slotsInfo.loading,
+                loaded = _props$slotsInfo.loaded,
+                errors = _props$slotsInfo.errors,
+                slots = _props$slotsInfo.slots;
+
+            var resource = null;
+            console.log('Slots info', slots);
+            // when data is loading
+            if (loading) {
+                return _react2.default.createElement(
+                    'div',
+                    null,
+                    'loading'
+                );
+            }
+
+            // if errors occurs
+            if (errors) {
+                return _react2.default.createElement(
+                    'div',
+                    null,
+                    'Errors'
+                );
+            }
+
+            // when data loaded
+            // display every slots
+            if (loaded) {
+                resource = slots.resource.map(function (slot, i) {
+                    return _react2.default.createElement(
+                        'div',
+                        null,
+                        slot.title
+                    );
+                });
+            }
+            return _react2.default.createElement(
+                'div',
+                { className: 'container-fluid' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-4 offset-md-4' },
+                        _react2.default.createElement(
+                            'span',
+                            null,
+                            'Tasks'
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-12' },
+                        'Slots ',
+                        resource
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Slots;
+}(_react2.default.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        // slots infoz
+        slotsInfo: state.slots
+    };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({
+        // fetch slots from database
+        fetchSlots: _slotAction.fetchSlots
+    }, dispatch);
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Slots);
 
 /***/ })
 /******/ ]);
