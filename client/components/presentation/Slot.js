@@ -16,7 +16,7 @@ class Slot extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-md-6">
-                        <button className="btn btn-success">Add</button>
+                        <button onClick={() => this.props.addTask()} className="btn btn-success">Add</button>
                     </div>
                     <div className="col-md-6">
                         <button className="btn btn-danger">Remove</button>

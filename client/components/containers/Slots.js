@@ -4,7 +4,7 @@ import Slot from '../presentation/Slot';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {fetchSlots} from '../../actions/slotAction';
+import {fetchSlots, addTask} from '../../actions/slotAction';
 
 class Slots extends React.Component {
 
@@ -44,7 +44,7 @@ class Slots extends React.Component {
                     }
                     return (
                         <div key={i}>
-                            <Slot property={property}/>
+                            <Slot addTask={this.props.addTask} property={property}/>
                         </div>
                     );
             });
@@ -68,7 +68,7 @@ class Slots extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        // slots infoz
+        // slots info
         slotsInfo: state.slots
     };
 }
@@ -76,7 +76,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
             // fetch slots from database
-            fetchSlots
+            fetchSlots,
+            addTask
         }, 
         dispatch
     );
