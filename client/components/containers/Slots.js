@@ -4,7 +4,7 @@ import Slot from '../presentation/Slot';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {fetchSlots, addTask} from '../../actions/slotAction';
+import {fetchSlots, addTask, createSlot} from '../../actions/fetchSlotAction';
 
 class Slots extends React.Component {
 
@@ -56,6 +56,9 @@ class Slots extends React.Component {
                     <span>Tasks</span>
                 </div>
                 </div>
+                <div className="col-md-4 offset-md-4">
+                    <button onClick={() => this.props.createSlot()} className="btn btn-success">Create Task</button>
+                </div>
                 <div className="row">
                     <div className="col-md-12">
                         {resource}
@@ -77,7 +80,8 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
             // fetch slots from database
             fetchSlots,
-            addTask
+            addTask,
+            createSlot
         }, 
         dispatch
     );

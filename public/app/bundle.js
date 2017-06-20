@@ -12682,55 +12682,7 @@ var displaySettings = exports.displaySettings = function displaySettings() {
 };
 
 /***/ }),
-/* 125 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.addTask = undefined;
-exports.fetchSlots = fetchSlots;
-
-var _axios = __webpack_require__(106);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var url = '/api/slot';
-
-function fetchSlots() {
-    return function (dispatch) {
-
-        dispatch({
-            type: 'LOAD_INFO_REQUESTED'
-        });
-
-        _axios2.default.get(url).then(function (result) {
-            console.log('result', result);
-            dispatch({
-                type: 'LOAD_INFO_OK',
-                slots: result.data
-            });
-        }).catch(function (result) {
-            dispatch({
-                type: 'LOAD_INFO_FAIL',
-                errors: result.message
-            });
-        });
-    };
-}
-
-var addTask = exports.addTask = function addTask() {
-    return {
-        type: 'ADD_TASK'
-    };
-};
-
-/***/ }),
+/* 125 */,
 /* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13093,7 +13045,7 @@ var _redux = __webpack_require__(22);
 
 var _reactRedux = __webpack_require__(28);
 
-var _slotAction = __webpack_require__(125);
+var _fetchSlotAction = __webpack_require__(267);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13185,6 +13137,17 @@ var Slots = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
+                    { className: 'col-md-4 offset-md-4' },
+                    _react2.default.createElement(
+                        'button',
+                        { onClick: function onClick() {
+                                return _this2.props.createSlot();
+                            }, className: 'btn btn-success' },
+                        'Create Task'
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
                     { className: 'row' },
                     _react2.default.createElement(
                         'div',
@@ -13209,8 +13172,9 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)({
         // fetch slots from database
-        fetchSlots: _slotAction.fetchSlots,
-        addTask: _slotAction.addTask
+        fetchSlots: _fetchSlotAction.fetchSlots,
+        addTask: _fetchSlotAction.addTask,
+        createSlot: _fetchSlotAction.createSlot
     }, dispatch);
 };
 
@@ -13484,12 +13448,17 @@ var _addTaskReducer = __webpack_require__(265);
 
 var _addTaskReducer2 = _interopRequireDefault(_addTaskReducer);
 
+var _createSlotReducer = __webpack_require__(266);
+
+var _createSlotReducer2 = _interopRequireDefault(_createSlotReducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var reducers = (0, _redux.combineReducers)({
     display: _displayReducer2.default,
     slots: _slotReducer2.default,
-    addTask: _addTaskReducer2.default
+    addTask: _addTaskReducer2.default,
+    createSlot: _createSlotReducer2.default
 });
 
 exports.default = reducers;
@@ -26921,6 +26890,96 @@ var addTaskFromSlot = function addTaskFromSlot() {
 };
 
 exports.default = addTaskFromSlot;
+
+/***/ }),
+/* 266 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var initialState = {
+    showCreateSlotForm: false,
+    slot: {}
+};
+
+var createSlot = function createSlot() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    switch (action.type) {
+        case 'CREATE_SLOT':
+
+            console.log('CREATE SLOT');
+    }
+    return createSlot;
+};
+
+exports.default = createSlot;
+
+/***/ }),
+/* 267 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.removeSlot = exports.addTask = exports.createSlot = undefined;
+exports.fetchSlots = fetchSlots;
+
+var _axios = __webpack_require__(106);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var url = '/api/slot';
+
+function fetchSlots() {
+    return function (dispatch) {
+
+        dispatch({
+            type: 'LOAD_INFO_REQUESTED'
+        });
+
+        _axios2.default.get(url).then(function (result) {
+            console.log('result', result);
+            dispatch({
+                type: 'LOAD_INFO_OK',
+                slots: result.data
+            });
+        }).catch(function (result) {
+            dispatch({
+                type: 'LOAD_INFO_FAIL',
+                errors: result.message
+            });
+        });
+    };
+}
+
+var createSlot = exports.createSlot = function createSlot() {
+    return {
+        type: 'CREATE_SLOT'
+    };
+};
+
+var addTask = exports.addTask = function addTask() {
+    return {
+        type: 'ADD_TASK'
+    };
+};
+
+var removeSlot = exports.removeSlot = function removeSlot() {
+    return {
+        type: 'REMOVE_SLOT'
+    };
+};
 
 /***/ })
 /******/ ]);

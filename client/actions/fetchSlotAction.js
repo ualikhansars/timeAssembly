@@ -26,8 +26,20 @@ export function fetchSlots() {
     }
 }
 
+export const createSlot = () => {
+    return {
+        type: 'CREATE_SLOT'
+    }
+}
+
 export const addTask = () => {
     return {
         type: 'ADD_TASK',
+    }
+}
+
+export const removeSlot = () => {
+    return {
+        type: 'REMOVE_SLOT'
     }
 }
