@@ -1,10 +1,14 @@
 import React from 'react';
 
 import Slot from '../presentation/Slot';
+import CreateSlotForm from '../presentation/CreateSlotForm';
+import SlotContainer from '../presentation/SlotContainer';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {fetchSlots, addTask, createSlot} from '../../actions/fetchSlotAction';
+import {fetchSlots} from '../../actions/fetchSlotAction';
+import {addTask} from '../../actions/taskAction';
+import {createSlot} from '../../actions/slotAction';
 
 class Slots extends React.Component {
 
@@ -14,8 +18,11 @@ class Slots extends React.Component {
 
     render() {
         const {loading, loaded, errors, slots} = this.props.slotsInfo;
+        let {showCreateSlotForm} = this.props.createSlotInfo;
         let resource = null;
         console.log('Slots info',slots);
+        console.log('createSlot', this.props.createSlot.showCreateSlotForm);
+        console.log('showCreateSlotForm', showCreateSlotForm);
         // when data is loading
         if(loading) {
             return(
@@ -26,14 +33,17 @@ class Slots extends React.Component {
         // if errors occurs
         if(errors) {
             return(
-                <div>Errors</div>
+                <div className="container-fluid">
+                    <div>Errors</div>
+                    <div>{errors}</div>
+                </div>
             );
         }
 
         // when data loaded
         // display every slots
         if(loaded) {
-                resource = slots.resource.map((slot, i) => {
+                 resource = slots.resource.map((slot, i) => {
                     let property = {
                         title: slot.title,
                         category: slot.category,
@@ -49,30 +59,26 @@ class Slots extends React.Component {
                     );
             });
         }
-        return(
-            <div className="container-fluid">
-                <div className="row">
-                <div className="col-md-4 offset-md-4">
-                    <span>Tasks</span>
-                </div>
-                </div>
-                <div className="col-md-4 offset-md-4">
-                    <button onClick={() => this.props.createSlot()} className="btn btn-success">Create Task</button>
-                </div>
-                <div className="row">
-                    <div className="col-md-12">
-                        {resource}
-                    </div>
-                </div>
-            </div>
-        );
-    }
+
+        // if createSlot button has been clicked, CreateSlotForm will appear
+        if(showCreateSlotForm) {
+            return (
+                <CreateSlotForm/>  
+            );
+        }
+        else {
+            return(
+                <SlotContainer createSlot={this.props.createSlot} resource={resource}/>    
+             );
+        } 
+    } 
 }
 
 const mapStateToProps = (state) => {
     return {
         // slots info
-        slotsInfo: state.slots
+        slotsInfo: state.slots,
+        createSlotInfo: state.createSlot
     };
 }
 

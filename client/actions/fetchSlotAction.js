@@ -1,6 +1,6 @@
-const url = '/api/slot'
-
 import axios from 'axios';
+
+const url = '/api/slot';
 
 export function fetchSlots() {
     return dispatch => {
@@ -26,20 +26,4 @@ export function fetchSlots() {
     }
 }
 
-export const createSlot = () => {
-    return {
-        type: 'CREATE_SLOT'
-    }
-}
 
-export const addTask = () => {
-    return {
-        type: 'ADD_TASK',
-    }
-}
-
-export const removeSlot = () => {
-    return {
-        type: 'REMOVE_SLOT'
-    }
-}
