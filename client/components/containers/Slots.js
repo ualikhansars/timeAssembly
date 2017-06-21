@@ -21,8 +21,7 @@ class Slots extends React.Component {
         let {showCreateSlotForm} = this.props.createSlotInfo;
         let resource = null;
         console.log('Slots info',slots);
-        console.log('createSlot', this.props.createSlot.showCreateSlotForm);
-        console.log('showCreateSlotForm', showCreateSlotForm);
+        
         // when data is loading
         if(loading) {
             return(
