@@ -13372,8 +13372,8 @@ var CreateSlotForm = function (_React$Component) {
                             { className: "col-md-4" },
                             _react2.default.createElement(
                                 "button",
-                                { onClick: function onClick() {
-                                        return _this2.props.hideSlotsForm();
+                                { type: "button", onClick: function onClick() {
+                                        return _this2.props.hideSlotForm();
                                     }, className: "btn btn-danger" },
                                 "Cancel"
                             )

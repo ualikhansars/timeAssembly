@@ -30,7 +30,7 @@ class CreateSlotForm extends React.Component {
                             <button className="btn btn-success">Create</button>
                         </div>
                         <div className="col-md-4">
-                            <button onClick={() => this.props.hideSlotsForm()} className="btn btn-danger">Cancel</button>
+                            <button type="button" onClick={() => this.props.hideSlotForm()} className="btn btn-danger">Cancel</button>
                         </div>
                     </div>
                 </form>
