@@ -1,11 +1,17 @@
-export const createSlot = () => {
+export const showSlotForm = () => {
     return {
-        type: 'CREATE_SLOT'
-    }
+        type: 'SHOW_SLOT_FORM'
+    };
+}
+
+export const hideSlotForm = () => {
+    return {
+        type: 'HIDE_SLOT_FORM'
+    };
 }
 
 export const removeSlot = () => {
     return {
         type: 'REMOVE_SLOT'
-    }
+    };
 }

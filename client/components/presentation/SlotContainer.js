@@ -10,7 +10,7 @@ class SlotContainer extends React.Component {
                 </div>
                 </div>
                 <div className="col-md-4 offset-md-4">
-                    <button onClick={() => this.props.createSlot()} className="btn btn-success">Create Task</button>
+                    <button onClick={() => this.props.showSlotForm()} className="btn btn-success">Create Task</button>
                 </div>
                 <div className="row">
                     <div className="col-md-12">

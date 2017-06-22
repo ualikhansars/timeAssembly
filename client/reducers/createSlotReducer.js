@@ -3,15 +3,18 @@ const initialState = {
     slot: {}
 }
 
-const createSlot = (state=initialState, action) => {
+const showSlotForm = (state=initialState, action) => {
     switch(action.type) {
-        case 'CREATE_SLOT':
-            console.log('CREATE SLOT');
+        case 'SHOW_SLOT_FORM':
             return Object.assign({}, state, {
                 showCreateSlotForm: true
+            });
+        case 'HIDE_SLOT_FORM':
+            return Object.assign({}, state, {
+                showCreateSlotForm: false
             });
     }
     return state;
 }
 
-export default createSlot;
+export default showSlotForm;

@@ -8,7 +8,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {fetchSlots} from '../../actions/fetchSlotAction';
 import {addTask} from '../../actions/taskAction';
-import {createSlot} from '../../actions/slotAction';
+import {showSlotForm, hideSlotForm} from '../../actions/slotAction';
 
 class Slots extends React.Component {
 
@@ -62,12 +62,12 @@ class Slots extends React.Component {
         // if createSlot button has been clicked, CreateSlotForm will appear
         if(showCreateSlotForm) {
             return (
-                <CreateSlotForm/>  
+                <CreateSlotForm hideSlotForm={this.props.hideSlotForm}/>  
             );
         }
         else {
             return(
-                <SlotContainer createSlot={this.props.createSlot} resource={resource}/>    
+                <SlotContainer showSlotForm={this.props.showSlotForm} resource={resource}/>    
              );
         } 
     } 
@@ -86,7 +86,8 @@ const mapDispatchToProps = (dispatch) => {
             // fetch slots from database
             fetchSlots,
             addTask,
-            createSlot
+            showSlotForm,
+            hideSlotForm
         }, 
         dispatch
     );
