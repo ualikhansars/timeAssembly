@@ -15,3 +15,15 @@ export const removeSlot = () => {
         type: 'REMOVE_SLOT'
     };
 }
+
+export const updateSlot = () => {
+    return {
+        type: 'UPDATE_SLOT',
+    }
+}
+
+export const createSlot = () => {
+    return {
+        type: 'CREATE_SLOT'
+    }
+}

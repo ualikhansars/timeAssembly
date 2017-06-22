@@ -4,7 +4,6 @@ class CreateSlotForm extends React.Component {
     render() {
         return (
              <div className="slots-form">
-                <form id="createSlot">
                     <div className="form-group row">
                         <label htmlFor="title" className="col-md-12">Title</label>
                         <input type="text" className="form-control col-md-12" id="title" name="title" placeholder="Study" />
@@ -27,13 +26,12 @@ class CreateSlotForm extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-md-4">
-                            <button className="btn btn-success">Create</button>
+                            <button onClick={() => this.props.createSlot()} className="btn btn-success">Create</button>
                         </div>
                         <div className="col-md-4">
-                            <button type="button" onClick={() => this.props.hideSlotForm()} className="btn btn-danger">Cancel</button>
+                            <button onClick={() => this.props.hideSlotForm()} className="btn btn-danger">Cancel</button>
                         </div>
                     </div>
-                </form>
              </div>   
         );
     }

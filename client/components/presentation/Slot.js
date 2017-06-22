@@ -15,11 +15,14 @@ class Slot extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-4">
                         <button onClick={() => this.props.addTask()} className="btn btn-success">Add</button>
                     </div>
-                    <div className="col-md-6">
-                        <button className="btn btn-danger">Remove</button>
+                     <div className="col-md-4">
+                            <button onClick={() => this.props.updateSlot()} className="btn btn-info">Edit</button>
+                        </div>
+                    <div className="col-md-4">
+                        <button onClick={() => this.props.removeSlot()} className="btn btn-danger">Remove</button>
                     </div>
                 </div>
             </div>

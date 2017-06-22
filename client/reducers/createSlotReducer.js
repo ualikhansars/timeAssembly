@@ -17,4 +17,15 @@ const showSlotForm = (state=initialState, action) => {
     return state;
 }
 
+const updateSlot = (state=initialState, action) => {
+    switch(action.type) {
+        case 'UPDATE_SLOT':
+            console.log('UPDATE_SLOT');
+        case 'CREATE_SLOT':
+            console.log('CREATE_SLOT');
+        case 'REMOVE_SLOT':
+            console.log('REMOVE_SLOT');
+    }
+}
+
 export default showSlotForm;

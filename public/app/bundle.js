@@ -12751,6 +12751,18 @@ var removeSlot = exports.removeSlot = function removeSlot() {
     };
 };
 
+var updateSlot = exports.updateSlot = function updateSlot() {
+    return {
+        type: 'UPDATE_SLOT'
+    };
+};
+
+var createSlot = exports.createSlot = function createSlot() {
+    return {
+        type: 'CREATE_SLOT'
+    };
+};
+
 /***/ }),
 /* 127 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -13223,14 +13235,14 @@ var Slots = function (_React$Component) {
                     return _react2.default.createElement(
                         'div',
                         { key: i },
-                        _react2.default.createElement(_Slot2.default, { addTask: _this2.props.addTask, property: property })
+                        _react2.default.createElement(_Slot2.default, { updateSlot: _this2.props.updateSlot, removeSlot: _this2.props.removeSlot, addTask: _this2.props.addTask, property: property })
                     );
                 });
             }
 
             // if createSlot button has been clicked, CreateSlotForm will appear
             if (showCreateSlotForm) {
-                return _react2.default.createElement(_CreateSlotForm2.default, { hideSlotForm: this.props.hideSlotForm });
+                return _react2.default.createElement(_CreateSlotForm2.default, { hideSlotForm: this.props.hideSlotForm, createSlot: this.props.createSlot });
             } else {
                 return _react2.default.createElement(_SlotContainer2.default, { showSlotForm: this.props.showSlotForm, resource: resource });
             }
@@ -13254,7 +13266,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         fetchSlots: _fetchSlotAction.fetchSlots,
         addTask: _taskAction.addTask,
         showSlotForm: _slotAction.showSlotForm,
-        hideSlotForm: _slotAction.hideSlotForm
+        hideSlotForm: _slotAction.hideSlotForm,
+        removeSlot: _slotAction.removeSlot,
+        updateSlot: _slotAction.updateSlot,
+        createSlot: _slotAction.createSlot
     }, dispatch);
 };
 
@@ -13303,80 +13318,78 @@ var CreateSlotForm = function (_React$Component) {
                 "div",
                 { className: "slots-form" },
                 _react2.default.createElement(
-                    "form",
-                    { id: "createSlot" },
+                    "div",
+                    { className: "form-group row" },
+                    _react2.default.createElement(
+                        "label",
+                        { htmlFor: "title", className: "col-md-12" },
+                        "Title"
+                    ),
+                    _react2.default.createElement("input", { type: "text", className: "form-control col-md-12", id: "title", name: "title", placeholder: "Study" })
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "form-group row" },
+                    _react2.default.createElement(
+                        "label",
+                        { htmlFor: "category", className: "col-md-12" },
+                        "Category"
+                    ),
+                    _react2.default.createElement("input", { type: "text", className: "form-control col-md-12", id: "category", name: "category", placeholder: "Important" })
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "form-group row" },
+                    _react2.default.createElement(
+                        "label",
+                        { htmlFor: "total", className: "col-md-12" },
+                        "Total"
+                    ),
+                    _react2.default.createElement("input", { type: "number", className: "form-control col-md-12", id: "total", name: "total", placeholder: "Enter week frequency" })
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "form-group row" },
+                    _react2.default.createElement(
+                        "label",
+                        { htmlFor: "temporary", className: "col-md-3" },
+                        "Temporary"
+                    ),
+                    _react2.default.createElement("input", { type: "checkbox", className: "col-md-3", id: "temporary", name: "temporary", value: "temporary" })
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "form-group row" },
+                    _react2.default.createElement(
+                        "label",
+                        { htmlFor: "dueDate", className: "col-md-12" },
+                        "Due Date"
+                    ),
+                    _react2.default.createElement("input", { type: "date", className: "form-control col-md-12", id: "dueDate", name: "dueDate", placeholder: "By what date this task has to be finished" })
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "row" },
                     _react2.default.createElement(
                         "div",
-                        { className: "form-group row" },
+                        { className: "col-md-4" },
                         _react2.default.createElement(
-                            "label",
-                            { htmlFor: "title", className: "col-md-12" },
-                            "Title"
-                        ),
-                        _react2.default.createElement("input", { type: "text", className: "form-control col-md-12", id: "title", name: "title", placeholder: "Study" })
+                            "button",
+                            { onClick: function onClick() {
+                                    return _this2.props.createSlot();
+                                }, className: "btn btn-success" },
+                            "Create"
+                        )
                     ),
                     _react2.default.createElement(
                         "div",
-                        { className: "form-group row" },
+                        { className: "col-md-4" },
                         _react2.default.createElement(
-                            "label",
-                            { htmlFor: "category", className: "col-md-12" },
-                            "Category"
-                        ),
-                        _react2.default.createElement("input", { type: "text", className: "form-control col-md-12", id: "category", name: "category", placeholder: "Important" })
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "form-group row" },
-                        _react2.default.createElement(
-                            "label",
-                            { htmlFor: "total", className: "col-md-12" },
-                            "Total"
-                        ),
-                        _react2.default.createElement("input", { type: "number", className: "form-control col-md-12", id: "total", name: "total", placeholder: "Enter week frequency" })
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "form-group row" },
-                        _react2.default.createElement(
-                            "label",
-                            { htmlFor: "temporary", className: "col-md-3" },
-                            "Temporary"
-                        ),
-                        _react2.default.createElement("input", { type: "checkbox", className: "col-md-3", id: "temporary", name: "temporary", value: "temporary" })
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "form-group row" },
-                        _react2.default.createElement(
-                            "label",
-                            { htmlFor: "dueDate", className: "col-md-12" },
-                            "Due Date"
-                        ),
-                        _react2.default.createElement("input", { type: "date", className: "form-control col-md-12", id: "dueDate", name: "dueDate", placeholder: "By what date this task has to be finished" })
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "row" },
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col-md-4" },
-                            _react2.default.createElement(
-                                "button",
-                                { className: "btn btn-success" },
-                                "Create"
-                            )
-                        ),
-                        _react2.default.createElement(
-                            "div",
-                            { className: "col-md-4" },
-                            _react2.default.createElement(
-                                "button",
-                                { type: "button", onClick: function onClick() {
-                                        return _this2.props.hideSlotForm();
-                                    }, className: "btn btn-danger" },
-                                "Cancel"
-                            )
+                            "button",
+                            { onClick: function onClick() {
+                                    return _this2.props.hideSlotForm();
+                                }, className: "btn btn-danger" },
+                            "Cancel"
                         )
                     )
                 )
@@ -13565,7 +13578,7 @@ var Slot = function (_React$Component) {
                     { className: "row" },
                     _react2.default.createElement(
                         "div",
-                        { className: "col-md-6" },
+                        { className: "col-md-4" },
                         _react2.default.createElement(
                             "button",
                             { onClick: function onClick() {
@@ -13576,10 +13589,23 @@ var Slot = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         "div",
-                        { className: "col-md-6" },
+                        { className: "col-md-4" },
                         _react2.default.createElement(
                             "button",
-                            { className: "btn btn-danger" },
+                            { onClick: function onClick() {
+                                    return _this2.props.updateSlot();
+                                }, className: "btn btn-info" },
+                            "Edit"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col-md-4" },
+                        _react2.default.createElement(
+                            "button",
+                            { onClick: function onClick() {
+                                    return _this2.props.removeSlot();
+                                }, className: "btn btn-danger" },
                             "Remove"
                         )
                     )
@@ -13736,6 +13762,20 @@ var showSlotForm = function showSlotForm() {
             });
     }
     return state;
+};
+
+var updateSlot = function updateSlot() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    switch (action.type) {
+        case 'UPDATE_SLOT':
+            console.log('UPDATE_SLOT');
+        case 'CREATE_SLOT':
+            console.log('CREATE_SLOT');
+        case 'REMOVE_SLOT':
+            console.log('REMOVE_SLOT');
+    }
 };
 
 exports.default = showSlotForm;
