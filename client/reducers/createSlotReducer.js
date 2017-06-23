@@ -1,6 +1,10 @@
 const initialState = {
     showCreateSlotForm: false,
-    slot: {}
+    title: '',
+    category: '',
+    total: 0,
+    temporary: false,
+    dueDate: null
 }
 
 const showSlotForm = (state=initialState, action) => {
@@ -25,6 +29,8 @@ const updateSlot = (state=initialState, action) => {
             console.log('CREATE_SLOT');
         case 'REMOVE_SLOT':
             console.log('REMOVE_SLOT');
+        case 'ON_UPDATE_SLOT':
+            console.log('ON_UPDATE_SLOT');
     }
 }
 

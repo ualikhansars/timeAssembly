@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const showSlotForm = () => {
     return {
         type: 'SHOW_SLOT_FORM'
@@ -23,7 +25,7 @@ export const updateSlot = () => {
 }
 
 export const createSlot = () => {
-    return {
-        type: 'CREATE_SLOT'
-    }
+    
 }
+
+
