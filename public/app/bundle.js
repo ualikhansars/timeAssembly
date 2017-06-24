@@ -12765,7 +12765,11 @@ var updateSlot = exports.updateSlot = function updateSlot() {
     };
 };
 
-var createSlot = exports.createSlot = function createSlot() {};
+var createSlot = exports.createSlot = function createSlot() {
+    return {
+        type: 'CREATE_SLOT'
+    };
+};
 
 /***/ }),
 /* 127 */
@@ -13187,12 +13191,12 @@ var Slots = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            var _props$slotsInfo = this.props.slotsInfo,
-                loading = _props$slotsInfo.loading,
-                loaded = _props$slotsInfo.loaded,
-                errors = _props$slotsInfo.errors,
-                slots = _props$slotsInfo.slots;
-            var showCreateSlotForm = this.props.createSlotInfo.showCreateSlotForm;
+            var _props$slotInfo = this.props.slotInfo,
+                loading = _props$slotInfo.loading,
+                loaded = _props$slotInfo.loaded,
+                errors = _props$slotInfo.errors,
+                slots = _props$slotInfo.slots,
+                showCreateSlotForm = _props$slotInfo.showCreateSlotForm;
 
             var resource = null;
             console.log('Slots info', slots);
@@ -13246,7 +13250,7 @@ var Slots = function (_React$Component) {
 
             // if createSlot button has been clicked, CreateSlotForm will appear
             if (showCreateSlotForm) {
-                return _react2.default.createElement(_CreateSlotForm2.default, { hideSlotForm: this.props.hideSlotForm, onUpdate: this.props.onUpdateSlot, createSlot: this.props.createSlot });
+                return _react2.default.createElement(_CreateSlotForm2.default, { hideSlotForm: this.props.hideSlotForm, onUpdate: this.props.createSlot, createSlot: this.props.createSlot });
             } else {
                 return _react2.default.createElement(_SlotContainer2.default, { showSlotForm: this.props.showSlotForm, resource: resource });
             }
@@ -13259,8 +13263,7 @@ var Slots = function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
     return {
         // slots info
-        slotsInfo: state.slots,
-        createSlotInfo: state.createSlot
+        slotInfo: state.slotInfo
     };
 };
 
@@ -13297,6 +13300,10 @@ var _react = __webpack_require__(7);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _axios = __webpack_require__(59);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -13316,8 +13323,8 @@ var CreateSlotForm = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (CreateSlotForm.__proto__ || Object.getPrototypeOf(CreateSlotForm)).call(this, props));
 
         _this.state = {
-            title: 'Study',
-            category: '',
+            title: 'Lessons',
+            category: 'Study',
             total: '',
             temporary: false,
             dueDate: ''
@@ -13341,7 +13348,7 @@ var CreateSlotForm = function (_React$Component) {
         key: 'onSubmit',
         value: function onSubmit(e) {
             e.preventDefault();
-            console.log(this.state);
+            _axios2.default.post('/api/slot', { slot: this.state });
         }
     }, {
         key: 'render',
@@ -13409,7 +13416,7 @@ var CreateSlotForm = function (_React$Component) {
                         { className: 'col-md-4' },
                         _react2.default.createElement(
                             'button',
-                            { onClick: this.onSubmit.bind(this), className: 'btn btn-success' },
+                            { onClick: this.props.createSlot.bind(this), className: 'btn btn-success' },
                             'Create'
                         )
                     ),
@@ -13765,60 +13772,7 @@ var addTaskFromSlot = function addTaskFromSlot() {
 exports.default = addTaskFromSlot;
 
 /***/ }),
-/* 139 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var initialState = {
-    showCreateSlotForm: false,
-    title: '',
-    category: '',
-    total: 0,
-    temporary: false,
-    dueDate: null
-};
-
-var showSlotForm = function showSlotForm() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-    var action = arguments[1];
-
-    switch (action.type) {
-        case 'SHOW_SLOT_FORM':
-            return Object.assign({}, state, {
-                showCreateSlotForm: true
-            });
-        case 'HIDE_SLOT_FORM':
-            return Object.assign({}, state, {
-                showCreateSlotForm: false
-            });
-    }
-    return state;
-};
-
-var updateSlot = function updateSlot() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-    var action = arguments[1];
-
-    switch (action.type) {
-        case 'UPDATE_SLOT':
-            console.log('UPDATE_SLOT');
-        case 'CREATE_SLOT':
-            console.log('CREATE_SLOT');
-        case 'REMOVE_SLOT':
-            console.log('REMOVE_SLOT');
-        case 'ON_UPDATE_SLOT':
-            console.log('ON_UPDATE_SLOT');
-    }
-};
-
-exports.default = showSlotForm;
-
-/***/ }),
+/* 139 */,
 /* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13882,17 +13836,12 @@ var _addTaskReducer = __webpack_require__(138);
 
 var _addTaskReducer2 = _interopRequireDefault(_addTaskReducer);
 
-var _createSlotReducer = __webpack_require__(139);
-
-var _createSlotReducer2 = _interopRequireDefault(_createSlotReducer);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var reducers = (0, _redux.combineReducers)({
     display: _displayReducer2.default,
-    slots: _slotReducer2.default,
-    addTask: _addTaskReducer2.default,
-    createSlot: _createSlotReducer2.default
+    slotInfo: _slotReducer2.default,
+    addTask: _addTaskReducer2.default
 });
 
 exports.default = reducers;
@@ -13907,7 +13856,20 @@ exports.default = reducers;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-var initialState = { loading: false, loaded: false, slots: null, errors: null };
+var initialState = {
+    loading: false,
+    loaded: false,
+    slots: null,
+    errors: null,
+    showCreateSlotForm: false,
+    slot: {
+        title: '',
+        category: '',
+        total: 0,
+        temporary: false,
+        dueDate: null
+    }
+};
 
 var SlotInfo = function SlotInfo() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -13920,6 +13882,22 @@ var SlotInfo = function SlotInfo() {
             return { loading: false, loaded: true, slots: action.slots, errors: null };
         case 'LOAD_INFO_FAIL':
             return { loading: false, loaded: false, slots: null, errors: action.errors };
+        case 'SHOW_SLOT_FORM':
+            return Object.assign({}, state, {
+                showCreateSlotForm: true
+            });
+        case 'HIDE_SLOT_FORM':
+            return Object.assign({}, state, {
+                showCreateSlotForm: false
+            });
+        case 'UPDATE_SLOT':
+            console.log('UPDATE_SLOT');
+        case 'CREATE_SLOT':
+            console.log('CREATE_SLOT');
+        case 'REMOVE_SLOT':
+            console.log('REMOVE_SLOT');
+        case 'ON_UPDATE_SLOT':
+            console.log('ON_UPDATE_SLOT');
         default:
             return state;
     }

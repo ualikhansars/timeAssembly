@@ -25,7 +25,9 @@ export const updateSlot = () => {
 }
 
 export const createSlot = () => {
-    
+    return {
+        type: 'CREATE_SLOT',
+    }
 }
 
 

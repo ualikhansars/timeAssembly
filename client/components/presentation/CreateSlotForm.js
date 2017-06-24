@@ -1,11 +1,12 @@
 import React from 'react';
+import axios from 'axios';
 
 class CreateSlotForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: 'Study',
-            category: '',
+            title: 'Lessons',
+            category: 'Study',
             total: '',
             temporary: false,
             dueDate: '',
@@ -26,7 +27,7 @@ class CreateSlotForm extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        console.log(this.state);
+        axios.post('/api/slot', {slot: this.state});
     }
     render() {
         return (
@@ -53,7 +54,7 @@ class CreateSlotForm extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-md-4">
-                            <button onClick={this.onSubmit.bind(this)} className="btn btn-success">Create</button>
+                            <button onClick={this.props.createSlot.bind(this)} className="btn btn-success">Create</button>
                         </div>
                         <div className="col-md-4">
                             <button onClick={() => this.props.hideSlotForm()} className="btn btn-danger">Cancel</button>

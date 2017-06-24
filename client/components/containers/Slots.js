@@ -18,8 +18,7 @@ class Slots extends React.Component {
     }
 
     render() {
-        const {loading, loaded, errors, slots} = this.props.slotsInfo;
-        let {showCreateSlotForm} = this.props.createSlotInfo;
+        const {loading, loaded, errors, slots, showCreateSlotForm} = this.props.slotInfo;
         let resource = null;
         console.log('Slots info',slots);
         
@@ -63,7 +62,7 @@ class Slots extends React.Component {
         // if createSlot button has been clicked, CreateSlotForm will appear
         if(showCreateSlotForm) {
             return (
-                <CreateSlotForm hideSlotForm={this.props.hideSlotForm} onUpdate={this.props.onUpdateSlot} createSlot={this.props.createSlot}/>  
+                <CreateSlotForm hideSlotForm={this.props.hideSlotForm} onUpdate={this.props.createSlot} createSlot={this.props.createSlot}/>  
             );
         }
         else {
@@ -77,8 +76,7 @@ class Slots extends React.Component {
 const mapStateToProps = (state) => {
     return {
         // slots info
-        slotsInfo: state.slots,
-        createSlotInfo: state.createSlot
+        slotInfo: state.slotInfo,
     };
 }
 
