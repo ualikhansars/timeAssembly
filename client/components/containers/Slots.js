@@ -1,74 +1,26 @@
 import React from 'react';
 
-import Slot from '../presentation/Slot';
 import CreateSlotForm from '../presentation/CreateSlotForm';
-import SlotContainer from '../presentation/SlotContainer';
+import SlotContainer from '../containers/SlotContainer';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {fetchSlots} from '../../actions/fetchSlotAction';
-import {addTask} from '../../actions/taskAction';
-import {removeSlot, updateSlot, createSlot, showSlotForm, hideSlotForm, onUpdateSlot} from '../../actions/slotAction';
+import {showSlotForm, hideSlotForm, createSlot} from '../../actions/slotAction';
 
 
 class Slots extends React.Component {
-
-    componentDidMount() {
-        console.log('SLOTS DID MOUNT');
-        this.props.fetchSlots();
-    }
-
     render() {
-        const {loading, loaded, errors, slots, showCreateSlotForm} = this.props.slotInfo;
-        let resource = null;
-        console.log('Slots info',slots);
-        
-        // when data is loading
-        if(loading) {
-            return(
-                <div>loading</div>
-            );
-        }
-
-        // if errors occurs
-        if(errors) {
-            return(
-                <div className="container-fluid">
-                    <div>Errors</div>
-                    <div>{errors}</div>
-                </div>
-            );
-        }
-
-        // when data loaded
-        // display every slots
-        if(loaded) {
-                 resource = slots.resource.map((slot, i) => {
-                    let property = {
-                        title: slot.title,
-                        category: slot.category,
-                        total: slot.category,
-                        free: slot.free,
-                        tempotary: slot.tempotary,
-                        dueDate: slot.dueDate,
-                    }
-                    return (
-                        <div key={i}>
-                            <Slot updateSlot={this.props.updateSlot} removeSlot={this.props.removeSlot} addTask={this.props.addTask} property={property}/>
-                        </div>
-                    );
-            });
-        }
+        const {showCreateSlotForm} = this.props.slotInfo;
 
         // if createSlot button has been clicked, CreateSlotForm will appear
         if(showCreateSlotForm) {
             return (
-                <CreateSlotForm hideSlotForm={this.props.hideSlotForm} onUpdate={this.props.createSlot} createSlot={this.props.createSlot}/>  
+                <CreateSlotForm hideSlotForm={this.props.hideSlotForm} createSlot={this.props.createSlot}/>  
             );
         }
         else {
             return(
-                <SlotContainer showSlotForm={this.props.showSlotForm} resource={resource}/>    
+                <SlotContainer showSlotForm={this.props.showSlotForm}/>    
              );
         } 
     } 
@@ -84,14 +36,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
             // fetch slots from database
-            fetchSlots,
-            addTask,
             showSlotForm,
             hideSlotForm,
-            removeSlot,
-            updateSlot,
-            createSlot,
-            onUpdateSlot
+            createSlot
         }, 
         dispatch
     );

@@ -3,14 +3,7 @@ const initialState = {
     loaded: false, 
     slots: [], 
     errors: null,
-    showCreateSlotForm: false,
-     slot: {
-        title: '',
-        category: '',
-        total: 0,
-        temporary: false,
-        dueDate: null
-    } 
+    showCreateSlotForm: false
 };
 
 const SlotInfo = (state = initialState, action) => {
