@@ -24,9 +24,24 @@ export const updateSlot = () => {
     }
 }
 
-export const createSlot = () => {
+export const createSlotSuccess = (slot) => {
     return {
-        type: 'CREATE_SLOT',
+        type: 'CREATE_SLOT_SUCCESS',
+        slot
+    }
+}
+
+export const createSlot = (slot) => {
+    return dispatch => {
+        return axios.post('/api/slot', slot)
+            .then(responce => {
+                let data = responce.data.result;
+                console.log('CREATE_SLOT_ACTION_DATA', responce);
+                dispatch(createSlotSuccess(data));
+            })
+            .catch(error => {
+                console.log(error)
+            });
     }
 }
 

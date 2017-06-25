@@ -14,6 +14,7 @@ import {removeSlot, updateSlot, createSlot, showSlotForm, hideSlotForm, onUpdate
 class Slots extends React.Component {
 
     componentDidMount() {
+        console.log('SLOTS DID MOUNT');
         this.props.fetchSlots();
     }
 
