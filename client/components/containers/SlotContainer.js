@@ -41,9 +41,9 @@ class SlotContainer extends React.Component {
                     let property = {
                         title: slot.title,
                         category: slot.category,
-                        total: slot.category,
+                        total: slot.total,
                         free: slot.free,
-                        tempotary: slot.tempotary,
+                        tempotary: slot.temporary,
                         dueDate: slot.dueDate,
                     }
                     return (

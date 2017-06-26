@@ -46,11 +46,9 @@ const SlotInfo = (state = initialState, action) => {
                 showCreateSlotForm: false,
                 slots: updatedSlots
             });
-            
-        case 'REMOVE_SLOT':
+        case 'SLOT_DELETED_SUCCESS':
             console.log('REMOVE_SLOT');
-        case 'ON_UPDATE_SLOT':
-            console.log('ON_UPDATE_SLOT');   
+
         default:
             return state;
   }

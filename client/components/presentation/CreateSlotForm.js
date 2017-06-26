@@ -29,7 +29,12 @@ class CreateSlotForm extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        this.props.createSlot(this.state);
+        // make free attribute equals to total
+        let total = this.state.total;
+        let updatedSlot = Object.assign({}, this.state, {
+            free: total
+        });
+        this.props.createSlot(updatedSlot);
     }
     render() {
         return (

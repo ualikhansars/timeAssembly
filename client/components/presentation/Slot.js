@@ -15,6 +15,19 @@ class Slot extends React.Component {
                     </div>
                 </div>
                 <div className="row">
+                    <div className="col-md-6">
+                        <span>Total: {this.props.property.total}</span>
+                    </div>
+                    <div className="col-md-6">
+                        <span>Free: {this.props.property.free}</span>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12">
+                        <span>Due Date: {this.props.property.dueDate}</span>
+                    </div>
+                </div>
+                <div className="row">
                     <div className="col-md-4">
                         <button onClick={() => this.props.addTask()} className="btn btn-success">Add</button>
                     </div>

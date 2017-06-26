@@ -12,10 +12,19 @@ export const hideSlotForm = () => {
     };
 }
 
-export const removeSlot = () => {
-    return {
-        type: 'REMOVE_SLOT'
-    };
+export const removeSlot = (slot) => {
+    return dispatch => {
+        return axios.delete(`/api/slot/${slot.id}/delete`)
+            .then(responce => {
+                dispatch({
+                    type: 'SLOT_DELETED_SUCCESS',
+                    deletedSlot: slot
+                });
+            })
+            .catch(error => {
+                throw error;
+            });
+    }
 }
 
 export const updateSlot = () => {
@@ -24,6 +33,7 @@ export const updateSlot = () => {
     }
 }
 
+// in case of successful post request
 export const createSlotSuccess = (slot) => {
     return {
         type: 'CREATE_SLOT_SUCCESS',
