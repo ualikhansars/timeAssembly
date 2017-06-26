@@ -37,7 +37,7 @@ class SlotContainer extends React.Component {
         // when data loaded
         // display every slots
         if(loaded) {
-                 resource = slots.resource.map((slot, i) => {
+                 resource = slots.map((slot, i) => {
                     let property = {
                         title: slot.title,
                         category: slot.category,
@@ -45,6 +45,7 @@ class SlotContainer extends React.Component {
                         free: slot.free,
                         tempotary: slot.temporary,
                         dueDate: slot.dueDate,
+                        id: slot._id
                     }
                     return (
                         <div key={i}>

@@ -7594,12 +7594,13 @@ var hideSlotForm = exports.hideSlotForm = function hideSlotForm() {
     };
 };
 
-var removeSlot = exports.removeSlot = function removeSlot(slot) {
+var removeSlot = exports.removeSlot = function removeSlot(id) {
     return function (dispatch) {
-        return _axios2.default.delete('/api/slot/' + slot.id + '/delete').then(function (responce) {
+        return _axios2.default.delete('/api/slot/' + id).then(function (response) {
+            console.log('removeSlotActionResponse', response);
             dispatch({
                 type: 'SLOT_DELETED_SUCCESS',
-                deletedSlot: slot
+                deletedSlotId: id
             });
         }).catch(function (error) {
             throw error;
@@ -7623,9 +7624,8 @@ var createSlotSuccess = exports.createSlotSuccess = function createSlotSuccess(s
 
 var createSlot = exports.createSlot = function createSlot(slot) {
     return function (dispatch) {
-        return _axios2.default.post('/api/slot', slot).then(function (responce) {
-            var data = responce.data.result;
-            console.log('CREATE_SLOT_ACTION_DATA', responce);
+        return _axios2.default.post('/api/slot', slot).then(function (response) {
+            var data = response.data.result;
             dispatch(createSlotSuccess(data));
         }).catch(function (error) {
             console.log(error);
@@ -12781,7 +12781,7 @@ function fetchSlots() {
             console.log('result', result);
             dispatch({
                 type: 'LOAD_INFO_OK',
-                slots: result.data
+                slots: result.data.resource
             });
         }).catch(function (result) {
             dispatch({
@@ -13243,14 +13243,15 @@ var SlotContainer = function (_React$Component) {
             // when data loaded
             // display every slots
             if (loaded) {
-                resource = slots.resource.map(function (slot, i) {
+                resource = slots.map(function (slot, i) {
                     var property = {
                         title: slot.title,
                         category: slot.category,
                         total: slot.total,
                         free: slot.free,
                         tempotary: slot.temporary,
-                        dueDate: slot.dueDate
+                        dueDate: slot.dueDate,
+                        id: slot._id
                     };
                     return _react2.default.createElement(
                         'div',
@@ -13811,7 +13812,7 @@ var Slot = function (_React$Component) {
                         _react2.default.createElement(
                             "button",
                             { onClick: function onClick() {
-                                    return _this2.props.removeSlot();
+                                    return _this2.props.removeSlot(_this2.props.property.id);
                                 }, className: "btn btn-danger" },
                             "Remove"
                         )
@@ -13984,6 +13985,7 @@ var SlotInfo = function SlotInfo() {
         case 'UPDATE_SLOT':
             console.log('UPDATE_SLOT');
         case 'CREATE_SLOT_SUCCESS':
+            // push new slot into slots array
             var updatedSlots = Object.assign([], state.slots);
             updatedSlots.push(action.slot);
             return Object.assign({}, state, {
@@ -13992,6 +13994,19 @@ var SlotInfo = function SlotInfo() {
             });
         case 'SLOT_DELETED_SUCCESS':
             console.log('REMOVE_SLOT');
+            var slotsBeforeDeletion = Object.assign([], state.slots);
+            var deletedSlotId = action.deletedSlotId;
+            // if id == slot.id then delete it from slots array 
+            var slotsAfterDeletion = slotsBeforeDeletion.filter(function (slot) {
+                if (slot._id != deletedSlotId) {
+                    return true;
+                }
+                return false;
+            });
+            // create new slots without deleted slot
+            return Object.assign({}, state, {
+                slots: slotsAfterDeletion
+            });
 
         default:
             return state;

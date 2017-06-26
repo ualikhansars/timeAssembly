@@ -12,13 +12,14 @@ export const hideSlotForm = () => {
     };
 }
 
-export const removeSlot = (slot) => {
+export const removeSlot = (id) => {
     return dispatch => {
-        return axios.delete(`/api/slot/${slot.id}/delete`)
-            .then(responce => {
+        return axios.delete(`/api/slot/${id}`)
+            .then(response => {
+                console.log('removeSlotActionResponse', response);
                 dispatch({
                     type: 'SLOT_DELETED_SUCCESS',
-                    deletedSlot: slot
+                    deletedSlotId: id
                 });
             })
             .catch(error => {
@@ -44,9 +45,8 @@ export const createSlotSuccess = (slot) => {
 export const createSlot = (slot) => {
     return dispatch => {
         return axios.post('/api/slot', slot)
-            .then(responce => {
-                let data = responce.data.result;
-                console.log('CREATE_SLOT_ACTION_DATA', responce);
+            .then(response => {
+                let data = response.data.result;
                 dispatch(createSlotSuccess(data));
             })
             .catch(error => {

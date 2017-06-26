@@ -143,7 +143,7 @@ router.delete('/:resource/:id', function(req, res, next) {
     }
     res.json({
       confirmation: 'success',
-      resource: 'deleted'
+      resource: resource + ' successfully deleted' 
     });
   });
 });

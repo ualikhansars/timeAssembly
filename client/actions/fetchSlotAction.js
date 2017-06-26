@@ -14,7 +14,7 @@ export function fetchSlots() {
                 console.log('result',result);
                 dispatch({
                     type: 'LOAD_INFO_OK',
-                    slots: result.data
+                    slots: result.data.resource
                 });
             })
             .catch(result => {
