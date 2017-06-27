@@ -32,6 +32,7 @@ class CreateSlotForm extends React.Component {
         let updatedSlot = Object.assign({}, this.state, {
             free: total
         });
+        this.props.createSlot(updatedSlot);
     }
     render() {
         return (

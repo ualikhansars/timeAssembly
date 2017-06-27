@@ -4,8 +4,8 @@ class CreateSlotForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: 'Lessons',
-            category: 'Study',
+            title: '',
+            category: '',
             total: 1,
             free: 1,
             temporary: false,
@@ -32,7 +32,7 @@ class CreateSlotForm extends React.Component {
         let updatedSlot = Object.assign({}, this.state, {
             free: total
         });
-        this.props.createSlot(updatedSlot);
+        this.props.updateSlot(updatedSlot);
     }
     render() {
         return (
@@ -60,7 +60,7 @@ class CreateSlotForm extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-md-4">
-                            <button onClick={this.onSubmit.bind(this)} className="btn btn-success">Create</button>
+                            <button onClick={this.onSubmit.bind(this)} className="btn btn-success">Update</button>
                         </div>
                         <div className="col-md-4">
                             <button onClick={() => this.props.hideSlotForm()} className="btn btn-danger">Cancel</button>

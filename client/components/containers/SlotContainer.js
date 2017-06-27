@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {fetchSlots} from '../../actions/fetchSlotAction';
 import {addTask} from '../../actions/taskAction';
-import {removeSlot, createSlot, showUpdateSlotForm, showSlotForm, hideSlotForm} from '../../actions/slotAction';
+import {fetchSlotById, removeSlot, createSlot, showUpdateSlotForm, showSlotForm, hideSlotForm} from '../../actions/slotAction';
 
 import Slot from '../presentation/Slot';
 
@@ -49,7 +49,7 @@ class SlotContainer extends React.Component {
                     }
                     return (
                         <div key={i}>
-                            <Slot showUpdateSlotForm={this.props.showUpdateSlotForm} removeSlot={this.props.removeSlot} addTask={this.props.addTask} property={property}/>
+                            <Slot fetchSlot={this.props.fetchSlotById} showUpdateSlotForm={this.props.showUpdateSlotForm} removeSlot={this.props.removeSlot} addTask={this.props.addTask} property={property}/>
                         </div>
                     );
             });
@@ -91,6 +91,7 @@ const mapDispatchToProps = (dispatch) => {
             removeSlot,
             showUpdateSlotForm,
             createSlot,
+            fetchSlotById
         }, 
         dispatch
     );

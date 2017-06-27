@@ -7,7 +7,7 @@ import SlotContainer from '../containers/SlotContainer';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {showSlotForm, hideSlotForm, createSlot} from '../../actions/slotAction';
+import {showSlotForm, hideSlotForm, createSlot, updateSlot} from '../../actions/slotAction';
 
 
 class Slots extends React.Component {
@@ -22,7 +22,7 @@ class Slots extends React.Component {
         }
         if(showUpdateSlotForm) {
             return (
-                <UpdateSlotForm hideSlotForm={this.props.hideSlotForm}/>
+                <UpdateSlotForm hideSlotForm={this.props.hideSlotForm} updateSlot={this.props.updateSlot}/>
             );
         }
         else {
@@ -45,7 +45,8 @@ const mapDispatchToProps = (dispatch) => {
             // fetch slots from database
             showSlotForm,
             hideSlotForm,
-            createSlot
+            createSlot,
+            updateSlot,
         }, 
         dispatch
     );

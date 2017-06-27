@@ -7574,7 +7574,7 @@ module.exports = function bind(fn, thisArg) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.createSlot = exports.createSlotSuccess = exports.updateSlot = exports.showUpdateSlotForm = exports.removeSlot = exports.hideSlotForm = exports.showSlotForm = undefined;
+exports.createSlot = exports.createSlotSuccess = exports.updateSlot = exports.showUpdateSlotForm = exports.fetchSlotById = exports.removeSlot = exports.hideSlotForm = exports.showSlotForm = undefined;
 
 var _axios = __webpack_require__(59);
 
@@ -7601,6 +7601,19 @@ var removeSlot = exports.removeSlot = function removeSlot(id) {
             dispatch({
                 type: 'SLOT_DELETED_SUCCESS',
                 deletedSlotId: id
+            });
+        }).catch(function (error) {
+            throw error;
+        });
+    };
+};
+
+var fetchSlotById = exports.fetchSlotById = function fetchSlotById(id) {
+    return function (dispatch) {
+        return _axios2.default.get('/api/slot/' + id).then(function (res) {
+            dispatch({
+                type: 'FETCH_SLOT_BY_ID',
+                slot: res.data.resource
             });
         }).catch(function (error) {
             throw error;
@@ -13270,7 +13283,7 @@ var SlotContainer = function (_React$Component) {
                     return _react2.default.createElement(
                         'div',
                         { key: i },
-                        _react2.default.createElement(_Slot2.default, { showUpdateSlotForm: _this2.props.showUpdateSlotForm, removeSlot: _this2.props.removeSlot, addTask: _this2.props.addTask, property: property })
+                        _react2.default.createElement(_Slot2.default, { fetchSlot: _this2.props.fetchSlotById, showUpdateSlotForm: _this2.props.showUpdateSlotForm, removeSlot: _this2.props.removeSlot, addTask: _this2.props.addTask, property: property })
                     );
                 });
             }
@@ -13333,7 +13346,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         hideSlotForm: _slotAction.hideSlotForm,
         removeSlot: _slotAction.removeSlot,
         showUpdateSlotForm: _slotAction.showUpdateSlotForm,
-        createSlot: _slotAction.createSlot
+        createSlot: _slotAction.createSlot,
+        fetchSlotById: _slotAction.fetchSlotById
     }, dispatch);
 };
 
@@ -13404,7 +13418,7 @@ var Slots = function (_React$Component) {
                 return _react2.default.createElement(_CreateSlotForm2.default, { hideSlotForm: this.props.hideSlotForm, createSlot: this.props.createSlot });
             }
             if (showUpdateSlotForm) {
-                return _react2.default.createElement(_UpdateSlotForm2.default, { hideSlotForm: this.props.hideSlotForm });
+                return _react2.default.createElement(_UpdateSlotForm2.default, { hideSlotForm: this.props.hideSlotForm, updateSlot: this.props.updateSlot });
             } else {
                 return _react2.default.createElement(_SlotContainer2.default, { showSlotForm: this.props.showSlotForm });
             }
@@ -13426,7 +13440,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         // fetch slots from database
         showSlotForm: _slotAction.showSlotForm,
         hideSlotForm: _slotAction.hideSlotForm,
-        createSlot: _slotAction.createSlot
+        createSlot: _slotAction.createSlot,
+        updateSlot: _slotAction.updateSlot
     }, dispatch);
 };
 
@@ -13499,6 +13514,7 @@ var CreateSlotForm = function (_React$Component) {
             var updatedSlot = Object.assign({}, this.state, {
                 free: total
             });
+            this.props.createSlot(updatedSlot);
         }
     }, {
         key: 'render',
@@ -13733,112 +13749,121 @@ var Slot = function (_React$Component) {
     }
 
     _createClass(Slot, [{
-        key: "render",
+        key: 'onClickUpdate',
+        value: function onClickUpdate() {
+            console.log('1');
+            this.props.fetchSlot(this.props.property.id);
+            console.log('2');
+            this.props.showUpdateSlotForm();
+            console.log('3');
+        }
+    }, {
+        key: 'render',
         value: function render() {
             var _this2 = this;
 
             return _react2.default.createElement(
-                "div",
-                { className: "container-fluid" },
+                'div',
+                { className: 'container-fluid' },
                 _react2.default.createElement(
-                    "div",
-                    { className: "row" },
+                    'div',
+                    { className: 'row' },
                     _react2.default.createElement(
-                        "div",
-                        { className: "col-md-4 offset-md-4" },
+                        'div',
+                        { className: 'col-md-4 offset-md-4' },
                         _react2.default.createElement(
-                            "span",
+                            'span',
                             null,
                             this.props.property.title
                         )
                     )
                 ),
                 _react2.default.createElement(
-                    "div",
-                    { className: "row" },
+                    'div',
+                    { className: 'row' },
                     _react2.default.createElement(
-                        "div",
-                        { className: "col-md-12" },
+                        'div',
+                        { className: 'col-md-12' },
                         _react2.default.createElement(
-                            "span",
+                            'span',
                             null,
-                            "Category: ",
+                            'Category: ',
                             this.props.property.category
                         )
                     )
                 ),
                 _react2.default.createElement(
-                    "div",
-                    { className: "row" },
+                    'div',
+                    { className: 'row' },
                     _react2.default.createElement(
-                        "div",
-                        { className: "col-md-6" },
+                        'div',
+                        { className: 'col-md-6' },
                         _react2.default.createElement(
-                            "span",
+                            'span',
                             null,
-                            "Total: ",
+                            'Total: ',
                             this.props.property.total
                         )
                     ),
                     _react2.default.createElement(
-                        "div",
-                        { className: "col-md-6" },
+                        'div',
+                        { className: 'col-md-6' },
                         _react2.default.createElement(
-                            "span",
+                            'span',
                             null,
-                            "Free: ",
+                            'Free: ',
                             this.props.property.free
                         )
                     )
                 ),
                 _react2.default.createElement(
-                    "div",
-                    { className: "row" },
+                    'div',
+                    { className: 'row' },
                     _react2.default.createElement(
-                        "div",
-                        { className: "col-md-12" },
+                        'div',
+                        { className: 'col-md-12' },
                         _react2.default.createElement(
-                            "span",
+                            'span',
                             null,
-                            "Due Date: ",
+                            'Due Date: ',
                             this.props.property.dueDate
                         )
                     )
                 ),
                 _react2.default.createElement(
-                    "div",
-                    { className: "row" },
+                    'div',
+                    { className: 'row' },
                     _react2.default.createElement(
-                        "div",
-                        { className: "col-md-4" },
+                        'div',
+                        { className: 'col-md-4' },
                         _react2.default.createElement(
-                            "button",
+                            'button',
                             { onClick: function onClick() {
                                     return _this2.props.addTask();
-                                }, className: "btn btn-success" },
-                            "Add"
+                                }, className: 'btn btn-success' },
+                            'Add'
                         )
                     ),
                     _react2.default.createElement(
-                        "div",
-                        { className: "col-md-4" },
+                        'div',
+                        { className: 'col-md-4' },
                         _react2.default.createElement(
-                            "button",
+                            'button',
                             { onClick: function onClick() {
-                                    return _this2.props.showUpdateSlotForm();
-                                }, className: "btn btn-info" },
-                            "Edit"
+                                    return _this2.onClickUpdate();
+                                }, className: 'btn btn-info' },
+                            'Edit'
                         )
                     ),
                     _react2.default.createElement(
-                        "div",
-                        { className: "col-md-4" },
+                        'div',
+                        { className: 'col-md-4' },
                         _react2.default.createElement(
-                            "button",
+                            'button',
                             { onClick: function onClick() {
                                     return _this2.props.removeSlot(_this2.props.property.id);
-                                }, className: "btn btn-danger" },
-                            "Remove"
+                                }, className: 'btn btn-danger' },
+                            'Remove'
                         )
                     )
                 )
@@ -13968,6 +13993,7 @@ var initialState = {
     loading: false,
     loaded: false,
     slots: [],
+    slot: {},
     errors: null,
     showUpdateSlotForm: false,
     showCreateSlotForm: false
@@ -14003,6 +14029,10 @@ var SlotInfo = function SlotInfo() {
                 loaded: false,
                 slots: null,
                 errors: action.errors
+            });
+        case 'FETCH_SLOT_BY_ID':
+            return Object.assign({}, state, {
+                slot: action.slot
             });
         case 'SHOW_SLOT_FORM':
             return Object.assign({}, state, {
@@ -27460,8 +27490,8 @@ var CreateSlotForm = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (CreateSlotForm.__proto__ || Object.getPrototypeOf(CreateSlotForm)).call(this, props));
 
         _this.state = {
-            title: 'Lessons',
-            category: 'Study',
+            title: '',
+            category: '',
             total: 1,
             free: 1,
             temporary: false,
@@ -27491,7 +27521,7 @@ var CreateSlotForm = function (_React$Component) {
             var updatedSlot = Object.assign({}, this.state, {
                 free: total
             });
-            this.props.createSlot(updatedSlot);
+            this.props.updateSlot(updatedSlot);
         }
     }, {
         key: 'render',
@@ -27565,7 +27595,7 @@ var CreateSlotForm = function (_React$Component) {
                         _react2.default.createElement(
                             'button',
                             { onClick: this.onSubmit.bind(this), className: 'btn btn-success' },
-                            'Create'
+                            'Update'
                         )
                     ),
                     _react2.default.createElement(

@@ -28,6 +28,21 @@ export const removeSlot = (id) => {
     }
 }
 
+export const fetchSlotById = (id) => {
+    return dispatch => {
+        return axios.get(`/api/slot/${id}`)
+            .then(res => {
+                dispatch({
+                    type: 'FETCH_SLOT_BY_ID',
+                    slot: res.data.resource 
+                });
+            })
+            .catch(error => {
+                throw error;
+            });
+    }
+}
+
 export const showUpdateSlotForm = () => {
     return {
         type: 'SHOW_UPDATE_SLOT_FORM'

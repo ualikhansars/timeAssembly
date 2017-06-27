@@ -2,6 +2,7 @@ const initialState = {
     loading: false, 
     loaded: false, 
     slots: [], 
+    slot: {},
     errors: null,
     showUpdateSlotForm: false,
     showCreateSlotForm: false
@@ -34,6 +35,10 @@ const SlotInfo = (state = initialState, action) => {
                 loaded: false,
                 slots: null,
                 errors: action.errors
+            });
+        case 'FETCH_SLOT_BY_ID':
+            return Object.assign({}, state, {
+                slot: action.slot
             });
         case 'SHOW_SLOT_FORM':
             return Object.assign({}, state, {
