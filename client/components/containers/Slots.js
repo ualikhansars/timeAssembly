@@ -1,7 +1,9 @@
 import React from 'react';
 
 import CreateSlotForm from '../presentation/CreateSlotForm';
+import UpdateSlotForm from '../presentation/UpdateSlotForm';
 import SlotContainer from '../containers/SlotContainer';
+
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -10,12 +12,17 @@ import {showSlotForm, hideSlotForm, createSlot} from '../../actions/slotAction';
 
 class Slots extends React.Component {
     render() {
-        const {showCreateSlotForm} = this.props.slotInfo;
+        const {showCreateSlotForm, showUpdateSlotForm} = this.props.slotInfo;
 
         // if createSlot button has been clicked, CreateSlotForm will appear
         if(showCreateSlotForm) {
             return (
                 <CreateSlotForm hideSlotForm={this.props.hideSlotForm} createSlot={this.props.createSlot}/>  
+            );
+        }
+        if(showUpdateSlotForm) {
+            return (
+                <UpdateSlotForm hideSlotForm={this.props.hideSlotForm}/>
             );
         }
         else {

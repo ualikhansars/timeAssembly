@@ -32,7 +32,7 @@ class Slot extends React.Component {
                         <button onClick={() => this.props.addTask()} className="btn btn-success">Add</button>
                     </div>
                      <div className="col-md-4">
-                            <button onClick={() => this.props.updateSlot()} className="btn btn-info">Edit</button>
+                            <button onClick={() => this.props.showUpdateSlotForm()} className="btn btn-info">Edit</button>
                         </div>
                     <div className="col-md-4">
                         <button onClick={() => this.props.removeSlot(this.props.property.id)} className="btn btn-danger">Remove</button>

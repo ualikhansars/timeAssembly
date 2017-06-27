@@ -15,8 +15,8 @@ export const hideSlotForm = () => {
 export const removeSlot = (id) => {
     return dispatch => {
         return axios.delete(`/api/slot/${id}`)
-            .then(response => {
-                console.log('removeSlotActionResponse', response);
+            .then(res => {
+                console.log('removeSlotActionResponse', res);
                 dispatch({
                     type: 'SLOT_DELETED_SUCCESS',
                     deletedSlotId: id
@@ -28,9 +28,25 @@ export const removeSlot = (id) => {
     }
 }
 
-export const updateSlot = () => {
+export const showUpdateSlotForm = () => {
     return {
-        type: 'UPDATE_SLOT',
+        type: 'SHOW_UPDATE_SLOT_FORM'
+    }
+}
+
+export const updateSlot = (id) => {
+    return dispatch => {
+        return axios.put(`/api/slot/${id}`)
+            .then(res => {
+                console.log('UPDATE SLOT RESPONCE', res);
+                dispatch({
+                    type: 'UPDATE_SLOT_SUCCESS',
+                    updateSlotId: id
+                });
+            })
+            .catch(error => {
+                throw error;
+            });
     }
 }
 
@@ -45,8 +61,8 @@ export const createSlotSuccess = (slot) => {
 export const createSlot = (slot) => {
     return dispatch => {
         return axios.post('/api/slot', slot)
-            .then(response => {
-                let data = response.data.result;
+            .then(res => {
+                let data = res.data.result;
                 dispatch(createSlotSuccess(data));
             })
             .catch(error => {

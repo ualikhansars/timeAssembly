@@ -7574,7 +7574,7 @@ module.exports = function bind(fn, thisArg) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.createSlot = exports.createSlotSuccess = exports.updateSlot = exports.removeSlot = exports.hideSlotForm = exports.showSlotForm = undefined;
+exports.createSlot = exports.createSlotSuccess = exports.updateSlot = exports.showUpdateSlotForm = exports.removeSlot = exports.hideSlotForm = exports.showSlotForm = undefined;
 
 var _axios = __webpack_require__(59);
 
@@ -7596,8 +7596,8 @@ var hideSlotForm = exports.hideSlotForm = function hideSlotForm() {
 
 var removeSlot = exports.removeSlot = function removeSlot(id) {
     return function (dispatch) {
-        return _axios2.default.delete('/api/slot/' + id).then(function (response) {
-            console.log('removeSlotActionResponse', response);
+        return _axios2.default.delete('/api/slot/' + id).then(function (res) {
+            console.log('removeSlotActionResponse', res);
             dispatch({
                 type: 'SLOT_DELETED_SUCCESS',
                 deletedSlotId: id
@@ -7608,9 +7608,23 @@ var removeSlot = exports.removeSlot = function removeSlot(id) {
     };
 };
 
-var updateSlot = exports.updateSlot = function updateSlot() {
+var showUpdateSlotForm = exports.showUpdateSlotForm = function showUpdateSlotForm() {
     return {
-        type: 'UPDATE_SLOT'
+        type: 'SHOW_UPDATE_SLOT_FORM'
+    };
+};
+
+var updateSlot = exports.updateSlot = function updateSlot(id) {
+    return function (dispatch) {
+        return _axios2.default.put('/api/slot/' + id).then(function (res) {
+            console.log('UPDATE SLOT RESPONCE', res);
+            dispatch({
+                type: 'UPDATE_SLOT_SUCCESS',
+                updateSlotId: id
+            });
+        }).catch(function (error) {
+            throw error;
+        });
     };
 };
 
@@ -7624,8 +7638,8 @@ var createSlotSuccess = exports.createSlotSuccess = function createSlotSuccess(s
 
 var createSlot = exports.createSlot = function createSlot(slot) {
     return function (dispatch) {
-        return _axios2.default.post('/api/slot', slot).then(function (response) {
-            var data = response.data.result;
+        return _axios2.default.post('/api/slot', slot).then(function (res) {
+            var data = res.data.result;
             dispatch(createSlotSuccess(data));
         }).catch(function (error) {
             console.log(error);
@@ -13256,7 +13270,7 @@ var SlotContainer = function (_React$Component) {
                     return _react2.default.createElement(
                         'div',
                         { key: i },
-                        _react2.default.createElement(_Slot2.default, { updateSlot: _this2.props.updateSlot, removeSlot: _this2.props.removeSlot, addTask: _this2.props.addTask, property: property })
+                        _react2.default.createElement(_Slot2.default, { showUpdateSlotForm: _this2.props.showUpdateSlotForm, removeSlot: _this2.props.removeSlot, addTask: _this2.props.addTask, property: property })
                     );
                 });
             }
@@ -13318,9 +13332,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         showSlotForm: _slotAction.showSlotForm,
         hideSlotForm: _slotAction.hideSlotForm,
         removeSlot: _slotAction.removeSlot,
-        updateSlot: _slotAction.updateSlot,
-        createSlot: _slotAction.createSlot,
-        onUpdateSlot: _slotAction.onUpdateSlot
+        showUpdateSlotForm: _slotAction.showUpdateSlotForm,
+        createSlot: _slotAction.createSlot
     }, dispatch);
 };
 
@@ -13346,6 +13359,10 @@ var _react2 = _interopRequireDefault(_react);
 var _CreateSlotForm = __webpack_require__(135);
 
 var _CreateSlotForm2 = _interopRequireDefault(_CreateSlotForm);
+
+var _UpdateSlotForm = __webpack_require__(270);
+
+var _UpdateSlotForm2 = _interopRequireDefault(_UpdateSlotForm);
 
 var _SlotContainer = __webpack_require__(133);
 
@@ -13377,12 +13394,17 @@ var Slots = function (_React$Component) {
     _createClass(Slots, [{
         key: 'render',
         value: function render() {
-            var showCreateSlotForm = this.props.slotInfo.showCreateSlotForm;
+            var _props$slotInfo = this.props.slotInfo,
+                showCreateSlotForm = _props$slotInfo.showCreateSlotForm,
+                showUpdateSlotForm = _props$slotInfo.showUpdateSlotForm;
 
             // if createSlot button has been clicked, CreateSlotForm will appear
 
             if (showCreateSlotForm) {
                 return _react2.default.createElement(_CreateSlotForm2.default, { hideSlotForm: this.props.hideSlotForm, createSlot: this.props.createSlot });
+            }
+            if (showUpdateSlotForm) {
+                return _react2.default.createElement(_UpdateSlotForm2.default, { hideSlotForm: this.props.hideSlotForm });
             } else {
                 return _react2.default.createElement(_SlotContainer2.default, { showSlotForm: this.props.showSlotForm });
             }
@@ -13437,8 +13459,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-//import axios from 'axios';
-
 var CreateSlotForm = function (_React$Component) {
     _inherits(CreateSlotForm, _React$Component);
 
@@ -13450,8 +13470,8 @@ var CreateSlotForm = function (_React$Component) {
         _this.state = {
             title: 'Lessons',
             category: 'Study',
-            total: 0,
-            free: 0,
+            total: 1,
+            free: 1,
             temporary: false,
             dueDate: ''
         };
@@ -13479,7 +13499,6 @@ var CreateSlotForm = function (_React$Component) {
             var updatedSlot = Object.assign({}, this.state, {
                 free: total
             });
-            this.props.createSlot(updatedSlot);
         }
     }, {
         key: 'render',
@@ -13489,6 +13508,11 @@ var CreateSlotForm = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'slots-form' },
+                _react2.default.createElement(
+                    'h1',
+                    null,
+                    'Create Slot'
+                ),
                 _react2.default.createElement(
                     'div',
                     { className: 'form-group row' },
@@ -13801,7 +13825,7 @@ var Slot = function (_React$Component) {
                         _react2.default.createElement(
                             "button",
                             { onClick: function onClick() {
-                                    return _this2.props.updateSlot();
+                                    return _this2.props.showUpdateSlotForm();
                                 }, className: "btn btn-info" },
                             "Edit"
                         )
@@ -13945,6 +13969,7 @@ var initialState = {
     loaded: false,
     slots: [],
     errors: null,
+    showUpdateSlotForm: false,
     showCreateSlotForm: false
 };
 
@@ -13954,12 +13979,16 @@ var SlotInfo = function SlotInfo() {
 
     switch (action.type) {
         case 'LOAD_INFO_REQUESTED':
+            // when data is loading
             return Object.assign({}, state, {
                 loading: true,
                 loaded: false,
                 slots: null,
                 errors: null
             });
+        /*
+           when data is loaded, add slots from api
+        */
         case 'LOAD_INFO_OK':
             return Object.assign({}, state, {
                 loading: false,
@@ -13968,6 +13997,7 @@ var SlotInfo = function SlotInfo() {
                 errors: null
             });
         case 'LOAD_INFO_FAIL':
+            // if api get request failed
             return Object.assign({}, state, {
                 loading: false,
                 loaded: false,
@@ -13976,14 +14006,24 @@ var SlotInfo = function SlotInfo() {
             });
         case 'SHOW_SLOT_FORM':
             return Object.assign({}, state, {
-                showCreateSlotForm: true
+                showCreateSlotForm: true,
+                showUpdateSlotForm: false
             });
         case 'HIDE_SLOT_FORM':
             return Object.assign({}, state, {
-                showCreateSlotForm: false
+                showCreateSlotForm: false,
+                showUpdateSlotForm: false
             });
-        case 'UPDATE_SLOT':
+        case 'SHOW_UPDATE_SLOT_FORM':
+            console.log('SHOW_UPDATE_SLOT_FORM');
+            return Object.assign({}, state, {
+                showCreateSlotForm: false,
+                showUpdateSlotForm: true
+            });
+
+        case 'UPDATE_SLOT_SUCCESS':
             console.log('UPDATE_SLOT');
+            return state;
         case 'CREATE_SLOT_SUCCESS':
             // push new slot into slots array
             var updatedSlots = Object.assign([], state.slots);
@@ -27383,6 +27423,171 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+/* 270 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(7);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CreateSlotForm = function (_React$Component) {
+    _inherits(CreateSlotForm, _React$Component);
+
+    function CreateSlotForm(props) {
+        _classCallCheck(this, CreateSlotForm);
+
+        var _this = _possibleConstructorReturn(this, (CreateSlotForm.__proto__ || Object.getPrototypeOf(CreateSlotForm)).call(this, props));
+
+        _this.state = {
+            title: 'Lessons',
+            category: 'Study',
+            total: 1,
+            free: 1,
+            temporary: false,
+            dueDate: ''
+        };
+        return _this;
+    }
+
+    _createClass(CreateSlotForm, [{
+        key: 'onChange',
+        value: function onChange(event) {
+            this.setState(_defineProperty({}, event.target.id, event.target.value));
+        }
+    }, {
+        key: 'onCheckboxChange',
+        value: function onCheckboxChange(event) {
+            this.setState({
+                temporary: !this.state.temporary
+            });
+        }
+    }, {
+        key: 'onSubmit',
+        value: function onSubmit(e) {
+            e.preventDefault();
+            // make free attribute equals to total
+            var total = this.state.total;
+            var updatedSlot = Object.assign({}, this.state, {
+                free: total
+            });
+            this.props.createSlot(updatedSlot);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'slots-form' },
+                _react2.default.createElement(
+                    'h1',
+                    null,
+                    'Update Slot'
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'form-group row' },
+                    _react2.default.createElement(
+                        'label',
+                        { htmlFor: 'title', className: 'col-md-12' },
+                        'Title'
+                    ),
+                    _react2.default.createElement('input', { value: this.state.title, onChange: this.onChange.bind(this), type: 'text', className: 'form-control col-md-12', id: 'title', name: 'title', placeholder: 'Study' })
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'form-group row' },
+                    _react2.default.createElement(
+                        'label',
+                        { htmlFor: 'category', className: 'col-md-12' },
+                        'Category'
+                    ),
+                    _react2.default.createElement('input', { value: this.state.category, onChange: this.onChange.bind(this), type: 'text', className: 'form-control col-md-12', id: 'category', name: 'category', placeholder: 'Important' })
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'form-group row' },
+                    _react2.default.createElement(
+                        'label',
+                        { htmlFor: 'total', className: 'col-md-12' },
+                        'Total'
+                    ),
+                    _react2.default.createElement('input', { value: this.state.total, onChange: this.onChange.bind(this), type: 'number', className: 'form-control col-md-12', id: 'total', name: 'total', placeholder: 'Enter week frequency' })
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'form-group row' },
+                    _react2.default.createElement(
+                        'label',
+                        { htmlFor: 'temporary', className: 'col-md-3' },
+                        'Temporary'
+                    ),
+                    _react2.default.createElement('input', _defineProperty({ value: this.state.temporary, onChange: this.onCheckboxChange.bind(this), type: 'checkbox', className: 'col-md-3', id: 'temporary', name: 'temporary' }, 'value', 'temporary'))
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'form-group row' },
+                    _react2.default.createElement(
+                        'label',
+                        { htmlFor: 'dueDate', className: 'col-md-12' },
+                        'Due Date'
+                    ),
+                    _react2.default.createElement('input', { value: this.state.dueDate, onChange: this.onChange.bind(this), type: 'date', className: 'form-control col-md-12', id: 'dueDate', name: 'dueDate', placeholder: 'By what date this task has to be finished' })
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-4' },
+                        _react2.default.createElement(
+                            'button',
+                            { onClick: this.onSubmit.bind(this), className: 'btn btn-success' },
+                            'Create'
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-4' },
+                        _react2.default.createElement(
+                            'button',
+                            { onClick: function onClick() {
+                                    return _this2.props.hideSlotForm();
+                                }, className: 'btn btn-danger' },
+                            'Cancel'
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return CreateSlotForm;
+}(_react2.default.Component);
+
+exports.default = CreateSlotForm;
 
 /***/ })
 /******/ ]);

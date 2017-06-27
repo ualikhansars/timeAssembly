@@ -32,11 +32,12 @@ class CreateSlotForm extends React.Component {
         let updatedSlot = Object.assign({}, this.state, {
             free: total
         });
+        this.props.createSlot(updatedSlot);
     }
     render() {
         return (
              <div className="slots-form">
-                     <h1>Create Slot</h1>
+                    <h1>Update Slot</h1>
                     <div className="form-group row">
                         <label htmlFor="title" className="col-md-12">Title</label>
                         <input value={this.state.title} onChange={this.onChange.bind(this)} type="text" className="form-control col-md-12" id="title" name="title" placeholder="Study" />
