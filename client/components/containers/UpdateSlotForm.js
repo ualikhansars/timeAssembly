@@ -1,15 +1,17 @@
 import React from 'react';
 
+import {connect} from 'react-redux';
+
 class CreateSlotForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: '',
-            category: '',
-            total: 1,
-            free: 1,
-            temporary: false,
-            dueDate: '',
+            title: this.props.slotInfo.slot.title,
+            category: this.props.slotInfo.slot.category,
+            total: this.props.slotInfo.slot.total,
+            free: this.props.slotInfo.slot.free,
+            temporary: this.props.slotInfo.slot.temporary,
+            dueDate: this.props.slotInfo.slot.dueDate,
         }
     }
 
@@ -71,6 +73,12 @@ class CreateSlotForm extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        slotInfo: state.slotInfo
+    };
+}
 
 
-export default CreateSlotForm;
+
+export default connect(mapStateToProps, null)(CreateSlotForm);;

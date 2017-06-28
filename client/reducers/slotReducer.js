@@ -1,41 +1,86 @@
 const initialState = {
-    loading: false, 
-    loaded: false, 
-    slots: [], 
+    slots: [],
+    slotsRequest: {
+        loading: false, 
+        loaded: false,
+        errors: null, 
+    }, 
     slot: {},
-    errors: null,
+    slotRequest: {
+        loading: false, 
+        loaded: false,
+        errors: null, 
+    }, 
     showUpdateSlotForm: false,
     showCreateSlotForm: false
 };
 
 const SlotInfo = (state = initialState, action) => {
     switch (action.type) {
-        case 'LOAD_INFO_REQUESTED':
+        case 'LOAD_SLOTS_REQUESTED':
             // when data is loading
             return Object.assign({}, state, {
-                loading: true,
-                loaded: false,
-                slots: null,
-                errors: null
+               slotsRequest: {
+                   loading: true,
+                    loaded: false,
+                    errors: null
+               },
+               slots: null
             });
          /*
             when data is loaded, add slots from api
         */
-        case 'LOAD_INFO_OK':
+        case 'LOAD_SLOTS_OK':
             return Object.assign({}, state, {
-                loading: false,
-                loaded: true,
+                slotsRequest: {
+                    loading: false,
+                    loaded: true,
+                    errors: null
+                },
                 slots: action.slots,
-                errors: null
             }); 
-        case 'LOAD_INFO_FAIL':
+        case 'LOAD_SLOTS_FAIL':
             // if api get request failed
            return Object.assign({}, state, {
-                loading: false,
-                loaded: false,
-                slots: null,
-                errors: action.errors
+                slotsRequest: {
+                    loading: false,
+                    loaded: false,
+                    errors: action.slotsErrors
+                },
+                slots: null,       
             });
+        case 'LOAD_SLOT_REQUESTED':
+            // when data is loading
+            return Object.assign({}, state, {
+               slotRequest: {
+                   loading: true,
+                    loaded: false,
+                    errors: null
+               },
+               slot: null
+            });
+         /*
+            when data is loaded, add slots from api
+        */
+        case 'LOAD_SLOT_OK':
+            return Object.assign({}, state, {
+                slotRequest: {
+                    loading: false,
+                    loaded: true,
+                    errors: null
+                },
+                slot: action.slot,
+            }); 
+        case 'LOAD_SLOT_FAIL':
+            // if api get request failed
+           return Object.assign({}, state, {
+                slotRequest: {
+                    loading: false,
+                    loaded: false,
+                    errors: action.slotErrors
+                },
+                slots: null,       
+            });    
         case 'FETCH_SLOT_BY_ID':
             return Object.assign({}, state, {
                 slot: action.slot
@@ -43,12 +88,12 @@ const SlotInfo = (state = initialState, action) => {
         case 'SHOW_SLOT_FORM':
             return Object.assign({}, state, {
                 showCreateSlotForm: true,
-                showUpdateSlotForm: false
+                showUpdateSlotForm: false,
             }); 
         case 'HIDE_SLOT_FORM':
             return Object.assign({}, state, {
                 showCreateSlotForm: false,
-                showUpdateSlotForm: false
+                showUpdateSlotForm: false,
             });
         case 'SHOW_UPDATE_SLOT_FORM':
             console.log('SHOW_UPDATE_SLOT_FORM');

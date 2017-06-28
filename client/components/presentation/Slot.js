@@ -3,11 +3,10 @@ import React from 'react';
 class Slot extends React.Component {
 
     onClickUpdate() {
-        console.log('1');
         this.props.fetchSlot(this.props.property.id);
-        console.log('2')
+        console.log('SLOT:Fetch slot');
         this.props.showUpdateSlotForm();
-         console.log('3');
+        console.log('SLOT:showUpdateSlotForm');
     }
     render() {
         return (

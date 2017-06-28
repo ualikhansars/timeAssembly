@@ -30,15 +30,21 @@ export const removeSlot = (id) => {
 
 export const fetchSlotById = (id) => {
     return dispatch => {
+        dispatch({
+            type: 'LOAD_SLOT_REQUESTED'
+        });
         return axios.get(`/api/slot/${id}`)
             .then(res => {
                 dispatch({
-                    type: 'FETCH_SLOT_BY_ID',
+                    type: 'LOAD_SLOT_OK',
                     slot: res.data.resource 
                 });
             })
             .catch(error => {
-                throw error;
+                dispatch({
+                    type: 'LOAD_SLOT_FAIL',
+                    errors: result.message
+                });
             });
     }
 }

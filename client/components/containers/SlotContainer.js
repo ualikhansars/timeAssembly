@@ -14,7 +14,8 @@ class SlotContainer extends React.Component {
     }
 
     render() {
-        const {loading, loaded, errors, slots, showCreateSlotForm} = this.props.slotInfo;
+        const {slots, showCreateSlotForm} = this.props.slotInfo;
+        const {loading, loaded, errors} = this.props.slotInfo.slotsRequest;
         let resource = null;
         
         // when data is loading

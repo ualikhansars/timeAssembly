@@ -6,20 +6,20 @@ export function fetchSlots() {
     return dispatch => {
 
         dispatch({
-            type: 'LOAD_INFO_REQUESTED'
+            type: 'LOAD_SLOTS_REQUESTED'
         });
 
         axios.get(url)
             .then(result => {
                 console.log('result',result);
                 dispatch({
-                    type: 'LOAD_INFO_OK',
+                    type: 'LOAD_SLOTS_OK',
                     slots: result.data.resource
                 });
             })
             .catch(result => {
                 dispatch({
-                    type: 'LOAD_INFO_FAIL',
+                    type: 'LOAD_SLOTS_FAIL',
                     errors: result.message
                 })
             })

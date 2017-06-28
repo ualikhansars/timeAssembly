@@ -1,8 +1,8 @@
 import React from 'react';
 
 import CreateSlotForm from '../presentation/CreateSlotForm';
-import UpdateSlotForm from '../presentation/UpdateSlotForm';
-import SlotContainer from '../containers/SlotContainer';
+import UpdateSlotForm from './UpdateSlotForm';
+import SlotContainer from './SlotContainer';
 
 
 import {bindActionCreators} from 'redux';
