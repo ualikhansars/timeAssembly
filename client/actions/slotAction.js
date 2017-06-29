@@ -60,14 +60,15 @@ export const showUpdateSlotForm = () => {
     }
 }
 
-export const updateSlot = (id) => {
+export const updateSlot = (slot) => {
+    console.log('UPDATE SLOT = ', slot);
     return dispatch => {
-        return axios.put(`/api/slot/${id}`)
+        return axios.put(`/api/slot/${slot.id}`, slot)
             .then(res => {
                 console.log('UPDATE SLOT RESPONCE', res);
                 dispatch({
                     type: 'UPDATE_SLOT_SUCCESS',
-                    updateSlotId: id
+                    slot
                 });
             })
             .catch(error => {

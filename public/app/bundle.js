@@ -5168,13 +5168,14 @@ var showUpdateSlotForm = exports.showUpdateSlotForm = function showUpdateSlotFor
     };
 };
 
-var updateSlot = exports.updateSlot = function updateSlot(id) {
+var updateSlot = exports.updateSlot = function updateSlot(slot) {
+    console.log('UPDATE SLOT = ', slot);
     return function (dispatch) {
-        return _axios2.default.put('/api/slot/' + id).then(function (res) {
+        return _axios2.default.put('/api/slot/' + slot.id, slot).then(function (res) {
             console.log('UPDATE SLOT RESPONCE', res);
             dispatch({
                 type: 'UPDATE_SLOT_SUCCESS',
-                updateSlotId: id
+                slot: slot
             });
         }).catch(function (error) {
             throw error;
@@ -13501,7 +13502,8 @@ var CreateSlotForm = function (_React$Component) {
             total: _this.props.slotInfo.slot.total,
             free: _this.props.slotInfo.slot.free,
             temporary: _this.props.slotInfo.slot.temporary,
-            dueDate: _this.props.slotInfo.slot.dueDate
+            dueDate: _this.props.slotInfo.slot.dueDate,
+            id: _this.props.slotInfo.slot._id
         };
         return _this;
     }
