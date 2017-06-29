@@ -108,7 +108,10 @@ const SlotInfo = (state = initialState, action) => {
 
         case 'UPDATE_SLOT_SUCCESS':
             console.log('UPDATE_SLOT');
-            return state;
+            return Object.assign({}, state, {
+                showCreateSlotForm: false,
+                showUpdateSlotForm: false
+            });
         case 'CREATE_SLOT_SUCCESS':
             // push new slot into slots array
             let updatedSlots = Object.assign([], state.slots);
