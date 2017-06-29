@@ -49,11 +49,15 @@ const SlotInfo = (state = initialState, action) => {
                 },
                 slots: null,       
             });
+        case 'ON_CLICK_UPDATE_SLOT':
+            return Object.assign({}, state, {
+                slot: action.slot
+            });  
         case 'LOAD_SLOT_REQUESTED':
             // when data is loading
             return Object.assign({}, state, {
                slotRequest: {
-                   loading: true,
+                    loading: true,
                     loaded: false,
                     errors: null
                },

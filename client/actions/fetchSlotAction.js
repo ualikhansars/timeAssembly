@@ -20,7 +20,7 @@ export function fetchSlots() {
             .catch(result => {
                 dispatch({
                     type: 'LOAD_SLOTS_FAIL',
-                    errors: result.message
+                    slotsErrors: result.message
                 })
             })
     }

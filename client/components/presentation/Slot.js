@@ -1,13 +1,6 @@
 import React from 'react';
 
 class Slot extends React.Component {
-
-    onClickUpdate() {
-        this.props.fetchSlot(this.props.property.id);
-        console.log('SLOT:Fetch slot');
-        this.props.showUpdateSlotForm();
-        console.log('SLOT:showUpdateSlotForm');
-    }
     render() {
         return (
             <div className="container-fluid"> 
@@ -39,7 +32,7 @@ class Slot extends React.Component {
                         <button onClick={() => this.props.addTask()} className="btn btn-success">Add</button>
                     </div>
                      <div className="col-md-4">
-                            <button onClick={() => this.onClickUpdate()} className="btn btn-info">Edit</button>
+                            <button onClick={() => this.props.fetchSlot(this.props.property.id)} className="btn btn-info">Edit</button>
                         </div>
                     <div className="col-md-4">
                         <button onClick={() => this.props.removeSlot(this.props.property.id)} className="btn btn-danger">Remove</button>

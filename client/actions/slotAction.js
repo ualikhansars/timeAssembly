@@ -40,10 +40,15 @@ export const fetchSlotById = (id) => {
                     slot: res.data.resource 
                 });
             })
+            .then(() => {
+                dispatch({
+                    type: 'SHOW_UPDATE_SLOT_FORM'
+                });
+            })
             .catch(error => {
                 dispatch({
                     type: 'LOAD_SLOT_FAIL',
-                    errors: result.message
+                    slotErrors: result.message
                 });
             });
     }
