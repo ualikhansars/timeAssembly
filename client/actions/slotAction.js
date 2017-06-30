@@ -54,9 +54,9 @@ export const fetchSlotById = (id) => {
     }
 }
 
-export const showUpdateSlotForm = () => {
+export const showCreateTaskForm = () => {
     return {
-        type: 'SHOW_UPDATE_SLOT_FORM'
+        type: 'SHOW_CREATE_TASK_FORM'
     }
 }
 

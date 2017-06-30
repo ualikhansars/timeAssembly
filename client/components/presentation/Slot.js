@@ -29,7 +29,7 @@ class Slot extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-md-4">
-                        <button onClick={() => this.props.addTask()} className="btn btn-success">Add</button>
+                        <button onClick={() => this.props.showTaskForm()} className="btn btn-success">Add</button>
                     </div>
                      <div className="col-md-4">
                             <button onClick={() => this.props.fetchSlot(this.props.property.id)} className="btn btn-info">Edit</button>

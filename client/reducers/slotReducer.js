@@ -11,6 +11,14 @@ const initialState = {
         loaded: false,
         errors: null, 
     }, 
+    tasks: [],
+    taskRequest: {
+        loading: false,
+        loaded: false,
+        errors: null
+    },
+    task: {},
+    showCreateTaskForm: false,
     showUpdateSlotForm: false,
     showCreateSlotForm: false
 };
@@ -49,10 +57,7 @@ const SlotInfo = (state = initialState, action) => {
                 },
                 slots: null,       
             });
-        case 'ON_CLICK_UPDATE_SLOT':
-            return Object.assign({}, state, {
-                slot: action.slot
-            });  
+        // requested api/slot/id    
         case 'LOAD_SLOT_REQUESTED':
             // when data is loading
             return Object.assign({}, state, {
@@ -76,14 +81,14 @@ const SlotInfo = (state = initialState, action) => {
                 slot: action.slot,
             }); 
         case 'LOAD_SLOT_FAIL':
-            // if api get request failed
+            // if api/slot/id get request failed
            return Object.assign({}, state, {
                 slotRequest: {
                     loading: false,
                     loaded: false,
                     errors: action.slotErrors
                 },
-                slots: null,       
+                slot: null,       
             });    
         case 'FETCH_SLOT_BY_ID':
             return Object.assign({}, state, {
@@ -93,19 +98,28 @@ const SlotInfo = (state = initialState, action) => {
             return Object.assign({}, state, {
                 showCreateSlotForm: true,
                 showUpdateSlotForm: false,
+                showCreateTaskForm: false
             }); 
         case 'HIDE_SLOT_FORM':
             return Object.assign({}, state, {
                 showCreateSlotForm: false,
                 showUpdateSlotForm: false,
+                showCreateTaskForm: false
             });
         case 'SHOW_UPDATE_SLOT_FORM':
             console.log('SHOW_UPDATE_SLOT_FORM');
             return Object.assign({}, state, {
                 showCreateSlotForm: false,
-                showUpdateSlotForm: true
+                showUpdateSlotForm: true,
+                showCreateTaskForm: false
             });
-
+        case 'SHOW_CREATE_TASK_FORM':
+            console.log('SHOW_CREATE_TASK_FORM');
+            return Object.assign({}, state, {
+                showCreateSlotForm: false,
+                showUpdateSlotForm: false,
+                showCreateTaskForm: true
+            });
         case 'UPDATE_SLOT_SUCCESS':
             console.log('UPDATE_SLOT');
             return Object.assign({}, state, {
