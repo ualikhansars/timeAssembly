@@ -12840,13 +12840,33 @@ function fetchSlots() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.addTask = undefined;
+exports.addTask = exports.fetchTasks = undefined;
 
 var _axios = __webpack_require__(36);
 
 var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var fetchTasks = exports.fetchTasks = function fetchTasks() {
+    return function (dispatch) {
+        dispatch({
+            type: 'LOAD_TASKS_REQUESTED'
+        });
+        _axios2.default.get('/api/task').then(function (result) {
+            console.log('result', result);
+            dispatch({
+                type: 'LOAD_TASKS_OK',
+                tasks: result.data.resource
+            });
+        }).catch(function (result) {
+            dispatch({
+                type: 'LOAD_TASKS_FAIL',
+                tasksErrors: result.message
+            });
+        });
+    };
+};
 
 var addTask = exports.addTask = function addTask(id) {
     return function (dispatch) {
@@ -12977,7 +12997,7 @@ var CreateTaskForm = function (_React$Component) {
             finishTimeMinutes: 0,
             day: '',
             username: '',
-            slot: _this.props.slotInfo.slot.id
+            slot: _this.props.slotInfo.slot._id
         };
         return _this;
     }
@@ -13030,6 +13050,7 @@ var CreateTaskForm = function (_React$Component) {
                 finishTimeHours: finishHours,
                 finishTimeMinutes: finishMinutes
             });
+            console.log(updatedTask);
             //this.props.createSlot(updatedSlot);
         }
     }, {
@@ -13129,6 +13150,16 @@ var _react = __webpack_require__(7);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _redux = __webpack_require__(20);
+
+var _reactRedux = __webpack_require__(16);
+
+var _taskAction = __webpack_require__(127);
+
+var _Task = __webpack_require__(273);
+
+var _Task2 = _interopRequireDefault(_Task);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -13147,12 +13178,75 @@ var Days = function (_React$Component) {
     }
 
     _createClass(Days, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.props.fetchTasks();
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var tasks = this.props.taskInfo.tasks;
+            var _props$taskInfo$tasks = this.props.taskInfo.tasksRequest,
+                loading = _props$taskInfo$tasks.loading,
+                loaded = _props$taskInfo$tasks.loaded,
+                errors = _props$taskInfo$tasks.errors;
+
+            var resource = null;
+            // when data is loading
+            if (loading) {
+                return _react2.default.createElement(
+                    'div',
+                    null,
+                    'loading'
+                );
+            }
+
+            // if errors occurs
+            if (errors) {
+                return _react2.default.createElement(
+                    'div',
+                    { className: 'container-fluid' },
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        'Errors'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        errors
+                    )
+                );
+            }
+
+            // when data loaded
+            // display every tasks
+            if (loaded) {
+                resource = tasks.map(function (task, i) {
+                    var property = {
+                        title: task.title,
+                        category: task.category,
+                        description: task.description,
+                        duration: task.duration,
+                        startTimeHours: task.startTimeHours,
+                        startTimeMinutes: task.startTimeMinutes,
+                        finishTimeHours: task.finishTimeHours,
+                        finishTimeMinutes: task.finishTimeMinutes,
+                        day: task.day,
+                        id: task._id
+                    };
+                    return _react2.default.createElement(
+                        'div',
+                        { key: i },
+                        _react2.default.createElement(_Task2.default, { property: property })
+                    );
+                });
+            }
+
             return _react2.default.createElement(
-                'h2',
+                'div',
                 null,
-                'Days'
+                resource
             );
         }
     }]);
@@ -13160,7 +13254,19 @@ var Days = function (_React$Component) {
     return Days;
 }(_react2.default.Component);
 
-exports.default = Days;
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        taskInfo: state.taskInfo
+    };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({
+        fetchTasks: _taskAction.fetchTasks
+    }, dispatch);
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Days);
 
 /***/ }),
 /* 131 */
@@ -14271,35 +14377,7 @@ var Slot = function (_React$Component) {
 exports.default = Slot;
 
 /***/ }),
-/* 140 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var initialState = {
-    task: {}
-};
-
-var addTaskFromSlot = function addTaskFromSlot() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-    var action = arguments[1];
-
-    switch (action.type) {
-        case 'ADD_TASK':
-        // return Object.assign({}, state, {
-        //     task: action.payload
-        // });
-    }
-    return state;
-};
-
-exports.default = addTaskFromSlot;
-
-/***/ }),
+/* 140 */,
 /* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14359,16 +14437,16 @@ var _slotReducer = __webpack_require__(143);
 
 var _slotReducer2 = _interopRequireDefault(_slotReducer);
 
-var _addTaskReducer = __webpack_require__(140);
+var _taskReducer = __webpack_require__(272);
 
-var _addTaskReducer2 = _interopRequireDefault(_addTaskReducer);
+var _taskReducer2 = _interopRequireDefault(_taskReducer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var reducers = (0, _redux.combineReducers)({
     display: _displayReducer2.default,
     slotInfo: _slotReducer2.default,
-    addTask: _addTaskReducer2.default
+    taskInfo: _taskReducer2.default
 });
 
 exports.default = reducers;
@@ -14396,13 +14474,6 @@ var initialState = {
         loaded: false,
         errors: null
     },
-    tasks: [],
-    taskRequest: {
-        loading: false,
-        loaded: false,
-        errors: null
-    },
-    task: {},
     showCreateTaskForm: false,
     showUpdateSlotForm: false,
     showCreateSlotForm: false
@@ -27913,6 +27984,241 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+/* 272 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var initialState = {
+    tasks: [],
+    tasksRequest: {
+        loading: false,
+        loaded: false,
+        errors: null
+    },
+    task: {}
+};
+
+var taskInfo = function taskInfo() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    switch (action.type) {
+        case 'LOAD_TASKS_REQUESTED':
+            return Object.assign({}, state, {
+                tasksRequest: {
+                    loading: true,
+                    loaded: false,
+                    errors: null
+                },
+                tasks: null
+            });
+        case 'LOAD_TASKS_OK':
+            return Object.assign({}, state, {
+                tasksRequest: {
+                    loading: false,
+                    loaded: true,
+                    errors: null
+                },
+                tasks: action.tasks
+            });
+        case 'LOAD_TASKS_FAIL':
+            return Object.assign({}, state, {
+                tasksRequest: {
+                    loading: false,
+                    loaded: false,
+                    errors: action.tasksErrors
+                },
+                tasks: null
+            });
+        case 'ADD_TASK':
+        // return Object.assign({}, state, {
+        //     task: action.payload
+        // });
+    }
+    return state;
+};
+
+exports.default = taskInfo;
+
+/***/ }),
+/* 273 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(7);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Task = function (_React$Component) {
+    _inherits(Task, _React$Component);
+
+    function Task() {
+        _classCallCheck(this, Task);
+
+        return _possibleConstructorReturn(this, (Task.__proto__ || Object.getPrototypeOf(Task)).apply(this, arguments));
+    }
+
+    _createClass(Task, [{
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                { className: "container-fluid" },
+                _react2.default.createElement(
+                    "div",
+                    { className: "row" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col-md-4 offset-md-4" },
+                        _react2.default.createElement(
+                            "span",
+                            null,
+                            this.props.property.title
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "row" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col-md-12" },
+                        _react2.default.createElement(
+                            "span",
+                            null,
+                            "Category: ",
+                            this.props.property.category
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "row" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col-md-12" },
+                        _react2.default.createElement(
+                            "span",
+                            null,
+                            "Description: ",
+                            this.props.property.description
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "row" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col-md-12" },
+                        _react2.default.createElement(
+                            "span",
+                            null,
+                            "Duration: ",
+                            this.props.property.duration,
+                            " mins"
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "row" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col-md-12" },
+                        _react2.default.createElement(
+                            "span",
+                            null,
+                            "Start Time: ",
+                            this.props.property.startTimeHours,
+                            ":",
+                            this.props.property.startTimeMinutes
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "row" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col-md-12" },
+                        _react2.default.createElement(
+                            "span",
+                            null,
+                            "Finish Time: ",
+                            this.props.property.finishTimeHours,
+                            ":",
+                            this.props.property.finishTimeMinutes
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "row" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col-md-12" },
+                        _react2.default.createElement(
+                            "span",
+                            null,
+                            "Day: ",
+                            this.props.property.day
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "row" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col-md-6" },
+                        _react2.default.createElement(
+                            "button",
+                            { className: "btn btn-info" },
+                            "Edit"
+                        )
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col-md-6" },
+                        _react2.default.createElement(
+                            "button",
+                            { className: "btn btn-danger" },
+                            "Remove"
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Task;
+}(_react2.default.Component);
+
+exports.default = Task;
 
 /***/ })
 /******/ ]);

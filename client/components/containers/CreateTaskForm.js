@@ -15,7 +15,7 @@ class CreateTaskForm extends React.Component {
             finishTimeMinutes: 0,
             day: '',
             username: '',
-            slot: this.props.slotInfo.slot.id        
+            slot: this.props.slotInfo.slot._id        
         }
     }
 
@@ -62,6 +62,7 @@ class CreateTaskForm extends React.Component {
             finishTimeHours: finishHours,
             finishTimeMinutes: finishMinutes
         });
+        console.log(updatedTask);
         //this.props.createSlot(updatedSlot);
     }
     render() {

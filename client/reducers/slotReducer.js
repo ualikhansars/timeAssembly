@@ -11,13 +11,6 @@ const initialState = {
         loaded: false,
         errors: null, 
     }, 
-    tasks: [],
-    taskRequest: {
-        loading: false,
-        loaded: false,
-        errors: null
-    },
-    task: {},
     showCreateTaskForm: false,
     showUpdateSlotForm: false,
     showCreateSlotForm: false
