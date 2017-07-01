@@ -11,7 +11,6 @@ const initialState = {
         loaded: false,
         errors: null, 
     }, 
-    showCreateTaskForm: false,
     showUpdateSlotForm: false,
     showCreateSlotForm: false
 };
@@ -91,27 +90,17 @@ const SlotInfo = (state = initialState, action) => {
             return Object.assign({}, state, {
                 showCreateSlotForm: true,
                 showUpdateSlotForm: false,
-                showCreateTaskForm: false
             }); 
         case 'HIDE_SLOT_FORM':
             return Object.assign({}, state, {
                 showCreateSlotForm: false,
                 showUpdateSlotForm: false,
-                showCreateTaskForm: false
             });
         case 'SHOW_UPDATE_SLOT_FORM':
             console.log('SHOW_UPDATE_SLOT_FORM');
             return Object.assign({}, state, {
                 showCreateSlotForm: false,
                 showUpdateSlotForm: true,
-                showCreateTaskForm: false
-            });
-        case 'SHOW_CREATE_TASK_FORM':
-            console.log('SHOW_CREATE_TASK_FORM');
-            return Object.assign({}, state, {
-                showCreateSlotForm: false,
-                showUpdateSlotForm: false,
-                showCreateTaskForm: true
             });
         case 'UPDATE_SLOT_SUCCESS':
             console.log('UPDATE_SLOT');

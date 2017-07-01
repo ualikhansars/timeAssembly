@@ -6,6 +6,7 @@ const initialState = {
         errors: null
     },
     task: {},
+    showCreateTaskForm: false
 }
 
 const taskInfo = (state=initialState, action) => {
@@ -37,10 +38,25 @@ const taskInfo = (state=initialState, action) => {
                 },
                tasks: null
             });
-        case 'ADD_TASK':
-            // return Object.assign({}, state, {
-            //     task: action.payload
-            // });
+        case 'SHOW_CREATE_TASK_FORM':
+            console.log('SHOW_CREATE_TASK_FORM');
+            return Object.assign({}, state, {
+                showCreateTaskForm: true
+            });
+        case 'HIDE_CREATE_TASK_FORM':
+            console.log('HIDE_CREATE_TASK_FORM');
+            return Object.assign({}, state, {
+                showCreateTaskForm: false
+            });       
+        case 'CREATE_TASK_SUCCESS':
+            // push new task into task array
+            let updatedTasks = Object.assign([], state.tasks);
+            console.log('BEFORE PUSHING TASK', action.task);
+            updatedTasks.push(action.task);
+            return Object.assign({}, state, {
+                showCreateTaskForm: false,
+                tasks: updatedTasks
+            });
     }
     return state;
 }

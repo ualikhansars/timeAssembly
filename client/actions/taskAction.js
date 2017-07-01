@@ -47,3 +47,33 @@ export const addTask = (id) => {
             });
     }
 }
+
+export const hideCreateTaskForm = () => {
+    return {
+        type: 'HIDE_CREATE_TASK_FORM',
+    }
+}
+
+// in case of successful post request
+export const createTaskSuccess = (task) => {
+    return {
+        type: 'CREATE_TASK_SUCCESS',
+        task
+    }
+}
+
+export const createTask = (task) => {
+    console.log('CREATE TASK ACTION', task);
+    return dispatch => {
+        return axios.post('/api/task', task)
+            .then(res => {
+                let data = res.data.result;
+                console.log('CREATE TASK DATA',res);
+                 console.log('CREATE TASK == ',task);
+                dispatch(createTaskSuccess(data));
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    }
+}

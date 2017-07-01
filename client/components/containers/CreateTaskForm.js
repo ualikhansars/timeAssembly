@@ -4,9 +4,12 @@ import {connect} from 'react-redux';
 class CreateTaskForm extends React.Component {
     constructor(props) {
         super(props);
+        this.title = this.props.slotInfo.slot.title;
+        this.category = this.props.slotInfo.slot.category;
+        this.slot = this.props.slotInfo.slot._id;       
         this.state = {
-            title: this.props.slotInfo.slot.title,
-            category: this.props.slotInfo.slot.category,
+            title: this.title,
+            category: this.category,
             description: '',
             duration: 30,
             startTimeHours: 0,
@@ -14,8 +17,8 @@ class CreateTaskForm extends React.Component {
             finishTimeHours: 0,
             finishTimeMinutes: 0,
             day: '',
-            username: '',
-            slot: this.props.slotInfo.slot._id        
+            username: '5954dadd41b4a32e8b86c405',
+            slot: this.slot       
         }
     }
 
@@ -27,7 +30,6 @@ class CreateTaskForm extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        // make free attribute equals to total
         let duration = Number(this.state.duration);
         let finishTimeHours, finishTimeMinutes;
         let startTimeHours = Number(this.state.startTimeHours);
@@ -36,19 +38,20 @@ class CreateTaskForm extends React.Component {
         let finishMinutes = startTimeMinutes;
         console.log('FinishTimeCount', finishHours, finishMinutes);
         console.log('duration', duration);
+        if(duration < 0) {
+            duration = 0;
+        }
         if(duration < 60) {
             let addition = startTimeMinutes + duration; // 80 or 30
-            console.log('addition', addition);
             if(addition === 60) {
                 finishHours++;
                 finishMinutes = 0;
             }
             if(addition < 60) { // 30
-                finishTimeMinutes = startTimeMinutes + duration;
+                finishMinutes = startTimeMinutes + duration;
             }  
             if(addition > 60) { // 80
                let balance = startTimeMinutes - duration;
-               console.log('balance', balance);
                finishHours++;
                finishMinutes = balance;
             }
@@ -60,15 +63,19 @@ class CreateTaskForm extends React.Component {
         }
         let updatedTask = Object.assign({}, this.state, {
             finishTimeHours: finishHours,
-            finishTimeMinutes: finishMinutes
+            finishTimeMinutes: finishMinutes,
         });
-        console.log(updatedTask);
-        //this.props.createSlot(updatedSlot);
+        console.log('updatedTask', updatedTask);
+        this.props.createTask(updatedTask);
+        console.log('TASK SENT TO ACTION')
     }
     render() {
         return (
              <div className="slots-form">
-                     <h1>Create Task</h1>
+                     <h2>{this.state.title}</h2>
+                     <div>
+                        <h4>Category: {this.state.category}</h4>
+                    </div>
                     <div className="form-group row">
                         <label htmlFor="description" className="col-md-12">Description</label>
                         <input value={this.state.description} onChange={this.onChange.bind(this)} type="text" className="form-control col-md-12" id="description" name="description" placeholder="What exactly to do" />
@@ -86,7 +93,7 @@ class CreateTaskForm extends React.Component {
                             <button onClick={this.onSubmit.bind(this)} className="btn btn-success">Create</button>
                         </div>
                         <div className="col-md-4">
-                            <button onClick={() => this.props.hideSlotForm()} className="btn btn-danger">Cancel</button>
+                            <button onClick={() => this.props.hideTaskForm()} className="btn btn-danger">Cancel</button>
                         </div>
                     </div>
              </div>   
