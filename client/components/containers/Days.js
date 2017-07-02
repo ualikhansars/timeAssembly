@@ -1,7 +1,10 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {fetchTasks, removeTask} from '../../actions/taskAction';
+import {fetchTasks, 
+        removeTask,
+        onClickUpdateTask 
+        } from '../../actions/taskAction';
 
 import Task from '../presentation/Task';
 
@@ -50,7 +53,7 @@ class Days extends React.Component {
                     }
                     return (
                         <div key={i}>
-                            <Task property={property} removeTask={this.props.removeTask}/>
+                            <Task onClickUpdate={this.props.onClickUpdateTask} property={property} removeTask={this.props.removeTask}/>
                         </div>
                     );
             });
@@ -73,7 +76,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
             fetchTasks,
-            removeTask
+            removeTask,
+            onClickUpdateTask
         }, 
         dispatch
     );

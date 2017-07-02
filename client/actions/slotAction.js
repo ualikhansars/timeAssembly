@@ -54,12 +54,6 @@ export const fetchSlotById = (id) => {
     }
 }
 
-export const showCreateTaskForm = () => {
-    return {
-        type: 'SHOW_CREATE_TASK_FORM'
-    }
-}
-
 export const updateSlot = (slot) => {
     console.log('UPDATE SLOT = ', slot);
     return dispatch => {

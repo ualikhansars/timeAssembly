@@ -3,7 +3,8 @@
 
 const initialState = {
     displaySlots: false,
-    displaySettings: false
+    displaySettings: false,
+    showUpdateTaskForm: false
 }
 
 const displayReducer = (state=initialState, action) => {
@@ -11,13 +12,29 @@ const displayReducer = (state=initialState, action) => {
         case 'DISPLAY_SLOTS':
            return Object.assign({}, state, {
                 displaySlots: true,
-                displaySettings: false
+                displaySettings: false,
+                showUpdateTaskForm: false
            });
         case 'DISPLAY_SETTINGS':
             return Object.assign({}, state, {
                 displaySlots: false,
-                displaySettings: true
+                displaySettings: true,
+                showUpdateTaskForm: false
            });
+        case 'SHOW_UPDATE_TASK_FORM':
+            console.log('SHOW_UPDATE_TASK_FORM');
+            return Object.assign({}, state, {
+                displaySlots: false,
+                displaySettings: false,
+                showUpdateTaskForm: true
+            });
+        case 'DISPLAY_NOTHING':
+            console.log('HIDE_UPDATE_TASK_FORM');
+            return Object.assign({}, state, {
+                displaySlots: false,
+                displaySettings: false,
+                showUpdateTaskForm: false
+            });   
     }
     return state;
 }

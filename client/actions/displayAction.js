@@ -10,5 +10,11 @@ export const displaySettings = () => {
     return {
         type: 'DISPLAY_SETTINGS'
     }
+}
+
+export const displayNothing = () => {
+    return {
+        type: 'DISPLAY_NOTHING'
+    }
 } 
 

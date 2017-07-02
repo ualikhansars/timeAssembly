@@ -22,6 +22,10 @@ export const fetchTasks = () => {
     }
 }
 
+// fistly, this function loads Slot by Id
+// to write slot data into Task
+// then is case of success request
+// SHOW_CREATE_TASK_FORM will be display
 export const addTask = (id) => {
     return dispatch => {
         dispatch({
@@ -48,9 +52,9 @@ export const addTask = (id) => {
     }
 }
 
-export const hideCreateTaskForm = () => {
+export const hideTaskForms = () => {
     return {
-        type: 'HIDE_CREATE_TASK_FORM',
+        type: 'HIDE_TASK_FORMS',
     }
 }
 
@@ -62,6 +66,7 @@ export const createTaskSuccess = (task) => {
     }
 }
 
+// creates task by API post request
 export const createTask = (task) => {
     console.log('CREATE TASK ACTION', task);
     return dispatch => {
@@ -74,6 +79,65 @@ export const createTask = (task) => {
             })
             .catch(error => {
                 console.log(error)
+            });
+    }
+}
+
+// when update task button in Task Component has been clicked this function
+// will be fired, it load task by id from database and 
+// write it into task state,
+// so other component can use this state
+// after this it will fire SHOW_UPDATE_TASK_FORM
+// that will display this form
+export const onClickUpdateTask = (id) => {
+    return dispatch => {
+        dispatch({
+            type: 'LOAD_TASK_REQUESTED'
+        });
+        return axios.get(`/api/task/${id}`)
+            .then(res => {
+                console.log('onClickUpdateTask RESPONSE', res);
+                dispatch({
+                    type: 'LOAD_TASK_OK',
+                    task: res.data.resource 
+                });
+            })
+            .then(() => {
+                dispatch({
+                    type: 'SHOW_UPDATE_TASK_FORM'
+                });
+            })
+            .catch(error => {
+                dispatch({
+                    type: 'LOAD_TASK_FAIL',
+                    taskErrors: error
+                });
+            });
+    }
+}
+
+// this function fired after update button in the UpdateTaskComponent
+// has been clicked, it makes put API request to
+// update task in the database
+export const updateTask = (task) => {
+    console.log('UPDATE TASK = ', task);
+    console.log('UPDATE TASK ID = ', task.id);
+    return dispatch => {
+        return axios.put(`/api/task/${task.id}`, task)
+            .then(res => {
+                console.log('UPDATE TASK RESPONCE', res);
+                dispatch({
+                    type: 'UPDATE_TASK_SUCCESS',
+                    task
+                });
+            })
+            .then(() => {
+                dispatch({
+                    type: 'DISPLAY_NOTHING',
+                });
+            })
+            .catch(error => {
+                throw error;
             });
     }
 }

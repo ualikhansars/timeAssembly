@@ -4,21 +4,28 @@ import {connect} from 'react-redux';
 
 import Slots from './Slots';
 import Settings from './Settings';
+import UpdateTaskForm from './UpdateTaskForm';
+
 
 class Dynamic extends React.Component {
     render() {
-        let isShowSlots = this.props.display.displaySlots;
-        let isShowSettings = this.props.display.displaySettings;
-        if(isShowSlots) {
+        let {displaySlots, displaySettings, showUpdateTaskForm} = this.props.display;
+        if(displaySlots) {
             return(
                 <Slots/>
             );
         }
-        if(isShowSettings) {
+        if(displaySettings) {
             return(
                 <Settings/>
             );
-        } else {
+        }
+        if(showUpdateTaskForm) {
+            return (
+               <UpdateTaskForm/> 
+            );
+        }
+        else {
              return(
                 <div>
                     <h2>Nothing to show</h2>
@@ -30,8 +37,9 @@ class Dynamic extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        display: state.display
+        display: state.display,
     };
 }
+
 
 export default connect(mapStateToProps, null)(Dynamic);

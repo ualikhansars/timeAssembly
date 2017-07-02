@@ -2,7 +2,7 @@ import React from 'react';
 
 import {connect} from 'react-redux';
 
-class CreateSlotForm extends React.Component {
+class UpdateSlotForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -82,4 +82,4 @@ const mapStateToProps = (state) => {
 
 
 
-export default connect(mapStateToProps, null)(CreateSlotForm);;
+export default connect(mapStateToProps, null)(UpdateSlotForm);
