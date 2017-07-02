@@ -5111,7 +5111,7 @@ module.exports = defaults;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.createTask = exports.createTaskSuccess = exports.hideCreateTaskForm = exports.addTask = exports.fetchTasks = undefined;
+exports.removeTask = exports.createTask = exports.createTaskSuccess = exports.hideCreateTaskForm = exports.addTask = exports.fetchTasks = undefined;
 
 var _axios = __webpack_require__(36);
 
@@ -5186,6 +5186,20 @@ var createTask = exports.createTask = function createTask(task) {
             dispatch(createTaskSuccess(data));
         }).catch(function (error) {
             console.log(error);
+        });
+    };
+};
+
+var removeTask = exports.removeTask = function removeTask(id) {
+    return function (dispatch) {
+        return _axios2.default.delete('/api/task/' + id).then(function (res) {
+            console.log('removeTaskActionResponse', res);
+            dispatch({
+                type: 'TASK_DELETED_SUCCESS',
+                deletedTaskId: id
+            });
+        }).catch(function (error) {
+            throw error;
         });
     };
 };
@@ -13227,6 +13241,8 @@ var Days = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             var tasks = this.props.taskInfo.tasks;
             var _props$taskInfo$tasks = this.props.taskInfo.tasksRequest,
                 loading = _props$taskInfo$tasks.loading,
@@ -13280,7 +13296,7 @@ var Days = function (_React$Component) {
                     return _react2.default.createElement(
                         'div',
                         { key: i },
-                        _react2.default.createElement(_Task2.default, { property: property })
+                        _react2.default.createElement(_Task2.default, { property: property, removeTask: _this2.props.removeTask })
                     );
                 });
             }
@@ -13304,7 +13320,8 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)({
-        fetchTasks: _taskAction.fetchTasks
+        fetchTasks: _taskAction.fetchTasks,
+        removeTask: _taskAction.removeTask
     }, dispatch);
 };
 
@@ -14459,6 +14476,8 @@ var Task = function (_React$Component) {
     _createClass(Task, [{
         key: "render",
         value: function render() {
+            var _this2 = this;
+
             return _react2.default.createElement(
                 "div",
                 { className: "container-fluid" },
@@ -14581,7 +14600,9 @@ var Task = function (_React$Component) {
                         { className: "col-md-6" },
                         _react2.default.createElement(
                             "button",
-                            { className: "btn btn-danger" },
+                            { onClick: function onClick() {
+                                    return _this2.props.removeTask(_this2.props.property.id);
+                                }, className: "btn btn-danger" },
                             "Remove"
                         )
                     )
@@ -14894,6 +14915,21 @@ var taskInfo = function taskInfo() {
             return Object.assign({}, state, {
                 showCreateTaskForm: false,
                 tasks: updatedTasks
+            });
+        case 'TASK_DELETED_SUCCESS':
+            console.log('REMOVE_TASK');
+            var tasksBeforeDeletion = Object.assign([], state.tasks);
+            var deletedTaskId = action.deletedTaskId;
+            // if id == task.id then delete it from slots array 
+            var tasksAfterDeletion = tasksBeforeDeletion.filter(function (task) {
+                if (task._id != deletedTaskId) {
+                    return true;
+                }
+                return false;
+            });
+            // create new slots without deleted slot
+            return Object.assign({}, state, {
+                tasks: tasksAfterDeletion
             });
     }
     return state;

@@ -77,3 +77,19 @@ export const createTask = (task) => {
             });
     }
 }
+
+export const removeTask = (id) => {
+    return dispatch => {
+        return axios.delete(`/api/task/${id}`)
+            .then(res => {
+                console.log('removeTaskActionResponse', res);
+                dispatch({
+                    type: 'TASK_DELETED_SUCCESS',
+                    deletedTaskId: id
+                });
+            })
+            .catch(error => {
+                throw error;
+            });
+    }
+}

@@ -41,10 +41,10 @@ class Task extends React.Component {
                 </div>
                 <div className="row">
                      <div className="col-md-6">
-                            <button className="btn btn-info">Edit</button>
-                        </div>
+                        <button className="btn btn-info">Edit</button>
+                    </div>
                     <div className="col-md-6">
-                        <button className="btn btn-danger">Remove</button>
+                        <button onClick={() => this.props.removeTask(this.props.property.id)} className="btn btn-danger">Remove</button>
                     </div>
                 </div>
             </div>

@@ -57,6 +57,21 @@ const taskInfo = (state=initialState, action) => {
                 showCreateTaskForm: false,
                 tasks: updatedTasks
             });
+        case 'TASK_DELETED_SUCCESS':
+            console.log('REMOVE_TASK');
+            let tasksBeforeDeletion = Object.assign([], state.tasks); 
+            let deletedTaskId = action.deletedTaskId;
+            // if id == task.id then delete it from slots array 
+            let tasksAfterDeletion = tasksBeforeDeletion.filter(task => {
+                if(task._id != deletedTaskId) {
+                    return true;
+                }
+                return false; 
+            });
+            // create new slots without deleted slot
+            return Object.assign({}, state, {
+                tasks: tasksAfterDeletion
+            });
     }
     return state;
 }
