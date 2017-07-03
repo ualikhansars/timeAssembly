@@ -97,6 +97,7 @@ export const onClickUpdateTask = (id) => {
         return axios.get(`/api/task/${id}`)
             .then(res => {
                 console.log('onClickUpdateTask RESPONSE', res);
+                 console.log('onClickUpdateTask ID', id);
                 dispatch({
                     type: 'LOAD_TASK_OK',
                     task: res.data.resource 

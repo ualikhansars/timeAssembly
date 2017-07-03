@@ -71,6 +71,7 @@ const taskInfo = (state=initialState, action) => {
             }); 
         case 'LOAD_TASK_FAIL':
             // if api/slot/id get request failed
+           console.log('TASK ERRORS', action.taskErrors);
            return Object.assign({}, state, {
                 taskRequest: {
                     loading: false,
@@ -102,10 +103,10 @@ const taskInfo = (state=initialState, action) => {
         case 'UPDATE_TASK_SUCCESS':
             console.log('UPDATE_TASK');
             let tasksBeforeUpdate = Object.assign([], state.tasks);
-            console.log('tasksBeforeUpdate', tasksBeforeUpdate)
-            for(let object of tasksBeforeUpdate) {
-                if(object._id == action.task.id) {    
-                    object = action.task;
+            console.log('tasksBeforeUpdate', tasksBeforeUpdate);
+            for(let i = 0; i < tasksBeforeUpdate.length; ++i) {
+                if(tasksBeforeUpdate[i]._id === action.task._id) {
+                    tasksBeforeUpdate.splice(i, 1, action.task);
                 }
             }
             console.log('tasksAfterUpdate', tasksBeforeUpdate)

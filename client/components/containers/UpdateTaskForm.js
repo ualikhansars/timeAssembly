@@ -31,7 +31,7 @@ class UpdateTaskForm extends React.Component {
             finishTimeMinutes: this.finishTimeMinutes,
             day: this.day,
             username: this.username,
-            id: this.task       
+            _id: this.task       
         }
     }
 
