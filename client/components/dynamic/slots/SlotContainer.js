@@ -8,7 +8,7 @@ import {
         removeSlot, 
         createSlot, 
         showUpdateSlotForm, 
-        showSlotForm, 
+        showCreateSlotForm, 
         hideSlotForm
     } from '../../../actions/slotAction';
 
@@ -21,7 +21,7 @@ class SlotContainer extends React.Component {
     }
 
     render() {
-        const {slots, showCreateSlotForm} = this.props.slotInfo;
+        const {slots} = this.props.slotInfo;
         const {loading, loaded, errors} = this.props.slotInfo.slotsRequest;
         let resource = null;
         
@@ -70,7 +70,7 @@ class SlotContainer extends React.Component {
                 </div>
                 </div>
                 <div className="col-md-4 offset-md-4">
-                    <button onClick={() => this.props.showSlotForm()} className="btn btn-success">Create Task</button>
+                    <button onClick={() => this.props.showCreateSlotForm()} className="btn btn-success">Create Task</button>
                 </div>
                 <div className="row">
                     <div className="col-md-12">
@@ -94,7 +94,7 @@ const mapDispatchToProps = (dispatch) => {
             // fetch slots from database
             fetchSlots,
             addTask,
-            showSlotForm,
+            showCreateSlotForm,
             hideSlotForm,
             removeSlot,
             showUpdateSlotForm,

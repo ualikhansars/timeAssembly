@@ -11,8 +11,8 @@ const initialState = {
         loaded: false,
         errors: null, 
     }, 
-    showUpdateSlotForm: false,
-    showCreateSlotForm: false
+    displayUpdateSlotForm: false,
+    displayCreateSlotForm: false
 };
 
 const SlotInfo = (state = initialState, action) => {
@@ -86,34 +86,34 @@ const SlotInfo = (state = initialState, action) => {
             return Object.assign({}, state, {
                 slot: action.slot
             });
-        case 'SHOW_SLOT_FORM':
+        case 'SHOW_CREATE_SLOT_FORM':
             return Object.assign({}, state, {
-                showCreateSlotForm: true,
-                showUpdateSlotForm: false,
+                displayCreateSlotForm: true,
+                displayUpdateSlotForm: false,
             }); 
         case 'HIDE_SLOT_FORM':
             return Object.assign({}, state, {
-                showCreateSlotForm: false,
-                showUpdateSlotForm: false,
+                displayCreateSlotForm: false,
+                displayUpdateSlotForm: false,
             });
         case 'SHOW_UPDATE_SLOT_FORM':
             console.log('SHOW_UPDATE_SLOT_FORM');
             return Object.assign({}, state, {
-                showCreateSlotForm: false,
-                showUpdateSlotForm: true,
+                displayCreateSlotForm: false,
+                displayUpdateSlotForm: true,
             });
         case 'UPDATE_SLOT_SUCCESS':
             console.log('UPDATE_SLOT');
             return Object.assign({}, state, {
-                showCreateSlotForm: false,
-                showUpdateSlotForm: false
+                displayCreateSlotForm: false,
+                displayUpdateSlotForm: false
             });
         case 'CREATE_SLOT_SUCCESS':
             // push new slot into slots array
             let updatedSlots = Object.assign([], state.slots);
             updatedSlots.push(action.slot);
             return Object.assign({}, state, {
-                showCreateSlotForm: false,
+                displayCreateSlotForm: false,
                 slots: updatedSlots
             });
         case 'SLOT_DELETED_SUCCESS':

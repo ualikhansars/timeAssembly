@@ -7775,9 +7775,12 @@ var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// when createSlot button in slotContainer component is clicked
+// this function is fired, it will show
+// createSlotForm
 var showSlotForm = exports.showSlotForm = function showSlotForm() {
     return {
-        type: 'SHOW_SLOT_FORM'
+        type: 'SHOW_CREATE_SLOT_FORM'
     };
 };
 
@@ -13158,8 +13161,8 @@ var initialState = {
         loaded: false,
         errors: null
     },
-    showUpdateSlotForm: false,
-    showCreateSlotForm: false
+    displayUpdateSlotForm: false,
+    displayCreateSlotForm: false
 };
 
 var SlotInfo = function SlotInfo() {
@@ -13236,34 +13239,34 @@ var SlotInfo = function SlotInfo() {
             return Object.assign({}, state, {
                 slot: action.slot
             });
-        case 'SHOW_SLOT_FORM':
+        case 'SHOW_CREATE_SLOT_FORM':
             return Object.assign({}, state, {
-                showCreateSlotForm: true,
-                showUpdateSlotForm: false
+                displayCreateSlotForm: true,
+                displayUpdateSlotForm: false
             });
         case 'HIDE_SLOT_FORM':
             return Object.assign({}, state, {
-                showCreateSlotForm: false,
-                showUpdateSlotForm: false
+                displayCreateSlotForm: false,
+                displayUpdateSlotForm: false
             });
         case 'SHOW_UPDATE_SLOT_FORM':
             console.log('SHOW_UPDATE_SLOT_FORM');
             return Object.assign({}, state, {
-                showCreateSlotForm: false,
-                showUpdateSlotForm: true
+                displayCreateSlotForm: false,
+                displayUpdateSlotForm: true
             });
         case 'UPDATE_SLOT_SUCCESS':
             console.log('UPDATE_SLOT');
             return Object.assign({}, state, {
-                showCreateSlotForm: false,
-                showUpdateSlotForm: false
+                displayCreateSlotForm: false,
+                displayUpdateSlotForm: false
             });
         case 'CREATE_SLOT_SUCCESS':
             // push new slot into slots array
             var updatedSlots = Object.assign([], state.slots);
             updatedSlots.push(action.slot);
             return Object.assign({}, state, {
-                showCreateSlotForm: false,
+                displayCreateSlotForm: false,
                 slots: updatedSlots
             });
         case 'SLOT_DELETED_SUCCESS':
@@ -13312,8 +13315,8 @@ var initialState = {
         loaded: false,
         errors: null
     },
-    showCreateTaskForm: false,
-    showUpdateTaskForm: false
+    displayCreateTaskForm: false,
+    displayUpdateTaskForm: false
 };
 
 var taskInfo = function taskInfo() {
@@ -13387,13 +13390,13 @@ var taskInfo = function taskInfo() {
         case 'SHOW_CREATE_TASK_FORM':
             console.log('SHOW_CREATE_TASK_FORM');
             return Object.assign({}, state, {
-                showCreateTaskForm: true
+                displayCreateTaskForm: true
             });
         case 'HIDE_TASK_FORMS':
             console.log('HIDE_TASK_FORMS');
             return Object.assign({}, state, {
-                showCreateTaskForm: false,
-                showUpdateTaskForm: false
+                displayCreateTaskForm: false,
+                displayUpdateTaskForm: false
             });
         case 'CREATE_TASK_SUCCESS':
             // push new task into task array
@@ -13401,7 +13404,7 @@ var taskInfo = function taskInfo() {
             console.log('BEFORE PUSHING TASK', action.task);
             updatedTasks.push(action.task);
             return Object.assign({}, state, {
-                showCreateTaskForm: false,
+                displayCreateTaskForm: false,
                 tasks: updatedTasks
             });
         case 'UPDATE_TASK_SUCCESS':
@@ -13415,8 +13418,8 @@ var taskInfo = function taskInfo() {
             }
             console.log('tasksAfterUpdate', tasksBeforeUpdate);
             return Object.assign({}, state, {
-                showCreateTaskForm: false,
-                showUpdateTaskForm: false,
+                displayCreateTaskForm: false,
+                displayUpdateTaskForm: false,
                 tasks: tasksBeforeUpdate
             });
         case 'TASK_DELETED_SUCCESS':
@@ -27347,9 +27350,7 @@ var SlotContainer = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            var _props$slotInfo = this.props.slotInfo,
-                slots = _props$slotInfo.slots,
-                showCreateSlotForm = _props$slotInfo.showCreateSlotForm;
+            var slots = this.props.slotInfo.slots;
             var _props$slotInfo$slots = this.props.slotInfo.slotsRequest,
                 loading = _props$slotInfo$slots.loading,
                 loaded = _props$slotInfo$slots.loaded,
@@ -27426,7 +27427,7 @@ var SlotContainer = function (_React$Component) {
                     _react2.default.createElement(
                         'button',
                         { onClick: function onClick() {
-                                return _this2.props.showSlotForm();
+                                return _this2.props.showCreateSlotForm();
                             }, className: 'btn btn-success' },
                         'Create Task'
                     )
@@ -27459,7 +27460,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         // fetch slots from database
         fetchSlots: _slotAction.fetchSlots,
         addTask: _taskAction.addTask,
-        showSlotForm: _slotAction.showSlotForm,
+        showCreateSlotForm: _slotAction.showCreateSlotForm,
         hideSlotForm: _slotAction.hideSlotForm,
         removeSlot: _slotAction.removeSlot,
         showUpdateSlotForm: _slotAction.showUpdateSlotForm,
@@ -27532,19 +27533,19 @@ var Slots = function (_React$Component) {
         key: 'render',
         value: function render() {
             var _props$slotInfo = this.props.slotInfo,
-                showCreateSlotForm = _props$slotInfo.showCreateSlotForm,
-                showUpdateSlotForm = _props$slotInfo.showUpdateSlotForm;
-            var showCreateTaskForm = this.props.taskInfo.showCreateTaskForm;
+                displayCreateSlotForm = _props$slotInfo.displayCreateSlotForm,
+                displayUpdateSlotForm = _props$slotInfo.displayUpdateSlotForm;
+            var displayCreateTaskForm = this.props.taskInfo.displayCreateTaskForm;
 
             // if createSlot button has been clicked, CreateSlotForm will appear
 
-            if (showCreateSlotForm) {
+            if (displayCreateSlotForm) {
                 return _react2.default.createElement(_CreateSlotForm2.default, { hideSlotForm: this.props.hideSlotForm, createSlot: this.props.createSlot });
             }
-            if (showUpdateSlotForm) {
+            if (displayUpdateSlotForm) {
                 return _react2.default.createElement(_UpdateSlotForm2.default, { hideSlotForm: this.props.hideSlotForm, updateSlot: this.props.updateSlot });
             }
-            if (showCreateTaskForm) {
+            if (displayCreateTaskForm) {
                 return _react2.default.createElement(_CreateTaskForm2.default, { hideTaskForm: this.props.hideTaskForms, createTask: this.props.createTask });
             } else {
                 return _react2.default.createElement(_SlotContainer2.default, { showSlotForm: this.props.showSlotForm });

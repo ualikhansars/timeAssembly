@@ -11,8 +11,8 @@ const initialState = {
         loaded: false,
         errors: null
     },
-    showCreateTaskForm: false,
-    showUpdateTaskForm: false
+    displayCreateTaskForm: false,
+    displayUpdateTaskForm: false
 }
 
 const taskInfo = (state=initialState, action) => {
@@ -83,13 +83,13 @@ const taskInfo = (state=initialState, action) => {
         case 'SHOW_CREATE_TASK_FORM':
             console.log('SHOW_CREATE_TASK_FORM');
             return Object.assign({}, state, {
-                showCreateTaskForm: true
+                displayCreateTaskForm: true
             });   
         case 'HIDE_TASK_FORMS':
             console.log('HIDE_TASK_FORMS');
             return Object.assign({}, state, {
-                showCreateTaskForm: false,
-                showUpdateTaskForm: false
+                displayCreateTaskForm: false,
+                displayUpdateTaskForm: false
             });       
         case 'CREATE_TASK_SUCCESS':
             // push new task into task array
@@ -97,7 +97,7 @@ const taskInfo = (state=initialState, action) => {
             console.log('BEFORE PUSHING TASK', action.task);
             updatedTasks.push(action.task);
             return Object.assign({}, state, {
-                showCreateTaskForm: false,
+                displayCreateTaskForm: false,
                 tasks: updatedTasks
             });
         case 'UPDATE_TASK_SUCCESS':
@@ -111,8 +111,8 @@ const taskInfo = (state=initialState, action) => {
             }
             console.log('tasksAfterUpdate', tasksBeforeUpdate)
             return Object.assign({}, state, {
-                showCreateTaskForm: false,
-                showUpdateTaskForm: false,
+                displayCreateTaskForm: false,
+                displayUpdateTaskForm: false,
                 tasks: tasksBeforeUpdate
             });    
         case 'TASK_DELETED_SUCCESS':

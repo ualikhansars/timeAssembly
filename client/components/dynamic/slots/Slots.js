@@ -13,21 +13,21 @@ import {hideTaskForms, createTask} from '../../../actions/taskAction';
 
 class Slots extends React.Component {
     render() {
-        const {showCreateSlotForm, showUpdateSlotForm} = this.props.slotInfo;
-        const {showCreateTaskForm} = this.props.taskInfo;
+        const {displayCreateSlotForm, displayUpdateSlotForm} = this.props.slotInfo;
+        const {displayCreateTaskForm} = this.props.taskInfo;
 
         // if createSlot button has been clicked, CreateSlotForm will appear
-        if(showCreateSlotForm) {
+        if(displayCreateSlotForm) {
             return (
                 <CreateSlotForm hideSlotForm={this.props.hideSlotForm} createSlot={this.props.createSlot}/>  
             );
         }
-        if(showUpdateSlotForm) {
+        if(displayUpdateSlotForm) {
             return (
                 <UpdateSlotForm hideSlotForm={this.props.hideSlotForm} updateSlot={this.props.updateSlot}/>
             );
         }
-        if(showCreateTaskForm) {
+        if(displayCreateTaskForm) {
             return (
                 <CreateTaskForm hideTaskForm={this.props.hideTaskForms} createTask={this.props.createTask}/>
             );

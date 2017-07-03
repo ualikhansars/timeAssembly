@@ -1,8 +1,12 @@
 import axios from 'axios';
 
+
+// when createSlot button in slotContainer component is clicked
+// this function is fired, it will show
+// createSlotForm
 export const showSlotForm = () => {
     return {
-        type: 'SHOW_SLOT_FORM'
+        type: 'SHOW_CREATE_SLOT_FORM'
     };
 }
 
