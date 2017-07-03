@@ -53,7 +53,7 @@ export const removeSlot = (id) => {
     }
 }
 
-export const fetchSlotById = (id) => {
+export const onClickUpdateSlot = (id) => {
     return dispatch => {
         dispatch({
             type: 'LOAD_SLOT_REQUESTED'

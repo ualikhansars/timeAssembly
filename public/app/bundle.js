@@ -7766,7 +7766,7 @@ var displayNothing = exports.displayNothing = function displayNothing() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.createSlot = exports.createSlotSuccess = exports.updateSlot = exports.fetchSlotById = exports.removeSlot = exports.hideSlotForm = exports.showSlotForm = undefined;
+exports.createSlot = exports.createSlotSuccess = exports.updateSlot = exports.onClickUpdateSlot = exports.removeSlot = exports.hideSlotForm = exports.showSlotForm = undefined;
 exports.fetchSlots = fetchSlots;
 
 var _axios = __webpack_require__(37);
@@ -7823,7 +7823,7 @@ var removeSlot = exports.removeSlot = function removeSlot(id) {
     };
 };
 
-var fetchSlotById = exports.fetchSlotById = function fetchSlotById(id) {
+var onClickUpdateSlot = exports.onClickUpdateSlot = function onClickUpdateSlot(id) {
     return function (dispatch) {
         dispatch({
             type: 'LOAD_SLOT_REQUESTED'
@@ -27401,7 +27401,7 @@ var SlotContainer = function (_React$Component) {
                     return _react2.default.createElement(
                         'div',
                         { key: i },
-                        _react2.default.createElement(_Slot2.default, { fetchSlot: _this2.props.fetchSlotById, removeSlot: _this2.props.removeSlot, addTask: _this2.props.addTask, property: property })
+                        _react2.default.createElement(_Slot2.default, { fetchSlot: _this2.props.onClickUpdateSlot, removeSlot: _this2.props.removeSlot, addTask: _this2.props.addTask, property: property })
                     );
                 });
             }
@@ -27465,7 +27465,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         removeSlot: _slotAction.removeSlot,
         showUpdateSlotForm: _slotAction.showUpdateSlotForm,
         createSlot: _slotAction.createSlot,
-        fetchSlotById: _slotAction.fetchSlotById
+        onClickUpdateSlot: _slotAction.onClickUpdateSlot
     }, dispatch);
 };
 

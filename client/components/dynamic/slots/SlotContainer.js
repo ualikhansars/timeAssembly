@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {addTask} from '../../../actions/taskAction';
 import {
         fetchSlots,
-        fetchSlotById, 
+        onClickUpdateSlot, 
         removeSlot, 
         createSlot, 
         showUpdateSlotForm, 
@@ -57,7 +57,7 @@ class SlotContainer extends React.Component {
                     }
                     return (
                         <div key={i}>
-                            <Slot fetchSlot={this.props.fetchSlotById} removeSlot={this.props.removeSlot} addTask={this.props.addTask} property={property}/>
+                            <Slot fetchSlot={this.props.onClickUpdateSlot} removeSlot={this.props.removeSlot} addTask={this.props.addTask} property={property}/>
                         </div>
                     );
             });
@@ -99,7 +99,7 @@ const mapDispatchToProps = (dispatch) => {
             removeSlot,
             showUpdateSlotForm,
             createSlot,
-            fetchSlotById,
+            onClickUpdateSlot,
         }, 
         dispatch
     );
