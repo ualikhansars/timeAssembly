@@ -1,8 +1,8 @@
 import React from 'react';
-import Dynamic from '../containers/Dynamic';
-import {Navbar} from '../presentation/Navbar';
-import Sidebar from '../containers/Sidebar'; 
-import Days from '../containers/Days'; 
+import Dynamic from '../dynamic/Dynamic';
+import Navbar from '../navigation/Navbar';
+import Sidebar from '../sidebar/Sidebar'; 
+import Days from '../taskContainer/Days'; 
 
 
 export class Home extends React.Component {

@@ -1,15 +1,14 @@
 import React from 'react';
 
-import CreateSlotForm from '../presentation/CreateSlotForm';
-import UpdateSlotForm from './UpdateSlotForm';
+import CreateSlotForm from '../forms/CreateSlotForm';
+import UpdateSlotForm from '../forms/UpdateSlotForm';
+import CreateTaskForm from '../forms/CreateTaskForm';
 import SlotContainer from './SlotContainer';
-import CreateTaskForm from './CreateTaskForm';
-import UpdateTaskForm from './UpdateTaskForm'
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {showSlotForm, hideSlotForm, createSlot, updateSlot} from '../../actions/slotAction';
-import {hideTaskForms, createTask} from '../../actions/taskAction';
+import {showSlotForm, hideSlotForm, createSlot, updateSlot} from '../../../actions/slotAction';
+import {hideTaskForms, createTask} from '../../../actions/taskAction';
 
 
 class Slots extends React.Component {

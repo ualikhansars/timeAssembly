@@ -3,8 +3,8 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
-import {displayNothing} from '../../actions/displayAction';
-import {updateTask} from '../../actions/taskAction';
+import {displayNothing} from '../../../actions/displayAction';
+import {updateTask} from '../../../actions/taskAction';
 
 class UpdateTaskForm extends React.Component {
     constructor(props) {

@@ -2,9 +2,9 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
-import Slots from './Slots';
-import Settings from './Settings';
-import UpdateTaskForm from './UpdateTaskForm';
+import Slots from './slots/Slots';
+import Settings from './settings/Settings';
+import UpdateTaskForm from './forms/UpdateTaskForm';
 
 
 class Dynamic extends React.Component {

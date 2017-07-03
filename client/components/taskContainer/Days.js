@@ -6,7 +6,7 @@ import {fetchTasks,
         onClickUpdateTask 
         } from '../../actions/taskAction';
 
-import Task from '../presentation/Task';
+import Task from './Task';
 
 class Days extends React.Component {
 

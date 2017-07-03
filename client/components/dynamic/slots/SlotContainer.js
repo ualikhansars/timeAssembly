@@ -1,11 +1,19 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {fetchSlots} from '../../actions/fetchSlotAction';
-import {addTask} from '../../actions/taskAction';
-import {onClickUpdateSlot, fetchSlotById, removeSlot, createSlot, showUpdateSlotForm, showSlotForm, hideSlotForm} from '../../actions/slotAction';
+import {fetchSlots} from '../../../actions/fetchSlotAction';
+import {addTask} from '../../../actions/taskAction';
+import {
+        onClickUpdateSlot, 
+        fetchSlotById, 
+        removeSlot, 
+        createSlot, 
+        showUpdateSlotForm, 
+        showSlotForm, 
+        hideSlotForm
+    } from '../../../actions/slotAction';
 
-import Slot from '../presentation/Slot';
+import Slot from './Slot';
 
 class SlotContainer extends React.Component {
         
