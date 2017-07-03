@@ -1,10 +1,9 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {fetchSlots} from '../../../actions/fetchSlotAction';
 import {addTask} from '../../../actions/taskAction';
 import {
-        onClickUpdateSlot, 
+        fetchSlots,
         fetchSlotById, 
         removeSlot, 
         createSlot, 

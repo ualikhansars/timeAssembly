@@ -7767,6 +7767,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.createSlot = exports.createSlotSuccess = exports.updateSlot = exports.fetchSlotById = exports.removeSlot = exports.hideSlotForm = exports.showSlotForm = undefined;
+exports.fetchSlots = fetchSlots;
 
 var _axios = __webpack_require__(37);
 
@@ -7785,6 +7786,25 @@ var hideSlotForm = exports.hideSlotForm = function hideSlotForm() {
         type: 'HIDE_SLOT_FORM'
     };
 };
+
+function fetchSlots() {
+    return function (dispatch) {
+        dispatch({
+            type: 'LOAD_SLOTS_REQUESTED'
+        });
+        _axios2.default.get('/api/slot').then(function (res) {
+            dispatch({
+                type: 'LOAD_SLOTS_OK',
+                slots: res.data.resource
+            });
+        }).catch(function (result) {
+            dispatch({
+                type: 'LOAD_SLOTS_FAIL',
+                slotsErrors: result.message
+            });
+        });
+    };
+}
 
 var removeSlot = exports.removeSlot = function removeSlot(id) {
     return function (dispatch) {
@@ -12954,48 +12974,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 128 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.fetchSlots = fetchSlots;
-
-var _axios = __webpack_require__(37);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var url = '/api/slot';
-
-function fetchSlots() {
-    return function (dispatch) {
-
-        dispatch({
-            type: 'LOAD_SLOTS_REQUESTED'
-        });
-
-        _axios2.default.get(url).then(function (result) {
-            console.log('result', result);
-            dispatch({
-                type: 'LOAD_SLOTS_OK',
-                slots: result.data.resource
-            });
-        }).catch(function (result) {
-            dispatch({
-                type: 'LOAD_SLOTS_FAIL',
-                slotsErrors: result.message
-            });
-        });
-    };
-}
-
-/***/ }),
+/* 128 */,
 /* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27333,8 +27312,6 @@ var _redux = __webpack_require__(16);
 
 var _reactRedux = __webpack_require__(14);
 
-var _fetchSlotAction = __webpack_require__(128);
-
 var _taskAction = __webpack_require__(29);
 
 var _slotAction = __webpack_require__(67);
@@ -27480,7 +27457,7 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)({
         // fetch slots from database
-        fetchSlots: _fetchSlotAction.fetchSlots,
+        fetchSlots: _slotAction.fetchSlots,
         addTask: _taskAction.addTask,
         showSlotForm: _slotAction.showSlotForm,
         hideSlotForm: _slotAction.hideSlotForm,
