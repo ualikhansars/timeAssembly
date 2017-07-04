@@ -13329,6 +13329,7 @@ var CreateTaskForm = function (_React$Component) {
         _this.title = _this.props.slotInfo.slot.title;
         _this.category = _this.props.slotInfo.slot.category;
         _this.slot = _this.props.slotInfo.slot._id;
+        _this.day = _this.props.daysInfo.currentDay;
         _this.state = {
             title: _this.title,
             category: _this.category,
@@ -13338,7 +13339,7 @@ var CreateTaskForm = function (_React$Component) {
             startTimeMinutes: 0,
             finishTimeHours: 0,
             finishTimeMinutes: 0,
-            day: '',
+            day: _this.day,
             username: '5954dadd41b4a32e8b86c405',
             slot: _this.slot
         };
@@ -13480,7 +13481,8 @@ var CreateTaskForm = function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
     return {
-        slotInfo: state.slotInfo
+        slotInfo: state.slotInfo,
+        daysInfo: state.daysInfo
     };
 };
 
@@ -13718,7 +13720,7 @@ var UpdateTaskForm = function (_React$Component) {
         _this.state = {
             title: _this.title,
             category: _this.category,
-            description: _this.duration,
+            description: _this.description,
             duration: _this.duration,
             startTimeHours: _this.startTimeHours,
             startTimeMinutes: _this.startTimeMinutes,

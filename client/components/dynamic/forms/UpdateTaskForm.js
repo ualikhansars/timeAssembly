@@ -23,7 +23,7 @@ class UpdateTaskForm extends React.Component {
         this.state = {
             title: this.title,
             category: this.category,
-            description: this.duration,
+            description: this.description,
             duration: this.duration,
             startTimeHours: this.startTimeHours,
             startTimeMinutes: this.startTimeMinutes,

@@ -6,7 +6,8 @@ class CreateTaskForm extends React.Component {
         super(props);
         this.title = this.props.slotInfo.slot.title;
         this.category = this.props.slotInfo.slot.category;
-        this.slot = this.props.slotInfo.slot._id;       
+        this.slot = this.props.slotInfo.slot._id;  
+        this.day =  this.props.daysInfo.currentDay;    
         this.state = {
             title: this.title,
             category: this.category,
@@ -16,7 +17,7 @@ class CreateTaskForm extends React.Component {
             startTimeMinutes: 0,
             finishTimeHours: 0,
             finishTimeMinutes: 0,
-            day: '',
+            day: this.day,
             username: '5954dadd41b4a32e8b86c405',
             slot: this.slot       
         }
@@ -103,7 +104,8 @@ class CreateTaskForm extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        slotInfo: state.slotInfo
+        slotInfo: state.slotInfo,
+        daysInfo: state.daysInfo
     };
 }
 
