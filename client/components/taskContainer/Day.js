@@ -1,7 +1,7 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {fetchTasks, 
+import {fetchTasksByDay, 
         removeTask,
         onClickUpdateTask 
         } from '../../actions/taskAction';
@@ -11,7 +11,7 @@ import Task from './Task';
 class Day extends React.Component {
 
     componentDidMount() {
-        this.props.fetchTasks();
+        this.props.fetchTasksByDay();
     }
 
     render() {
@@ -76,7 +76,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-            fetchTasks,
+            fetchTasksByDay,
             removeTask,
             onClickUpdateTask
         }, 

@@ -22,6 +22,32 @@ export const fetchTasks = () => {
     }
 }
 
+export const fetchTasksByDay = (day) => {
+    return dispatch => {
+        dispatch({
+            type: 'LOAD_TASKS_REQUESTED'
+        });
+        axios.get('/api/task', {
+            params: {
+                day: day
+            }
+            })
+            .then(result => {
+                console.log('result',result);
+                dispatch({
+                    type: 'LOAD_TASKS_OK',
+                    tasks: result.data.resource
+                });
+            })
+            .catch(result => {
+                dispatch({
+                    type: 'LOAD_TASKS_FAIL',
+                    tasksErrors: result.message
+                })
+            })
+    }
+}
+
 // fistly, this function loads Slot by Id
 // to write slot data into Task
 // then is case of success request
