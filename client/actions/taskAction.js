@@ -1,27 +1,5 @@
 import axios from 'axios';
 
-export const fetchTasks = () => {
-    return dispatch => {
-        dispatch({
-            type: 'LOAD_TASKS_REQUESTED'
-        });
-        axios.get('/api/task')
-            .then(result => {
-                console.log('result',result);
-                dispatch({
-                    type: 'LOAD_TASKS_OK',
-                    tasks: result.data.resource
-                });
-            })
-            .catch(result => {
-                dispatch({
-                    type: 'LOAD_TASKS_FAIL',
-                    tasksErrors: result.message
-                })
-            })
-    }
-}
-
 export const fetchTasksByDay = (day) => {
     return dispatch => {
         dispatch({

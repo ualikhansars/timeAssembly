@@ -3840,33 +3840,13 @@ module.exports = SyntheticUIEvent;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.removeTask = exports.updateTask = exports.onClickUpdateTask = exports.createTask = exports.createTaskSuccess = exports.hideTaskForms = exports.addTask = exports.fetchTasksByDay = exports.fetchTasks = undefined;
+exports.removeTask = exports.updateTask = exports.onClickUpdateTask = exports.createTask = exports.createTaskSuccess = exports.hideTaskForms = exports.addTask = exports.fetchTasksByDay = undefined;
 
 var _axios = __webpack_require__(60);
 
 var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var fetchTasks = exports.fetchTasks = function fetchTasks() {
-    return function (dispatch) {
-        dispatch({
-            type: 'LOAD_TASKS_REQUESTED'
-        });
-        _axios2.default.get('/api/task').then(function (result) {
-            console.log('result', result);
-            dispatch({
-                type: 'LOAD_TASKS_OK',
-                tasks: result.data.resource
-            });
-        }).catch(function (result) {
-            dispatch({
-                type: 'LOAD_TASKS_FAIL',
-                tasksErrors: result.message
-            });
-        });
-    };
-};
 
 var fetchTasksByDay = exports.fetchTasksByDay = function fetchTasksByDay(day) {
     return function (dispatch) {
