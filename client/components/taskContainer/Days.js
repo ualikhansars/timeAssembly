@@ -1,86 +1,66 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {fetchTasks, 
-        removeTask,
-        onClickUpdateTask 
-        } from '../../actions/taskAction';
 
-import Task from './Task';
+import Day from './Day';
+
+
 
 class Days extends React.Component {
-
-    componentDidMount() {
-        this.props.fetchTasks();
-    }
-
     render() {
-        const {tasks} = this.props.taskInfo;
-        const {loading, loaded, errors} = this.props.taskInfo.tasksRequest;
-        let resource = null;
-        // when data is loading
-        if(loading) {
-            return(
-                <div>loading</div>
+        const {currentDay} = this.props.daysInfo;
+
+        if(currentDay == 'monday') {
+            return (
+                <Day day={'monday'}/>
             );
         }
-
-        // if errors occurs
-        if(errors) {
-            return(
-                <div className="container-fluid">
-                    <div>Errors</div>
-                    <div>{errors}</div>
-                </div>
+        if(currentDay == 'tuesday') {
+            return (
+                <Day day={'tuesday'}/>
+            );   
+        }
+        if(currentDay == 'wednesday') {
+            return (
+                <Day day={'wednesday'}/>
+            );  
+        }
+        if(currentDay == 'thursday') {
+            return (
+                <Day day={'thursday'}/>
+            );  
+        }
+        if(currentDay == 'friday') {
+            return (
+                <Day day={'friday'}/>
+            ); 
+        }
+        if(currentDay == 'saturday') {
+            return (
+                <Day day={'saturday'}/>
+            ); 
+        }
+        if(currentDay == 'sunday') {
+            return (
+                <Day day={'sunday'}/>
             );
         }
-
-        // when data loaded
-        // display every tasks
-        if(loaded) {
-                 resource = tasks.map((task, i) => {
-                    let property = {
-                        title: task.title,
-                        category: task.category,
-                        description: task.description,
-                        duration: task.duration,
-                        startTimeHours: task.startTimeHours,
-                        startTimeMinutes: task.startTimeMinutes,
-                        finishTimeHours: task.finishTimeHours,
-                        finishTimeMinutes: task.finishTimeMinutes,
-                        day: task.day,
-                        id: task._id
-                    }
-                    return (
-                        <div key={i}>
-                            <Task onClickUpdate={this.props.onClickUpdateTask} property={property} removeTask={this.props.removeTask}/>
-                        </div>
-                    );
-            });
+        
+        else {
+            return (
+                <h4>
+                    Error: day is not defined
+                </h4>
+            );
         }
-
-        return (
-            <div>
-                {resource}
-            </div>
-        )
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        taskInfo: state.taskInfo,
+        daysInfo: state.daysInfo,
     };
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({
-            fetchTasks,
-            removeTask,
-            onClickUpdateTask
-        }, 
-        dispatch
-    );
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Days);
+export default connect(mapStateToProps, null)(Days);

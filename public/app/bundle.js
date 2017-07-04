@@ -14588,11 +14588,9 @@ var _redux = __webpack_require__(16);
 
 var _reactRedux = __webpack_require__(14);
 
-var _taskAction = __webpack_require__(29);
+var _Day = __webpack_require__(277);
 
-var _Task = __webpack_require__(140);
-
-var _Task2 = _interopRequireDefault(_Task);
+var _Day2 = _interopRequireDefault(_Day);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14612,78 +14610,38 @@ var Days = function (_React$Component) {
     }
 
     _createClass(Days, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            this.props.fetchTasks();
-        }
-    }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
+            var currentDay = this.props.daysInfo.currentDay;
 
-            var tasks = this.props.taskInfo.tasks;
-            var _props$taskInfo$tasks = this.props.taskInfo.tasksRequest,
-                loading = _props$taskInfo$tasks.loading,
-                loaded = _props$taskInfo$tasks.loaded,
-                errors = _props$taskInfo$tasks.errors;
 
-            var resource = null;
-            // when data is loading
-            if (loading) {
+            if (currentDay == 'monday') {
+                return _react2.default.createElement(_Day2.default, { day: 'monday' });
+            }
+            if (currentDay == 'tuesday') {
+                return _react2.default.createElement(_Day2.default, { day: 'tuesday' });
+            }
+            if (currentDay == 'wednesday') {
+                return _react2.default.createElement(_Day2.default, { day: 'wednesday' });
+            }
+            if (currentDay == 'thursday') {
+                return _react2.default.createElement(_Day2.default, { day: 'thursday' });
+            }
+            if (currentDay == 'friday') {
+                return _react2.default.createElement(_Day2.default, { day: 'friday' });
+            }
+            if (currentDay == 'saturday') {
+                return _react2.default.createElement(_Day2.default, { day: 'saturday' });
+            }
+            if (currentDay == 'sunday') {
+                return _react2.default.createElement(_Day2.default, { day: 'sunday' });
+            } else {
                 return _react2.default.createElement(
-                    'div',
+                    'h4',
                     null,
-                    'loading'
+                    'Error: day is not defined'
                 );
             }
-
-            // if errors occurs
-            if (errors) {
-                return _react2.default.createElement(
-                    'div',
-                    { className: 'container-fluid' },
-                    _react2.default.createElement(
-                        'div',
-                        null,
-                        'Errors'
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        null,
-                        errors
-                    )
-                );
-            }
-
-            // when data loaded
-            // display every tasks
-            if (loaded) {
-                resource = tasks.map(function (task, i) {
-                    var property = {
-                        title: task.title,
-                        category: task.category,
-                        description: task.description,
-                        duration: task.duration,
-                        startTimeHours: task.startTimeHours,
-                        startTimeMinutes: task.startTimeMinutes,
-                        finishTimeHours: task.finishTimeHours,
-                        finishTimeMinutes: task.finishTimeMinutes,
-                        day: task.day,
-                        id: task._id
-                    };
-                    return _react2.default.createElement(
-                        'div',
-                        { key: i },
-                        _react2.default.createElement(_Task2.default, { onClickUpdate: _this2.props.onClickUpdateTask, property: property, removeTask: _this2.props.removeTask })
-                    );
-                });
-            }
-
-            return _react2.default.createElement(
-                'div',
-                null,
-                resource
-            );
         }
     }]);
 
@@ -14692,19 +14650,11 @@ var Days = function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
     return {
-        taskInfo: state.taskInfo
+        daysInfo: state.daysInfo
     };
 };
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-    return (0, _redux.bindActionCreators)({
-        fetchTasks: _taskAction.fetchTasks,
-        removeTask: _taskAction.removeTask,
-        onClickUpdateTask: _taskAction.onClickUpdateTask
-    }, dispatch);
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Days);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(Days);
 
 /***/ }),
 /* 140 */
@@ -28868,7 +28818,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var initialState = {
-    currentDay: 'Monday' // will be change to the current day
+    currentDay: 'monday' // will be change to the current day
 };
 
 var daysReducer = function daysReducer() {
@@ -28877,8 +28827,9 @@ var daysReducer = function daysReducer() {
 
     switch (action.type) {
         case 'ON_CLICK_DAY_IN_THE_WEEK':
+            var chosenDay = action.chosenDay.toLowerCase();
             return Object.assign({}, state, {
-                currentDay: action.chosenDay
+                currentDay: chosenDay
             });
         default:
             return state;
@@ -28903,6 +28854,146 @@ var onClickDayInTheWeek = exports.onClickDayInTheWeek = function onClickDayInThe
         chosenDay: day
     };
 };
+
+/***/ }),
+/* 277 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _redux = __webpack_require__(16);
+
+var _reactRedux = __webpack_require__(14);
+
+var _taskAction = __webpack_require__(29);
+
+var _Task = __webpack_require__(140);
+
+var _Task2 = _interopRequireDefault(_Task);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Day = function (_React$Component) {
+    _inherits(Day, _React$Component);
+
+    function Day() {
+        _classCallCheck(this, Day);
+
+        return _possibleConstructorReturn(this, (Day.__proto__ || Object.getPrototypeOf(Day)).apply(this, arguments));
+    }
+
+    _createClass(Day, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.props.fetchTasks();
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var tasks = this.props.taskInfo.tasks;
+            var _props$taskInfo$tasks = this.props.taskInfo.tasksRequest,
+                loading = _props$taskInfo$tasks.loading,
+                loaded = _props$taskInfo$tasks.loaded,
+                errors = _props$taskInfo$tasks.errors;
+
+            var resource = null;
+            // when data is loading
+            if (loading) {
+                return _react2.default.createElement(
+                    'div',
+                    null,
+                    'loading'
+                );
+            }
+
+            // if errors occurs
+            if (errors) {
+                return _react2.default.createElement(
+                    'div',
+                    { className: 'container-fluid' },
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        'Errors'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        errors
+                    )
+                );
+            }
+
+            // when data loaded
+            // display every tasks
+            if (loaded) {
+                resource = tasks.map(function (task, i) {
+                    var property = {
+                        title: task.title,
+                        category: task.category,
+                        description: task.description,
+                        duration: task.duration,
+                        startTimeHours: task.startTimeHours,
+                        startTimeMinutes: task.startTimeMinutes,
+                        finishTimeHours: task.finishTimeHours,
+                        finishTimeMinutes: task.finishTimeMinutes,
+                        day: task.day,
+                        id: task._id
+                    };
+                    return _react2.default.createElement(
+                        'div',
+                        { key: i },
+                        _react2.default.createElement(_Task2.default, { onClickUpdate: _this2.props.onClickUpdateTask, property: property, removeTask: _this2.props.removeTask })
+                    );
+                });
+            }
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                this.props.day,
+                resource
+            );
+        }
+    }]);
+
+    return Day;
+}(_react2.default.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        taskInfo: state.taskInfo
+    };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({
+        fetchTasks: _taskAction.fetchTasks,
+        removeTask: _taskAction.removeTask,
+        onClickUpdateTask: _taskAction.onClickUpdateTask
+    }, dispatch);
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Day);
 
 /***/ })
 /******/ ]);
