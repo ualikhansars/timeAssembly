@@ -14621,33 +14621,7 @@ var Days = function (_React$Component) {
             var currentDay = this.props.daysInfo.currentDay;
 
 
-            if (currentDay == 'monday') {
-                return _react2.default.createElement(_Day2.default, { day: 'monday' });
-            }
-            if (currentDay == 'tuesday') {
-                return _react2.default.createElement(_Day2.default, { day: 'tuesday' });
-            }
-            if (currentDay == 'wednesday') {
-                return _react2.default.createElement(_Day2.default, { day: 'wednesday' });
-            }
-            if (currentDay == 'thursday') {
-                return _react2.default.createElement(_Day2.default, { day: 'thursday' });
-            }
-            if (currentDay == 'friday') {
-                return _react2.default.createElement(_Day2.default, { day: 'friday' });
-            }
-            if (currentDay == 'saturday') {
-                return _react2.default.createElement(_Day2.default, { day: 'saturday' });
-            }
-            if (currentDay == 'sunday') {
-                return _react2.default.createElement(_Day2.default, { day: 'sunday' });
-            } else {
-                return _react2.default.createElement(
-                    'h4',
-                    null,
-                    'Error: day is not defined'
-                );
-            }
+            return _react2.default.createElement(_Day2.default, { day: currentDay });
         }
     }]);
 
