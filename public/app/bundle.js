@@ -28908,7 +28908,15 @@ var Day = function (_React$Component) {
     _createClass(Day, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            this.props.fetchTasksByDay();
+            this.props.fetchTasksByDay(this.props.day);
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            console.log('Next Props', nextProps);
+            if (this.props.day != nextProps.day) {
+                this.props.fetchTasksByDay(nextProps.day);
+            }
         }
     }, {
         key: 'render',

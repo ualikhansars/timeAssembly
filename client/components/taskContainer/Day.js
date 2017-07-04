@@ -9,10 +9,18 @@ import {fetchTasksByDay,
 import Task from './Task';
 
 class Day extends React.Component {
-
+    
     componentDidMount() {
-        this.props.fetchTasksByDay();
+        this.props.fetchTasksByDay(this.props.day);
     }
+
+    componentWillReceiveProps(nextProps) {
+       console.log('Next Props', nextProps);
+       if(this.props.day != nextProps.day) {
+           this.props.fetchTasksByDay(nextProps.day);
+       }
+    }
+
 
     render() {
         const {tasks} = this.props.taskInfo;
