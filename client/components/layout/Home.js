@@ -2,7 +2,7 @@ import React from 'react';
 import Dynamic from '../dynamic/Dynamic';
 import Navbar from '../navigation/Navbar';
 import Sidebar from '../sidebar/Sidebar'; 
-import Days from '../taskContainer/Days'; 
+import TaskContainer from '../taskContainer/TaskContainer'; 
 
 
 export class Home extends React.Component {
@@ -16,7 +16,7 @@ export class Home extends React.Component {
                 </div>
                  <div className="row">
                     <div className="col-md-4 tasks">
-                        <Days/>
+                        <TaskContainer/>
                     </div>
                     <div className="col-md-6 dynamic">
                         <Dynamic/>
