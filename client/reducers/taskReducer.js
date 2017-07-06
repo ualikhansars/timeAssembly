@@ -130,6 +130,9 @@ const taskInfo = (state=initialState, action) => {
             return Object.assign({}, state, {
                 tasks: tasksAfterDeletion
             });
+        case 'TASKS_BY_SLOT_ID_DELETED_SUCCESS':
+            console.log('TASKS_BY_SLOT_ID_DELETED_SUCCESS');
+            return Object.assign({}, state);
     }
     return state;
 }

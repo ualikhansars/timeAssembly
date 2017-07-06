@@ -40,6 +40,11 @@ class Task extends React.Component {
                     </div>
                 </div>
                 <div className="row">
+                    <div className="col-md-12">
+                        <span>SlotId: {this.props.property.slot}</span>
+                    </div>
+                </div>
+                <div className="row">
                      <div className="col-md-6">
                         <button onClick={() => this.props.onClickUpdate(this.props.property.id)} className="btn btn-info">Edit</button>
                     </div>

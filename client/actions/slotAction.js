@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import {removeTaskBySlotId} from './taskAction';
 
 // when createSlot button in slotContainer component is clicked
 // this function is fired, it will show
@@ -47,11 +48,26 @@ export const removeSlot = (id) => {
                     deletedSlotId: id
                 });
             })
+            // .then(removeTaskBySlotId(id))
+            .then(
+                axios.delete('/api/task', {
+                params: {
+                    slot: id
+                }
+            })
+            .then(res => {
+                    console.log('TASKS_BY_SLOT_ID_DELETED_SUCCESS');
+                    dispatch({
+                        type: 'TASKS_BY_SLOT_ID_DELETED_SUCCESS',
+                    });
+                })
+            )
             .catch(error => {
                 throw error;
             });
     }
 }
+
 
 export const onClickUpdateSlot = (id) => {
     return dispatch => {

@@ -57,6 +57,7 @@ class Day extends React.Component {
                         finishTimeHours: task.finishTimeHours,
                         finishTimeMinutes: task.finishTimeMinutes,
                         day: task.day,
+                        slot: task.slot,
                         id: task._id
                     }
                     return (

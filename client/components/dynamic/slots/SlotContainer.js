@@ -9,7 +9,7 @@ import {
         createSlot, 
         showUpdateSlotForm, 
         showCreateSlotForm, 
-        hideSlotForm
+        hideSlotForm,
     } from '../../../actions/slotAction';
 
 import Slot from './Slot';

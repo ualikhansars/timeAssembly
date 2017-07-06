@@ -1,9 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var controllers = require('../controllers');
-
-
-
+var Task = require('../models/task');
 // find all
 router.get('/:resource', function(req, res, next) {
   var resource = req.params.resource;
@@ -149,26 +147,19 @@ router.delete('/:resource/:id', function(req, res, next) {
 });
 
 
-// update tests
-
-router.get('/task/:id/update', function(req, res, next) {
-  var id = req.params.id;
-  res.render('updateTask', {id: id});
-});
-
-router.get('/slot/:id/update', function(req, res, next) {
-  var id = req.params.id;
-  res.render('updateSlot', {id: id});
-});
-
-router.get('/user/:id/update', function(req, res, next) {
-  var id = req.params.id;
-  res.render('updateUser', {id: id});
-});
-
-router.get('/task/:id/remove', function(req, res, next) {
-  var id = req.params.id;
-  res.redirect('/api/task')
-});
+router.delete('/task', function(req, res, next) {
+  Task.remove(req.query, function(err) {
+    if(err) {
+      res.json({
+        confirmation: 'error',
+        message: err
+      });
+    }
+    res.json({
+      confirmation: 'success',
+      resource: 'task successfully deleted' 
+    });
+  })
+}); 
 
 module.exports = router;
