@@ -56,9 +56,10 @@ export const removeSlot = (id) => {
                 }
             })
             .then(res => {
-                    console.log('TASKS_BY_SLOT_ID_DELETED_SUCCESS');
+                    console.log('TASKS_BY_SLOT_ID_DELETED_SUCCESS', res);
                     dispatch({
                         type: 'TASKS_BY_SLOT_ID_DELETED_SUCCESS',
+                        deletedSlotIdInTask: id
                     });
                 })
             )

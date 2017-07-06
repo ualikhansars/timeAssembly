@@ -7830,9 +7830,10 @@ var removeSlot = exports.removeSlot = function removeSlot(id) {
                 slot: id
             }
         }).then(function (res) {
-            console.log('TASKS_BY_SLOT_ID_DELETED_SUCCESS');
+            console.log('TASKS_BY_SLOT_ID_DELETED_SUCCESS', res);
             dispatch({
-                type: 'TASKS_BY_SLOT_ID_DELETED_SUCCESS'
+                type: 'TASKS_BY_SLOT_ID_DELETED_SUCCESS',
+                deletedSlotIdInTask: id
             });
         })).catch(function (error) {
             throw error;
@@ -15638,7 +15639,16 @@ var taskInfo = function taskInfo() {
             });
         case 'TASKS_BY_SLOT_ID_DELETED_SUCCESS':
             console.log('TASKS_BY_SLOT_ID_DELETED_SUCCESS');
-            return Object.assign({}, state);
+            var tasksBeforeSlotDeletion = Object.assign([], state.tasks);
+            var taskAfterSlotDeletion = tasksBeforeSlotDeletion.filter(function (task) {
+                if (task.slot != action.deletedSlotIdInTask) {
+                    return true;
+                }
+                return false;
+            });
+            return Object.assign({}, state, {
+                tasks: taskAfterSlotDeletion
+            });
     }
     return state;
 };

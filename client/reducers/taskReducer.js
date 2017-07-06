@@ -132,7 +132,16 @@ const taskInfo = (state=initialState, action) => {
             });
         case 'TASKS_BY_SLOT_ID_DELETED_SUCCESS':
             console.log('TASKS_BY_SLOT_ID_DELETED_SUCCESS');
-            return Object.assign({}, state);
+            let tasksBeforeSlotDeletion = Object.assign([], state.tasks);
+            let taskAfterSlotDeletion = tasksBeforeSlotDeletion.filter(task => {
+                if(task.slot != action.deletedSlotIdInTask) {
+                    return true;
+                }
+                return false;
+            });
+            return Object.assign({}, state, {
+                 tasks: taskAfterSlotDeletion
+            });
     }
     return state;
 }
