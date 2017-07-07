@@ -13759,7 +13759,8 @@ var UpdateTaskForm = function (_React$Component) {
         _this.finishTimeHours = _this.props.taskInfo.task.finishTimeMinutes;
         _this.day = _this.props.taskInfo.task.day;
         _this.username = _this.props.taskInfo.task.username;
-        _this.task = _this.props.taskInfo.task._id;
+        _this.slot = _this.props.taskInfo.task.slot;
+        _this.id = _this.props.taskInfo.task._id;
         _this.state = {
             title: _this.title,
             category: _this.category,
@@ -13771,7 +13772,8 @@ var UpdateTaskForm = function (_React$Component) {
             finishTimeMinutes: _this.finishTimeMinutes,
             day: _this.day,
             username: _this.username,
-            _id: _this.task
+            slot: _this.slot,
+            _id: _this.id
         };
         return _this;
     }
