@@ -99,7 +99,7 @@ export const onClickUpdateSlot = (id) => {
 export const updateSlot = (slot) => {
     console.log('UPDATE SLOT = ', slot);
     return dispatch => {
-        return axios.put(`/api/slot/${slot.id}`, slot)
+        return axios.put(`/api/slot/${slot._id}`, slot)
             .then(res => {
                 console.log('UPDATE SLOT RESPONCE', res);
                 dispatch({
@@ -107,6 +107,17 @@ export const updateSlot = (slot) => {
                     slot
                 });
             })
+            // then update related tasks by slot id
+            .then(
+                axios.put(`/api/task?slot=${slot._id}`, slot)
+            .then(res => {
+                    console.log('TASKS_BY_SLOT_ID_UPDATED_SUCCESS', res);
+                    dispatch({
+                        type: 'TASKS_BY_SLOT_ID_UPDATED_SUCCESS',
+                        updatedSlot: slot
+                    });
+                })
+            )
             .catch(error => {
                 throw error;
             });

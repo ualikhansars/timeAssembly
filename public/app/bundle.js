@@ -7867,13 +7867,21 @@ var onClickUpdateSlot = exports.onClickUpdateSlot = function onClickUpdateSlot(i
 var updateSlot = exports.updateSlot = function updateSlot(slot) {
     console.log('UPDATE SLOT = ', slot);
     return function (dispatch) {
-        return _axios2.default.put('/api/slot/' + slot.id, slot).then(function (res) {
+        return _axios2.default.put('/api/slot/' + slot._id, slot).then(function (res) {
             console.log('UPDATE SLOT RESPONCE', res);
             dispatch({
                 type: 'UPDATE_SLOT_SUCCESS',
                 slot: slot
             });
-        }).catch(function (error) {
+        }
+        // then update related tasks by slot id
+        ).then(_axios2.default.put('/api/task?slot=' + slot._id, slot).then(function (res) {
+            console.log('TASKS_BY_SLOT_ID_UPDATED_SUCCESS', res);
+            dispatch({
+                type: 'TASKS_BY_SLOT_ID_UPDATED_SUCCESS',
+                updatedSlot: slot
+            });
+        })).catch(function (error) {
             throw error;
         });
     };
@@ -13568,7 +13576,7 @@ var UpdateSlotForm = function (_React$Component) {
             free: _this.props.slotInfo.slot.free,
             temporary: _this.props.slotInfo.slot.temporary,
             dueDate: _this.props.slotInfo.slot.dueDate,
-            id: _this.props.slotInfo.slot._id
+            _id: _this.props.slotInfo.slot._id
         };
         return _this;
     }
@@ -15621,6 +15629,18 @@ var taskInfo = function taskInfo() {
                 displayCreateTaskForm: false,
                 displayUpdateTaskForm: false,
                 tasks: tasksBeforeUpdate
+            });
+        case 'TASKS_BY_SLOT_ID_UPDATED_SUCCESS':
+            console.log('TASKS_BY_SLOT_ID_UPDATED_SUCCESS');
+            var tasksBeforeSlotUpdate = Object.assign([], state.tasks);
+            for (var _i = 0; _i < tasksBeforeSlotUpdate.length; ++_i) {
+                if (tasksBeforeSlotUpdate[_i].slot == action.updatedSlot._id) {
+                    tasksBeforeSlotUpdate[_i].title = action.updatedSlot.title;
+                    tasksBeforeSlotUpdate[_i].category = action.updatedSlot.category;
+                }
+            }
+            return Object.assign({}, state, {
+                tasks: tasksBeforeSlotUpdate
             });
         case 'TASK_DELETED_SUCCESS':
             console.log('REMOVE_TASK');

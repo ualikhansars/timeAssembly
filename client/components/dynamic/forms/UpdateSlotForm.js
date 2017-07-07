@@ -12,7 +12,7 @@ class UpdateSlotForm extends React.Component {
             free: this.props.slotInfo.slot.free,
             temporary: this.props.slotInfo.slot.temporary,
             dueDate: this.props.slotInfo.slot.dueDate,
-            id: this.props.slotInfo.slot._id
+            _id: this.props.slotInfo.slot._id
         }
     }
 

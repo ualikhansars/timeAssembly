@@ -114,7 +114,19 @@ const taskInfo = (state=initialState, action) => {
                 displayCreateTaskForm: false,
                 displayUpdateTaskForm: false,
                 tasks: tasksBeforeUpdate
-            });    
+            });
+        case 'TASKS_BY_SLOT_ID_UPDATED_SUCCESS':
+            console.log('TASKS_BY_SLOT_ID_UPDATED_SUCCESS');
+            let tasksBeforeSlotUpdate = Object.assign([], state.tasks);
+            for(let i = 0; i < tasksBeforeSlotUpdate.length; ++i) {
+                if(tasksBeforeSlotUpdate[i].slot == action.updatedSlot._id) {
+                    tasksBeforeSlotUpdate[i].title = action.updatedSlot.title;
+                    tasksBeforeSlotUpdate[i].category = action.updatedSlot.category;
+                }
+            }
+            return Object.assign({}, state, {
+                tasks: tasksBeforeSlotUpdate
+            });  
         case 'TASK_DELETED_SUCCESS':
             console.log('REMOVE_TASK');
             let tasksBeforeDeletion = Object.assign([], state.tasks); 

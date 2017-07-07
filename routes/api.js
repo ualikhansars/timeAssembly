@@ -154,10 +154,30 @@ router.delete('/task', function(req, res, next) {
         confirmation: 'error',
         message: err
       });
+      return;
     }
     res.json({
       confirmation: 'success',
       resource: 'task successfully deleted' 
+    });
+  })
+}); 
+
+router.put('/task', function(req, res, next) {
+  Task.update(req.query, 
+              {$set: {title: req.body.title, category: req.body.category}}, 
+              {multi: true}, 
+    function(err, result) {
+    if(err) {
+      res.json({
+        confirmation: 'error',
+        message: err
+      });
+      return;
+    }
+    res.json({
+      confirmation: 'success',
+      result: result  
     });
   })
 }); 
