@@ -3273,7 +3273,7 @@ module.exports = React;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.removeTask = exports.updateTask = exports.onClickUpdateTask = exports.createTask = exports.createTaskSuccess = exports.hideTaskForms = exports.addTask = exports.fetchTasksByDay = undefined;
+exports.onChooseTime = exports.removeTask = exports.updateTask = exports.onClickUpdateTask = exports.createTask = exports.createTaskSuccess = exports.hideTaskForms = exports.addTask = exports.fetchTasksByDay = undefined;
 
 var _axios = __webpack_require__(60);
 
@@ -3426,6 +3426,16 @@ var removeTask = exports.removeTask = function removeTask(id) {
         }).catch(function (error) {
             throw error;
         });
+    };
+};
+
+// this function fired when time in Day component has been clicked
+// it will dispatch startTimeHour and finishTimeHour to reducer
+var onChooseTime = exports.onChooseTime = function onChooseTime(hour, min) {
+    return {
+        type: 'ON_CHOOSE_TIME',
+        startTimeHour: hour,
+        startTimeMinutes: min
     };
 };
 
@@ -14788,6 +14798,10 @@ var _Day = __webpack_require__(140);
 
 var _Day2 = _interopRequireDefault(_Day);
 
+var _TwentyFour = __webpack_require__(279);
+
+var _TwentyFour2 = _interopRequireDefault(_TwentyFour);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -14811,7 +14825,10 @@ var Days = function (_React$Component) {
             var currentDay = this.props.daysInfo.currentDay;
 
 
-            return _react2.default.createElement(_Day2.default, { day: currentDay });
+            return (
+                //  <Day day={currentDay}/>
+                _react2.default.createElement(_TwentyFour2.default, null)
+            );
         }
     }]);
 
@@ -15520,6 +15537,10 @@ var initialState = {
         errors: null
     },
     task: {},
+    taskToAdd: {
+        startTimeHour: '',
+        finishTimeHour: ''
+    },
     taskRequest: {
         loading: false,
         loaded: false,
@@ -15670,6 +15691,14 @@ var taskInfo = function taskInfo() {
             });
             return Object.assign({}, state, {
                 tasks: taskAfterSlotDeletion
+            });
+        case 'ON_CHOOSE_TIME':
+            console.log('ON_CHOOSE_TIME');
+            return Object.assign({}, state.taskToAdd, {
+                taskToAdd: {
+                    startTimeHour: action.startTimeHour,
+                    startTimeMinutes: action.startTimeMinutes
+                }
             });
     }
     return state;
@@ -29045,6 +29074,173 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+/* 278 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(74);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _redux = __webpack_require__(13);
+
+var _reactRedux = __webpack_require__(12);
+
+var _taskAction = __webpack_require__(24);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var HalfAnHour = function (_React$Component) {
+    _inherits(HalfAnHour, _React$Component);
+
+    function HalfAnHour() {
+        _classCallCheck(this, HalfAnHour);
+
+        return _possibleConstructorReturn(this, (HalfAnHour.__proto__ || Object.getPrototypeOf(HalfAnHour)).apply(this, arguments));
+    }
+
+    _createClass(HalfAnHour, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var _props = this.props,
+                hour = _props.hour,
+                min = _props.min;
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'row' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'col-md-2' },
+                    hour,
+                    ':',
+                    min
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'col-md-10' },
+                    _react2.default.createElement(
+                        'div',
+                        { onClick: function onClick() {
+                                return _this2.props.onChooseTime(hour, min);
+                            }, className: 'taskInput' },
+                        'Task'
+                    )
+                )
+            );
+        }
+    }]);
+
+    return HalfAnHour;
+}(_react2.default.Component);
+
+function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({
+        onChooseTime: _taskAction.onChooseTime
+    }, dispatch);
+}
+
+HalfAnHour.PropTypes = {
+    hour: _propTypes2.default.string.isRequired,
+    min: _propTypes2.default.string.isRequired,
+    onChooseTime: _propTypes2.default.func.isRequired
+};
+
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(HalfAnHour);
+
+/***/ }),
+/* 279 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _HalfAnHour = __webpack_require__(278);
+
+var _HalfAnHour2 = _interopRequireDefault(_HalfAnHour);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TwentyFour = function (_React$Component) {
+    _inherits(TwentyFour, _React$Component);
+
+    function TwentyFour() {
+        _classCallCheck(this, TwentyFour);
+
+        return _possibleConstructorReturn(this, (TwentyFour.__proto__ || Object.getPrototypeOf(TwentyFour)).apply(this, arguments));
+    }
+
+    _createClass(TwentyFour, [{
+        key: 'render',
+        value: function render() {
+            var time = [];
+            var min = 0;
+            var hour = 0;
+            var index = 0;
+            for (hour = 0; hour < 24; ++hour) {
+                for (var _min = 0; _min < 60; _min += 30) {
+                    var pushedMin = String(_min);
+                    var pushedHour = String(hour);
+                    if (pushedMin == 0) {
+                        pushedMin = '00';
+                    }
+                    time.push(_react2.default.createElement(_HalfAnHour2.default, { hour: pushedHour, min: pushedMin, key: index }));
+                    index++;
+                }
+                if (min === 60) {
+                    min = 0;
+                };
+            }
+            return _react2.default.createElement(
+                'div',
+                { className: 'container' },
+                time
+            );
+        }
+    }]);
+
+    return TwentyFour;
+}(_react2.default.Component);
+
+exports.default = TwentyFour;
 
 /***/ })
 /******/ ]);

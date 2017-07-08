@@ -6,6 +6,10 @@ const initialState = {
         errors: null
     },
     task: {},
+    taskToAdd: {
+        startTimeHour: '',
+        finishTimeHour: ''
+    },
     taskRequest: {
         loading: false,
         loaded: false,
@@ -154,6 +158,14 @@ const taskInfo = (state=initialState, action) => {
             return Object.assign({}, state, {
                  tasks: taskAfterSlotDeletion
             });
+        case 'ON_CHOOSE_TIME':
+            console.log('ON_CHOOSE_TIME');
+            return Object.assign({}, state.taskToAdd, {
+                taskToAdd: {
+                    startTimeHour: action.startTimeHour,
+                    startTimeMinutes: action.startTimeMinutes
+                }
+            })
     }
     return state;
 }
