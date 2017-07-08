@@ -3432,10 +3432,12 @@ var removeTask = exports.removeTask = function removeTask(id) {
 // this function fired when time in Day component has been clicked
 // it will dispatch startTimeHour and finishTimeHour to reducer
 var onChooseTime = exports.onChooseTime = function onChooseTime(hour, min) {
-    return {
-        type: 'ON_CHOOSE_TIME',
-        startTimeHour: hour,
-        startTimeMinutes: min
+    return function (dispatch) {
+        dispatch({
+            type: 'ON_CHOOSE_TIME',
+            startTimeHour: hour,
+            startTimeMinutes: min
+        });
     };
 };
 
@@ -29102,6 +29104,8 @@ var _reactRedux = __webpack_require__(12);
 
 var _taskAction = __webpack_require__(24);
 
+var _displayAction = __webpack_require__(66);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29120,6 +29124,12 @@ var HalfAnHour = function (_React$Component) {
     }
 
     _createClass(HalfAnHour, [{
+        key: 'onClickTime',
+        value: function onClickTime(hour, min) {
+            this.props.onChooseTime(hour, min);
+            this.props.displaySlots();
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
@@ -29130,7 +29140,9 @@ var HalfAnHour = function (_React$Component) {
 
             return _react2.default.createElement(
                 'div',
-                { className: 'row' },
+                { onClick: function onClick() {
+                        return _this2.onClickTime(hour, min);
+                    }, className: 'row' },
                 _react2.default.createElement(
                     'div',
                     { className: 'col-md-2' },
@@ -29143,9 +29155,7 @@ var HalfAnHour = function (_React$Component) {
                     { className: 'col-md-10' },
                     _react2.default.createElement(
                         'div',
-                        { onClick: function onClick() {
-                                return _this2.props.onChooseTime(hour, min);
-                            }, className: 'taskInput' },
+                        { className: 'taskInput' },
                         'Task'
                     )
                 )
@@ -29158,14 +29168,16 @@ var HalfAnHour = function (_React$Component) {
 
 function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)({
-        onChooseTime: _taskAction.onChooseTime
+        onChooseTime: _taskAction.onChooseTime,
+        displaySlots: _displayAction.displaySlots
     }, dispatch);
 }
 
 HalfAnHour.PropTypes = {
     hour: _propTypes2.default.string.isRequired,
     min: _propTypes2.default.string.isRequired,
-    onChooseTime: _propTypes2.default.func.isRequired
+    onChooseTime: _propTypes2.default.func.isRequired,
+    displaySlots: _propTypes2.default.func.isRequired
 };
 
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(HalfAnHour);
