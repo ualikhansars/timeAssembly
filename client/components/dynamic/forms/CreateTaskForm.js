@@ -7,14 +7,16 @@ class CreateTaskForm extends React.Component {
         this.title = this.props.slotInfo.slot.title;
         this.category = this.props.slotInfo.slot.category;
         this.slot = this.props.slotInfo.slot._id;  
-        this.day =  this.props.daysInfo.currentDay;    
+        this.day =  this.props.daysInfo.currentDay;
+        this.startTimeHours = this.props.taskInfo.startTimeHours;
+        this.startTimeMinutes = this.props.taskInfo.startTimeMinutes;        
         this.state = {
             title: this.title,
             category: this.category,
             description: '',
             duration: 30,
-            startTimeHours: 0,
-            startTimeMinutes: 0,
+            startTimeHours: this.startTimeHours,
+            startTimeMinutes: this.startTimeMinutes,
             finishTimeHours: 0,
             finishTimeMinutes: 0,
             day: this.day,
@@ -30,11 +32,16 @@ class CreateTaskForm extends React.Component {
     }
 
     onSubmit(e) {
+        console.log('task before', this.state);
         e.preventDefault();
-        let duration = Number(this.state.duration);
-        let finishTimeHours, finishTimeMinutes;
+        let duration = Number(this.state.duration);1
         let startTimeHours = Number(this.state.startTimeHours);
-        let startTimeMinutes = Number(this.state.startTimeMinutes);
+        let startTimeMinutes = this.state.startTimeMinutes;
+        if(this.state.startTimeMinutes == '00') {
+            startTimeMinutes = 0;
+        } else {
+            startTimeMinutes = Number(this.state.startTimeMinutes);
+        }
         let finishHours = startTimeHours;
         let finishMinutes = startTimeMinutes;
         console.log('FinishTimeCount', finishHours, finishMinutes);
@@ -85,10 +92,6 @@ class CreateTaskForm extends React.Component {
                         <label htmlFor="duration" className="col-md-12">Duration</label>
                         <input value={this.state.duration} onChange={this.onChange.bind(this)} type="text" className="form-control col-md-12" id="duration" name="duration" placeholder="Duration of this task in minutes" />
                     </div>
-                    <div className="form-group row">
-                        <input type="number" onChange={this.onChange.bind(this)} className="form-control col-sm-5" id="startTimeHours" name="startTimeHours" placeholder="Hours" />:
-                        <input type="number" onChange={this.onChange.bind(this)} className="form-control col-sm-5" id="startTimeMinutes" name="startTimeMinutes" placeholder="Minutes" />
-                    </div>
                     <div className="row">
                         <div className="col-md-4">
                             <button onClick={this.onSubmit.bind(this)} className="btn btn-success">Create</button>
@@ -105,7 +108,8 @@ class CreateTaskForm extends React.Component {
 const mapStateToProps = (state) => {
     return {
         slotInfo: state.slotInfo,
-        daysInfo: state.daysInfo
+        daysInfo: state.daysInfo,
+        taskInfo: state.taskInfo
     };
 }
 

@@ -4,19 +4,15 @@ import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
-import {onChooseTime} from '../../actions/taskAction';
+import {onChooseTime, onClickTime} from '../../actions/daysAction';
 import {displaySlots} from '../../actions/displayAction';
 
 class HalfAnHour extends React.Component {
 
-    onClickTime(hour, min) {
-        this.props.onChooseTime(hour, min);
-        this.props.displaySlots();
-    }
     render() {
         let {hour, min} = this.props;
         return (
-            <div onClick={() => this.onClickTime(hour, min)} className="row">
+            <div onClick={() => this.props.onClickTime(hour, min)} className="row">
                 <div className="col-md-2">
                          {hour}:{min}
                 </div>
@@ -33,6 +29,7 @@ class HalfAnHour extends React.Component {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
             onChooseTime,
+            onClickTime,
             displaySlots
         }, 
         dispatch

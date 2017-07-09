@@ -163,17 +163,5 @@ export const removeTask = (id) => {
     }
 }
 
-// this function fired when time in Day component has been clicked
-// it will dispatch startTimeHour and finishTimeHour to reducer
-export const onChooseTime = (hour, min) => {
-    return dispatch => {
-        dispatch({
-            type: 'ON_CHOOSE_TIME',
-            startTimeHour: hour,
-            startTimeMinutes: min
-        });
-    }
-        
-}
 
 

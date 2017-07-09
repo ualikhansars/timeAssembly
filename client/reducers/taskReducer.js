@@ -7,8 +7,8 @@ const initialState = {
     },
     task: {},
     taskToAdd: {
-        startTimeHour: '',
-        finishTimeHour: ''
+        startTimeHours: '',
+        startTimeMinutes: ''
     },
     taskRequest: {
         loading: false,
@@ -16,7 +16,9 @@ const initialState = {
         errors: null
     },
     displayCreateTaskForm: false,
-    displayUpdateTaskForm: false
+    displayUpdateTaskForm: false,
+    startTimeHours: 7,
+    startTimeMinutes: 7
 }
 
 const taskInfo = (state=initialState, action) => {
@@ -160,12 +162,10 @@ const taskInfo = (state=initialState, action) => {
             });
         case 'ON_CHOOSE_TIME':
             console.log('ON_CHOOSE_TIME');
-            return Object.assign({}, state.taskToAdd, {
-                taskToAdd: {
-                    startTimeHour: action.startTimeHour,
+            return Object.assign({}, state, {
+                    startTimeHours: action.startTimeHours,
                     startTimeMinutes: action.startTimeMinutes
-                }
-            })
+            });
     }
     return state;
 }
