@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+import {timeCalc} from '../../../utils/timeCalc';
+
 class CreateTaskForm extends React.Component {
     constructor(props) {
         super(props);
@@ -32,51 +34,26 @@ class CreateTaskForm extends React.Component {
     }
 
     onSubmit(e) {
-        console.log('task before', this.state);
-        e.preventDefault();
-        let duration = Number(this.state.duration);1
+         e.preventDefault();
         let startTimeHours = Number(this.state.startTimeHours);
         let startTimeMinutes = this.state.startTimeMinutes;
+        let duration = Number(this.state.duration);
         if(this.state.startTimeMinutes == '00') {
             startTimeMinutes = 0;
         } else {
             startTimeMinutes = Number(this.state.startTimeMinutes);
         }
-        let finishHours = startTimeHours;
-        let finishMinutes = startTimeMinutes;
-        console.log('FinishTimeCount', finishHours, finishMinutes);
-        console.log('duration', duration);
-        if(duration < 0) {
-            duration = 0;
-        }
-        if(duration < 60) {
-            let addition = startTimeMinutes + duration; // 80 or 30
-            if(addition === 60) {
-                finishHours++;
-                finishMinutes = 0;
-            }
-            if(addition < 60) { // 30
-                finishMinutes = startTimeMinutes + duration;
-            }  
-            if(addition > 60) { // 80
-               let balance = startTimeMinutes - duration;
-               finishHours++;
-               finishMinutes = balance;
-            }
-        } else { // duration > 60
-            let parameter = Math.floor(duration / 60); // 200 / 60 === 3
-            let balance = duration % 60;
-            finishHours = startTimeHours + parameter;
-            finishMinutes = startTimeMinutes + balance;
-        }
+        let {finishHour, finishMin} = timeCalc(startTimeHours, startTimeMinutes, duration);
         let updatedTask = Object.assign({}, this.state, {
-            finishTimeHours: finishHours,
-            finishTimeMinutes: finishMinutes,
+            finishTimeHours: finishHour,
+            finishTimeMinutes: finishMin,
         });
         console.log('updatedTask', updatedTask);
         this.props.createTask(updatedTask);
-        console.log('TASK SENT TO ACTION')
+
     }
+
+    
     render() {
         return (
              <div className="slots-form">

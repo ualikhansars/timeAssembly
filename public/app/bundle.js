@@ -13385,6 +13385,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(9);
 
+var _timeCalc2 = __webpack_require__(280);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -13433,53 +13435,26 @@ var CreateTaskForm = function (_React$Component) {
     }, {
         key: 'onSubmit',
         value: function onSubmit(e) {
-            console.log('task before', this.state);
             e.preventDefault();
-            var duration = Number(this.state.duration);1;
             var startTimeHours = Number(this.state.startTimeHours);
             var startTimeMinutes = this.state.startTimeMinutes;
+            var duration = Number(this.state.duration);
             if (this.state.startTimeMinutes == '00') {
                 startTimeMinutes = 0;
             } else {
                 startTimeMinutes = Number(this.state.startTimeMinutes);
             }
-            var finishHours = startTimeHours;
-            var finishMinutes = startTimeMinutes;
-            console.log('FinishTimeCount', finishHours, finishMinutes);
-            console.log('duration', duration);
-            if (duration < 0) {
-                duration = 0;
-            }
-            if (duration < 60) {
-                var addition = startTimeMinutes + duration; // 80 or 30
-                if (addition === 60) {
-                    finishHours++;
-                    finishMinutes = 0;
-                }
-                if (addition < 60) {
-                    // 30
-                    finishMinutes = startTimeMinutes + duration;
-                }
-                if (addition > 60) {
-                    // 80
-                    var balance = startTimeMinutes - duration;
-                    finishHours++;
-                    finishMinutes = balance;
-                }
-            } else {
-                // duration > 60
-                var parameter = Math.floor(duration / 60); // 200 / 60 === 3
-                var _balance = duration % 60;
-                finishHours = startTimeHours + parameter;
-                finishMinutes = startTimeMinutes + _balance;
-            }
+
+            var _timeCalc = (0, _timeCalc2.timeCalc)(startTimeHours, startTimeMinutes, duration),
+                finishHour = _timeCalc.finishHour,
+                finishMin = _timeCalc.finishMin;
+
             var updatedTask = Object.assign({}, this.state, {
-                finishTimeHours: finishHours,
-                finishTimeMinutes: finishMinutes
+                finishTimeHours: finishHour,
+                finishTimeMinutes: finishMin
             });
             console.log('updatedTask', updatedTask);
             this.props.createTask(updatedTask);
-            console.log('TASK SENT TO ACTION');
         }
     }, {
         key: 'render',
@@ -14891,6 +14866,10 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 var _redux = __webpack_require__(13);
 
 var _reactRedux = __webpack_require__(9);
+
+var _Task = __webpack_require__(143);
+
+var _Task2 = _interopRequireDefault(_Task);
 
 var _daysAction = __webpack_require__(68);
 
@@ -29270,6 +29249,56 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+/* 280 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+// get startHour and startMinutes and duration
+//  and return finishHour and finish Minites 
+
+var timeCalc = exports.timeCalc = function timeCalc(startHour, startMin) {
+    var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+
+    var finishHour = startHour;
+    var finishMin = startMin;
+    if (duration < 0) {
+        duration = 0;
+    }
+    if (duration < 60) {
+        var addition = startMin + duration; // 80 or 30
+        if (addition === 60) {
+            finishHour++;
+            finishMin = 0;
+        }
+        if (addition < 60) {
+            // 30
+            finishMin = startMin + duration;
+        }
+        if (addition > 60) {
+            // 80
+            var balance = startMin - duration;
+            finishHour++;
+            finishMin = balance;
+        }
+    } else {
+        // duration > 60
+        var parameter = Math.floor(duration / 60); // 200 / 60 === 3
+        var _balance = duration % 60;
+        finishHour = startHour + parameter;
+        finishMin = startMin + _balance;
+    }
+    return {
+        finishHour: finishHour,
+        finishMin: finishMin
+    };
+};
 
 /***/ })
 /******/ ]);

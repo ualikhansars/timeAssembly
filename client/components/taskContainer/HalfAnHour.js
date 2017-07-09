@@ -4,8 +4,11 @@ import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
+import Task from './Task';
+
 import {onChooseTime, onClickTime} from '../../actions/daysAction';
 import {displaySlots} from '../../actions/displayAction';
+
 
 class HalfAnHour extends React.Component {
 
