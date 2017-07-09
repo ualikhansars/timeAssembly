@@ -4,10 +4,8 @@ import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
-import Task from './Task';
 
-import {onChooseTime, onClickTime} from '../../actions/daysAction';
-import {displaySlots} from '../../actions/displayAction';
+import {onClickTime} from '../../actions/daysAction';
 
 
 class HalfAnHour extends React.Component {
@@ -31,9 +29,7 @@ class HalfAnHour extends React.Component {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-            onChooseTime,
             onClickTime,
-            displaySlots
         }, 
         dispatch
     );
@@ -42,8 +38,8 @@ function mapDispatchToProps(dispatch) {
 HalfAnHour.PropTypes = {
     hour: PropTypes.string.isRequired,
     min: PropTypes.string.isRequired,
-    onChooseTime: PropTypes.func.isRequired,
-    displaySlots: PropTypes.func.isRequired,
+    onClickTime: PropTypes.func.isRequired,
 }
 
 export default connect(null, mapDispatchToProps)(HalfAnHour);
+

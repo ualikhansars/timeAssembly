@@ -12,7 +12,7 @@ class Days extends React.Component {
 
         return (
             //  <Day day={currentDay}/>
-            <TwentyFour/>
+            <TwentyFour  day={currentDay}/>
         );
     }
 }

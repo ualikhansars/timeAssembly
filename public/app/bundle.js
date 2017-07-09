@@ -14826,7 +14826,7 @@ var Days = function (_React$Component) {
 
             return (
                 //  <Day day={currentDay}/>
-                _react2.default.createElement(_TwentyFour2.default, null)
+                _react2.default.createElement(_TwentyFour2.default, { day: currentDay })
             );
         }
     }]);
@@ -14867,13 +14867,7 @@ var _redux = __webpack_require__(13);
 
 var _reactRedux = __webpack_require__(9);
 
-var _Task = __webpack_require__(143);
-
-var _Task2 = _interopRequireDefault(_Task);
-
 var _daysAction = __webpack_require__(68);
-
-var _displayAction = __webpack_require__(38);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14931,17 +14925,14 @@ var HalfAnHour = function (_React$Component) {
 
 function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)({
-        onChooseTime: _daysAction.onChooseTime,
-        onClickTime: _daysAction.onClickTime,
-        displaySlots: _displayAction.displaySlots
+        onClickTime: _daysAction.onClickTime
     }, dispatch);
 }
 
 HalfAnHour.PropTypes = {
     hour: _propTypes2.default.string.isRequired,
     min: _propTypes2.default.string.isRequired,
-    onChooseTime: _propTypes2.default.func.isRequired,
-    displaySlots: _propTypes2.default.func.isRequired
+    onClickTime: _propTypes2.default.func.isRequired
 };
 
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(HalfAnHour);
@@ -15249,9 +15240,19 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _redux = __webpack_require__(13);
+
+var _reactRedux = __webpack_require__(9);
+
 var _HalfAnHour = __webpack_require__(142);
 
 var _HalfAnHour2 = _interopRequireDefault(_HalfAnHour);
+
+var _Task = __webpack_require__(143);
+
+var _Task2 = _interopRequireDefault(_Task);
+
+var _taskAction = __webpack_require__(24);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15271,8 +15272,84 @@ var TwentyFour = function (_React$Component) {
     }
 
     _createClass(TwentyFour, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.props.fetchTasksByDay(this.props.day);
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            console.log('Next Props', nextProps);
+            if (this.props.day != nextProps.day) {
+                this.props.fetchTasksByDay(nextProps.day);
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
+            var tasks = this.props.taskInfo.tasks;
+            var _props$taskInfo$tasks = this.props.taskInfo.tasksRequest,
+                loading = _props$taskInfo$tasks.loading,
+                loaded = _props$taskInfo$tasks.loaded,
+                errors = _props$taskInfo$tasks.errors;
+
+            var resource = null;
+
+            if (loading) {
+                return _react2.default.createElement(
+                    'div',
+                    null,
+                    'loading'
+                );
+            }
+
+            // if errors occurs
+            if (errors) {
+                return _react2.default.createElement(
+                    'div',
+                    { className: 'container-fluid' },
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        'Errors'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        null,
+                        errors
+                    )
+                );
+            }
+
+            // when data loaded
+            // display every tasks
+            if (loaded) {
+                resource = tasks.map(function (task, i) {
+                    var property = {
+                        title: task.title,
+                        category: task.category,
+                        description: task.description,
+                        duration: task.duration,
+                        startTimeHours: task.startTimeHours,
+                        startTimeMinutes: task.startTimeMinutes,
+                        finishTimeHours: task.finishTimeHours,
+                        finishTimeMinutes: task.finishTimeMinutes,
+                        day: task.day,
+                        slot: task.slot,
+                        id: task._id
+                    };
+                    return _react2.default.createElement(
+                        'div',
+                        { key: i },
+                        _react2.default.createElement(_Task2.default, { onClickUpdate: _this2.props.onClickUpdateTask, property: property, removeTask: _this2.props.removeTask })
+                    );
+                });
+            }
+
+            console.log('Twenty Four Hour Resource', resource);
+
             var time = [];
             var min = 0;
             var hour = 0;
@@ -15302,7 +15379,21 @@ var TwentyFour = function (_React$Component) {
     return TwentyFour;
 }(_react2.default.Component);
 
-exports.default = TwentyFour;
+function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({
+        fetchTasksByDay: _taskAction.fetchTasksByDay,
+        removeTask: _taskAction.removeTask,
+        onClickUpdateTask: _taskAction.onClickUpdateTask
+    }, dispatch);
+}
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        taskInfo: state.taskInfo
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TwentyFour);
 
 /***/ }),
 /* 146 */
