@@ -24,7 +24,15 @@ class SlotContainer extends React.Component {
         const {slots} = this.props.slotInfo;
         const {loading, loaded, errors} = this.props.slotInfo.slotsRequest;
         let resource = null;
-        
+        let {startTimeHours, startTimeMinutes} = this.props.taskInfo;
+        let {currentDay} = this.props.daysInfo;
+        // Properties that will be displayed in AddButton in Slot Component
+        let addButtonProperty = {
+            startTimeHours,
+            startTimeMinutes,
+            currentDay
+        }
+
         // when data is loading
         if(loading) {
             return(
@@ -46,7 +54,7 @@ class SlotContainer extends React.Component {
         // display every slots
         if(loaded) {
                  resource = slots.map((slot, i) => {
-                    let property = {
+                    let slotAttr = {
                         title: slot.title,
                         category: slot.category,
                         total: slot.total,
@@ -55,9 +63,18 @@ class SlotContainer extends React.Component {
                         dueDate: slot.dueDate,
                         id: slot._id
                     }
+                    // all properties that will be displayed in Task Component
+                    let slotProperty = {
+                        addButtonProperty,
+                        fetchSlot: this.props.onClickUpdateSlot,
+                        removeSlot: this.props.removeSlot,
+                        addTask: this.props.addTask,
+                        slotAttr,
+
+                    }
                     return (
                         <div key={i}>
-                            <Slot fetchSlot={this.props.onClickUpdateSlot} removeSlot={this.props.removeSlot} addTask={this.props.addTask} property={property}/>
+                            <Slot slotProperty={slotProperty}/>
                         </div>
                     );
             });
@@ -86,6 +103,8 @@ const mapStateToProps = (state) => {
     return {
         // slots info
         slotInfo: state.slotInfo,
+        daysInfo: state.daysInfo,
+        taskInfo: state.taskInfo
     };
 }
 

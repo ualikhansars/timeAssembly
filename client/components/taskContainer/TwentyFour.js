@@ -55,110 +55,62 @@ class TwentyFour extends React.Component {
             let taskAdded = false;
             let index = 0;
             let property = {}
-            // tasks.map((task) => {
-            //     let property = {
-            //         title: task.title,
-            //         category: task.category,
-            //         description: task.description,
-            //         duration: task.duration,
-            //         startTimeHours: task.startTimeHours,
-            //         startTimeMinutes: task.startTimeMinutes,
-            //         finishTimeHours: task.finishTimeHours,
-            //         finishTimeMinutes: task.finishTimeMinutes,
-            //         day: task.day,
-            //         slot: task.slot,
-            //         id: task._id
-            //     }
-
-            //     // if NotTask add HalfAnHour Component
-            //     for(hour=0; hour<24; ++hour) {
-            //         for(let min=0; min<60; min+=30) {
-            //             // if Task.startHour == hour
-            //             if(hour == property.startTimeHours && min == property.startTimeMinutes) {
-            //                 timetable.push(
-            //                     <Task onClickUpdate={this.props.onClickUpdateTask} property={property} removeTask={this.props.removeTask} key={index}/>
-            //                 );
-            //                 index++;
-            //                 taskAdded = true;
-            //             } else {
-            //                     let pushedMin = String(min);
-            //                     let pushedHour = String(hour);
-            //                     if(pushedMin == 0) {
-            //                     pushedMin = '00';
-            //                     }
-            //                     timetable.push(
-            //                         <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
-            //                     );
-            //                     index++;
-            //                 }
-            //         }
-            //         // if Task has been added, then update hour and minutes
-            //         if(taskAdded) {
-            //             let {finishHour, finishMin} = timeCalc(hour, min, property.duration);
-            //             hour = finishHour;
-            //             min = finishMin;
-            //         }
-            //         if(min === 60) {
-            //             min = 0;
-            //         };
-            //         taskAdded = false;
-            //     }
-
-            // });
-              for(hour=0; hour<24; ++hour) {
-                    for(let min=0; min<60; min+=30) {
-                        for(let task of tasks) {
-                            if(hour == task.startTimeHours && min == task.startTimeMinutes) {
-                                property = {
-                                    title: task.title,
-                                    category: task.category,
-                                    description: task.description,
-                                    duration: task.duration,
-                                    startTimeHours: task.startTimeHours,
-                                    startTimeMinutes: task.startTimeMinutes,
-                                    finishTimeHours: task.finishTimeHours,
-                                    finishTimeMinutes: task.finishTimeMinutes,
-                                    day: task.day,
-                                    slot: task.slot,
-                                    id: task._id
-                                }
-                                timetable.push(
-                                    <Task onClickUpdate={this.props.onClickUpdateTask} property={property} removeTask={this.props.removeTask} key={index}/>
-                                );
-                                index++;
-                                taskAdded = true; 
-                            } 
-                        } // end for tasks
-                        if(!taskAdded) {
-                            let pushedMin = String(min);
-                            let pushedHour = String(hour);
-                            if(pushedMin == 0) {
-                                pushedMin = '00';
+            for(hour=0; hour<24; ++hour) { // every hour
+                for(let min=0; min<60; min+=30) { // every 30 minites
+                    for(let task of tasks) { 
+                        // check if task' startTime equal to iteration hour and minites
+                        if(hour == task.startTimeHours && min == task.startTimeMinutes) {
+                            property = {
+                                title: task.title,
+                                category: task.category,
+                                description: task.description,
+                                duration: task.duration,
+                                startTimeHours: task.startTimeHours,
+                                startTimeMinutes: task.startTimeMinutes,
+                                finishTimeHours: task.finishTimeHours,
+                                finishTimeMinutes: task.finishTimeMinutes,
+                                day: task.day,
+                                slot: task.slot,
+                                id: task._id
                             }
                             timetable.push(
-                                <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
+                                <Task onClickUpdate={this.props.onClickUpdateTask} property={property} removeTask={this.props.removeTask} key={index}/>
                             );
                             index++;
+                            taskAdded = true; 
                         } 
-                    }
-                    //if Task has been added, then update hour and minutes
-                    if(taskAdded) {
-                        let {finishHour, finishMin} = timeCalc(hour, min, property.duration);
-                        console.log('task Added');
-                        console.log('finishHour', finishHour, 'finishMin', finishMin)
-                        hour = finishHour;
-                        min = finishMin;
-                    }
-                    if(min === 60) {
-                        min = 0;
-                    };
-                    taskAdded = false;
-                   
-              }
-        }
+                    } // end for tasks
+                    // if task is not added, then add Time component
+                    if(!taskAdded) {
+                        let pushedMin = String(min);
+                        let pushedHour = String(hour);
+                        if(pushedMin == 0) {
+                            pushedMin = '00';
+                        }
+                        timetable.push(
+                            <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
+                        );
+                        index++;
+                    } 
+                }
+                //if Task has been added, then update hour and minutes
+                // change hour and minutes to finishHour and finishMinites of the task
+                if(taskAdded) {
+                    let {finishHour, finishMin} = timeCalc(hour, min, property.duration);
+                    hour = finishHour;
+                    min = finishMin;
+                }
+                // if min is equal to 60 change it to 0
+                if(min === 60) {
+                    min = 0;
+                };
+                taskAdded = false;           
+            }
+    }
 
         return (
             <div className="container">
+                <h6>{this.props.day}</h6>
                {timetable}
             </div>
         );

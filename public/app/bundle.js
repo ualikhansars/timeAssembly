@@ -13704,6 +13704,10 @@ var CreateTaskForm = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            var _props$taskInfo = this.props.taskInfo,
+                startTimeHours = _props$taskInfo.startTimeHours,
+                startTimeMinutes = _props$taskInfo.startTimeMinutes;
+
             return _react2.default.createElement(
                 'div',
                 { className: 'slots-form' },
@@ -13720,6 +13724,25 @@ var CreateTaskForm = function (_React$Component) {
                         null,
                         'Category: ',
                         this.state.category
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(
+                        'h6',
+                        null,
+                        'Add to ',
+                        this.day,
+                        ' '
+                    ),
+                    _react2.default.createElement(
+                        'span',
+                        null,
+                        'Time: ',
+                        startTimeHours,
+                        ':',
+                        startTimeMinutes
                     )
                 ),
                 _react2.default.createElement(
@@ -14279,7 +14302,7 @@ var Slot = function (_React$Component) {
                         _react2.default.createElement(
                             "span",
                             null,
-                            this.props.property.title
+                            this.props.slotProperty.slotAttr.title
                         )
                     )
                 ),
@@ -14293,7 +14316,7 @@ var Slot = function (_React$Component) {
                             "span",
                             null,
                             "Category: ",
-                            this.props.property.category
+                            this.props.slotProperty.slotAttr.category
                         )
                     )
                 ),
@@ -14307,7 +14330,7 @@ var Slot = function (_React$Component) {
                             "span",
                             null,
                             "Total: ",
-                            this.props.property.total
+                            this.props.slotProperty.slotAttr.total
                         )
                     ),
                     _react2.default.createElement(
@@ -14317,7 +14340,7 @@ var Slot = function (_React$Component) {
                             "span",
                             null,
                             "Free: ",
-                            this.props.property.free
+                            this.props.slotProperty.slotAttr.free
                         )
                     )
                 ),
@@ -14331,7 +14354,7 @@ var Slot = function (_React$Component) {
                             "span",
                             null,
                             "Due Date: ",
-                            this.props.property.dueDate
+                            this.props.slotProperty.slotAttr.dueDate
                         )
                     )
                 ),
@@ -14344,9 +14367,14 @@ var Slot = function (_React$Component) {
                         _react2.default.createElement(
                             "button",
                             { onClick: function onClick() {
-                                    return _this2.props.addTask(_this2.props.property.id);
+                                    return _this2.props.slotProperty.addTask(_this2.props.property.id);
                                 }, className: "btn btn-success" },
-                            "Add"
+                            "Add to ",
+                            this.props.slotProperty.addButtonProperty.currentDay,
+                            " ",
+                            this.props.slotProperty.addButtonProperty.startTimeHours,
+                            ":",
+                            this.props.slotProperty.addButtonProperty.startTimeMinutes
                         )
                     ),
                     _react2.default.createElement(
@@ -14355,7 +14383,7 @@ var Slot = function (_React$Component) {
                         _react2.default.createElement(
                             "button",
                             { onClick: function onClick() {
-                                    return _this2.props.fetchSlot(_this2.props.property.id);
+                                    return _this2.props.slotProperty.fetchSlot(_this2.props.property.id);
                                 }, className: "btn btn-info" },
                             "Edit"
                         )
@@ -14366,7 +14394,7 @@ var Slot = function (_React$Component) {
                         _react2.default.createElement(
                             "button",
                             { onClick: function onClick() {
-                                    return _this2.props.removeSlot(_this2.props.property.id);
+                                    return _this2.props.slotProperty.removeSlot(_this2.props.property.id);
                                 }, className: "btn btn-danger" },
                             "Remove"
                         )
@@ -14444,9 +14472,19 @@ var SlotContainer = function (_React$Component) {
                 errors = _props$slotInfo$slots.errors;
 
             var resource = null;
+            var _props$taskInfo = this.props.taskInfo,
+                startTimeHours = _props$taskInfo.startTimeHours,
+                startTimeMinutes = _props$taskInfo.startTimeMinutes;
+            var currentDay = this.props.daysInfo.currentDay;
+            // Properties that will be displayed in AddButton in Slot Component
 
-            // when data is loading
-            if (loading) {
+            var addButtonProperty = {
+                startTimeHours: startTimeHours,
+                startTimeMinutes: startTimeMinutes,
+                currentDay: currentDay
+
+                // when data is loading
+            };if (loading) {
                 return _react2.default.createElement(
                     'div',
                     null,
@@ -14476,7 +14514,7 @@ var SlotContainer = function (_React$Component) {
             // display every slots
             if (loaded) {
                 resource = slots.map(function (slot, i) {
-                    var property = {
+                    var slotAttr = {
                         title: slot.title,
                         category: slot.category,
                         total: slot.total,
@@ -14484,11 +14522,19 @@ var SlotContainer = function (_React$Component) {
                         tempotary: slot.temporary,
                         dueDate: slot.dueDate,
                         id: slot._id
+                        // all properties that will be displayed in Task Component
+                    };var slotProperty = {
+                        addButtonProperty: addButtonProperty,
+                        fetchSlot: _this2.props.onClickUpdateSlot,
+                        removeSlot: _this2.props.removeSlot,
+                        addTask: _this2.props.addTask,
+                        slotAttr: slotAttr
+
                     };
                     return _react2.default.createElement(
                         'div',
                         { key: i },
-                        _react2.default.createElement(_Slot2.default, { fetchSlot: _this2.props.onClickUpdateSlot, removeSlot: _this2.props.removeSlot, addTask: _this2.props.addTask, property: property })
+                        _react2.default.createElement(_Slot2.default, { slotProperty: slotProperty })
                     );
                 });
             }
@@ -14538,7 +14584,9 @@ var SlotContainer = function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
     return {
         // slots info
-        slotInfo: state.slotInfo
+        slotInfo: state.slotInfo,
+        daysInfo: state.daysInfo,
+        taskInfo: state.taskInfo
     };
 };
 
@@ -15381,58 +15429,10 @@ var TwentyFour = function (_React$Component) {
                 var taskAdded = false;
                 var index = 0;
                 var property = {};
-                // tasks.map((task) => {
-                //     let property = {
-                //         title: task.title,
-                //         category: task.category,
-                //         description: task.description,
-                //         duration: task.duration,
-                //         startTimeHours: task.startTimeHours,
-                //         startTimeMinutes: task.startTimeMinutes,
-                //         finishTimeHours: task.finishTimeHours,
-                //         finishTimeMinutes: task.finishTimeMinutes,
-                //         day: task.day,
-                //         slot: task.slot,
-                //         id: task._id
-                //     }
-
-                //     // if NotTask add HalfAnHour Component
-                //     for(hour=0; hour<24; ++hour) {
-                //         for(let min=0; min<60; min+=30) {
-                //             // if Task.startHour == hour
-                //             if(hour == property.startTimeHours && min == property.startTimeMinutes) {
-                //                 timetable.push(
-                //                     <Task onClickUpdate={this.props.onClickUpdateTask} property={property} removeTask={this.props.removeTask} key={index}/>
-                //                 );
-                //                 index++;
-                //                 taskAdded = true;
-                //             } else {
-                //                     let pushedMin = String(min);
-                //                     let pushedHour = String(hour);
-                //                     if(pushedMin == 0) {
-                //                     pushedMin = '00';
-                //                     }
-                //                     timetable.push(
-                //                         <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
-                //                     );
-                //                     index++;
-                //                 }
-                //         }
-                //         // if Task has been added, then update hour and minutes
-                //         if(taskAdded) {
-                //             let {finishHour, finishMin} = timeCalc(hour, min, property.duration);
-                //             hour = finishHour;
-                //             min = finishMin;
-                //         }
-                //         if(min === 60) {
-                //             min = 0;
-                //         };
-                //         taskAdded = false;
-                //     }
-
-                // });
                 for (hour = 0; hour < 24; ++hour) {
+                    // every hour
                     for (var _min = 0; _min < 60; _min += 30) {
+                        // every 30 minites
                         var _iteratorNormalCompletion = true;
                         var _didIteratorError = false;
                         var _iteratorError = undefined;
@@ -15441,6 +15441,7 @@ var TwentyFour = function (_React$Component) {
                             for (var _iterator = tasks[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                                 var task = _step.value;
 
+                                // check if task' startTime equal to iteration hour and minites
                                 if (hour == task.startTimeHours && _min == task.startTimeMinutes) {
                                     property = {
                                         title: task.title,
@@ -15460,6 +15461,7 @@ var TwentyFour = function (_React$Component) {
                                     taskAdded = true;
                                 }
                             } // end for tasks
+                            // if task is not added, then add Time component
                         } catch (err) {
                             _didIteratorError = true;
                             _iteratorError = err;
@@ -15486,16 +15488,16 @@ var TwentyFour = function (_React$Component) {
                         }
                     }
                     //if Task has been added, then update hour and minutes
+                    // change hour and minutes to finishHour and finishMinites of the task
                     if (taskAdded) {
                         var _timeCalc = (0, _timeCalc2.timeCalc)(hour, min, property.duration),
                             finishHour = _timeCalc.finishHour,
                             finishMin = _timeCalc.finishMin;
 
-                        console.log('task Added');
-                        console.log('finishHour', finishHour, 'finishMin', finishMin);
                         hour = finishHour;
                         min = finishMin;
                     }
+                    // if min is equal to 60 change it to 0
                     if (min === 60) {
                         min = 0;
                     };
@@ -15506,6 +15508,11 @@ var TwentyFour = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'container' },
+                _react2.default.createElement(
+                    'h6',
+                    null,
+                    this.props.day
+                ),
                 timetable
             );
         }

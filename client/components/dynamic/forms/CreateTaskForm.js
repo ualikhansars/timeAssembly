@@ -55,11 +55,16 @@ class CreateTaskForm extends React.Component {
 
     
     render() {
+        let {startTimeHours, startTimeMinutes} = this.props.taskInfo;
         return (
              <div className="slots-form">
                      <h2>{this.state.title}</h2>
                      <div>
                         <h4>Category: {this.state.category}</h4>
+                    </div>
+                    <div>
+                        <h6>Add to {this.day} </h6>
+                        <span>Time: {startTimeHours}:{startTimeMinutes}</span>
                     </div>
                     <div className="form-group row">
                         <label htmlFor="description" className="col-md-12">Description</label>
