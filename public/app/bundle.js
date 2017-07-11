@@ -14290,6 +14290,29 @@ var Slot = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            var _props$slotProperty$t = this.props.slotProperty.timeAndDayProperty,
+                startTimeHours = _props$slotProperty$t.startTimeHours,
+                startTimeMinutes = _props$slotProperty$t.startTimeMinutes;
+
+            var addButton = null;
+            if (startTimeHours && startTimeMinutes) {
+                addButton = _react2.default.createElement(
+                    "div",
+                    { className: "col-md-4" },
+                    _react2.default.createElement(
+                        "button",
+                        { onClick: function onClick() {
+                                return _this2.props.slotProperty.addTask(_this2.props.slotProperty.slotAttr.id);
+                            }, className: "btn btn-success" },
+                        "Add to ",
+                        this.props.slotProperty.timeAndDayProperty.currentDay,
+                        " ",
+                        startTimeHours,
+                        ":",
+                        startTimeMinutes
+                    )
+                );
+            }
             return _react2.default.createElement(
                 "div",
                 { className: "container-fluid" },
@@ -14361,22 +14384,7 @@ var Slot = function (_React$Component) {
                 _react2.default.createElement(
                     "div",
                     { className: "row" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-md-4" },
-                        _react2.default.createElement(
-                            "button",
-                            { onClick: function onClick() {
-                                    return _this2.props.slotProperty.addTask(_this2.props.slotProperty.slotAttr.id);
-                                }, className: "btn btn-success" },
-                            "Add to ",
-                            this.props.slotProperty.timeAndDayProperty.currentDay,
-                            " ",
-                            this.props.slotProperty.timeAndDayProperty.startTimeHours,
-                            ":",
-                            this.props.slotProperty.timeAndDayProperty.startTimeMinutes
-                        )
-                    ),
+                    addButton,
                     _react2.default.createElement(
                         "div",
                         { className: "col-md-4" },
@@ -15991,8 +15999,8 @@ var initialState = {
     },
     displayCreateTaskForm: false,
     displayUpdateTaskForm: false,
-    startTimeHours: 7,
-    startTimeMinutes: 7
+    startTimeHours: null,
+    startTimeMinutes: null
 };
 
 var taskInfo = function taskInfo() {

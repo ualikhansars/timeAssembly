@@ -17,8 +17,8 @@ const initialState = {
     },
     displayCreateTaskForm: false,
     displayUpdateTaskForm: false,
-    startTimeHours: 7,
-    startTimeMinutes: 7
+    startTimeHours: null,
+    startTimeMinutes: null
 }
 
 const taskInfo = (state=initialState, action) => {

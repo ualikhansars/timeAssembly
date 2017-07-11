@@ -2,6 +2,15 @@ import React from 'react';
 
 class Slot extends React.Component {
     render() {
+        let {startTimeHours, startTimeMinutes} = this.props.slotProperty.timeAndDayProperty;
+        let addButton = null;
+        if(startTimeHours && startTimeMinutes) {
+            addButton = <div className="col-md-4">
+                        <button onClick={() => this.props.slotProperty.addTask(this.props.slotProperty.slotAttr.id)} className="btn btn-success">
+                            Add to {this.props.slotProperty.timeAndDayProperty.currentDay} {startTimeHours}:{startTimeMinutes}
+                        </button>
+                        </div>
+        }
         return (
             <div className="container-fluid"> 
                 <div className="row">
@@ -28,11 +37,7 @@ class Slot extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-4">
-                        <button onClick={() => this.props.slotProperty.addTask(this.props.slotProperty.slotAttr.id)} className="btn btn-success">
-                            Add to {this.props.slotProperty.timeAndDayProperty.currentDay} {this.props.slotProperty.timeAndDayProperty.startTimeHours}:{this.props.slotProperty.timeAndDayProperty.startTimeMinutes}
-                        </button>
-                    </div>
+                    {addButton}
                      <div className="col-md-4">
                             <button onClick={() => this.props.slotProperty.fetchSlot(this.props.slotProperty.slotAttr.id)} className="btn btn-info">Edit</button>
                         </div>
