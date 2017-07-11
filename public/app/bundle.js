@@ -2948,6 +2948,10 @@ var createTask = exports.createTask = function createTask(task) {
             console.log('CREATE TASK DATA', res);
             console.log('CREATE TASK == ', task);
             dispatch(createTaskSuccess(data));
+        }).then(function () {
+            dispatch({
+                type: 'RESET_ADD_TASK'
+            });
         }).catch(function (error) {
             console.log(error);
         });
@@ -2975,6 +2979,10 @@ var onClickUpdateTask = exports.onClickUpdateTask = function onClickUpdateTask(i
         }).then(function () {
             dispatch({
                 type: 'SHOW_UPDATE_TASK_FORM'
+            });
+        }).then(function () {
+            dispatch({
+                type: 'RESET_ADD_TASK'
             });
         }).catch(function (error) {
             dispatch({
@@ -3015,6 +3023,10 @@ var removeTask = exports.removeTask = function removeTask(id) {
             dispatch({
                 type: 'TASK_DELETED_SUCCESS',
                 deletedTaskId: id
+            });
+        }).then(function () {
+            dispatch({
+                type: 'RESET_ADD_TASK'
             });
         }).catch(function (error) {
             throw error;
@@ -7786,25 +7798,6 @@ var onClickDayInTheWeek = exports.onClickDayInTheWeek = function onClickDayInThe
 
 // this function fired when time in Day component has been clicked
 // it will dispatch startTimeHour and finishTimeHour to reducer
-var onChooseTime = exports.onChooseTime = function onChooseTime(hour, min) {
-    return {
-        type: 'ON_CHOOSE_TIME',
-        startTimeHour: hour,
-        startTimeMinutes: min
-    };
-};
-
-var time = exports.time = function time(hour, min) {
-    return new Promise(function (response, reject) {
-        dispatch({
-            type: 'ON_CHOOSE_TIME',
-            startTimeHour: hour,
-            startTimeMinutes: min
-        });
-        resolve();
-    });
-};
-
 var onClickTime = exports.onClickTime = function onClickTime(hour, min) {
     return function (dispatch) {
         dispatch({
@@ -7829,22 +7822,35 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 // fire this function after sidebar element slots were clicked
+// then reset AddTask
 var displaySlots = exports.displaySlots = function displaySlots() {
-    return {
-        type: 'DISPLAY_SLOTS'
+    return function (dispatch) {
+        dispatch({
+            type: 'DISPLAY_SLOTS'
+        });
+        return dispatch({
+            type: 'RESET_ADD_TASK'
+        });
     };
 };
 
 // fire this function after sidebar element settings were clicked
+// then reset AddTask
 var displaySettings = exports.displaySettings = function displaySettings() {
     return {
         type: 'DISPLAY_SETTINGS'
     };
 };
 
+// display nothing then reset addTask 
 var displayNothing = exports.displayNothing = function displayNothing() {
-    return {
-        type: 'DISPLAY_NOTHING'
+    return function (dispatch) {
+        dispatch({
+            type: 'DISPLAY_NOTHING'
+        });
+        return dispatch({
+            type: 'RESET_ADD_TASK'
+        });
     };
 };
 
@@ -7873,8 +7879,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // this function is fired, it will show
 // createSlotForm
 var showCreateSlotForm = exports.showCreateSlotForm = function showCreateSlotForm() {
-    return {
-        type: 'SHOW_CREATE_SLOT_FORM'
+    return function (dispatch) {
+        dispatch({
+            type: 'SHOW_CREATE_SLOT_FORM'
+        });
+        return dispatch({
+            type: 'RESET_ADD_TASK'
+        });
     };
 };
 
@@ -7923,7 +7934,11 @@ var removeSlot = exports.removeSlot = function removeSlot(id) {
                 type: 'TASKS_BY_SLOT_ID_DELETED_SUCCESS',
                 deletedSlotIdInTask: id
             });
-        })).catch(function (error) {
+        })).then(function () {
+            dispatch({
+                type: 'RESET_ADD_TASK'
+            });
+        }).catch(function (error) {
             throw error;
         });
     };
@@ -7942,6 +7957,10 @@ var onClickUpdateSlot = exports.onClickUpdateSlot = function onClickUpdateSlot(i
         }).then(function () {
             dispatch({
                 type: 'SHOW_UPDATE_SLOT_FORM'
+            });
+        }).then(function () {
+            dispatch({
+                type: 'RESET_ADD_TASK'
             });
         }).catch(function (error) {
             dispatch({
@@ -7988,6 +8007,10 @@ var createSlot = exports.createSlot = function createSlot(slot) {
         return _axios2.default.post('/api/slot', slot).then(function (res) {
             var data = res.data.result;
             dispatch(createSlotSuccess(data));
+        }).then(function () {
+            dispatch({
+                type: 'RESET_ADD_TASK'
+            });
         }).catch(function (error) {
             console.log(error);
         });
@@ -16150,6 +16173,13 @@ var taskInfo = function taskInfo() {
             return Object.assign({}, state, {
                 startTimeHours: action.startTimeHours,
                 startTimeMinutes: action.startTimeMinutes
+            });
+        // reset startTimeHours and startTimeMinutes to null 
+        case 'RESET_ADD_TASK':
+            console.log('RESET_ADD_TASK');
+            return Object.assign({}, state, {
+                startTimeHours: null,
+                startTimeMinutes: null
             });
     }
     return state;

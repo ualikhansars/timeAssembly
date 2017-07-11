@@ -166,6 +166,13 @@ const taskInfo = (state=initialState, action) => {
                     startTimeHours: action.startTimeHours,
                     startTimeMinutes: action.startTimeMinutes
             });
+        // reset startTimeHours and startTimeMinutes to null 
+        case 'RESET_ADD_TASK':
+            console.log('RESET_ADD_TASK');
+            return Object.assign({}, state, {
+                    startTimeHours: null,
+                    startTimeMinutes: null
+            });
     }
     return state;
 }

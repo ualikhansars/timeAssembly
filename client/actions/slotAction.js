@@ -6,9 +6,14 @@ import {removeTaskBySlotId} from './taskAction';
 // this function is fired, it will show
 // createSlotForm
 export const showCreateSlotForm = () => {
-    return {
-        type: 'SHOW_CREATE_SLOT_FORM'
-    };
+    return dispatch => {
+        dispatch({
+            type: 'SHOW_CREATE_SLOT_FORM'
+        });
+        return dispatch({
+                type: 'RESET_ADD_TASK'
+        });
+    }    
 }
 
 export const hideSlotForm = () => {
@@ -63,6 +68,11 @@ export const removeSlot = (id) => {
                     });
                 })
             )
+            .then(() => {
+                dispatch({
+                    type: 'RESET_ADD_TASK'
+                });
+            })
             .catch(error => {
                 throw error;
             });
@@ -85,6 +95,11 @@ export const onClickUpdateSlot = (id) => {
             .then(() => {
                 dispatch({
                     type: 'SHOW_UPDATE_SLOT_FORM'
+                });
+            })
+            .then(() => {
+                dispatch({
+                    type: 'RESET_ADD_TASK'
                 });
             })
             .catch(error => {
@@ -138,6 +153,11 @@ export const createSlot = (slot) => {
             .then(res => {
                 let data = res.data.result;
                 dispatch(createSlotSuccess(data));
+            })
+            .then(() => {
+                dispatch({
+                    type: 'RESET_ADD_TASK'
+                });
             })
             .catch(error => {
                 console.log(error)

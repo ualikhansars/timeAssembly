@@ -81,6 +81,11 @@ export const createTask = (task) => {
                  console.log('CREATE TASK == ',task);
                 dispatch(createTaskSuccess(data));
             })
+            .then(() => {
+                dispatch({
+                    type: 'RESET_ADD_TASK'
+                });
+            })
             .catch(error => {
                 console.log(error)
             });
@@ -110,6 +115,11 @@ export const onClickUpdateTask = (id) => {
             .then(() => {
                 dispatch({
                     type: 'SHOW_UPDATE_TASK_FORM'
+                });
+            })
+            .then(() => {
+                dispatch({
+                    type: 'RESET_ADD_TASK'
                 });
             })
             .catch(error => {
@@ -157,11 +167,17 @@ export const removeTask = (id) => {
                     deletedTaskId: id
                 });
             })
+            .then(() => {
+                dispatch({
+                    type: 'RESET_ADD_TASK'
+                });
+            })
             .catch(error => {
                 throw error;
             });
     }
 }
+
 
 
 
