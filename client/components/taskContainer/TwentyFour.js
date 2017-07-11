@@ -59,6 +59,7 @@ class TwentyFour extends React.Component {
                 for(let min=0; min<60; min+=30) { // every 30 minites
                     for(let task of tasks) { 
                         // check if task' startTime equal to iteration hour and minites
+                        // then add Task with same startHour instead of time Component
                         if(hour == task.startTimeHours && min == task.startTimeMinutes) {
                             property = {
                                 title: task.title,
@@ -99,6 +100,16 @@ class TwentyFour extends React.Component {
                     let {finishHour, finishMin} = timeCalc(hour, min, property.duration);
                     hour = finishHour;
                     min = finishMin;
+                    console.log('finishHour', finishHour, 'finishMin',finishMin);
+                    // if finishMin == 30, then add 30 minutes to hour
+                    if(min == 0) {
+                        let pushedMin = '30';
+                        let pushedHour = String(hour);
+                        timetable.push(
+                            <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
+                        );
+                        index++;
+                    }
                 }
                 // if min is equal to 60 change it to 0
                 if(min === 60) {
@@ -106,6 +117,24 @@ class TwentyFour extends React.Component {
                 };
                 taskAdded = false;           
             }
+            // add 24 hour without onAddTask functionality
+            let pushedMin = String(min);
+            let pushedHour = String(hour);
+            if(pushedMin == 0) {
+                pushedMin = '00';
+            }
+            timetable.push(
+                <div className="row" key={index}>
+                <div className="col-md-2">
+                         {pushedHour}:{pushedMin}
+                </div>
+                <div className="col-md-10">
+                    <div className="taskInput">
+                        Task
+                    </div>
+                </div>
+            </div>
+            );
     }
 
         return (

@@ -14367,14 +14367,14 @@ var Slot = function (_React$Component) {
                         _react2.default.createElement(
                             "button",
                             { onClick: function onClick() {
-                                    return _this2.props.slotProperty.addTask(_this2.props.property.id);
+                                    return _this2.props.slotProperty.addTask(_this2.props.slotProperty.slotAttr.id);
                                 }, className: "btn btn-success" },
                             "Add to ",
-                            this.props.slotProperty.addButtonProperty.currentDay,
+                            this.props.slotProperty.timeAndDayProperty.currentDay,
                             " ",
-                            this.props.slotProperty.addButtonProperty.startTimeHours,
+                            this.props.slotProperty.timeAndDayProperty.startTimeHours,
                             ":",
-                            this.props.slotProperty.addButtonProperty.startTimeMinutes
+                            this.props.slotProperty.timeAndDayProperty.startTimeMinutes
                         )
                     ),
                     _react2.default.createElement(
@@ -14383,7 +14383,7 @@ var Slot = function (_React$Component) {
                         _react2.default.createElement(
                             "button",
                             { onClick: function onClick() {
-                                    return _this2.props.slotProperty.fetchSlot(_this2.props.property.id);
+                                    return _this2.props.slotProperty.fetchSlot(_this2.props.slotProperty.slotAttr.id);
                                 }, className: "btn btn-info" },
                             "Edit"
                         )
@@ -14394,7 +14394,7 @@ var Slot = function (_React$Component) {
                         _react2.default.createElement(
                             "button",
                             { onClick: function onClick() {
-                                    return _this2.props.slotProperty.removeSlot(_this2.props.property.id);
+                                    return _this2.props.slotProperty.removeSlot(_this2.props.slotProperty.slotAttr.id);
                                 }, className: "btn btn-danger" },
                             "Remove"
                         )
@@ -14478,7 +14478,7 @@ var SlotContainer = function (_React$Component) {
             var currentDay = this.props.daysInfo.currentDay;
             // Properties that will be displayed in AddButton in Slot Component
 
-            var addButtonProperty = {
+            var timeAndDayProperty = {
                 startTimeHours: startTimeHours,
                 startTimeMinutes: startTimeMinutes,
                 currentDay: currentDay
@@ -14524,7 +14524,7 @@ var SlotContainer = function (_React$Component) {
                         id: slot._id
                         // all properties that will be displayed in Task Component
                     };var slotProperty = {
-                        addButtonProperty: addButtonProperty,
+                        timeAndDayProperty: timeAndDayProperty,
                         fetchSlot: _this2.props.onClickUpdateSlot,
                         removeSlot: _this2.props.removeSlot,
                         addTask: _this2.props.addTask,
@@ -15442,6 +15442,7 @@ var TwentyFour = function (_React$Component) {
                                 var task = _step.value;
 
                                 // check if task' startTime equal to iteration hour and minites
+                                // then add Task with same startHour instead of time Component
                                 if (hour == task.startTimeHours && _min == task.startTimeMinutes) {
                                     property = {
                                         title: task.title,
@@ -15478,12 +15479,12 @@ var TwentyFour = function (_React$Component) {
                         }
 
                         if (!taskAdded) {
-                            var pushedMin = String(_min);
-                            var pushedHour = String(hour);
-                            if (pushedMin == 0) {
-                                pushedMin = '00';
+                            var _pushedMin = String(_min);
+                            var _pushedHour = String(hour);
+                            if (_pushedMin == 0) {
+                                _pushedMin = '00';
                             }
-                            timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: pushedHour, min: pushedMin, key: index }));
+                            timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: _pushedHour, min: _pushedMin, key: index }));
                             index++;
                         }
                     }
@@ -15496,6 +15497,14 @@ var TwentyFour = function (_React$Component) {
 
                         hour = finishHour;
                         min = finishMin;
+                        console.log('finishHour', finishHour, 'finishMin', finishMin);
+                        // if finishMin == 30, then add 30 minutes to hour
+                        if (min == 0) {
+                            var _pushedMin2 = '30';
+                            var _pushedHour2 = String(hour);
+                            timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: _pushedHour2, min: _pushedMin2, key: index }));
+                            index++;
+                        }
                     }
                     // if min is equal to 60 change it to 0
                     if (min === 60) {
@@ -15503,6 +15512,32 @@ var TwentyFour = function (_React$Component) {
                     };
                     taskAdded = false;
                 }
+                // add 24 hour without onAddTask functionality
+                var pushedMin = String(min);
+                var pushedHour = String(hour);
+                if (pushedMin == 0) {
+                    pushedMin = '00';
+                }
+                timetable.push(_react2.default.createElement(
+                    'div',
+                    { className: 'row', key: index },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-2' },
+                        pushedHour,
+                        ':',
+                        pushedMin
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-10' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'taskInput' },
+                            'Task'
+                        )
+                    )
+                ));
             }
 
             return _react2.default.createElement(

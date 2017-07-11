@@ -27,7 +27,7 @@ class SlotContainer extends React.Component {
         let {startTimeHours, startTimeMinutes} = this.props.taskInfo;
         let {currentDay} = this.props.daysInfo;
         // Properties that will be displayed in AddButton in Slot Component
-        let addButtonProperty = {
+        let timeAndDayProperty = {
             startTimeHours,
             startTimeMinutes,
             currentDay
@@ -65,7 +65,7 @@ class SlotContainer extends React.Component {
                     }
                     // all properties that will be displayed in Task Component
                     let slotProperty = {
-                        addButtonProperty,
+                        timeAndDayProperty,
                         fetchSlot: this.props.onClickUpdateSlot,
                         removeSlot: this.props.removeSlot,
                         addTask: this.props.addTask,

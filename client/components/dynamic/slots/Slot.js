@@ -29,15 +29,15 @@ class Slot extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-md-4">
-                        <button onClick={() => this.props.slotProperty.addTask(this.props.property.id)} className="btn btn-success">
-                            Add to {this.props.slotProperty.addButtonProperty.currentDay} {this.props.slotProperty.addButtonProperty.startTimeHours}:{this.props.slotProperty.addButtonProperty.startTimeMinutes}
+                        <button onClick={() => this.props.slotProperty.addTask(this.props.slotProperty.slotAttr.id)} className="btn btn-success">
+                            Add to {this.props.slotProperty.timeAndDayProperty.currentDay} {this.props.slotProperty.timeAndDayProperty.startTimeHours}:{this.props.slotProperty.timeAndDayProperty.startTimeMinutes}
                         </button>
                     </div>
                      <div className="col-md-4">
-                            <button onClick={() => this.props.slotProperty.fetchSlot(this.props.property.id)} className="btn btn-info">Edit</button>
+                            <button onClick={() => this.props.slotProperty.fetchSlot(this.props.slotProperty.slotAttr.id)} className="btn btn-info">Edit</button>
                         </div>
                     <div className="col-md-4">
-                        <button onClick={() => this.props.slotProperty.removeSlot(this.props.property.id)} className="btn btn-danger">Remove</button>
+                        <button onClick={() => this.props.slotProperty.removeSlot(this.props.slotProperty.slotAttr.id)} className="btn btn-danger">Remove</button>
                     </div>
                 </div>
             </div>
