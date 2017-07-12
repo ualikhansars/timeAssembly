@@ -6,6 +6,7 @@ import {timeCalc} from '../../../utils/timeCalc';
 class CreateTaskForm extends React.Component {
     constructor(props) {
         super(props);
+        this.errors = ''
         this.title = this.props.slotInfo.slot.title;
         this.category = this.props.slotInfo.slot.category;
         this.slot = this.props.slotInfo.slot._id;  
@@ -44,13 +45,19 @@ class CreateTaskForm extends React.Component {
             startTimeMinutes = Number(this.state.startTimeMinutes);
         }
         let {finishHour, finishMin} = timeCalc(startTimeHours, startTimeMinutes, duration);
-        let updatedTask = Object.assign({}, this.state, {
+        // if hour is less than 24, then save task
+        if(finishHour < 24) {
+            let updatedTask = Object.assign({}, this.state, {
             finishTimeHours: finishHour,
             finishTimeMinutes: finishMin,
-        });
-        console.log('updatedTask', updatedTask);
-        this.props.createTask(updatedTask);
-
+            });
+            this.props.createTask(updatedTask);
+        } else {
+            this.setState({
+                errors: 'Due time for task cannot be more than 24 hours',
+                duration: 30
+            });
+        }
     }
 
     
@@ -73,6 +80,7 @@ class CreateTaskForm extends React.Component {
                     <div className="form-group row">
                         <label htmlFor="duration" className="col-md-12">Duration</label>
                         <input value={this.state.duration} onChange={this.onChange.bind(this)} type="text" className="form-control col-md-12" id="duration" name="duration" placeholder="Duration of this task in minutes" />
+                        {this.state.errors}
                     </div>
                     <div className="row">
                         <div className="col-md-4">

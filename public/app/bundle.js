@@ -8229,11 +8229,15 @@ var timeCalc = exports.timeCalc = function timeCalc(startHour, startMin) {
     var finishHour = startHour;
     var finishMin = startMin;
     if (duration < 0) {
+        console.log('duration < 0', duration);
         duration = 0;
     }
     if (duration < 60) {
+        console.log('duration < 60', duration);
         var addition = startMin + duration; // 80 or 30
-        if (addition === 60) {
+        console.log('timeCalc startMin', startMin);
+        if (addition == 60) {
+            console.log('addition === 60', addition);
             finishHour++;
             finishMin = 0;
         }
@@ -13671,6 +13675,7 @@ var CreateTaskForm = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (CreateTaskForm.__proto__ || Object.getPrototypeOf(CreateTaskForm)).call(this, props));
 
+        _this.errors = '';
         _this.title = _this.props.slotInfo.slot.title;
         _this.category = _this.props.slotInfo.slot.category;
         _this.slot = _this.props.slotInfo.slot._id;
@@ -13714,13 +13719,21 @@ var CreateTaskForm = function (_React$Component) {
             var _timeCalc = (0, _timeCalc2.timeCalc)(startTimeHours, startTimeMinutes, duration),
                 finishHour = _timeCalc.finishHour,
                 finishMin = _timeCalc.finishMin;
+            // if hour is less than 24, then save task
 
-            var updatedTask = Object.assign({}, this.state, {
-                finishTimeHours: finishHour,
-                finishTimeMinutes: finishMin
-            });
-            console.log('updatedTask', updatedTask);
-            this.props.createTask(updatedTask);
+
+            if (finishHour < 24) {
+                var updatedTask = Object.assign({}, this.state, {
+                    finishTimeHours: finishHour,
+                    finishTimeMinutes: finishMin
+                });
+                this.props.createTask(updatedTask);
+            } else {
+                this.setState({
+                    errors: 'Due time for task cannot be more than 24 hours',
+                    duration: 30
+                });
+            }
         }
     }, {
         key: 'render',
@@ -13786,7 +13799,8 @@ var CreateTaskForm = function (_React$Component) {
                         { htmlFor: 'duration', className: 'col-md-12' },
                         'Duration'
                     ),
-                    _react2.default.createElement('input', { value: this.state.duration, onChange: this.onChange.bind(this), type: 'text', className: 'form-control col-md-12', id: 'duration', name: 'duration', placeholder: 'Duration of this task in minutes' })
+                    _react2.default.createElement('input', { value: this.state.duration, onChange: this.onChange.bind(this), type: 'text', className: 'form-control col-md-12', id: 'duration', name: 'duration', placeholder: 'Duration of this task in minutes' }),
+                    this.state.errors
                 ),
                 _react2.default.createElement(
                     'div',
@@ -14997,7 +15011,6 @@ var Day = function (_React$Component) {
     }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
-            console.log('Next Props', nextProps);
             if (this.props.day != nextProps.day) {
                 this.props.fetchTasksByDay(nextProps.day);
             }
@@ -15518,21 +15531,27 @@ var TwentyFour = function (_React$Component) {
                             timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: _pushedHour, min: _pushedMin, key: index }));
                             index++;
                         }
+                        console.log('before min for loop min == ', _min);
                     }
+                    console.log('after min for loop min == ', min
                     //if Task has been added, then update hour and minutes
                     // change hour and minutes to finishHour and finishMinites of the task
-                    if (taskAdded) {
+                    );if (taskAdded) {
                         var _timeCalc = (0, _timeCalc2.timeCalc)(hour, min, property.duration),
                             finishHour = _timeCalc.finishHour,
                             finishMin = _timeCalc.finishMin;
 
+                        console.log('finishHour', finishHour, 'finishMin', finishMin);
                         hour = finishHour;
                         min = finishMin;
-                        console.log('finishHour', finishHour, 'finishMin', finishMin);
-                        // if finishMin == 30, then add 30 minutes to hour
-                        if (min == 0) {
-                            var _pushedMin2 = '30';
+                        // add finish hour amd min to timetable
+                        // before hour incremention
+                        for (var i = min; i < 60; i += 30) {
+                            var _pushedMin2 = String(min);
                             var _pushedHour2 = String(hour);
+                            if (_pushedMin2 == 0) {
+                                _pushedMin2 = '00';
+                            }
                             timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: _pushedHour2, min: _pushedMin2, key: index }));
                             index++;
                         }
@@ -15543,7 +15562,7 @@ var TwentyFour = function (_React$Component) {
                     };
                     taskAdded = false;
                 }
-                // add 24 hour without onAddTask functionality
+                // add 24 hour without onAddTask function
                 var pushedMin = String(min);
                 var pushedHour = String(hour);
                 if (pushedMin == 0) {

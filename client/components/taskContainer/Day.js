@@ -15,7 +15,6 @@ class Day extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-       console.log('Next Props', nextProps);
        if(this.props.day != nextProps.day) {
            this.props.fetchTasksByDay(nextProps.day);
        }

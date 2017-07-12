@@ -92,19 +92,25 @@ class TwentyFour extends React.Component {
                             <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
                         );
                         index++;
-                    } 
+                    }
+                    console.log('before min for loop min == ',min) 
                 }
+                console.log('after min for loop min == ',min) 
                 //if Task has been added, then update hour and minutes
                 // change hour and minutes to finishHour and finishMinites of the task
                 if(taskAdded) {
                     let {finishHour, finishMin} = timeCalc(hour, min, property.duration);
+                    console.log('finishHour', finishHour, 'finishMin',finishMin);
                     hour = finishHour;
                     min = finishMin;
-                    console.log('finishHour', finishHour, 'finishMin',finishMin);
-                    // if finishMin == 30, then add 30 minutes to hour
-                    if(min == 0) {
-                        let pushedMin = '30';
+                    // add finish hour amd min to timetable
+                    // before hour incremention
+                    for(let i = min; i < 60; i+=30) {
+                        let pushedMin = String(min);
                         let pushedHour = String(hour);
+                        if(pushedMin == 0) {
+                            pushedMin = '00';
+                        }
                         timetable.push(
                             <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
                         );
@@ -117,7 +123,7 @@ class TwentyFour extends React.Component {
                 };
                 taskAdded = false;           
             }
-            // add 24 hour without onAddTask functionality
+            // add 24 hour without onAddTask function
             let pushedMin = String(min);
             let pushedHour = String(hour);
             if(pushedMin == 0) {
