@@ -8256,7 +8256,12 @@ var calcFinishTime = exports.calcFinishTime = function calcFinishTime(startHour,
         var parameter = Math.floor(duration / 60); // 200 / 60 === 3
         var _balance = duration % 60;
         finishHour = startHour + parameter;
-        finishMin = startMin + _balance;
+        if (finishMin + _balance == 60) {
+            finishHour++;
+            finishMin = 0;
+        } else {
+            finishMin = startMin + _balance;
+        }
     }
     return {
         finishHour: finishHour,

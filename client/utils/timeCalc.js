@@ -29,7 +29,12 @@ export const calcFinishTime = (startHour, startMin, duration=0) => {
             let parameter = Math.floor(duration / 60); // 200 / 60 === 3
             let balance = duration % 60;
             finishHour = startHour + parameter;
-            finishMin = startMin + balance;
+            if(finishMin + balance == 60) {
+                finishHour++;
+                finishMin = 0;
+            } else {
+                finishMin = startMin + balance;
+            }
         }
         return {
             finishHour,
