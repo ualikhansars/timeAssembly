@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import {timeCalc} from '../../../utils/timeCalc';
+import {calcFinishTime} from '../../../utils/timeCalc';
 
 class CreateTaskForm extends React.Component {
     constructor(props) {
@@ -44,7 +44,7 @@ class CreateTaskForm extends React.Component {
         } else {
             startTimeMinutes = Number(this.state.startTimeMinutes);
         }
-        let {finishHour, finishMin} = timeCalc(startTimeHours, startTimeMinutes, duration);
+        let {finishHour, finishMin} = calcFinishTime(startTimeHours, startTimeMinutes, duration);
         // if hour is less than 24, then save task
         if(finishHour < 24) {
             let updatedTask = Object.assign({}, this.state, {

@@ -1,7 +1,7 @@
 // get startHour and startMinutes and duration
 //  and return finishHour and finish Minites 
 
-export const timeCalc = (startHour, startMin, duration=0) => {
+export const calcFinishTime = (startHour, startMin, duration=0) => {
         let finishHour = startHour;
         let finishMin = startMin;
         if(duration < 0) {

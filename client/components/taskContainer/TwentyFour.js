@@ -11,7 +11,7 @@ import {fetchTasksByDay,
         onClickUpdateTask 
         } from '../../actions/taskAction';
 
-import {timeCalc} from '../../utils/timeCalc';
+import {calcFinishTime} from '../../utils/timeCalc';
 
 class TwentyFour extends React.Component {
 
@@ -57,6 +57,7 @@ class TwentyFour extends React.Component {
             let property = {}
             for(hour=0; hour<24; ++hour) { // every hour
                 for(let min=0; min<60; min+=30) { // every 30 minites
+                    // console.log('before tasks for loop after min == ', hour+':'+min);
                     for(let task of tasks) { 
                         // check if task' startTime equal to iteration hour and minites
                         // then add Task with same startHour instead of time Component
@@ -79,6 +80,7 @@ class TwentyFour extends React.Component {
                             );
                             index++;
                             taskAdded = true; 
+                            console.log('taskAdded', taskAdded);
                         } 
                     } // end for tasks
                     // if task is not added, then add Time component
@@ -93,35 +95,35 @@ class TwentyFour extends React.Component {
                         );
                         index++;
                     }
-                    console.log('before min for loop min == ',min) 
                 }
-                console.log('after min for loop min == ',min) 
+                // console.log('after min for loop min == ',min) // 0
                 //if Task has been added, then update hour and minutes
                 // change hour and minutes to finishHour and finishMinites of the task
                 if(taskAdded) {
-                    let {finishHour, finishMin} = timeCalc(hour, min, property.duration);
+                    let {finishHour, finishMin} = calcFinishTime(hour, min, property.duration);
                     console.log('finishHour', finishHour, 'finishMin',finishMin);
                     hour = finishHour;
                     min = finishMin;
                     // add finish hour amd min to timetable
                     // before hour incremention
-                    for(let i = min; i < 60; i+=30) {
-                        let pushedMin = String(min);
-                        let pushedHour = String(hour);
-                        if(pushedMin == 0) {
-                            pushedMin = '00';
-                        }
-                        timetable.push(
-                            <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
-                        );
-                        index++;
-                    }
+                    // for(let i = min; i < 60; i+=30) {
+                    //     let pushedMin = String(min);
+                    //     let pushedHour = String(hour);
+                    //     if(pushedMin == 0) {
+                    //         pushedMin = '00';
+                    //     }
+                    //     timetable.push(
+                    //         <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
+                    //     );
+                    //     index++;
+                    // }
                 }
                 // if min is equal to 60 change it to 0
                 if(min === 60) {
                     min = 0;
                 };
-                taskAdded = false;           
+                taskAdded = false;
+                console.log('before end hour for loop', hour+':'+min);           
             }
             // add 24 hour without onAddTask function
             let pushedMin = String(min);
