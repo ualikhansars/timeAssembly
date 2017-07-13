@@ -13533,6 +13533,12 @@ var CreateSlotForm = function (_React$Component) {
             this.setState({
                 temporary: !this.state.temporary
             });
+            // if temporary is chosen, then set total to 1
+            if (this.state.temporary) {
+                this.setState({
+                    total: 1
+                });
+            }
         }
     }, {
         key: 'onSubmit',
@@ -13550,6 +13556,39 @@ var CreateSlotForm = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            var dueDate = null;
+            var total = _react2.default.createElement(
+                'div',
+                { className: 'form-group row' },
+                _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'total', className: 'col-md-12' },
+                    'Total'
+                ),
+                _react2.default.createElement('input', { value: this.state.total, onChange: this.onChange.bind(this), type: 'number', className: 'form-control col-md-12', id: 'total', name: 'total', placeholder: 'Enter week frequency' })
+            );
+            // show dueDate if temporary is chosen
+            if (this.state.temporary) {
+                dueDate = _react2.default.createElement(
+                    'div',
+                    { className: 'form-group row' },
+                    _react2.default.createElement(
+                        'label',
+                        { htmlFor: 'dueDate', className: 'col-md-12' },
+                        'Due Date'
+                    ),
+                    _react2.default.createElement('input', { value: this.state.dueDate, onChange: this.onChange.bind(this), type: 'date', className: 'form-control col-md-12', id: 'dueDate', name: 'dueDate', placeholder: 'By what date this task has to be finished' })
+                );
+                total = _react2.default.createElement(
+                    'div',
+                    { className: 'form-group row' },
+                    _react2.default.createElement(
+                        'span',
+                        { className: 'col-md-12' },
+                        'Total: 1'
+                    )
+                );
+            }
             return _react2.default.createElement(
                 'div',
                 { className: 'slots-form' },
@@ -13578,16 +13617,7 @@ var CreateSlotForm = function (_React$Component) {
                     ),
                     _react2.default.createElement('input', { value: this.state.category, onChange: this.onChange.bind(this), type: 'text', className: 'form-control col-md-12', id: 'category', name: 'category', placeholder: 'Important' })
                 ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-group row' },
-                    _react2.default.createElement(
-                        'label',
-                        { htmlFor: 'total', className: 'col-md-12' },
-                        'Total'
-                    ),
-                    _react2.default.createElement('input', { value: this.state.total, onChange: this.onChange.bind(this), type: 'number', className: 'form-control col-md-12', id: 'total', name: 'total', placeholder: 'Enter week frequency' })
-                ),
+                total,
                 _react2.default.createElement(
                     'div',
                     { className: 'form-group row' },
@@ -13598,16 +13628,7 @@ var CreateSlotForm = function (_React$Component) {
                     ),
                     _react2.default.createElement('input', _defineProperty({ value: this.state.temporary, onChange: this.onCheckboxChange.bind(this), type: 'checkbox', className: 'col-md-3', id: 'temporary', name: 'temporary' }, 'value', 'temporary'))
                 ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-group row' },
-                    _react2.default.createElement(
-                        'label',
-                        { htmlFor: 'dueDate', className: 'col-md-12' },
-                        'Due Date'
-                    ),
-                    _react2.default.createElement('input', { value: this.state.dueDate, onChange: this.onChange.bind(this), type: 'date', className: 'form-control col-md-12', id: 'dueDate', name: 'dueDate', placeholder: 'By what date this task has to be finished' })
-                ),
+                dueDate,
                 _react2.default.createElement(
                     'div',
                     { className: 'row' },
