@@ -5,14 +5,18 @@ import {connect} from 'react-redux';
 import Day from './Day';
 import TwentyFour from './TwentyFour';
 
+import {getCurrentDayAndTime} from '../../actions/daysAction';
 
 class Days extends React.Component {
+    componentDidMount() {
+        this.props.getCurrentDayAndTime();
+    }
     render() {
-        const {currentDay} = this.props.daysInfo;
+        const {chosenDay} = this.props.daysInfo;
 
         return (
             //  <Day day={currentDay}/>
-            <TwentyFour  day={currentDay}/>
+            <TwentyFour  day={chosenDay}/>
         );
     }
 }
@@ -23,5 +27,14 @@ const mapStateToProps = (state) => {
     };
 }
 
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+            // fetch slots from database
+        getCurrentDayAndTime
+        }, 
+        dispatch
+    );
+}
 
-export default connect(mapStateToProps, null)(Days);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Days);

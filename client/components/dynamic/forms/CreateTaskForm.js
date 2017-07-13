@@ -10,7 +10,7 @@ class CreateTaskForm extends React.Component {
         this.title = this.props.slotInfo.slot.title;
         this.category = this.props.slotInfo.slot.category;
         this.slot = this.props.slotInfo.slot._id;  
-        this.day =  this.props.daysInfo.currentDay;
+        this.day =  this.props.daysInfo.chosenDay;
         this.startTimeHours = this.props.taskInfo.startTimeHours;
         this.startTimeMinutes = this.props.taskInfo.startTimeMinutes;        
         this.state = {

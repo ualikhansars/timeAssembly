@@ -2,7 +2,6 @@ import React from 'react';
 
 class Week extends React.Component {
     render() {
-        console.log('Week props', this.props);
         return(
             <div className="week container">
                 <div className="row">

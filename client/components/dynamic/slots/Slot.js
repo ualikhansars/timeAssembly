@@ -7,7 +7,7 @@ class Slot extends React.Component {
         if(startTimeHours && startTimeMinutes) {
             addButton = <div className="col-md-4">
                         <button onClick={() => this.props.slotProperty.addTask(this.props.slotProperty.slotAttr.id)} className="btn btn-success">
-                            Add to {this.props.slotProperty.timeAndDayProperty.currentDay} {startTimeHours}:{startTimeMinutes}
+                            Add to {this.props.slotProperty.timeAndDayProperty.chosenDay} {startTimeHours}:{startTimeMinutes}
                         </button>
                         </div>
         }

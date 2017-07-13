@@ -7790,9 +7790,14 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var onClickDayInTheWeek = exports.onClickDayInTheWeek = function onClickDayInTheWeek(day) {
-    return {
-        type: 'ON_CLICK_DAY_IN_THE_WEEK',
-        chosenDay: day
+    return function (dispatch) {
+        dispatch({
+            type: 'ON_CLICK_DAY_IN_THE_WEEK',
+            chosenDay: day
+        });
+        return dispatch({
+            type: 'RESET_ADD_TASK'
+        });
     };
 };
 
@@ -7808,6 +7813,29 @@ var onClickTime = exports.onClickTime = function onClickTime(hour, min) {
         return dispatch({
             type: 'DISPLAY_SLOTS'
         });
+    };
+};
+
+var getCurrentDayAndTime = exports.getCurrentDayAndTime = function getCurrentDayAndTime() {
+    var now = new Date();
+    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var dayNumber = now.getDate();
+    var year = now.getFullYear();
+    var day = days[now.getDay()];
+    var month = months[now.getMonth()];
+    var hour = now.getHours();
+    var minutes = now.getMinutes();
+    var timezone = now.getTimezoneOffset();
+
+    return {
+        type: 'GET_CURRENT_DATE_AND_TIME',
+        currentDayOfTheWeek: day,
+        currentDayNumber: dayNumber,
+        currentMonth: month,
+        currentHour: hour,
+        currentMinutes: minutes,
+        timezone: timezone
     };
 };
 
@@ -13705,7 +13733,7 @@ var CreateTaskForm = function (_React$Component) {
         _this.title = _this.props.slotInfo.slot.title;
         _this.category = _this.props.slotInfo.slot.category;
         _this.slot = _this.props.slotInfo.slot._id;
-        _this.day = _this.props.daysInfo.currentDay;
+        _this.day = _this.props.daysInfo.chosenDay;
         _this.startTimeHours = _this.props.taskInfo.startTimeHours;
         _this.startTimeMinutes = _this.props.taskInfo.startTimeMinutes;
         _this.state = {
@@ -14368,7 +14396,7 @@ var Slot = function (_React$Component) {
                                 return _this2.props.slotProperty.addTask(_this2.props.slotProperty.slotAttr.id);
                             }, className: "btn btn-success" },
                         "Add to ",
-                        this.props.slotProperty.timeAndDayProperty.currentDay,
+                        this.props.slotProperty.timeAndDayProperty.chosenDay,
                         " ",
                         startTimeHours,
                         ":",
@@ -14546,13 +14574,13 @@ var SlotContainer = function (_React$Component) {
             var _props$taskInfo = this.props.taskInfo,
                 startTimeHours = _props$taskInfo.startTimeHours,
                 startTimeMinutes = _props$taskInfo.startTimeMinutes;
-            var currentDay = this.props.daysInfo.currentDay;
+            var chosenDay = this.props.daysInfo.chosenDay;
             // Properties that will be displayed in AddButton in Slot Component
 
             var timeAndDayProperty = {
                 startTimeHours: startTimeHours,
                 startTimeMinutes: startTimeMinutes,
-                currentDay: currentDay
+                chosenDay: chosenDay
 
                 // when data is loading
             };if (loading) {
@@ -15162,6 +15190,8 @@ var _TwentyFour = __webpack_require__(146);
 
 var _TwentyFour2 = _interopRequireDefault(_TwentyFour);
 
+var _daysAction = __webpack_require__(67);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -15180,14 +15210,19 @@ var Days = function (_React$Component) {
     }
 
     _createClass(Days, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.props.getCurrentDayAndTime();
+        }
+    }, {
         key: 'render',
         value: function render() {
-            var currentDay = this.props.daysInfo.currentDay;
+            var chosenDay = this.props.daysInfo.chosenDay;
 
 
             return (
                 //  <Day day={currentDay}/>
-                _react2.default.createElement(_TwentyFour2.default, { day: currentDay })
+                _react2.default.createElement(_TwentyFour2.default, { day: chosenDay })
             );
         }
     }]);
@@ -15201,7 +15236,14 @@ var mapStateToProps = function mapStateToProps(state) {
     };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(Days);
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({
+        // fetch slots from database
+        getCurrentDayAndTime: _daysAction.getCurrentDayAndTime
+    }, dispatch);
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Days);
 
 /***/ }),
 /* 144 */
@@ -15687,68 +15729,67 @@ var Week = function (_React$Component) {
     }
 
     _createClass(Week, [{
-        key: 'render',
+        key: "render",
         value: function render() {
             var _this2 = this;
 
-            console.log('Week props', this.props);
             return _react2.default.createElement(
-                'div',
-                { className: 'week container' },
+                "div",
+                { className: "week container" },
                 _react2.default.createElement(
-                    'div',
-                    { className: 'row' },
+                    "div",
+                    { className: "row" },
                     _react2.default.createElement(
-                        'div',
-                        { className: 'col-md-12' },
+                        "div",
+                        { className: "col-md-12" },
                         _react2.default.createElement(
-                            'span',
+                            "span",
                             { onClick: function onClick() {
                                     return _this2.props.onClickDay('Sunday');
                                 } },
-                            '| Su |'
+                            "| Su |"
                         ),
                         _react2.default.createElement(
-                            'span',
+                            "span",
                             { onClick: function onClick() {
                                     return _this2.props.onClickDay('Monday');
                                 } },
-                            ' Mo |'
+                            " Mo |"
                         ),
                         _react2.default.createElement(
-                            'span',
+                            "span",
                             { onClick: function onClick() {
                                     return _this2.props.onClickDay('Tuesday');
                                 } },
-                            ' Tu |'
+                            " Tu |"
                         ),
                         _react2.default.createElement(
-                            'span',
+                            "span",
                             { onClick: function onClick() {
                                     return _this2.props.onClickDay('Wednesday');
                                 } },
-                            ' We |'
+                            " We |"
                         ),
                         _react2.default.createElement(
-                            'span',
+                            "span",
                             { onClick: function onClick() {
                                     return _this2.props.onClickDay('Thursday');
                                 } },
-                            ' Th |'
+                            " Th |"
                         ),
                         _react2.default.createElement(
-                            'span',
+                            "span",
                             { onClick: function onClick() {
                                     return _this2.props.onClickDay('Friday');
                                 } },
-                            ' Fr |'
+                            " Fr |"
                         ),
                         _react2.default.createElement(
-                            'span',
+                            "span",
                             { onClick: function onClick() {
                                     return _this2.props.onClickDay('Saturday');
                                 } },
-                            ' St |'
+                            " St |"
                         )
                     )
                 )
@@ -15772,7 +15813,14 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var initialState = {
-    currentDay: 'monday' // will be change to the current day
+    currentDay: '', // will be change to the current day
+    chosenDay: '',
+    currentDayOfTheWeek: null,
+    currentDayNumber: null,
+    currentMonth: '',
+    currentHour: null,
+    currentMinutes: null,
+    timezone: null
 };
 
 var daysReducer = function daysReducer() {
@@ -15781,9 +15829,18 @@ var daysReducer = function daysReducer() {
 
     switch (action.type) {
         case 'ON_CLICK_DAY_IN_THE_WEEK':
-            var chosenDay = action.chosenDay.toLowerCase();
             return Object.assign({}, state, {
-                currentDay: chosenDay
+                chosenDay: action.chosenDay
+            });
+        case 'GET_CURRENT_DATE_AND_TIME':
+            return Object.assign({}, state, {
+                currentDayOfTheWeek: action.currentDayOfTheWeek,
+                chosenDay: action.currentDayOfTheWeek,
+                currentDayNumber: action.currentDayNumber,
+                currentMonth: action.currentMonth,
+                currentHour: action.currentHour,
+                currentMinutes: action.currentMinutes,
+                timezone: action.timezone
             });
         default:
             return state;

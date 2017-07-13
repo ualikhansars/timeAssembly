@@ -1,13 +1,29 @@
 const initialState = {
-    currentDay: 'monday' // will be change to the current day
+    currentDay: '', // will be change to the current day
+    chosenDay: '',
+    currentDayOfTheWeek: null,
+    currentDayNumber: null,
+    currentMonth: '',
+    currentHour: null,
+    currentMinutes: null,
+    timezone: null
 }
 
 const daysReducer = (state=initialState, action) => {
     switch(action.type) {
         case 'ON_CLICK_DAY_IN_THE_WEEK':
-            let chosenDay = action.chosenDay.toLowerCase();
             return Object.assign({}, state, {
-                currentDay: chosenDay
+                chosenDay:  action.chosenDay
+            });
+        case 'GET_CURRENT_DATE_AND_TIME':
+            return Object.assign({}, state, {
+                currentDayOfTheWeek: action.currentDayOfTheWeek,
+                chosenDay: action.currentDayOfTheWeek,
+                currentDayNumber: action.currentDayNumber,
+                currentMonth: action.currentMonth,
+                currentHour: action.currentHour,
+                currentMinutes: action.currentMinutes,
+                timezone: action.timezone
             });
         default:
             return state;    

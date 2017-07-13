@@ -25,12 +25,12 @@ class SlotContainer extends React.Component {
         const {loading, loaded, errors} = this.props.slotInfo.slotsRequest;
         let resource = null;
         let {startTimeHours, startTimeMinutes} = this.props.taskInfo;
-        let {currentDay} = this.props.daysInfo;
+        let {chosenDay} = this.props.daysInfo;
         // Properties that will be displayed in AddButton in Slot Component
         let timeAndDayProperty = {
             startTimeHours,
             startTimeMinutes,
-            currentDay
+            chosenDay
         }
 
         // when data is loading
