@@ -7835,7 +7835,8 @@ var getCurrentDayAndTime = exports.getCurrentDayAndTime = function getCurrentDay
         currentMonth: month,
         currentHour: hour,
         currentMinutes: minutes,
-        timezone: timezone
+        timezone: timezone,
+        now: now
     };
 };
 
@@ -13521,6 +13522,10 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRedux = __webpack_require__(8);
+
+var _getCurrentDate = __webpack_require__(281);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -13584,6 +13589,7 @@ var CreateSlotForm = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            var currentDate = (0, _getCurrentDate.getCurrenrDay)();
             var dueDate = null;
             var total = _react2.default.createElement(
                 'div',
@@ -13605,7 +13611,7 @@ var CreateSlotForm = function (_React$Component) {
                         { htmlFor: 'dueDate', className: 'col-md-12' },
                         'Due Date'
                     ),
-                    _react2.default.createElement('input', { value: this.state.dueDate, onChange: this.onChange.bind(this), type: 'date', className: 'form-control col-md-12', id: 'dueDate', name: 'dueDate', placeholder: 'By what date this task has to be finished' })
+                    _react2.default.createElement('input', { value: this.state.dueDate, onChange: this.onChange.bind(this), type: 'date', className: 'form-control col-md-12', id: 'dueDate', name: 'dueDate', min: currentDate })
                 );
                 total = _react2.default.createElement(
                     'div',
@@ -13688,7 +13694,13 @@ var CreateSlotForm = function (_React$Component) {
     return CreateSlotForm;
 }(_react2.default.Component);
 
-exports.default = CreateSlotForm;
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        daysInfo: state.daysInfo
+    };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(CreateSlotForm);
 
 /***/ }),
 /* 133 */
@@ -13896,7 +13908,6 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(CreateTaskForm);
-;
 
 /***/ }),
 /* 134 */
@@ -15820,7 +15831,8 @@ var initialState = {
     currentMonth: '',
     currentHour: null,
     currentMinutes: null,
-    timezone: null
+    timezone: null,
+    now: ''
 };
 
 var daysReducer = function daysReducer() {
@@ -15840,7 +15852,8 @@ var daysReducer = function daysReducer() {
                 currentMonth: action.currentMonth,
                 currentHour: action.currentHour,
                 currentMinutes: action.currentMinutes,
-                timezone: action.timezone
+                timezone: action.timezone,
+                now: action.now
             });
         default:
             return state;
@@ -29661,6 +29674,35 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+/* 281 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+// return appropriate for HTMl format for current date
+
+var getCurrenrDay = exports.getCurrenrDay = function getCurrenrDay() {
+    var now = new Date();
+    var day = new String(now.getDate());
+    var month = new String(now.getMonth() + 1);
+    var year = new String(now.getFullYear());
+    var result = new String();
+
+    if (day.length < 2) {
+        day = '0' + day;
+    }
+    if (month.length < 2) {
+        month = '0' + month;
+    }
+
+    return result = year + '-' + month + '-' + day;
+};
 
 /***/ })
 /******/ ]);

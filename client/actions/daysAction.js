@@ -44,6 +44,7 @@ export const getCurrentDayAndTime = () => {
         currentMonth: month,
         currentHour: hour,
         currentMinutes: minutes,
-        timezone
+        timezone,
+        now
     }
 }   

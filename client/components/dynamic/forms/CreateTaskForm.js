@@ -105,6 +105,6 @@ const mapStateToProps = (state) => {
 
 
 
-export default connect(mapStateToProps, null)(CreateTaskForm);;
+export default connect(mapStateToProps, null)(CreateTaskForm);
 
 

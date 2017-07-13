@@ -1,4 +1,7 @@
 import React from 'react';
+import {connect} from 'react-redux';
+
+import {getCurrenrDay} from '../../../utils/getCurrentDate';
 
 class CreateSlotForm extends React.Component {
     constructor(props) {
@@ -41,6 +44,7 @@ class CreateSlotForm extends React.Component {
         this.props.createSlot(updatedSlot);
     }
     render() {
+        let currentDate = getCurrenrDay();
         let dueDate = null;
         let total = <div className="form-group row">
                         <label htmlFor="total" className="col-md-12">Total</label>
@@ -50,7 +54,7 @@ class CreateSlotForm extends React.Component {
         if(this.state.temporary) {
             dueDate = <div className="form-group row">
                         <label htmlFor="dueDate" className="col-md-12">Due Date</label>
-                        <input value={this.state.dueDate} onChange={this.onChange.bind(this)} type="date" className="form-control col-md-12" id="dueDate" name="dueDate" placeholder="By what date this task has to be finished" />
+                        <input value={this.state.dueDate} onChange={this.onChange.bind(this)} type="date" className="form-control col-md-12" id="dueDate" name="dueDate" min={currentDate}/>
                     </div>
             total = <div className="form-group row">
                         <span className="col-md-12">Total: 1</span>
@@ -86,6 +90,10 @@ class CreateSlotForm extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        daysInfo: state.daysInfo,
+    };
+}
 
-
-export default CreateSlotForm;
+export default connect(mapStateToProps, null)(CreateSlotForm);

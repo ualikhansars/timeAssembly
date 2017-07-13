@@ -62,7 +62,6 @@ describe ('Deleting records', function() {
             });
        });
     });
-
     it('Delete several records from database', function(done) {
        Task.remove({category: 'Programming'}).then(function() {
             Task.findOne({category: 'Programming'}).then(function(result) {

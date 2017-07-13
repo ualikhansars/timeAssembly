@@ -6,7 +6,8 @@ const initialState = {
     currentMonth: '',
     currentHour: null,
     currentMinutes: null,
-    timezone: null
+    timezone: null,
+    now: ''
 }
 
 const daysReducer = (state=initialState, action) => {
@@ -23,7 +24,8 @@ const daysReducer = (state=initialState, action) => {
                 currentMonth: action.currentMonth,
                 currentHour: action.currentHour,
                 currentMinutes: action.currentMinutes,
-                timezone: action.timezone
+                timezone: action.timezone,
+                now: action.now
             });
         default:
             return state;    
