@@ -16,7 +16,7 @@ class Sidebar extends React.Component {
                           <span onClick={() => this.props.displaySlots()}>Tasks</span>
                     </div>
                     <div className="col-md-12">
-                         <span onClick={() => this.props.displaySettings()}>Settings</span>                       
+                         <span onClick={() => this.props.displaySettings()}>Preferences</span>                       
                     </div>
                 </div>
             </div>

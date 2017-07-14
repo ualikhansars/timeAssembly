@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
 import Slots from './slots/Slots';
-import Settings from './settings/Settings';
+import Preferences from './preferences/Preferences';
 import UpdateTaskForm from './forms/UpdateTaskForm';
 
 
@@ -17,7 +17,7 @@ class Dynamic extends React.Component {
         }
         if(displaySettings) {
             return(
-                <Settings/>
+                <Preferences/>
             );
         }
         if(showUpdateTaskForm) {
