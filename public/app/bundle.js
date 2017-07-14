@@ -13512,10 +13512,6 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(Dynamic);
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(4);
@@ -13699,8 +13695,6 @@ var mapStateToProps = function mapStateToProps(state) {
         daysInfo: state.daysInfo
     };
 };
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(CreateSlotForm);
 
 /***/ }),
 /* 133 */
@@ -29780,6 +29774,17 @@ var TimeDisplay = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            // display On or Off if depends of which
+            // time Format is switched
+            var twentyFourOn = 'On';
+            var twelveOn = 'On';
+            if (this.props.preferences.twentyFourHoursFormat) {
+                twentyFourOn = 'On';
+                twelveOn = 'Off';
+            } else {
+                twentyFourOn = 'Off';
+                twelveOn = 'On';
+            }
             return _react2.default.createElement(
                 'div',
                 { className: 'container' },
@@ -29816,7 +29821,7 @@ var TimeDisplay = function (_React$Component) {
                             { onClick: function onClick() {
                                     return _this2.props.twentyFour();
                                 } },
-                            'On'
+                            twentyFourOn
                         )
                     ),
                     _react2.default.createElement(
@@ -29836,7 +29841,7 @@ var TimeDisplay = function (_React$Component) {
                             { onClick: function onClick() {
                                     return _this2.props.twelve();
                                 } },
-                            'On'
+                            twelveOn
                         )
                     )
                 )
