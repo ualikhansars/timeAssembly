@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var controllers = require('../controllers');
 var Task = require('../models/task');
+var Slot = require('../models/slot');
 // find all
 router.get('/:resource', function(req, res, next) {
   var resource = req.params.resource;
@@ -146,7 +147,7 @@ router.delete('/:resource/:id', function(req, res, next) {
   });
 });
 
-
+// remove tasks by slot id
 router.delete('/task', function(req, res, next) {
   Task.remove(req.query, function(err) {
     if(err) {
@@ -163,6 +164,7 @@ router.delete('/task', function(req, res, next) {
   })
 }); 
 
+// update tasks while updating slot
 router.put('/task', function(req, res, next) {
   Task.update(req.query, 
               {$set: {title: req.body.title, category: req.body.category}}, 
@@ -180,6 +182,24 @@ router.put('/task', function(req, res, next) {
       result: result  
     });
   })
-}); 
+});
+
+// decrement free slot attribute
+ router.put('/slot/:id/decrFree', function(req, res, next) {
+  var id = req.params.id;
+  Slot.findByIdAndUpdate(id, {$inc: {free: -1}},{new: true}, function(err, result) {
+    if(err) {
+      res.json({
+        confirmation: 'error',
+        message: err
+      });
+      return;
+    }
+    res.json({
+      confirmation: 'success',
+      result: result  
+    });
+  })
+});
 
 module.exports = router;

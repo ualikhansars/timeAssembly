@@ -55,7 +55,14 @@ class TwentyFour extends React.Component {
             let taskAdded = false;
             let index = 0;
             let property = {}
-            for(hour=0; hour<24; ++hour) { // every hour
+
+            let timeFormat;
+            if(this.props.preferences.twentyFourHoursFormat) {
+                timeFormat = 24;
+            } else {
+                timeFormat = 12;
+            }
+            for(hour=0; hour<timeFormat; ++hour) { // every hour
                 for(let min=0; min<60; min+=30) { // every 30 minites
                     // console.log('before tasks for loop after min == ', hour+':'+min);
                     for(let task of tasks) { 
@@ -80,7 +87,7 @@ class TwentyFour extends React.Component {
                             );
                             index++;
                             taskAdded = true; 
-                            console.log('taskAdded', taskAdded);
+                            // console.log('taskAdded', taskAdded);
                         } 
                     } // end for tasks
                     // if task is not added, then add Time component
@@ -123,7 +130,7 @@ class TwentyFour extends React.Component {
                     min = 0;
                 };
                 taskAdded = false;
-                console.log('before end hour for loop', hour+':'+min);           
+                // console.log('before end hour for loop', hour+':'+min);           
             }
             // add 24 hour without onAddTask function
             let pushedMin = String(min);
@@ -167,6 +174,7 @@ function mapDispatchToProps(dispatch) {
 const mapStateToProps = (state) => {
     return {
         taskInfo: state.taskInfo,
+        preferences: state.preferences
     };
 }
 

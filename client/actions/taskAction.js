@@ -73,14 +73,24 @@ export const createTaskSuccess = (task) => {
 // creates task by API post request
 export const createTask = (task) => {
     console.log('CREATE TASK ACTION', task);
+    let id = task.slot;
     return dispatch => {
         return axios.post('/api/task', task)
             .then(res => {
                 let data = res.data.result;
-                console.log('CREATE TASK DATA',res);
-                 console.log('CREATE TASK == ',task);
                 dispatch(createTaskSuccess(data));
             })
+            .then(
+                axios.put(`/api/slot/${id}/decrFree`)
+            .then(res => {
+                    let slot = res.data.result;
+                    console.log('DECREMENT_SLOT_FREE', res);
+                    dispatch({
+                        type: 'DECREMENT_SLOT_FREE',
+                        updatedSlot: slot
+                    });
+                })
+            )
             .then(() => {
                 dispatch({
                     type: 'RESET_ADD_TASK'
