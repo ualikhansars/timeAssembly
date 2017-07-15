@@ -201,5 +201,22 @@ router.put('/task', function(req, res, next) {
     });
   })
 });
+// increment free slot attribute
+ router.put('/slot/:id/incFree', function(req, res, next) {
+  var id = req.params.id;
+  Slot.findByIdAndUpdate(id, {$inc: {free: 1}},{new: true}, function(err, result) {
+    if(err) {
+      res.json({
+        confirmation: 'error',
+        message: err
+      });
+      return;
+    }
+    res.json({
+      confirmation: 'success',
+      result: result  
+    });
+  })
+});
 
 module.exports = router;

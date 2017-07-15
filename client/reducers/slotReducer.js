@@ -123,6 +123,17 @@ const SlotInfo = (state = initialState, action) => {
             return Object.assign({}, state, {
                 slots: slotsBeforeDecrFree
             }); 
+        case 'INCREMENT_SLOT_FREE':
+            console.log('INCREMENT_SLOT_FREE');
+            let slotsBeforeIncFree = Object.assign([], state.slots);
+            for(let i = 0; i < slotsBeforeIncFree.length; ++i) {
+                if(slotsBeforeIncFree[i]._id == action.updatedSlot._id) {
+                        slotsBeforeIncFree[i].free += 1;
+                }
+            }
+            return Object.assign({}, state, {
+                slots: slotsBeforeIncFree
+            });
         case 'CREATE_SLOT_SUCCESS':
             // push new slot into slots array
             let updatedSlots = Object.assign([], state.slots);

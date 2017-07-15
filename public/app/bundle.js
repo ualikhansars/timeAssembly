@@ -3022,7 +3022,7 @@ var updateTask = exports.updateTask = function updateTask(task) {
     };
 };
 
-var removeTask = exports.removeTask = function removeTask(id) {
+var removeTask = exports.removeTask = function removeTask(id, slotId) {
     return function (dispatch) {
         return _axios2.default.delete('/api/task/' + id).then(function (res) {
             console.log('removeTaskActionResponse', res);
@@ -3030,7 +3030,14 @@ var removeTask = exports.removeTask = function removeTask(id) {
                 type: 'TASK_DELETED_SUCCESS',
                 deletedTaskId: id
             });
-        }).then(function () {
+        }).then(_axios2.default.put('/api/slot/' + slotId + '/incFree').then(function (res) {
+            var slot = res.data.result;
+            console.log('INCREMENT_SLOT_FREE', res);
+            dispatch({
+                type: 'INCREMENT_SLOT_FREE',
+                updatedSlot: slot
+            });
+        })).then(function () {
             dispatch({
                 type: 'RESET_ADD_TASK'
             });
@@ -8091,6 +8098,19 @@ var Task = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            var _props$property = this.props.property,
+                title = _props$property.title,
+                category = _props$property.category,
+                description = _props$property.description,
+                duration = _props$property.duration,
+                startTimeHours = _props$property.startTimeHours,
+                startTimeMinutes = _props$property.startTimeMinutes,
+                finishTimeHours = _props$property.finishTimeHours,
+                finishTimeMinutes = _props$property.finishTimeMinutes,
+                day = _props$property.day,
+                slot = _props$property.slot,
+                id = _props$property.id;
+
             return _react2.default.createElement(
                 "div",
                 { className: "container-fluid" },
@@ -8103,7 +8123,7 @@ var Task = function (_React$Component) {
                         _react2.default.createElement(
                             "span",
                             null,
-                            this.props.property.title
+                            title
                         )
                     )
                 ),
@@ -8117,7 +8137,7 @@ var Task = function (_React$Component) {
                             "span",
                             null,
                             "Category: ",
-                            this.props.property.category
+                            category
                         )
                     )
                 ),
@@ -8131,7 +8151,7 @@ var Task = function (_React$Component) {
                             "span",
                             null,
                             "Description: ",
-                            this.props.property.description
+                            description
                         )
                     )
                 ),
@@ -8145,7 +8165,7 @@ var Task = function (_React$Component) {
                             "span",
                             null,
                             "Duration: ",
-                            this.props.property.duration,
+                            duration,
                             " mins"
                         )
                     )
@@ -8160,9 +8180,9 @@ var Task = function (_React$Component) {
                             "span",
                             null,
                             "Start Time: ",
-                            this.props.property.startTimeHours,
+                            startTimeHours,
                             ":",
-                            this.props.property.startTimeMinutes
+                            startTimeMinutes
                         )
                     )
                 ),
@@ -8176,9 +8196,9 @@ var Task = function (_React$Component) {
                             "span",
                             null,
                             "Finish Time: ",
-                            this.props.property.finishTimeHours,
+                            finishTimeHours,
                             ":",
-                            this.props.property.finishTimeMinutes
+                            finishTimeMinutes
                         )
                     )
                 ),
@@ -8192,7 +8212,7 @@ var Task = function (_React$Component) {
                             "span",
                             null,
                             "Day: ",
-                            this.props.property.day
+                            day
                         )
                     )
                 ),
@@ -8206,7 +8226,7 @@ var Task = function (_React$Component) {
                             "span",
                             null,
                             "SlotId: ",
-                            this.props.property.slot
+                            slot
                         )
                     )
                 ),
@@ -8219,7 +8239,7 @@ var Task = function (_React$Component) {
                         _react2.default.createElement(
                             "button",
                             { onClick: function onClick() {
-                                    return _this2.props.onClickUpdate(_this2.props.property.id);
+                                    return _this2.props.onClickUpdate(id);
                                 }, className: "btn btn-info" },
                             "Edit"
                         )
@@ -8230,7 +8250,7 @@ var Task = function (_React$Component) {
                         _react2.default.createElement(
                             "button",
                             { onClick: function onClick() {
-                                    return _this2.props.removeTask(_this2.props.property.id);
+                                    return _this2.props.removeTask(id, slot);
                                 }, className: "btn btn-danger" },
                             "Remove"
                         )
@@ -14590,11 +14610,13 @@ var Slot = function (_React$Component) {
 
             var addButton = null;
             var _props$slotProperty$s = this.props.slotProperty.slotAttr,
+                id = _props$slotProperty$s.id,
                 title = _props$slotProperty$s.title,
                 category = _props$slotProperty$s.category,
                 total = _props$slotProperty$s.total,
                 free = _props$slotProperty$s.free,
                 dueDate = _props$slotProperty$s.dueDate;
+            // if time is chosen and there are free tasks, then show the add button
 
             if (startTimeHours && startTimeMinutes && free > 0) {
                 addButton = _react2.default.createElement(
@@ -14692,7 +14714,7 @@ var Slot = function (_React$Component) {
                         _react2.default.createElement(
                             "button",
                             { onClick: function onClick() {
-                                    return _this2.props.slotProperty.fetchSlot(_this2.props.slotProperty.slotAttr.id);
+                                    return _this2.props.slotProperty.fetchSlot(id);
                                 }, className: "btn btn-info" },
                             "Edit"
                         )
@@ -14703,7 +14725,7 @@ var Slot = function (_React$Component) {
                         _react2.default.createElement(
                             "button",
                             { onClick: function onClick() {
-                                    return _this2.props.slotProperty.removeSlot(_this2.props.slotProperty.slotAttr.id);
+                                    return _this2.props.slotProperty.removeSlot(id);
                                 }, className: "btn btn-danger" },
                             "Remove"
                         )
@@ -16344,6 +16366,17 @@ var SlotInfo = function SlotInfo() {
             }
             return Object.assign({}, state, {
                 slots: slotsBeforeDecrFree
+            });
+        case 'INCREMENT_SLOT_FREE':
+            console.log('INCREMENT_SLOT_FREE');
+            var slotsBeforeIncFree = Object.assign([], state.slots);
+            for (var _i = 0; _i < slotsBeforeIncFree.length; ++_i) {
+                if (slotsBeforeIncFree[_i]._id == action.updatedSlot._id) {
+                    slotsBeforeIncFree[_i].free += 1;
+                }
+            }
+            return Object.assign({}, state, {
+                slots: slotsBeforeIncFree
             });
         case 'CREATE_SLOT_SUCCESS':
             // push new slot into slots array

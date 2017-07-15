@@ -2,54 +2,67 @@ import React from 'react';
 
 class Task extends React.Component {
     render() {
+        let {
+            title,
+            category,
+            description,
+            duration,
+            startTimeHours,
+            startTimeMinutes,
+            finishTimeHours,
+            finishTimeMinutes,
+            day,
+            slot,
+            id
+        } = this.props.property;
         return (
             <div className="container-fluid"> 
                 <div className="row">
                     <div className="col-md-4 offset-md-4">
-                        <span>{this.props.property.title}</span>
+                        <span>{title}</span>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <span>Category: {this.props.property.category}</span>
+                        <span>Category: {category}</span>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <span>Description: {this.props.property.description}</span>
+                        <span>Description: {description}</span>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                         <span>Duration: {this.props.property.duration} mins</span>
+                         <span>Duration: {duration} mins</span>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <span>Start Time: {this.props.property.startTimeHours}:{this.props.property.startTimeMinutes}</span>
+                        <span>Start Time: {startTimeHours}:{startTimeMinutes}</span>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <span>Finish Time: {this.props.property.finishTimeHours}:{this.props.property.finishTimeMinutes}</span>
+                        <span>Finish Time: {finishTimeHours}:{finishTimeMinutes}</span>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <span>Day: {this.props.property.day}</span>
+                        <span>Day: {day}</span>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <span>SlotId: {this.props.property.slot}</span>
+                        <span>SlotId: {slot}</span>
                     </div>
                 </div>
                 <div className="row">
                      <div className="col-md-6">
-                        <button onClick={() => this.props.onClickUpdate(this.props.property.id)} className="btn btn-info">Edit</button>
+                        <button onClick={() => this.props.onClickUpdate(id)} className="btn btn-info">Edit</button>
                     </div>
                     <div className="col-md-6">
-                        <button onClick={() => this.props.removeTask(this.props.property.id)} className="btn btn-danger">Remove</button>
+                        <button onClick={() => this.props.removeTask(id, slot)} className="btn btn-danger">Remove</button>
                     </div>
                 </div>
             </div>

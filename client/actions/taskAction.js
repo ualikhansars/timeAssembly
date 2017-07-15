@@ -167,7 +167,7 @@ export const updateTask = (task) => {
     }
 }
 
-export const removeTask = (id) => {
+export const removeTask = (id, slotId) => {
     return dispatch => {
         return axios.delete(`/api/task/${id}`)
             .then(res => {
@@ -177,6 +177,17 @@ export const removeTask = (id) => {
                     deletedTaskId: id
                 });
             })
+            .then(
+                axios.put(`/api/slot/${slotId}/incFree`)
+            .then(res => {
+                    let slot = res.data.result;
+                    console.log('INCREMENT_SLOT_FREE', res);
+                    dispatch({
+                        type: 'INCREMENT_SLOT_FREE',
+                        updatedSlot: slot
+                    });
+                })
+            )
             .then(() => {
                 dispatch({
                     type: 'RESET_ADD_TASK'
