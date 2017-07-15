@@ -14589,7 +14589,14 @@ var Slot = function (_React$Component) {
                 startTimeMinutes = _props$slotProperty$t.startTimeMinutes;
 
             var addButton = null;
-            if (startTimeHours && startTimeMinutes) {
+            var _props$slotProperty$s = this.props.slotProperty.slotAttr,
+                title = _props$slotProperty$s.title,
+                category = _props$slotProperty$s.category,
+                total = _props$slotProperty$s.total,
+                free = _props$slotProperty$s.free,
+                dueDate = _props$slotProperty$s.dueDate;
+
+            if (startTimeHours && startTimeMinutes && free > 0) {
                 addButton = _react2.default.createElement(
                     "div",
                     { className: "col-md-4" },
@@ -14619,7 +14626,7 @@ var Slot = function (_React$Component) {
                         _react2.default.createElement(
                             "span",
                             null,
-                            this.props.slotProperty.slotAttr.title
+                            title
                         )
                     )
                 ),
@@ -14633,7 +14640,7 @@ var Slot = function (_React$Component) {
                             "span",
                             null,
                             "Category: ",
-                            this.props.slotProperty.slotAttr.category
+                            category
                         )
                     )
                 ),
@@ -14647,7 +14654,7 @@ var Slot = function (_React$Component) {
                             "span",
                             null,
                             "Total: ",
-                            this.props.slotProperty.slotAttr.total
+                            total
                         )
                     ),
                     _react2.default.createElement(
@@ -14657,7 +14664,7 @@ var Slot = function (_React$Component) {
                             "span",
                             null,
                             "Free: ",
-                            this.props.slotProperty.slotAttr.free
+                            free
                         )
                     )
                 ),
@@ -14671,7 +14678,7 @@ var Slot = function (_React$Component) {
                             "span",
                             null,
                             "Due Date: ",
-                            this.props.slotProperty.slotAttr.dueDate
+                            dueDate
                         )
                     )
                 ),
@@ -16325,12 +16332,14 @@ var SlotInfo = function SlotInfo() {
             });
         case 'DECREMENT_SLOT_FREE':
             console.log('DECREMENT_SLOT_FREE');
+            console.log('free', action.updatedSlot.free);
+            var freeTasks = action.updatedSlot.free;
             var slotsBeforeDecrFree = Object.assign([], state.slots);
-            for (var i = 0; i < slotsBeforeDecrFree.length; ++i) {
-                if (slotsBeforeDecrFree[i]._id == action.updatedSlot._id) {
-                    if (slotsBeforeDecrFree[i] > 0) {
+            if (freeTasks > 0) {
+                for (var i = 0; i < slotsBeforeDecrFree.length; ++i) {
+                    if (slotsBeforeDecrFree[i]._id == action.updatedSlot._id) {
                         slotsBeforeDecrFree[i].free -= 1;
-                    };
+                    }
                 }
             }
             return Object.assign({}, state, {

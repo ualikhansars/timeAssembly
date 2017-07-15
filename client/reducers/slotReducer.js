@@ -110,17 +110,19 @@ const SlotInfo = (state = initialState, action) => {
             });
         case 'DECREMENT_SLOT_FREE':
             console.log('DECREMENT_SLOT_FREE');
+            console.log('free',  action.updatedSlot.free);
+            let freeTasks =  action.updatedSlot.free;
             let slotsBeforeDecrFree = Object.assign([], state.slots);
-            for(let i = 0; i < slotsBeforeDecrFree.length; ++i) {
-                if(slotsBeforeDecrFree[i]._id == action.updatedSlot._id) {
-                    if(slotsBeforeDecrFree[i] > 0) {
-                         slotsBeforeDecrFree[i].free -= 1;
-                    };
+            if(freeTasks > 0) {
+                for(let i = 0; i < slotsBeforeDecrFree.length; ++i) {
+                    if(slotsBeforeDecrFree[i]._id == action.updatedSlot._id) {
+                            slotsBeforeDecrFree[i].free -= 1;
+                    }
                 }
             }
             return Object.assign({}, state, {
                 slots: slotsBeforeDecrFree
-            });  
+            }); 
         case 'CREATE_SLOT_SUCCESS':
             // push new slot into slots array
             let updatedSlots = Object.assign([], state.slots);

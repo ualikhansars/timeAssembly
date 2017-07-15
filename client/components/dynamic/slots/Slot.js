@@ -4,7 +4,14 @@ class Slot extends React.Component {
     render() {
         let {startTimeHours, startTimeMinutes} = this.props.slotProperty.timeAndDayProperty;
         let addButton = null;
-        if(startTimeHours && startTimeMinutes) {
+        let {
+            title, 
+            category, 
+            total,
+            free,
+            dueDate,
+        } = this.props.slotProperty.slotAttr;
+        if(startTimeHours && startTimeMinutes && free > 0) {
             addButton = <div className="col-md-4">
                         <button onClick={() => this.props.slotProperty.addTask(this.props.slotProperty.slotAttr.id)} className="btn btn-success">
                             Add to {this.props.slotProperty.timeAndDayProperty.chosenDay} {startTimeHours}:{startTimeMinutes}
@@ -15,25 +22,25 @@ class Slot extends React.Component {
             <div className="container-fluid"> 
                 <div className="row">
                     <div className="col-md-4 offset-md-4">
-                        <span>{this.props.slotProperty.slotAttr.title}</span>
+                        <span>{title}</span>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <span>Category: {this.props.slotProperty.slotAttr.category}</span>
+                        <span>Category: {category}</span>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-md-6">
-                        <span>Total: {this.props.slotProperty.slotAttr.total}</span>
+                        <span>Total: {total}</span>
                     </div>
                     <div className="col-md-6">
-                        <span>Free: {this.props.slotProperty.slotAttr.free}</span>
+                        <span>Free: {free}</span>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <span>Due Date: {this.props.slotProperty.slotAttr.dueDate}</span>
+                        <span>Due Date: {dueDate}</span>
                     </div>
                 </div>
                 <div className="row">
