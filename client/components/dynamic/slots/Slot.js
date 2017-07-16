@@ -4,12 +4,14 @@ class Slot extends React.Component {
     render() {
         let {startTimeHours, startTimeMinutes} = this.props.slotProperty.timeAndDayProperty;
         let addButton = null;
+        let date = null;
         let {
             id,
             title, 
             category, 
             total,
             free,
+            temporary,
             dueDate,
         } = this.props.slotProperty.slotAttr;
         // if time is chosen and there are free tasks, then show the add button
@@ -18,6 +20,15 @@ class Slot extends React.Component {
                         <button onClick={() => this.props.slotProperty.addTask(this.props.slotProperty.slotAttr.id)} className="btn btn-success">
                             Add to {this.props.slotProperty.timeAndDayProperty.chosenDay} {startTimeHours}:{startTimeMinutes}
                         </button>
+                        </div>
+        }
+
+        // show dueDate if Task is temporary
+        if(temporary) {
+            date =  <div className="row">
+                            <div className="col-md-12">
+                                <span>Due Date: {dueDate}</span>
+                            </div>
                         </div>
         }
         return (
@@ -40,11 +51,7 @@ class Slot extends React.Component {
                         <span>Free: {free}</span>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col-md-12">
-                        <span>Due Date: {dueDate}</span>
-                    </div>
-                </div>
+                {date}
                 <div className="row">
                     {addButton}
                      <div className="col-md-4">
