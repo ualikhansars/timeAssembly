@@ -5296,6 +5296,10 @@ module.exports = defaults;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.getCurrentDayAndTime = exports.onClickTime = exports.onClickDayInTheWeek = undefined;
+
+var _getCurrentDate = __webpack_require__(156);
+
 var onClickDayInTheWeek = exports.onClickDayInTheWeek = function onClickDayInTheWeek(day) {
     return function (dispatch) {
         dispatch({
@@ -5334,6 +5338,7 @@ var getCurrentDayAndTime = exports.getCurrentDayAndTime = function getCurrentDay
     var hour = now.getHours();
     var minutes = now.getMinutes();
     var timezone = now.getTimezoneOffset();
+    var currentDate = (0, _getCurrentDate.getCurrentDate)();
 
     return {
         type: 'GET_CURRENT_DATE_AND_TIME',
@@ -5342,6 +5347,7 @@ var getCurrentDayAndTime = exports.getCurrentDayAndTime = function getCurrentDay
         currentMonth: month,
         currentHour: hour,
         currentMinutes: minutes,
+        currentDate: currentDate,
         timezone: timezone,
         now: now
     };
@@ -7906,7 +7912,7 @@ var displayNothing = exports.displayNothing = function displayNothing() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.createSlot = exports.createSlotSuccess = exports.updateSlot = exports.onClickUpdateSlot = exports.removeSlot = exports.hideSlotForm = exports.showCreateSlotForm = undefined;
+exports.createSlot = exports.createSlotSuccess = exports.updateSlot = exports.onClickUpdateSlot = exports.removeSlot = exports.fetchTemporarySlots = exports.hideSlotForm = exports.showCreateSlotForm = undefined;
 exports.fetchSlots = fetchSlots;
 
 var _axios = __webpack_require__(62);
@@ -7955,6 +7961,25 @@ function fetchSlots() {
         });
     };
 }
+
+// fetch only temporary tasks
+var fetchTemporarySlots = exports.fetchTemporarySlots = function fetchTemporarySlots() {
+    return function (dispatch) {
+        return _axios2.default.get('/api/slot', {
+            params: {
+                temporary: true
+            }
+        }).then(function (res) {
+            var data = res.data.resource;
+            dispatch({
+                type: 'FETCH_TEMPORARY_SLOTS_SUCCESS',
+                temporarySlots: data
+            });
+        }).catch(function (error) {
+            console.log(error);
+        });
+    };
+};
 
 var removeSlot = exports.removeSlot = function removeSlot(id) {
     return function (dispatch) {
@@ -13497,6 +13522,8 @@ var _UpdateTaskForm = __webpack_require__(136);
 
 var _UpdateTaskForm2 = _interopRequireDefault(_UpdateTaskForm);
 
+var _slotAction = __webpack_require__(69);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -13504,6 +13531,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// import actions
+
 
 var Dynamic = function (_React$Component) {
     _inherits(Dynamic, _React$Component);
@@ -13515,15 +13545,26 @@ var Dynamic = function (_React$Component) {
     }
 
     _createClass(Dynamic, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.props.fetchTemporarySlots();
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _props$display = this.props.display,
                 displaySlots = _props$display.displaySlots,
                 displaySettings = _props$display.displaySettings,
                 showUpdateTaskForm = _props$display.showUpdateTaskForm;
+            var currentDate = this.props.daysInfo.currentDate;
+            var temporarySlots = this.props.slotInfo.temporarySlots;
 
-            if (displaySlots) {
-                return _react2.default.createElement(_Slots2.default, null);
+
+            console.log('currentDate', currentDate);
+            console.log('temporarySlots', temporarySlots
+            // this.removeSlotsAfterDueDate(temporarySlots, currentDate);
+            );if (displaySlots) {
+                return _react2.default.createElement(_Slots2.default, { temporarySlots: temporarySlots, currentDate: currentDate, removeSlotsAfterDueDate: this.removeSlotsAfterDueDate });
             }
             if (displaySettings) {
                 return _react2.default.createElement(_Preferences2.default, null);
@@ -13549,11 +13590,19 @@ var Dynamic = function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
     return {
-        display: state.display
+        display: state.display,
+        daysInfo: state.daysInfo,
+        slotInfo: state.slotInfo
     };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(Dynamic);
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({
+        fetchTemporarySlots: _slotAction.fetchTemporarySlots
+    }, dispatch);
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Dynamic);
 
 /***/ }),
 /* 133 */
@@ -13639,7 +13688,7 @@ var CreateSlotForm = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            var currentDate = (0, _getCurrentDate.getCurrenrDay)();
+            var currentDate = (0, _getCurrentDate.getCurrentDate)();
             var dueDate = null;
             var total = _react2.default.createElement(
                 'div',
@@ -13651,6 +13700,7 @@ var CreateSlotForm = function (_React$Component) {
                 ),
                 _react2.default.createElement('input', { value: this.state.total, onChange: this.onChange.bind(this), type: 'number', className: 'form-control col-md-12', id: 'total', name: 'total', placeholder: 'Enter week frequency' })
             );
+            // min={currentDate}
             // show dueDate if temporary is chosen
             if (this.state.temporary) {
                 dueDate = _react2.default.createElement(
@@ -13661,7 +13711,7 @@ var CreateSlotForm = function (_React$Component) {
                         { htmlFor: 'dueDate', className: 'col-md-12' },
                         'Due Date'
                     ),
-                    _react2.default.createElement('input', { value: this.state.dueDate, onChange: this.onChange.bind(this), type: 'date', className: 'form-control col-md-12', id: 'dueDate', name: 'dueDate', min: currentDate })
+                    _react2.default.createElement('input', { value: this.state.dueDate, onChange: this.onChange.bind(this), type: 'date', className: 'form-control col-md-12', id: 'dueDate', name: 'dueDate' })
                 );
                 total = _react2.default.createElement(
                     'div',
@@ -14850,7 +14900,7 @@ var SlotContainer = function (_React$Component) {
                         category: slot.category,
                         total: slot.total,
                         free: slot.free,
-                        tempotary: slot.temporary,
+                        temporary: slot.temporary,
                         dueDate: slot.dueDate,
                         id: slot._id
                         // all properties that will be displayed in Task Component
@@ -14996,12 +15046,53 @@ var Slots = function (_React$Component) {
     }
 
     _createClass(Slots, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.removeSlotsAfterDueDate(this.props.temporarySlots, this.props.currentDate);
+        }
+
+        // delete slot after due Date
+
+    }, {
+        key: 'removeSlotsAfterDueDate',
+        value: function removeSlotsAfterDueDate(slots, currentDate) {
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = slots[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var slot = _step.value;
+
+                    if (currentDate > slot.dueDate) {
+                        this.props.removeSlot(slot._id);
+                    }
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
+            console.log('currentDate Slots', this.props.currentDate);
+            console.log('temporarySlots Slots', this.props.temporarySlots);
             var _props$slotInfo = this.props.slotInfo,
                 displayCreateSlotForm = _props$slotInfo.displayCreateSlotForm,
                 displayUpdateSlotForm = _props$slotInfo.displayUpdateSlotForm;
             var displayCreateTaskForm = this.props.taskInfo.displayCreateTaskForm;
+            var currentDate = this.props.daysInfo.currentDate;
 
             // if createSlot button has been clicked, CreateSlotForm will appear
 
@@ -15025,7 +15116,8 @@ var Slots = function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
     return {
         slotInfo: state.slotInfo,
-        taskInfo: state.taskInfo
+        taskInfo: state.taskInfo,
+        daysInfo: state.daysInfo
     };
 };
 
@@ -15037,7 +15129,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         createSlot: _slotAction.createSlot,
         updateSlot: _slotAction.updateSlot,
         hideTaskForms: _taskAction.hideTaskForms,
-        createTask: _taskAction.createTask
+        createTask: _taskAction.createTask,
+        removeSlot: _slotAction.removeSlot
     }, dispatch);
 };
 
@@ -16061,6 +16154,7 @@ var initialState = {
     currentHour: null,
     currentMinutes: null,
     timezone: null,
+    currentDate: '',
     now: ''
 };
 
@@ -16081,6 +16175,7 @@ var daysReducer = function daysReducer() {
                 currentMonth: action.currentMonth,
                 currentHour: action.currentHour,
                 currentMinutes: action.currentMinutes,
+                currentDate: action.currentDate,
                 timezone: action.timezone,
                 now: action.now
             });
@@ -16252,6 +16347,7 @@ var initialState = {
         loaded: false,
         errors: null
     },
+    temporarySlots: [],
     displayUpdateSlotForm: false,
     displayCreateSlotForm: false
 };
@@ -16325,6 +16421,10 @@ var SlotInfo = function SlotInfo() {
                     errors: action.slotErrors
                 },
                 slot: null
+            });
+        case 'FETCH_TEMPORARY_SLOTS_SUCCESS':
+            return Object.assign({}, state, {
+                temporarySlots: action.temporarySlots
             });
         case 'FETCH_SLOT_BY_ID':
             return Object.assign({}, state, {
@@ -16427,10 +16527,10 @@ var initialState = {
         errors: null
     },
     task: {},
-    taskToAdd: {
-        startTimeHours: '',
-        startTimeMinutes: ''
-    },
+    // taskToAdd: {
+    //     startTimeHours: '',
+    //     startTimeMinutes: ''
+    // },
     taskRequest: {
         loading: false,
         loaded: false,
@@ -16615,7 +16715,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 // return appropriate for HTMl format for current date
 
-var getCurrenrDay = exports.getCurrenrDay = function getCurrenrDay() {
+var getCurrentDate = exports.getCurrentDate = function getCurrentDate() {
     var now = new Date();
     var day = new String(now.getDate());
     var month = new String(now.getMonth() + 1);

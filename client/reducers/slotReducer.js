@@ -11,6 +11,7 @@ const initialState = {
         loaded: false,
         errors: null, 
     }, 
+    temporarySlots: [],
     displayUpdateSlotForm: false,
     displayCreateSlotForm: false
 };
@@ -81,7 +82,11 @@ const SlotInfo = (state = initialState, action) => {
                     errors: action.slotErrors
                 },
                 slot: null,       
-            });    
+            });
+        case 'FETCH_TEMPORARY_SLOTS_SUCCESS':
+            return Object.assign({}, state, {
+                temporarySlots: action.temporarySlots
+            });
         case 'FETCH_SLOT_BY_ID':
             return Object.assign({}, state, {
                 slot: action.slot

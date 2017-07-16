@@ -43,6 +43,27 @@ export function fetchSlots() {
     }
 }
 
+// fetch only temporary tasks
+export const fetchTemporarySlots = () => {
+    return dispatch => {
+        return axios.get('/api/slot', {
+            params: {
+                temporary: true
+            }
+        })
+            .then(res => {
+                let data = res.data.resource;
+                dispatch({
+                    type: 'FETCH_TEMPORARY_SLOTS_SUCCESS',
+                    temporarySlots: data
+                });
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    }
+}
+
 export const removeSlot = (id) => {
     return dispatch => {
         return axios.delete(`/api/slot/${id}`)

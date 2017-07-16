@@ -1,6 +1,6 @@
 // return appropriate for HTMl format for current date
 
-export const getCurrenrDay = () => {
+export const getCurrentDate = () => {
     let now = new Date();
         let day = new String(now.getDate());
         let month = new String(now.getMonth() + 1);

@@ -9,12 +9,28 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {showSlotForm, hideSlotForm, createSlot, updateSlot} from '../../../actions/slotAction';
 import {hideTaskForms, createTask} from '../../../actions/taskAction';
-
+import {removeSlot} from '../../../actions/slotAction';
 
 class Slots extends React.Component {
+
+        componentDidMount() {
+            this.removeSlotsAfterDueDate(this.props.temporarySlots, this.props.currentDate);
+        }
+
+        // delete slot after due Date
+        removeSlotsAfterDueDate(slots, currentDate) {
+            for(let slot of slots) {
+                if(currentDate > slot.dueDate) {
+                    this.props.removeSlot(slot._id);
+                }
+            }
+        }
     render() {
+        console.log('currentDate Slots', this.props.currentDate);
+        console.log('temporarySlots Slots', this.props.temporarySlots)
         const {displayCreateSlotForm, displayUpdateSlotForm} = this.props.slotInfo;
         const {displayCreateTaskForm} = this.props.taskInfo;
+        let {currentDate} = this.props.daysInfo;
 
         // if createSlot button has been clicked, CreateSlotForm will appear
         if(displayCreateSlotForm) {
@@ -43,7 +59,8 @@ class Slots extends React.Component {
 const mapStateToProps = (state) => {
     return {
         slotInfo: state.slotInfo,
-        taskInfo: state.taskInfo
+        taskInfo: state.taskInfo,
+        daysInfo: state.daysInfo
     };
 }
 
@@ -55,7 +72,8 @@ const mapDispatchToProps = (dispatch) => {
             createSlot,
             updateSlot,
             hideTaskForms,
-            createTask
+            createTask,
+            removeSlot
         }, 
         dispatch
     );

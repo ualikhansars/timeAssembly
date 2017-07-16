@@ -6,10 +6,10 @@ const initialState = {
         errors: null
     },
     task: {},
-    taskToAdd: {
-        startTimeHours: '',
-        startTimeMinutes: ''
-    },
+    // taskToAdd: {
+    //     startTimeHours: '',
+    //     startTimeMinutes: ''
+    // },
     taskRequest: {
         loading: false,
         loaded: false,
@@ -85,7 +85,7 @@ const taskInfo = (state=initialState, action) => {
                     errors: action.taskErrors
                 },
                 task: null,       
-            });    
+            });   
         case 'SHOW_CREATE_TASK_FORM':
             console.log('SHOW_CREATE_TASK_FORM');
             return Object.assign({}, state, {

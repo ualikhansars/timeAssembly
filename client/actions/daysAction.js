@@ -1,3 +1,5 @@
+import {getCurrentDate} from '../utils/getCurrentDate';
+
 export const onClickDayInTheWeek = (day) => {
     return dispatch => {
         dispatch({
@@ -36,6 +38,7 @@ export const getCurrentDayAndTime = () => {
     let hour = now.getHours();
     let minutes = now.getMinutes();
     let timezone = now.getTimezoneOffset();
+    let currentDate = getCurrentDate();
 
     return {
         type: 'GET_CURRENT_DATE_AND_TIME',
@@ -44,6 +47,7 @@ export const getCurrentDayAndTime = () => {
         currentMonth: month,
         currentHour: hour,
         currentMinutes: minutes,
+        currentDate,
         timezone,
         now
     }
