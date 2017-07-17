@@ -8378,6 +8378,12 @@ var calcFinishTime = exports.calcFinishTime = function calcFinishTime(startHour,
     };
 };
 
+// this function expect hours and mins and
+// return time in minutes
+var calcMins = exports.calcMins = function calcMins(hours, mins) {
+    return hours * 60 + mins;
+};
+
 /***/ }),
 /* 73 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -13851,6 +13857,8 @@ var _reactRedux = __webpack_require__(8);
 
 var _timeCalc = __webpack_require__(72);
 
+var _vars = __webpack_require__(285);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -13877,17 +13885,21 @@ var CreateTaskForm = function (_React$Component) {
         _this.startTimeHours = _this.props.taskInfo.startTimeHours;
         _this.startTimeMinutes = _this.props.taskInfo.startTimeMinutes;
         _this.state = {
-            title: _this.title,
-            category: _this.category,
-            description: '',
-            duration: 30,
-            startTimeHours: _this.startTimeHours,
-            startTimeMinutes: _this.startTimeMinutes,
-            finishTimeHours: 0,
-            finishTimeMinutes: 0,
-            day: _this.day,
-            username: '5954dadd41b4a32e8b86c405',
-            slot: _this.slot
+            task: {
+                title: _this.title,
+                category: _this.category,
+                description: '',
+                duration: 30,
+                startTimeHours: _this.startTimeHours,
+                startTimeMinutes: _this.startTimeMinutes,
+                finishTimeHours: 0,
+                finishTimeMinutes: 0,
+                day: _this.day,
+                username: '5954dadd41b4a32e8b86c405',
+                slot: _this.slot
+            },
+            durationHours: 0,
+            durationMins: 0
         };
         return _this;
     }
@@ -13896,18 +13908,32 @@ var CreateTaskForm = function (_React$Component) {
         key: 'onChange',
         value: function onChange(event) {
             this.setState(_defineProperty({}, event.target.id, event.target.value));
+            console.log('On Change', this.state);
         }
     }, {
         key: 'onSubmit',
         value: function onSubmit(e) {
             e.preventDefault();
-            var startTimeHours = Number(this.state.startTimeHours);
-            var startTimeMinutes = this.state.startTimeMinutes;
-            var duration = Number(this.state.duration);
-            if (this.state.startTimeMinutes == '00') {
+            // process duration
+            var duration = Number(this.state.task.duration);
+            var durationHours = Number(this.state.durationHours);
+            var durationMins = this.state.durationMins;
+            // calculate duration mins
+            if (this.state.durationMins == '00') {
+                durationMins = 0;
+            } else {
+                durationMins = Number(this.state.durationMins);
+            }
+            duration = (0, _timeCalc.calcMins)(durationHours, durationMins);
+            console.log('duration', duration);
+            // process startTime
+            var startTimeHours = Number(this.state.task.startTimeHours);
+            var startTimeMinutes = this.state.task.startTimeMinutes;
+
+            if (this.state.task.startTimeMinutes == '00') {
                 startTimeMinutes = 0;
             } else {
-                startTimeMinutes = Number(this.state.startTimeMinutes);
+                startTimeMinutes = Number(this.state.task.startTimeMinutes);
             }
 
             var _calcFinishTime = (0, _timeCalc.calcFinishTime)(startTimeHours, startTimeMinutes, duration),
@@ -13917,15 +13943,16 @@ var CreateTaskForm = function (_React$Component) {
 
 
             if (finishHour < 24) {
-                var updatedTask = Object.assign({}, this.state, {
+                var updatedTask = Object.assign({}, this.state.task, {
                     finishTimeHours: finishHour,
-                    finishTimeMinutes: finishMin
+                    finishTimeMinutes: finishMin,
+                    duration: duration
                 });
                 this.props.createTask(updatedTask);
+                console.log('task', updatedTask);
             } else {
                 this.setState({
-                    errors: 'Due time for task cannot be more than 24 hours',
-                    duration: 30
+                    errors: 'Due time for task cannot be more than 24 hours'
                 });
             }
         }
@@ -13938,6 +13965,20 @@ var CreateTaskForm = function (_React$Component) {
                 startTimeHours = _props$taskInfo.startTimeHours,
                 startTimeMinutes = _props$taskInfo.startTimeMinutes;
 
+            var hours = _vars.twentyFourHours.map(function (hour, i) {
+                return _react2.default.createElement(
+                    'option',
+                    { value: hour, key: i },
+                    hour
+                );
+            });
+            var minutes = _vars.mins.map(function (min, i) {
+                return _react2.default.createElement(
+                    'option',
+                    { value: min, key: i },
+                    min
+                );
+            });
             return _react2.default.createElement(
                 'div',
                 { className: 'slots-form' },
@@ -13993,7 +14034,26 @@ var CreateTaskForm = function (_React$Component) {
                         { htmlFor: 'duration', className: 'col-md-12' },
                         'Duration'
                     ),
-                    _react2.default.createElement('input', { value: this.state.duration, onChange: this.onChange.bind(this), type: 'text', className: 'form-control col-md-12', id: 'duration', name: 'duration', placeholder: 'Duration of this task in minutes' }),
+                    _react2.default.createElement(
+                        'span',
+                        null,
+                        'Hours'
+                    ),
+                    _react2.default.createElement(
+                        'select',
+                        { value: this.state.durationHours, onChange: this.onChange.bind(this), id: 'durationHours', name: 'durationHours' },
+                        hours
+                    ),
+                    _react2.default.createElement(
+                        'span',
+                        null,
+                        'Minutes'
+                    ),
+                    _react2.default.createElement(
+                        'select',
+                        { value: this.state.durationMins, onChange: this.onChange.bind(this), id: 'durationMins', name: 'durationMins' },
+                        minutes
+                    ),
                     this.state.errors
                 ),
                 _react2.default.createElement(
@@ -30106,6 +30166,28 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+/* 285 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var twentyFourHours = exports.twentyFourHours = [];
+for (var i = 0; i <= 24; ++i) {
+    twentyFourHours.push(i);
+}
+
+var twelveHours = exports.twelveHours = [];
+for (var _i = 0; _i <= 12; ++_i) {
+    twelveHours.push(_i);
+}
+
+var mins = exports.mins = ['00', '15', '30', '45'];
 
 /***/ })
 /******/ ]);

@@ -41,3 +41,9 @@ export const calcFinishTime = (startHour, startMin, duration=0) => {
             finishMin
         }
 }
+
+// this function expect hours and mins and
+// return time in minutes
+export const calcMins = (hours, mins) => {
+    return (hours * 60) + mins;
+}
