@@ -13489,6 +13489,20 @@ var showEvery30Minutes = exports.showEvery30Minutes = function showEvery30Minute
     };
 };
 
+var changeStartDisplayHour = exports.changeStartDisplayHour = function changeStartDisplayHour(startDisplayHour) {
+    return {
+        type: 'CHANGE_START_DISPLAY_HOUR',
+        startDisplayHour: startDisplayHour
+    };
+};
+
+var changeFinishDisplayHour = exports.changeFinishDisplayHour = function changeFinishDisplayHour(finishDisplayHour) {
+    return {
+        type: 'CHANGE_FINISH_DISPLAY_HOUR',
+        finishDisplayHour: finishDisplayHour
+    };
+};
+
 /***/ }),
 /* 132 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -14544,6 +14558,10 @@ var _TimeInterval = __webpack_require__(286);
 
 var _TimeInterval2 = _interopRequireDefault(_TimeInterval);
 
+var _ScheduleTime = __webpack_require__(287);
+
+var _ScheduleTime2 = _interopRequireDefault(_ScheduleTime);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -14589,6 +14607,11 @@ var Preferences = function (_React$Component) {
                     'div',
                     { className: 'row' },
                     _react2.default.createElement(_TimeInterval2.default, null)
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(_ScheduleTime2.default, null)
                 )
             );
         }
@@ -14670,7 +14693,7 @@ var TimeDisplay = function (_React$Component) {
                         _react2.default.createElement(
                             'h5',
                             null,
-                            'Time Display'
+                            'Time Format'
                         )
                     )
                 ),
@@ -16432,7 +16455,9 @@ Object.defineProperty(exports, "__esModule", {
 var initialState = {
     twentyFourHoursFormat: true,
     twelveHoursFormat: false,
-    timeInterval: 30
+    timeInterval: 30,
+    startDisplayHour: 0,
+    finishDisplayHour: 24
 };
 
 var preferencesInfo = function preferencesInfo() {
@@ -16462,6 +16487,14 @@ var preferencesInfo = function preferencesInfo() {
         case 'SHOW_EVERY_30_MINUTES':
             return Object.assign({}, state, {
                 timeInterval: 30
+            });
+        case 'CHANGE_START_DISPLAY_HOUR':
+            return Object.assign({}, state, {
+                startDisplayHour: action.startDisplayHour
+            });
+        case 'CHANGE_FINISH_DISPLAY_HOUR':
+            return Object.assign({}, state, {
+                finishDisplayHour: action.finishDisplayHour
             });
         default:
             return state;
@@ -30418,6 +30451,176 @@ function mapDispatchToProps(dispatch) {
 }
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TimeInterval);
+
+/***/ }),
+/* 287 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _redux = __webpack_require__(9);
+
+var _reactRedux = __webpack_require__(8);
+
+var _vars = __webpack_require__(157);
+
+var _preferencesAction = __webpack_require__(131);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// import actions
+
+
+var ScheduleTime = function (_React$Component) {
+    _inherits(ScheduleTime, _React$Component);
+
+    function ScheduleTime(props) {
+        _classCallCheck(this, ScheduleTime);
+
+        var _this = _possibleConstructorReturn(this, (ScheduleTime.__proto__ || Object.getPrototypeOf(ScheduleTime)).call(this, props));
+
+        _this.state = {
+            startHour: '',
+            finishHour: ''
+        };
+        return _this;
+    }
+
+    _createClass(ScheduleTime, [{
+        key: 'onChangeStartTime',
+        value: function onChangeStartTime(event) {
+            this.setState(_defineProperty({}, event.target.id, event.target.value));
+
+            this.props.changeStartDisplayHour(event.target.value);
+
+            console.log('On Change', this.state);
+        }
+    }, {
+        key: 'onChangeFinishTime',
+        value: function onChangeFinishTime(event) {
+            this.setState(_defineProperty({}, event.target.id, event.target.value));
+            this.props.changeFinishDisplayHour(event.target.value);
+            console.log('On Change', this.state);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var startHour = _vars.twentyFourHours.map(function (hour, i) {
+                var stringHour = 'hours';
+                if (hour == 1) stringHour = 'hour';
+                return _react2.default.createElement(
+                    'option',
+                    { value: hour, key: i },
+                    hour,
+                    ' ',
+                    stringHour
+                );
+            });
+            var finishHour = _vars.twentyFourHours.map(function (hour, i) {
+                var stringHour = 'hours';
+                if (hour == 1) stringHour = 'hour';
+                return _react2.default.createElement(
+                    'option',
+                    { value: hour, key: i },
+                    hour,
+                    ' ',
+                    stringHour
+                );
+            });
+            return _react2.default.createElement(
+                'div',
+                { className: 'container' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-6 offset-md-2' },
+                        _react2.default.createElement(
+                            'h5',
+                            null,
+                            'Schedule Time'
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-6' },
+                        _react2.default.createElement(
+                            'span',
+                            null,
+                            'Start Hour'
+                        ),
+                        _react2.default.createElement(
+                            'select',
+                            { value: this.state.startHour,
+                                id: 'startHour',
+                                onChange: this.onChangeStartTime.bind(this),
+                                name: 'startHour' },
+                            startHour
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-6' },
+                        _react2.default.createElement(
+                            'span',
+                            null,
+                            'Finish Hour'
+                        ),
+                        _react2.default.createElement(
+                            'select',
+                            { value: this.state.finishHour,
+                                id: 'finishHour',
+                                onChange: this.onChangeFinishTime.bind(this),
+                                name: 'finishHour' },
+                            finishHour
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return ScheduleTime;
+}(_react2.default.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        preferences: state.preferences
+    };
+};
+
+function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({
+        changeStartDisplayHour: _preferencesAction.changeStartDisplayHour,
+        changeFinishDisplayHour: _preferencesAction.changeFinishDisplayHour
+    }, dispatch);
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ScheduleTime);
 
 /***/ })
 /******/ ]);

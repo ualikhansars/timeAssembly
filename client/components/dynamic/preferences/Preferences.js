@@ -2,6 +2,7 @@ import React from 'react';
 
 import TimeDisplay from './TimeDisplay';
 import TimeInterval from './TimeInterval';
+import ScheduleTime from './ScheduleTime';
 
 class Preferences extends React.Component {
     render() {
@@ -17,6 +18,9 @@ class Preferences extends React.Component {
                 </div>
                 <div className="row">
                     <TimeInterval/>
+                </div>
+                <div className="row">
+                    <ScheduleTime/>
                 </div>
             </div>
         );

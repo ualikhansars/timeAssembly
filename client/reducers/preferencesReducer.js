@@ -1,7 +1,9 @@
 const initialState = {
     twentyFourHoursFormat: true,
     twelveHoursFormat: false,
-    timeInterval: 30
+    timeInterval: 30,
+    startDisplayHour: 0,
+    finishDisplayHour: 24
 }
 
 const preferencesInfo = (state = initialState, action) => {
@@ -28,6 +30,14 @@ const preferencesInfo = (state = initialState, action) => {
         case 'SHOW_EVERY_30_MINUTES':
             return Object.assign({}, state, {
                 timeInterval: 30
+            });
+        case 'CHANGE_START_DISPLAY_HOUR':
+            return Object.assign({}, state, {
+                startDisplayHour: action.startDisplayHour
+            });
+        case 'CHANGE_FINISH_DISPLAY_HOUR':
+            return Object.assign({}, state, {
+                finishDisplayHour: action.finishDisplayHour
             });
         default:
             return state;

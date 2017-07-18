@@ -26,7 +26,7 @@ class TimeDisplay extends React.Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-4 col-offset-4">
-                            <h5>Time Display</h5>
+                            <h5>Time Format</h5>
                         </div>
                     </div>
                     <div className="row">

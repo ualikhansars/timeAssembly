@@ -34,3 +34,17 @@ export const showEvery30Minutes = () => {
         type: 'SHOW_EVERY_30_MINUTES'
     }
 }
+
+export const changeStartDisplayHour = (startDisplayHour) => {
+    return {
+        type: 'CHANGE_START_DISPLAY_HOUR',
+        startDisplayHour
+    }
+}
+
+export const changeFinishDisplayHour = (finishDisplayHour) => {
+    return {
+        type: 'CHANGE_FINISH_DISPLAY_HOUR',
+        finishDisplayHour
+    }
+}
