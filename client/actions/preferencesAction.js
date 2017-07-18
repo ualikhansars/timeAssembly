@@ -11,3 +11,26 @@ export const ChangeToTwelveHoursFormat = () => {
         type: 'TWELVE_HOURS_FORMAT'
     }
 }
+
+// time Intervals
+
+// change timeInterval to every hour
+export const showEveryHour = () => {
+    return {
+        type: 'SHOW_EVERY_HOUR'
+    }
+}
+
+// change timeInterval to every 15 minutes
+export const showEvery15Minutes = () => {
+    return {
+        type: 'SHOW_EVERY_15_MINUTES'
+    }
+}
+
+// change timeInterval to every 30 minutes
+export const showEvery30Minutes = () => {
+    return {
+        type: 'SHOW_EVERY_30_MINUTES'
+    }
+}

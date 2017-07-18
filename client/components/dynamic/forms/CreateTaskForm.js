@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import {calcFinishTime, calcMins} from '../../../utils/timeCalc';
-import {twentyFourHours, twelveHours, mins} from '../../../utils/vars';
+import {twentyFourHours, mins} from '../../../utils/vars';
 
 class CreateTaskForm extends React.Component {
     constructor(props) {
@@ -84,10 +84,12 @@ class CreateTaskForm extends React.Component {
     render() {
         let {startTimeHours, startTimeMinutes} = this.props.taskInfo;
         let hours = twentyFourHours.map((hour, i) => {
-            return <option value={hour} key={i}>{hour}</option> 
+            let stringHour = 'hours';
+            if(hour == 1) stringHour = 'hour';
+            return <option value={hour} key={i}>{hour} {stringHour}</option> 
         });
         let minutes = mins.map((min, i) => {
-            return <option value={min} key={i}>{min}</option> 
+            return <option value={min} key={i}>{min} minutes</option> 
         });
         return (
              <div className="slots-form">

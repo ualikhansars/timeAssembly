@@ -1,6 +1,7 @@
 import React from 'react';
 
 import TimeDisplay from './TimeDisplay';
+import TimeInterval from './TimeInterval';
 
 class Preferences extends React.Component {
     render() {
@@ -13,6 +14,9 @@ class Preferences extends React.Component {
                 </div>
                 <div className="row">
                     <TimeDisplay/>
+                </div>
+                <div className="row">
+                    <TimeInterval/>
                 </div>
             </div>
         );
