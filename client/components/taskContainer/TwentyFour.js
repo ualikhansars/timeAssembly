@@ -30,7 +30,6 @@ class TwentyFour extends React.Component {
         const {tasks} = this.props.taskInfo;
         const {loading, loaded, errors} = this.props.taskInfo.tasksRequest;
         let timetable = [];
-
         if(loading) {
             return(
                 <div>loading</div>
@@ -55,7 +54,7 @@ class TwentyFour extends React.Component {
             let taskAdded = false;
             let index = 0;
             let property = {}
-
+            let {timeInterval} = this.props.preferences;
             let timeFormat;
             if(this.props.preferences.twentyFourHoursFormat) {
                 timeFormat = 24;
@@ -63,7 +62,7 @@ class TwentyFour extends React.Component {
                 timeFormat = 12;
             }
             for(hour=0; hour<timeFormat; ++hour) { // every hour
-                for(let min=0; min<60; min+=30) { // every 30 minites
+                for(let min=0; min<60; min+=timeInterval) { // depends on timeInterval
                     // console.log('before tasks for loop after min == ', hour+':'+min);
                     for(let task of tasks) { 
                         // check if task' startTime equal to iteration hour and minites

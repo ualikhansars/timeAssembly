@@ -15963,7 +15963,6 @@ var TwentyFour = function (_React$Component) {
                 errors = _props$taskInfo$tasks.errors;
 
             var timetable = [];
-
             if (loading) {
                 return _react2.default.createElement(
                     'div',
@@ -15998,6 +15997,7 @@ var TwentyFour = function (_React$Component) {
                 var taskAdded = false;
                 var index = 0;
                 var property = {};
+                var timeInterval = this.props.preferences.timeInterval;
 
                 var timeFormat = void 0;
                 if (this.props.preferences.twentyFourHoursFormat) {
@@ -16007,8 +16007,8 @@ var TwentyFour = function (_React$Component) {
                 }
                 for (hour = 0; hour < timeFormat; ++hour) {
                     // every hour
-                    for (var _min = 0; _min < 60; _min += 30) {
-                        // every 30 minites
+                    for (var _min = 0; _min < 60; _min += timeInterval) {
+                        // depends on timeInterval
                         // console.log('before tasks for loop after min == ', hour+':'+min);
                         var _iteratorNormalCompletion = true;
                         var _didIteratorError = false;
@@ -30284,13 +30284,12 @@ var TimeInterval = function (_React$Component) {
     }
 
     _createClass(TimeInterval, [{
-        key: 'setIntervalToOff',
-        value: function setIntervalToOff() {}
-    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
 
+            // change display On and Off
+            // after choosing preference
             var everyHour = void 0;
             var every15Minutes = void 0;
             var every30Minutes = void 0;
