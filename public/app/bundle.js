@@ -5400,6 +5400,7 @@ var showEvery30Minutes = exports.showEvery30Minutes = function showEvery30Minute
     };
 };
 
+// change startDisplay Hour
 var changeStartDisplayHour = exports.changeStartDisplayHour = function changeStartDisplayHour(startDisplayHour) {
     return {
         type: 'CHANGE_START_DISPLAY_HOUR',
@@ -5407,10 +5408,27 @@ var changeStartDisplayHour = exports.changeStartDisplayHour = function changeSta
     };
 };
 
+// change finishDisplay Hour
 var changeFinishDisplayHour = exports.changeFinishDisplayHour = function changeFinishDisplayHour(finishDisplayHour) {
     return {
         type: 'CHANGE_FINISH_DISPLAY_HOUR',
         finishDisplayHour: finishDisplayHour
+    };
+};
+
+// change meridien to a.m
+var changeMeridienToAM = exports.changeMeridienToAM = function changeMeridienToAM() {
+    return {
+        type: 'CHANGE_MERIDIEN_TO_AM',
+        meridien: 'a.m'
+    };
+};
+
+// change meridien to p.m
+var changeMeridienToPM = exports.changeMeridienToPM = function changeMeridienToPM() {
+    return {
+        type: 'CHANGE_MERIDIEN_TO_PM',
+        meridien: 'p.m'
     };
 };
 
@@ -16864,7 +16882,8 @@ var initialState = {
     twelveHoursFormat: false,
     timeInterval: 30,
     startDisplayHour: 0,
-    finishDisplayHour: 24
+    finishDisplayHour: 24,
+    meridien: 'p.m'
 };
 
 var preferencesInfo = function preferencesInfo() {
@@ -16902,6 +16921,15 @@ var preferencesInfo = function preferencesInfo() {
         case 'CHANGE_FINISH_DISPLAY_HOUR':
             return Object.assign({}, state, {
                 finishDisplayHour: action.finishDisplayHour
+            });
+        // change meridien
+        case 'CHANGE_MERIDIEN_TO_AM':
+            return Object.assign({}, state, {
+                meridien: action.meridien
+            });
+        case 'CHANGE_MERIDIEN_TO_PM':
+            return Object.assign({}, state, {
+                meridien: action.meridien
             });
         default:
             return state;
@@ -30675,6 +30703,12 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _redux = __webpack_require__(9);
+
+var _reactRedux = __webpack_require__(7);
+
+var _preferencesAction = __webpack_require__(39);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30693,27 +30727,33 @@ var Meridien = function (_React$Component) {
     }
 
     _createClass(Meridien, [{
-        key: "render",
+        key: 'render',
         value: function render() {
+            var _this2 = this;
+
             return _react2.default.createElement(
-                "div",
-                { className: "row" },
+                'div',
+                { className: 'row' },
                 _react2.default.createElement(
-                    "div",
-                    { className: "col-md-6" },
+                    'div',
+                    { className: 'col-md-6' },
                     _react2.default.createElement(
-                        "button",
-                        { className: "btn btn-default" },
-                        "A.M"
+                        'button',
+                        { onClick: function onClick() {
+                                return _this2.props.changeMeridienToAM();
+                            }, className: 'btn btn-default' },
+                        'A.M'
                     )
                 ),
                 _react2.default.createElement(
-                    "div",
-                    { className: "col-md-6" },
+                    'div',
+                    { className: 'col-md-6' },
                     _react2.default.createElement(
-                        "button",
-                        { className: "btn btn-default" },
-                        "P.M"
+                        'button',
+                        { onClick: function onClick() {
+                                return _this2.props.changeMeridienToPM();
+                            }, className: 'btn btn-default' },
+                        'P.M'
                     )
                 )
             );
@@ -30723,7 +30763,14 @@ var Meridien = function (_React$Component) {
     return Meridien;
 }(_react2.default.Component);
 
-exports.default = Meridien;
+function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({
+        changeMeridienToAM: _preferencesAction.changeMeridienToAM,
+        changeMeridienToPM: _preferencesAction.changeMeridienToPM
+    }, dispatch);
+}
+
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Meridien);
 
 /***/ })
 /******/ ]);

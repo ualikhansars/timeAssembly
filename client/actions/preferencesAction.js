@@ -35,6 +35,8 @@ export const showEvery30Minutes = () => {
     }
 }
 
+
+// change startDisplay Hour
 export const changeStartDisplayHour = (startDisplayHour) => {
     return {
         type: 'CHANGE_START_DISPLAY_HOUR',
@@ -42,9 +44,26 @@ export const changeStartDisplayHour = (startDisplayHour) => {
     }
 }
 
+// change finishDisplay Hour
 export const changeFinishDisplayHour = (finishDisplayHour) => {
     return {
         type: 'CHANGE_FINISH_DISPLAY_HOUR',
         finishDisplayHour
+    }
+}
+
+// change meridien to a.m
+export const changeMeridienToAM = () => {
+    return {
+        type: 'CHANGE_MERIDIEN_TO_AM',
+        meridien: 'a.m'
+    }
+}
+
+// change meridien to p.m
+export const changeMeridienToPM = () => {
+    return {
+        type: 'CHANGE_MERIDIEN_TO_PM',
+        meridien: 'p.m'
     }
 }

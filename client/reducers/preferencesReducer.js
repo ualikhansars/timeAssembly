@@ -3,7 +3,8 @@ const initialState = {
     twelveHoursFormat: false,
     timeInterval: 30,
     startDisplayHour: 0,
-    finishDisplayHour: 24
+    finishDisplayHour: 24,
+    meridien: 'p.m'
 }
 
 const preferencesInfo = (state = initialState, action) => {
@@ -38,6 +39,15 @@ const preferencesInfo = (state = initialState, action) => {
         case 'CHANGE_FINISH_DISPLAY_HOUR':
             return Object.assign({}, state, {
                 finishDisplayHour: action.finishDisplayHour
+            });
+        // change meridien
+        case 'CHANGE_MERIDIEN_TO_AM':
+            return Object.assign({}, state, {
+                meridien: action.meridien
+            });
+        case 'CHANGE_MERIDIEN_TO_PM':
+            return Object.assign({}, state, {
+                meridien: action.meridien
             });
         default:
             return state;
