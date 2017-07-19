@@ -7,6 +7,7 @@ import HalfAnHour from './HalfAnHour';
 import Task from './Task';
 import AnteMeridien from './AnteMeridien';
 import PostMeridien from './PostMeridien';
+import Meridien from './Meridien';
 
 import {fetchTasksByDay, 
         removeTask,
@@ -22,35 +23,20 @@ class TwelveHours extends React.Component {
         let resource = null;
         let tasksUntilNoon = [];
         let tasksAfterNoon = [];
-
-        // when data loaded
-        // display every tasks
-
-                 resource = tasks.map((task, i) => {
-                    let property = {
-                        title: task.title,
-                        category: task.category,
-                        description: task.description,
-                        duration: task.duration,
-                        startTimeHours: task.startTimeHours,
-                        startTimeMinutes: task.startTimeMinutes,
-                        finishTimeHours: task.finishTimeHours,
-                        finishTimeMinutes: task.finishTimeMinutes,
-                        day: task.day,
-                        slot: task.slot,
-                        id: task._id
-                    }
-            });
-        
         let {meridien} = this.props.preferences;
-        let twelveHours;
+        let display;
+        
         if(meridien === 'a.m') {
-            return <AnteMeridien/>
+            display = <AnteMeridien/>
         } 
+        if(meridien === 'p.m') {
+            display = <PostMeridien/>
+        }
+
         return (
             <div>
-                 <h6>12 Hours</h6>
-                <PostMeridien/>
+                {display}
+                <Meridien/>
             </div>
         );
     }

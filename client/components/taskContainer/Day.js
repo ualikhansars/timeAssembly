@@ -26,7 +26,7 @@ class Day extends React.Component {
         const {tasks} = this.props.taskInfo;
         const {loading, loaded, errors} = this.props.taskInfo.tasksRequest;
         let {meridien, timeFormat} = this.props.preferences;
-        let time;
+        let display;
         let resource = null;
         // when data is loading
         if(loading) {
@@ -49,16 +49,16 @@ class Day extends React.Component {
         // display every tasks
         if(loaded) {
             if(timeFormat === 24) {
-                time =  <TwentyFourHours tasks={tasks}/>
+                display =  <TwentyFourHours tasks={tasks}/>
             }
             if(timeFormat === 12) {
-                time = <TwelveHours/>
+                display = <TwelveHours/>
             }
         }
       
         return (
             <div className="contaner">
-                {time}
+                {display}
             </div>
         );
     }

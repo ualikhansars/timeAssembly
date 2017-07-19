@@ -11,7 +11,10 @@ import {fetchTasksByDay,
         onClickUpdateTask 
         } from '../../actions/taskAction';
 
-import {calcFinishTime} from '../../utils/timeCalc';
+import {
+    calcFinishTime,
+    get12HoursFrom24Hours
+} from '../../utils/timeCalc';
 
 class PostMeridien extends React.Component {
     render() {
@@ -26,17 +29,38 @@ class PostMeridien extends React.Component {
             let index = 0;
             let property = {}
             let {
+                meridien,
                 timeInterval,
                 startDisplayHour,
                 finishDisplayHour
             } = this.props.preferences;
-            let timeFormat;
-            if(this.props.preferences.twentyFourHoursFormat) {
-                timeFormat = 24;
+
+            // set StartTime to start and finish DisplayHour
+            // if displayHour > 12
+            let startTime, finishTime;
+            let show12pm = false;
+            if(startDisplayHour < 12) {
+                startTime = 1;
+                show12pm = true;
             } else {
-                timeFormat = 12;
+                startTime = get12HoursFrom24Hours(startDisplayHour);
             }
-            for(hour = 12; hour < 24; ++hour) { // every hour
+
+            if(finishDisplayHour < 12) {
+                finishTime = 12;
+            } else {
+                finishTime = get12HoursFrom24Hours(finishDisplayHour);
+            }
+
+            // add 12 p.m start of the day
+           if(startTime < 1 || show12pm) {
+                timetable.push(
+                    <HalfAnHour hour={'12'} min={'00'} meridien={meridien} key={index}/>
+                );
+                index++;
+            }
+
+            for(hour = startTime; hour < finishTime; ++hour) { // every hour
                 for(let min=0; min < 60; min += timeInterval) { // depends on timeInterval
                     // console.log('before tasks for loop after min == ', hour+':'+min);
                     for(let task of tasks) { 
@@ -72,7 +96,7 @@ class PostMeridien extends React.Component {
                             pushedMin = '00';
                         }
                         timetable.push(
-                            <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
+                            <HalfAnHour hour={pushedHour} min={pushedMin} meridien={meridien} key={index}/>
                         );
                         index++;
                     }
@@ -106,18 +130,13 @@ class PostMeridien extends React.Component {
                 taskAdded = false;
                 // console.log('before end hour for loop', hour+':'+min);           
             }
-            // add 24 hour without onAddTask function
-            let pushedMin = String(min);
-            let pushedHour = String(hour);
-            if(pushedMin == 0) {
-                pushedMin = '00';
-            }
+            // add 11:59 p.m hour without onAddTask function
             timetable.push(
                 <div className="row" key={index}>
-                <div className="col-md-2">
-                         {pushedHour}:{pushedMin}
+                <div className="col-md-4">
+                         11:59 p.m
                 </div>
-                <div className="col-md-10">
+                <div className="col-md-8">
                     <div className="taskInput">
                         Task
                     </div>
@@ -129,7 +148,7 @@ class PostMeridien extends React.Component {
 
         return (
             <div className="container">
-                <h6>{this.props.day}</h6>
+                <h6>P.M</h6>
                {timetable}
             </div>
         );

@@ -11,13 +11,13 @@ import {onClickTime} from '../../actions/daysAction';
 class HalfAnHour extends React.Component {
 
     render() {
-        let {hour, min} = this.props;
+        let {hour, min, meridien} = this.props;
         return (
             <div onClick={() => this.props.onClickTime(hour, min)} className="row">
-                <div className="col-md-2">
-                         {hour}:{min}
+                <div className="col-md-4">
+                         {hour}:{min} {meridien}
                 </div>
-                <div className="col-md-10">
+                <div className="col-md-8">
                     <div className="taskInput">
                         Task
                     </div>
@@ -38,6 +38,7 @@ function mapDispatchToProps(dispatch) {
 HalfAnHour.PropTypes = {
     hour: PropTypes.string.isRequired,
     min: PropTypes.string.isRequired,
+    meridien: PropTypes.string,
     onClickTime: PropTypes.func.isRequired,
 }
 
