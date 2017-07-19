@@ -47,3 +47,13 @@ export const calcFinishTime = (startHour, startMin, duration=0) => {
 export const calcMins = (hours, mins) => {
     return (hours * 60) + mins;
 }
+
+// get startTime and finishTime and 
+// calculate time schedule Time
+export const getScheduleTime = (startHour=0, finishHour=24) => {
+    let schedule = [];
+    for(let i = startHour; i <= finishHour; ++i) {
+        schedule.push(i);
+    }
+    return schedule;
+}

@@ -2,7 +2,8 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
-import {twentyFourHours} from '../../../utils/vars';
+import {getScheduleTime} from '../../../utils/timeCalc';
+
 
 // import actions
 import {
@@ -18,35 +19,44 @@ class ScheduleTime extends React.Component {
             finishHour: ''
         }
     }
+
+    // change preferences startTime
     onChangeStartTime(event) {
         this.setState({
                 [event.target.id]: event.target.value
         });
-
-        this.props.changeStartDisplayHour(event.target.value);
-        
-        console.log('On Change', this.state);
+        // convert finishTime to Number
+        let startTime = Number(event.target.value);
+        this.props.changeStartDisplayHour(startTime);
     }
 
+    // change preferences finishTime
     onChangeFinishTime(event) {
         this.setState({
                 [event.target.id]: event.target.value
         });
-        this.props.changeFinishDisplayHour(event.target.value);
-        console.log('On Change', this.state);
+        // convert finishTime to Number
+        let finishTime = Number(event.target.value);
+        this.props.changeFinishDisplayHour(finishTime);
     }
 
     render() {
-        let startHour = twentyFourHours.map((hour, i) => {
+        let {startDisplayHour, finishDisplayHour} = this.props.preferences;
+
+        // display startHour select from 0 to finishHour
+        let startHour = getScheduleTime(null, finishDisplayHour).map((hour, i) => {
             let stringHour = 'hours';
             if(hour == 1) stringHour = 'hour';
             return <option value={hour} key={i}>{hour} {stringHour}</option> 
         });
-        let finishHour = twentyFourHours.map((hour, i) => {
+
+        // display finishHour select from startHour to 24
+        let finishHour = getScheduleTime(startDisplayHour).map((hour, i) => {
             let stringHour = 'hours';
             if(hour == 1) stringHour = 'hour';
             return <option value={hour} key={i}>{hour} {stringHour}</option> 
         });
+        
         return (
             <div className="container">
                 <div className="row">
