@@ -16419,7 +16419,10 @@ var TwentyFour = function (_React$Component) {
                 var taskAdded = false;
                 var index = 0;
                 var property = {};
-                var timeInterval = this.props.preferences.timeInterval;
+                var _props$preferences = this.props.preferences,
+                    timeInterval = _props$preferences.timeInterval,
+                    startDisplayHour = _props$preferences.startDisplayHour,
+                    finishDisplayHour = _props$preferences.finishDisplayHour;
 
                 var timeFormat = void 0;
                 if (this.props.preferences.twentyFourHoursFormat) {
@@ -16427,7 +16430,7 @@ var TwentyFour = function (_React$Component) {
                 } else {
                     timeFormat = 12;
                 }
-                for (hour = 0; hour < timeFormat; ++hour) {
+                for (hour = startDisplayHour; hour < finishDisplayHour; ++hour) {
                     // every hour
                     for (var _min = 0; _min < 60; _min += timeInterval) {
                         // depends on timeInterval

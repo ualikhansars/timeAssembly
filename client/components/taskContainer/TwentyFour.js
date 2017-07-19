@@ -54,14 +54,18 @@ class TwentyFour extends React.Component {
             let taskAdded = false;
             let index = 0;
             let property = {}
-            let {timeInterval} = this.props.preferences;
+            let {
+                timeInterval,
+                startDisplayHour,
+                finishDisplayHour
+            } = this.props.preferences;
             let timeFormat;
             if(this.props.preferences.twentyFourHoursFormat) {
                 timeFormat = 24;
             } else {
                 timeFormat = 12;
             }
-            for(hour=0; hour<timeFormat; ++hour) { // every hour
+            for(hour=startDisplayHour; hour<finishDisplayHour; ++hour) { // every hour
                 for(let min=0; min<60; min+=timeInterval) { // depends on timeInterval
                     // console.log('before tasks for loop after min == ', hour+':'+min);
                     for(let task of tasks) { 
