@@ -3,8 +3,6 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
 import Day from './Day';
-import TwentyFour from './TwentyFour';
-import Meridien from './Meridien';
 
 import {getCurrentDayAndTime} from '../../actions/daysAction';
 
@@ -18,8 +16,7 @@ class Days extends React.Component {
         return (
             //  <Day day={currentDay}/>
             <div className="container">
-                <TwentyFour  day={chosenDay}/>
-                <Meridien/>
+                <Day day={chosenDay}/>
             </div>
         );
     }

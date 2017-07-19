@@ -15,7 +15,7 @@ class TimeDisplay extends React.Component {
             // time Format is switched
             let twentyFourOn = 'On';
             let twelveOn = 'On'
-            if(this.props.preferences.twentyFourHoursFormat) {
+            if(this.props.preferences.timeFormat === 24) {
                 twentyFourOn = 'On';
                 twelveOn = 'Off';
             } else {

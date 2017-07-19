@@ -13,42 +13,13 @@ import {fetchTasksByDay,
 
 import {calcFinishTime} from '../../utils/timeCalc';
 
-class TwentyFour extends React.Component {
-
-    componentDidMount() {
-        this.props.fetchTasksByDay(this.props.day);
-    }
-
-    componentWillReceiveProps(nextProps) {
-       console.log('Next Props', nextProps);
-       if(this.props.day != nextProps.day) {
-           this.props.fetchTasksByDay(nextProps.day);
-       }
-    }
-
+class PostMeridien extends React.Component {
     render() {
         const {tasks} = this.props.taskInfo;
         const {loading, loaded, errors} = this.props.taskInfo.tasksRequest;
         let timetable = [];
-        if(loading) {
-            return(
-                <div>loading</div>
-            );
-        }
-
-        // if errors occurs
-        if(errors) {
-            return(
-                <div className="container-fluid">
-                    <div>Errors</div>
-                    <div>{errors}</div>
-                </div>
-            );
-        }
-
         // when data loaded
         // display every tasks
-        if(loaded) {
             let min = 0;
             let hour = 0;
             let taskAdded = false;
@@ -65,8 +36,8 @@ class TwentyFour extends React.Component {
             } else {
                 timeFormat = 12;
             }
-            for(hour=startDisplayHour; hour<finishDisplayHour; ++hour) { // every hour
-                for(let min=0; min<60; min+=timeInterval) { // depends on timeInterval
+            for(hour = 12; hour < 24; ++hour) { // every hour
+                for(let min=0; min < 60; min += timeInterval) { // depends on timeInterval
                     // console.log('before tasks for loop after min == ', hour+':'+min);
                     for(let task of tasks) { 
                         // check if task' startTime equal to iteration hour and minites
@@ -153,7 +124,8 @@ class TwentyFour extends React.Component {
                 </div>
             </div>
             );
-    }
+    
+
 
         return (
             <div className="container">
@@ -181,4 +153,4 @@ const mapStateToProps = (state) => {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TwentyFour);
+export default connect(mapStateToProps, mapDispatchToProps)(PostMeridien);

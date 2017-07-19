@@ -7,9 +7,10 @@ import {fetchTasksByDay,
         } from '../../actions/taskAction';
 
 import Task from './Task';
+import TwentyFourHours from './TwentyFourHours';
+import TwelveHours from './TwelveHours';
 
 class Day extends React.Component {
-    
     componentDidMount() {
         this.props.fetchTasksByDay(this.props.day);
     }
@@ -24,6 +25,8 @@ class Day extends React.Component {
     render() {
         const {tasks} = this.props.taskInfo;
         const {loading, loaded, errors} = this.props.taskInfo.tasksRequest;
+        let {meridien, timeFormat} = this.props.preferences;
+        let time;
         let resource = null;
         // when data is loading
         if(loading) {
@@ -45,40 +48,26 @@ class Day extends React.Component {
         // when data loaded
         // display every tasks
         if(loaded) {
-                 resource = tasks.map((task, i) => {
-                    let property = {
-                        title: task.title,
-                        category: task.category,
-                        description: task.description,
-                        duration: task.duration,
-                        startTimeHours: task.startTimeHours,
-                        startTimeMinutes: task.startTimeMinutes,
-                        finishTimeHours: task.finishTimeHours,
-                        finishTimeMinutes: task.finishTimeMinutes,
-                        day: task.day,
-                        slot: task.slot,
-                        id: task._id
-                    }
-                    return (
-                        <div key={i}>
-                            <Task onClickUpdate={this.props.onClickUpdateTask} property={property} removeTask={this.props.removeTask}/>
-                        </div>
-                    );
-            });
+            if(timeFormat === 24) {
+                time =  <TwentyFourHours tasks={tasks}/>
+            }
+            if(timeFormat === 12) {
+                time = <TwelveHours/>
+            }
         }
-
+      
         return (
-            <div>
-                {this.props.day}
-                {resource}
+            <div className="contaner">
+                {time}
             </div>
-        )
+        );
     }
 }
 
 const mapStateToProps = (state) => {
     return {
         taskInfo: state.taskInfo,
+        preferences: state.preferences
     };
 }
 

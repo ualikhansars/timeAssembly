@@ -1,6 +1,5 @@
 const initialState = {
-    twentyFourHoursFormat: true,
-    twelveHoursFormat: false,
+    timeFormat: 24,
     timeInterval: 30,
     startDisplayHour: 0,
     finishDisplayHour: 24,
@@ -11,13 +10,11 @@ const preferencesInfo = (state = initialState, action) => {
     switch(action.type) {
         case 'TWENTY_FOUR_HOURS_FORMAT':
             return Object.assign({}, state, {
-                twentyFourHoursFormat: true,
-                twelveHoursFormat: false
+                timeFormat: action.timeFormat
             });
         case 'TWELVE_HOURS_FORMAT':
             return Object.assign({}, state, {
-                twentyFourHoursFormat: false,
-                twelveHoursFormat: true
+                timeFormat: action.timeFormat
             });
         // change time Intervals
         case 'SHOW_EVERY_HOUR':
