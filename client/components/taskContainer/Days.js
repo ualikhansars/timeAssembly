@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 
 import Day from './Day';
 import TwentyFour from './TwentyFour';
+import Meridien from './Meridien';
 
 import {getCurrentDayAndTime} from '../../actions/daysAction';
 
@@ -16,7 +17,10 @@ class Days extends React.Component {
 
         return (
             //  <Day day={currentDay}/>
-            <TwentyFour  day={chosenDay}/>
+            <div className="container">
+                <TwentyFour  day={chosenDay}/>
+                <Meridien/>
+            </div>
         );
     }
 }

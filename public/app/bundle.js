@@ -14741,27 +14741,23 @@ var ScheduleTime = function (_React$Component) {
 
             // display startHour select from 0 to finishHour
 
-            var startHour = (0, _timeCalc.getScheduleTime)(null, finishDisplayHour).map(function (hour, i) {
-                var stringHour = 'hours';
-                if (hour == 1) stringHour = 'hour';
+            var startHour = (0, _timeCalc.getScheduleTime)(0, finishDisplayHour).map(function (hour, i) {
+                var stringHour = String(hour + ':00');
+                if (hour <= 9) '0' + stringHour;
                 return _react2.default.createElement(
                     'option',
                     { value: hour, key: i },
-                    hour,
-                    ' ',
                     stringHour
                 );
             });
 
             // display finishHour select from startHour to 24
             var finishHour = (0, _timeCalc.getScheduleTime)(startDisplayHour).map(function (hour, i) {
-                var stringHour = 'hours';
-                if (hour == 1) stringHour = 'hour';
+                var stringHour = String(hour + ':00');
+                if (hour <= 9) '0' + stringHour;
                 return _react2.default.createElement(
                     'option',
                     { value: hour, key: i },
-                    hour,
-                    ' ',
                     stringHour
                 );
             });
@@ -16069,6 +16065,10 @@ var _TwentyFour = __webpack_require__(152);
 
 var _TwentyFour2 = _interopRequireDefault(_TwentyFour);
 
+var _Meridien = __webpack_require__(288);
+
+var _Meridien2 = _interopRequireDefault(_Meridien);
+
 var _daysAction = __webpack_require__(38);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -16101,7 +16101,12 @@ var Days = function (_React$Component) {
 
             return (
                 //  <Day day={currentDay}/>
-                _react2.default.createElement(_TwentyFour2.default, { day: chosenDay })
+                _react2.default.createElement(
+                    'div',
+                    { className: 'container' },
+                    _react2.default.createElement(_TwentyFour2.default, { day: chosenDay }),
+                    _react2.default.createElement(_Meridien2.default, null)
+                )
             );
         }
     }]);
@@ -30652,6 +30657,73 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+/* 288 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Meridien = function (_React$Component) {
+    _inherits(Meridien, _React$Component);
+
+    function Meridien() {
+        _classCallCheck(this, Meridien);
+
+        return _possibleConstructorReturn(this, (Meridien.__proto__ || Object.getPrototypeOf(Meridien)).apply(this, arguments));
+    }
+
+    _createClass(Meridien, [{
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                { className: "row" },
+                _react2.default.createElement(
+                    "div",
+                    { className: "col-md-6" },
+                    _react2.default.createElement(
+                        "button",
+                        { className: "btn btn-default" },
+                        "A.M"
+                    )
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "col-md-6" },
+                    _react2.default.createElement(
+                        "button",
+                        { className: "btn btn-default" },
+                        "P.M"
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Meridien;
+}(_react2.default.Component);
+
+exports.default = Meridien;
 
 /***/ })
 /******/ ]);

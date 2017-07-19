@@ -44,17 +44,17 @@ class ScheduleTime extends React.Component {
         let {startDisplayHour, finishDisplayHour} = this.props.preferences;
 
         // display startHour select from 0 to finishHour
-        let startHour = getScheduleTime(null, finishDisplayHour).map((hour, i) => {
-            let stringHour = 'hours';
-            if(hour == 1) stringHour = 'hour';
-            return <option value={hour} key={i}>{hour} {stringHour}</option> 
+        let startHour = getScheduleTime(0, finishDisplayHour).map((hour, i) => {
+            let stringHour = String(hour + ':00');
+            if(hour <= 9) '0' + stringHour;
+            return <option value={hour} key={i}>{stringHour}</option> 
         });
 
         // display finishHour select from startHour to 24
         let finishHour = getScheduleTime(startDisplayHour).map((hour, i) => {
-            let stringHour = 'hours';
-            if(hour == 1) stringHour = 'hour';
-            return <option value={hour} key={i}>{hour} {stringHour}</option> 
+            let stringHour = String(hour + ':00');
+            if(hour <= 9) '0' + stringHour;
+            return <option value={hour} key={i}>{stringHour}</option> 
         });
         
         return (
