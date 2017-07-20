@@ -37,7 +37,7 @@ class AnteMeridien extends React.Component {
             // if displayHour < 12
             let startTime, finishTime;
             if(startDisplayHour > 12) {
-                startTime = 1;
+                startTime = 0;
             } else {
                 startTime = startDisplayHour;
             }
@@ -46,14 +46,6 @@ class AnteMeridien extends React.Component {
                 finishTime = 12;
             } else {
                 finishTime = finishDisplayHour;
-            }
-
-            // add 12 a.m start of the day
-            if(startTime < 1) {
-                timetable.push(
-                    <HalfAnHour hour={'12'} min={'00'} meridien={meridien} key={index}/>
-                );
-                index++;
             }
            
             for(hour=startTime; hour<finishTime; ++hour) { // every hour

@@ -16,15 +16,26 @@ class HalfAnHour extends React.Component {
         // if 12 o'clock hours and p.m is chosen
         // then convert 24 hours into 12 hours
         let displayHour;
-        if(timeFormat === 12 && meridien === 'p.m') {
-            if(hour === '12' && min === '00') {
-                displayHour = '12';
-            } else {
-                 displayHour = get12HoursFrom24Hours(hour);
+        if(timeFormat === 12) {
+            if(meridien === 'p.m') {
+                if(hour === '12' && min === '00') {
+                    displayHour = '12';
+                } else {
+                    displayHour = get12HoursFrom24Hours(hour);
+                }
+            }
+            if(meridien === 'a.m') {
+                if(hour === '0' && min === '00') {
+                    displayHour = '12';
+                }
+                else {
+                    displayHour = hour;
+                }
             }
         } else {
             displayHour = hour;
-        }
+        } 
+
         return (
             <div onClick={() => this.props.onClickTime(hour, min)} className="row">
                 <div className="col-md-4">

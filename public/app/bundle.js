@@ -4456,15 +4456,25 @@ var HalfAnHour = function (_React$Component) {
             // then convert 24 hours into 12 hours
 
             var displayHour = void 0;
-            if (timeFormat === 12 && meridien === 'p.m') {
-                if (hour === '12' && min === '00') {
-                    displayHour = '12';
-                } else {
-                    displayHour = (0, _timeCalc.get12HoursFrom24Hours)(hour);
+            if (timeFormat === 12) {
+                if (meridien === 'p.m') {
+                    if (hour === '12' && min === '00') {
+                        displayHour = '12';
+                    } else {
+                        displayHour = (0, _timeCalc.get12HoursFrom24Hours)(hour);
+                    }
+                }
+                if (meridien === 'a.m') {
+                    if (hour === '0' && min === '00') {
+                        displayHour = '12';
+                    } else {
+                        displayHour = hour;
+                    }
                 }
             } else {
                 displayHour = hour;
             }
+
             return _react2.default.createElement(
                 'div',
                 { onClick: function onClick() {
@@ -16095,7 +16105,7 @@ var AnteMeridien = function (_React$Component) {
             var startTime = void 0,
                 finishTime = void 0;
             if (startDisplayHour > 12) {
-                startTime = 1;
+                startTime = 0;
             } else {
                 startTime = startDisplayHour;
             }
@@ -16104,12 +16114,6 @@ var AnteMeridien = function (_React$Component) {
                 finishTime = 12;
             } else {
                 finishTime = finishDisplayHour;
-            }
-
-            // add 12 a.m start of the day
-            if (startTime < 1) {
-                timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: '12', min: '00', meridien: meridien, key: index }));
-                index++;
             }
 
             for (hour = startTime; hour < finishTime; ++hour) {
