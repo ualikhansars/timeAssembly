@@ -4423,6 +4423,8 @@ var _reactRedux = __webpack_require__(6);
 
 var _daysAction = __webpack_require__(42);
 
+var _timeCalc = __webpack_require__(22);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4449,7 +4451,20 @@ var HalfAnHour = function (_React$Component) {
                 hour = _props.hour,
                 min = _props.min,
                 meridien = _props.meridien;
+            var timeFormat = this.props.preferences.timeFormat;
+            // if 12 o'clock hours and p.m is chosen
+            // then convert 24 hours into 12 hours
 
+            var displayHour = void 0;
+            if (timeFormat === 12 && meridien === 'p.m') {
+                if (hour === '12' && min === '00') {
+                    displayHour = '12';
+                } else {
+                    displayHour = (0, _timeCalc.get12HoursFrom24Hours)(hour);
+                }
+            } else {
+                displayHour = hour;
+            }
             return _react2.default.createElement(
                 'div',
                 { onClick: function onClick() {
@@ -4458,7 +4473,7 @@ var HalfAnHour = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'col-md-4' },
-                    hour,
+                    displayHour,
                     ':',
                     min,
                     ' ',
@@ -4486,6 +4501,12 @@ function mapDispatchToProps(dispatch) {
     }, dispatch);
 }
 
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        preferences: state.preferences
+    };
+};
+
 HalfAnHour.PropTypes = {
     hour: _propTypes2.default.string.isRequired,
     min: _propTypes2.default.string.isRequired,
@@ -4493,7 +4514,7 @@ HalfAnHour.PropTypes = {
     onClickTime: _propTypes2.default.func.isRequired
 };
 
-exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(HalfAnHour);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(HalfAnHour);
 
 /***/ }),
 /* 34 */
@@ -16631,25 +16652,25 @@ var PostMeridien = function (_React$Component) {
 
             var startTime = void 0,
                 finishTime = void 0;
-            var show12pm = false;
             if (startDisplayHour < 12) {
-                startTime = 0;
-                show12pm = true;
+                startTime = 12;
             } else {
-                startTime = (0, _timeCalc.get12HoursFrom24Hours)(startDisplayHour);
+                startTime = startDisplayHour;
             }
 
             if (finishDisplayHour < 12) {
-                finishTime = 12;
+                finishTime = 24;
             } else {
-                finishTime = (0, _timeCalc.get12HoursFrom24Hours)(finishDisplayHour);
+                finishTime = finishDisplayHour;
             }
 
-            // add 12 p.m start of the day
-            if (startTime < 1 || show12pm) {
-                timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: '12', min: '00', meridien: meridien, key: index }));
-                index++;
-            }
+            //     // add 12 p.m start of the day
+            //    if(startTime < 1 || show12pm) {
+            //         timetable.push(
+            //             <HalfAnHour hour={'12'} min={'00'} meridien={meridien} key={index}/>
+            //         );
+            //         index++;
+            //     }
 
             for (hour = startTime; hour < finishTime; ++hour) {
                 // every hour
@@ -16671,8 +16692,7 @@ var PostMeridien = function (_React$Component) {
 
                             // check if task' startTime equal to iteration hour and minites
                             // then add Task with same startHour instead of time Component
-                            var hour24 = (0, _timeCalc.get24HoursFrom12Hours)(hour);
-                            if (hour24 == task.startTimeHours && _min == task.startTimeMinutes) {
+                            if (hour == task.startTimeHours && _min == task.startTimeMinutes) {
                                 property = {
                                     title: task.title,
                                     category: task.category,
@@ -16709,9 +16729,8 @@ var PostMeridien = function (_React$Component) {
                     }
 
                     if (!taskAdded) {
-                        var twentyFourFormatHour = (0, _timeCalc.get24HoursFrom12Hours)(hour); // convert hour into 24 base hour
                         var pushedMin = String(_min);
-                        var pushedHour = String(twentyFourFormatHour);
+                        var pushedHour = String(hour);
                         if (pushedMin == 0) {
                             pushedMin = '00';
                         }

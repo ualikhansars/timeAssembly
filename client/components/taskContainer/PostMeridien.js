@@ -39,27 +39,25 @@ class PostMeridien extends React.Component {
             // set StartTime to start and finish DisplayHour
             // if displayHour > 12
             let startTime, finishTime;
-            let show12pm = false;
             if(startDisplayHour < 12) {
-                startTime = 0;
-                show12pm = true;
+                startTime = 12;
             } else {
-                startTime = get12HoursFrom24Hours(startDisplayHour);
+                startTime = startDisplayHour;
             }
 
             if(finishDisplayHour < 12) {
-                finishTime = 12;
+                finishTime = 24;
             } else {
-                finishTime = get12HoursFrom24Hours(finishDisplayHour);
+                finishTime = finishDisplayHour;
             }
 
-            // add 12 p.m start of the day
-           if(startTime < 1 || show12pm) {
-                timetable.push(
-                    <HalfAnHour hour={'12'} min={'00'} meridien={meridien} key={index}/>
-                );
-                index++;
-            }
+        //     // add 12 p.m start of the day
+        //    if(startTime < 1 || show12pm) {
+        //         timetable.push(
+        //             <HalfAnHour hour={'12'} min={'00'} meridien={meridien} key={index}/>
+        //         );
+        //         index++;
+        //     }
 
             for(hour = startTime; hour < finishTime; ++hour) { // every hour
                 let min = 0;
@@ -71,8 +69,7 @@ class PostMeridien extends React.Component {
                     for(let task of tasks) { 
                         // check if task' startTime equal to iteration hour and minites
                         // then add Task with same startHour instead of time Component
-                        let hour24 = get24HoursFrom12Hours(hour);
-                        if(hour24 == task.startTimeHours && min == task.startTimeMinutes) {
+                        if(hour == task.startTimeHours && min == task.startTimeMinutes) {
                             property = {
                                 title: task.title,
                                 category: task.category,
@@ -96,9 +93,8 @@ class PostMeridien extends React.Component {
                     } // end for tasks
                     // if task is not added, then add Time component
                     if(!taskAdded) {
-                        let twentyFourFormatHour = get24HoursFrom12Hours(hour); // convert hour into 24 base hour
                         let pushedMin = String(min);
-                        let pushedHour = String(twentyFourFormatHour);
+                        let pushedHour = String(hour);
                         if(pushedMin == 0) {
                             pushedMin = '00';
                         }
