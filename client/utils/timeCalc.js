@@ -61,4 +61,9 @@ export const getScheduleTime = (startHour=0, finishHour=24) => {
 // convert 24 hours to 12 hours
 export const get12HoursFrom24Hours = (twentyFourHour) => {
     return twentyFourHour - 12;
-}  
+} 
+
+// convert 12 hours to 12 o'clock hours
+export const get24HoursFrom12Hours = (hour) => {
+    return hour + 12;
+}

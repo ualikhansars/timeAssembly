@@ -13,7 +13,8 @@ import {fetchTasksByDay,
 
 import {
     calcFinishTime,
-    get12HoursFrom24Hours
+    get12HoursFrom24Hours,
+    get24HoursFrom12Hours
 } from '../../utils/timeCalc';
 
 class PostMeridien extends React.Component {
@@ -40,7 +41,7 @@ class PostMeridien extends React.Component {
             let startTime, finishTime;
             let show12pm = false;
             if(startDisplayHour < 12) {
-                startTime = 1;
+                startTime = 0;
                 show12pm = true;
             } else {
                 startTime = get12HoursFrom24Hours(startDisplayHour);
@@ -61,12 +62,17 @@ class PostMeridien extends React.Component {
             }
 
             for(hour = startTime; hour < finishTime; ++hour) { // every hour
-                for(let min=0; min < 60; min += timeInterval) { // depends on timeInterval
+                let min = 0;
+                if(hour === 0) { // if hour == 0, don't display 00:00 but 00:30
+                    min = 30;
+                }
+                for(min; min < 60; min += timeInterval) { // depends on timeInterval
                     // console.log('before tasks for loop after min == ', hour+':'+min);
                     for(let task of tasks) { 
                         // check if task' startTime equal to iteration hour and minites
                         // then add Task with same startHour instead of time Component
-                        if(hour == task.startTimeHours && min == task.startTimeMinutes) {
+                        let hour24 = get24HoursFrom12Hours(hour);
+                        if(hour24 == task.startTimeHours && min == task.startTimeMinutes) {
                             property = {
                                 title: task.title,
                                 category: task.category,
@@ -90,8 +96,9 @@ class PostMeridien extends React.Component {
                     } // end for tasks
                     // if task is not added, then add Time component
                     if(!taskAdded) {
+                        let twentyFourFormatHour = get24HoursFrom12Hours(hour); // convert hour into 24 base hour
                         let pushedMin = String(min);
-                        let pushedHour = String(hour);
+                        let pushedHour = String(twentyFourFormatHour);
                         if(pushedMin == 0) {
                             pushedMin = '00';
                         }
