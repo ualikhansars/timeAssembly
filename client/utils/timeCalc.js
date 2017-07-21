@@ -5,19 +5,22 @@ export const calcFinishTime = (startHour, startMin, duration=0) => {
         let finishHour = startHour;
         let finishMin = startMin;
         if(duration < 0) {
-            console.log('duration < 0', duration);
+            // console.log('duration < 0', duration);
             duration = 0;
         }
         if(duration < 60) {
-            console.log('duration < 60', duration);
             let addition = startMin + duration; // 80 or 30
-            console.log('timeCalc startMin', startMin);
+            // console.log('timeCalc startMin', startMin);
             if(addition == 60) {
-                console.log('addition === 60', addition);
+                // console.log('addition === 60', addition);
                 finishHour++;
                 finishMin = 0;
             }
             if(addition < 60) { // 30
+                if(startMin + duration === 60) {
+                    finishMin = 0;
+                    finishHour++;
+                } 
                 finishMin = startMin + duration;
             }  
             if(addition > 60) { // 80

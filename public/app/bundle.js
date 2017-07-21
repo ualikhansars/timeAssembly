@@ -858,7 +858,7 @@ module.exports = ExecutionEnvironment;
 
 
 
-var _prodInvariant = __webpack_require__(21);
+var _prodInvariant = __webpack_require__(22);
 
 var ReactCurrentOwner = __webpack_require__(15);
 
@@ -1585,7 +1585,7 @@ var _prodInvariant = __webpack_require__(3),
     _assign = __webpack_require__(5);
 
 var CallbackQueue = __webpack_require__(82);
-var PooledClass = __webpack_require__(19);
+var PooledClass = __webpack_require__(20);
 var ReactFeatureFlags = __webpack_require__(87);
 var ReactReconciler = __webpack_require__(24);
 var Transaction = __webpack_require__(37);
@@ -2067,7 +2067,7 @@ var removeTask = exports.removeTask = function removeTask(id, slotId) {
 
 var _assign = __webpack_require__(5);
 
-var PooledClass = __webpack_require__(19);
+var PooledClass = __webpack_require__(20);
 
 var emptyFunction = __webpack_require__(12);
 var warning = __webpack_require__(2);
@@ -2543,6 +2543,97 @@ module.exports = DOMProperty;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+// get startHour and startMinutes and duration
+//  and return finishHour and finish Minites 
+
+var calcFinishTime = exports.calcFinishTime = function calcFinishTime(startHour, startMin) {
+    var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+
+    var finishHour = startHour;
+    var finishMin = startMin;
+    if (duration < 0) {
+        // console.log('duration < 0', duration);
+        duration = 0;
+    }
+    if (duration < 60) {
+        var addition = startMin + duration; // 80 or 30
+        // console.log('timeCalc startMin', startMin);
+        if (addition == 60) {
+            // console.log('addition === 60', addition);
+            finishHour++;
+            finishMin = 0;
+        }
+        if (addition < 60) {
+            // 30
+            if (startMin + duration === 60) {
+                finishMin = 0;
+                finishHour++;
+            }
+            finishMin = startMin + duration;
+        }
+        if (addition > 60) {
+            // 80
+            var balance = startMin - duration;
+            finishHour++;
+            finishMin = balance;
+        }
+    } else {
+        // duration > 60
+        var parameter = Math.floor(duration / 60); // 200 / 60 === 3
+        var _balance = duration % 60;
+        finishHour = startHour + parameter;
+        if (finishMin + _balance == 60) {
+            finishHour++;
+            finishMin = 0;
+        } else {
+            finishMin = startMin + _balance;
+        }
+    }
+    return {
+        finishHour: finishHour,
+        finishMin: finishMin
+    };
+};
+
+// this function expect hours and mins and
+// return time in minutes
+var calcMins = exports.calcMins = function calcMins(hours, mins) {
+    return hours * 60 + mins;
+};
+
+// get startTime and finishTime and 
+// calculate time schedule Time
+var getScheduleTime = exports.getScheduleTime = function getScheduleTime() {
+    var startHour = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+    var finishHour = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 24;
+
+    var schedule = [];
+    for (var i = startHour; i <= finishHour; ++i) {
+        schedule.push(i);
+    }
+    return schedule;
+};
+
+// convert 24 hours to 12 hours
+var get12HoursFrom24Hours = exports.get12HoursFrom24Hours = function get12HoursFrom24Hours(twentyFourHour) {
+    return twentyFourHour - 12;
+};
+
+// convert 12 hours to 12 o'clock hours
+var get24HoursFrom12Hours = exports.get24HoursFrom12Hours = function get24HoursFrom12Hours(hour) {
+    return hour + 12;
+};
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -2657,7 +2748,7 @@ module.exports = PooledClass;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3004,7 +3095,7 @@ module.exports = ReactElement;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3046,94 +3137,6 @@ function reactProdInvariant(code) {
 }
 
 module.exports = reactProdInvariant;
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-// get startHour and startMinutes and duration
-//  and return finishHour and finish Minites 
-
-var calcFinishTime = exports.calcFinishTime = function calcFinishTime(startHour, startMin) {
-    var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-
-    var finishHour = startHour;
-    var finishMin = startMin;
-    if (duration < 0) {
-        console.log('duration < 0', duration);
-        duration = 0;
-    }
-    if (duration < 60) {
-        console.log('duration < 60', duration);
-        var addition = startMin + duration; // 80 or 30
-        console.log('timeCalc startMin', startMin);
-        if (addition == 60) {
-            console.log('addition === 60', addition);
-            finishHour++;
-            finishMin = 0;
-        }
-        if (addition < 60) {
-            // 30
-            finishMin = startMin + duration;
-        }
-        if (addition > 60) {
-            // 80
-            var balance = startMin - duration;
-            finishHour++;
-            finishMin = balance;
-        }
-    } else {
-        // duration > 60
-        var parameter = Math.floor(duration / 60); // 200 / 60 === 3
-        var _balance = duration % 60;
-        finishHour = startHour + parameter;
-        if (finishMin + _balance == 60) {
-            finishHour++;
-            finishMin = 0;
-        } else {
-            finishMin = startMin + _balance;
-        }
-    }
-    return {
-        finishHour: finishHour,
-        finishMin: finishMin
-    };
-};
-
-// this function expect hours and mins and
-// return time in minutes
-var calcMins = exports.calcMins = function calcMins(hours, mins) {
-    return hours * 60 + mins;
-};
-
-// get startTime and finishTime and 
-// calculate time schedule Time
-var getScheduleTime = exports.getScheduleTime = function getScheduleTime() {
-    var startHour = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-    var finishHour = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 24;
-
-    var schedule = [];
-    for (var i = startHour; i <= finishHour; ++i) {
-        schedule.push(i);
-    }
-    return schedule;
-};
-
-// convert 24 hours to 12 hours
-var get12HoursFrom24Hours = exports.get12HoursFrom24Hours = function get12HoursFrom24Hours(twentyFourHour) {
-    return twentyFourHour - 12;
-};
-
-// convert 12 hours to 12 o'clock hours
-var get24HoursFrom12Hours = exports.get24HoursFrom12Hours = function get24HoursFrom12Hours(hour) {
-    return hour + 12;
-};
 
 /***/ }),
 /* 23 */
@@ -3456,7 +3459,7 @@ var ReactComponent = __webpack_require__(64);
 var ReactPureComponent = __webpack_require__(277);
 var ReactClass = __webpack_require__(273);
 var ReactDOMFactories = __webpack_require__(274);
-var ReactElement = __webpack_require__(20);
+var ReactElement = __webpack_require__(21);
 var ReactPropTypes = __webpack_require__(275);
 var ReactVersion = __webpack_require__(278);
 
@@ -4423,7 +4426,7 @@ var _reactRedux = __webpack_require__(6);
 
 var _daysAction = __webpack_require__(42);
 
-var _timeCalc = __webpack_require__(22);
+var _timeCalc = __webpack_require__(19);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8035,7 +8038,7 @@ function warning(message) {
 
 
 
-var _prodInvariant = __webpack_require__(21);
+var _prodInvariant = __webpack_require__(22);
 
 var ReactNoopUpdateQueue = __webpack_require__(65);
 
@@ -9521,7 +9524,7 @@ var _prodInvariant = __webpack_require__(3);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var PooledClass = __webpack_require__(19);
+var PooledClass = __webpack_require__(20);
 
 var invariant = __webpack_require__(1);
 
@@ -12066,7 +12069,7 @@ module.exports = REACT_ELEMENT_TYPE;
 
 var ReactCurrentOwner = __webpack_require__(15);
 var ReactComponentTreeHook = __webpack_require__(10);
-var ReactElement = __webpack_require__(20);
+var ReactElement = __webpack_require__(21);
 
 var checkReactTypeSpec = __webpack_require__(279);
 
@@ -14065,7 +14068,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(6);
 
-var _timeCalc = __webpack_require__(22);
+var _timeCalc = __webpack_require__(19);
 
 var _vars = __webpack_require__(163);
 
@@ -14816,7 +14819,7 @@ var _redux = __webpack_require__(8);
 
 var _reactRedux = __webpack_require__(6);
 
-var _timeCalc = __webpack_require__(22);
+var _timeCalc = __webpack_require__(19);
 
 var _preferencesAction = __webpack_require__(32);
 
@@ -16057,7 +16060,7 @@ var _Task2 = _interopRequireDefault(_Task);
 
 var _taskAction = __webpack_require__(16);
 
-var _timeCalc = __webpack_require__(22);
+var _timeCalc = __webpack_require__(19);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -16609,7 +16612,7 @@ var _Task2 = _interopRequireDefault(_Task);
 
 var _taskAction = __webpack_require__(16);
 
-var _timeCalc = __webpack_require__(22);
+var _timeCalc = __webpack_require__(19);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -16963,7 +16966,7 @@ var _Meridien2 = _interopRequireDefault(_Meridien);
 
 var _taskAction = __webpack_require__(16);
 
-var _timeCalc = __webpack_require__(22);
+var _timeCalc = __webpack_require__(19);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17065,7 +17068,7 @@ var _Task2 = _interopRequireDefault(_Task);
 
 var _taskAction = __webpack_require__(16);
 
-var _timeCalc = __webpack_require__(22);
+var _timeCalc = __webpack_require__(19);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17119,145 +17122,135 @@ var TwentyFourHours = function (_React$Component) {
                     )
                 );
             }
+            if (loaded) {
+                // when data loaded
+                // display every tasks
+                var updatedTasks = Object.assign([], tasks);
+                var min = 0;
+                var hour = 0;
+                var taskAdded = false;
+                var index = 0;
+                var property = {};
+                var _props$preferences = this.props.preferences,
+                    timeInterval = _props$preferences.timeInterval,
+                    startDisplayHour = _props$preferences.startDisplayHour,
+                    finishDisplayHour = _props$preferences.finishDisplayHour;
 
-            // when data loaded
-            // display every tasks
+                var taskMin = void 0;
 
-            var min = 0;
-            var hour = 0;
-            var taskAdded = false;
-            var index = 0;
-            var property = {};
-            var _props$preferences = this.props.preferences,
-                timeInterval = _props$preferences.timeInterval,
-                startDisplayHour = _props$preferences.startDisplayHour,
-                finishDisplayHour = _props$preferences.finishDisplayHour;
-
-            var timeFormat = void 0;
-            if (this.props.preferences.twentyFourHoursFormat) {
-                timeFormat = 24;
-            } else {
-                timeFormat = 12;
-            }
-            for (hour = startDisplayHour; hour < finishDisplayHour; ++hour) {
-                // every hour
-                for (var _min = 0; _min < 60; _min += timeInterval) {
-                    // depends on timeInterval
-                    // console.log('before tasks for loop after min == ', hour+':'+min);
-                    var _iteratorNormalCompletion = true;
-                    var _didIteratorError = false;
-                    var _iteratorError = undefined;
-
-                    try {
-                        for (var _iterator = tasks[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                            var task = _step.value;
-
+                for (hour = startDisplayHour; hour < finishDisplayHour; ++hour) {
+                    // every hour
+                    for (var _min = 0; _min < 60; _min += timeInterval) {
+                        // depends on timeInterval
+                        for (var i = 0; i < updatedTasks.length; ++i) {
                             // check if task' startTime equal to iteration hour and minites
                             // then add Task with same startHour instead of time Component
-                            if (hour == task.startTimeHours && _min == task.startTimeMinutes) {
+                            if (hour === updatedTasks[i].startTimeHours && _min === updatedTasks[i].startTimeMinutes) {
                                 property = {
-                                    title: task.title,
-                                    category: task.category,
-                                    description: task.description,
-                                    duration: task.duration,
-                                    startTimeHours: task.startTimeHours,
-                                    startTimeMinutes: task.startTimeMinutes,
-                                    finishTimeHours: task.finishTimeHours,
-                                    finishTimeMinutes: task.finishTimeMinutes,
-                                    day: task.day,
-                                    slot: task.slot,
-                                    id: task._id
+                                    title: updatedTasks[i].title,
+                                    category: updatedTasks[i].category,
+                                    description: updatedTasks[i].description,
+                                    duration: updatedTasks[i].duration,
+                                    startTimeHours: updatedTasks[i].startTimeHours,
+                                    startTimeMinutes: updatedTasks[i].startTimeMinutes,
+                                    finishTimeHours: updatedTasks[i].finishTimeHours,
+                                    finishTimeMinutes: updatedTasks[i].finishTimeMinutes,
+                                    day: updatedTasks[i].day,
+                                    slot: updatedTasks[i].slot,
+                                    id: updatedTasks[i]._id
                                 };
                                 timetable.push(_react2.default.createElement(_Task2.default, { onClickUpdate: this.props.onClickUpdateTask, property: property, removeTask: this.props.removeTask, key: index }));
                                 index++;
                                 taskAdded = true;
-                                // console.log('taskAdded', taskAdded);
+
+                                var _calcFinishTime = (0, _timeCalc.calcFinishTime)(hour, _min, property.duration),
+                                    finishMin = _calcFinishTime.finishMin;
+
+                                taskMin = _min;
+                                updatedTasks.splice(i, 1); // delete task
+                                console.log('taskAdded', taskAdded);
                             }
                         } // end for tasks
                         // if task is not added, then add Time component
-                    } catch (err) {
-                        _didIteratorError = true;
-                        _iteratorError = err;
-                    } finally {
-                        try {
-                            if (!_iteratorNormalCompletion && _iterator.return) {
-                                _iterator.return();
+                        if (!taskAdded) {
+                            var _pushedMin = String(_min);
+                            var _pushedHour = String(hour);
+                            if (_pushedMin == 0) {
+                                _pushedMin = '00';
                             }
-                        } finally {
-                            if (_didIteratorError) {
-                                throw _iteratorError;
-                            }
+                            timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: _pushedHour, min: _pushedMin, key: index }));
+                            index++;
                         }
                     }
+                    // console.log('after min for loop min == ',min) // 0
+                    //if Task has been added, then update hour and minutes
+                    // change hour and minutes to finishHour and finishMinites of the task
+                    if (taskAdded) {
+                        // console.log('duration', property.duration);
+                        console.error('startHour', hour + ':' + min);
+                        console.log('taskFinishMin', taskMin);
 
-                    if (!taskAdded) {
-                        var _pushedMin = String(_min);
-                        var _pushedHour = String(hour);
-                        if (_pushedMin == 0) {
-                            _pushedMin = '00';
+                        var _calcFinishTime2 = (0, _timeCalc.calcFinishTime)(hour, taskMin, property.duration),
+                            finishHour = _calcFinishTime2.finishHour,
+                            _finishMin = _calcFinishTime2.finishMin;
+
+                        console.error('finishHour', finishHour, 'finishMin', _finishMin, 'duration', property.duration);
+                        hour = finishHour;
+                        min = _finishMin;
+                        console.error('hour after added task', hour);
+                        console.error('min after added task', min);
+                        // add finish hour and min to timetable
+                        // before hour incremention
+
+                        // console.error('adding timeInterval');
+                        // console.error('min ===', min);
+                        for (var _i = min; _i < 60; _i += timeInterval) {
+                            console.log('before hour inc hour and min === ', hour + ':' + _i);
+                            var _pushedMin2 = String(_i);
+                            var _pushedHour2 = String(hour);
+                            if (_pushedMin2 == 0) {
+                                _pushedMin2 = '00';
+                            }
+                            console.log('pushedHour pushedMin', _pushedHour2 + ':' + _pushedMin2);
+                            timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: _pushedHour2, min: _pushedMin2, key: index }));
+                            console.log('TimeInterval is added');
+                            index++;
                         }
-                        timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: _pushedHour, min: _pushedMin, key: index }));
-                        index++;
                     }
+                    // if min is equal to 60 change it to 0
+                    if (min === 60) {
+                        min = 0;
+                    };
+                    taskAdded = false;
+                    // console.log('before end hour for loop', hour+':'+min);           
                 }
-                // console.log('after min for loop min == ',min) // 0
-                //if Task has been added, then update hour and minutes
-                // change hour and minutes to finishHour and finishMinites of the task
-                if (taskAdded) {
-                    var _calcFinishTime = (0, _timeCalc.calcFinishTime)(hour, min, property.duration),
-                        finishHour = _calcFinishTime.finishHour,
-                        finishMin = _calcFinishTime.finishMin;
-
-                    console.log('finishHour', finishHour, 'finishMin', finishMin);
-                    hour = finishHour;
-                    min = finishMin;
-                    // add finish hour amd min to timetable
-                    // before hour incremention
-                    // for(let i = min; i < 60; i+=30) {
-                    //     let pushedMin = String(min);
-                    //     let pushedHour = String(hour);
-                    //     if(pushedMin == 0) {
-                    //         pushedMin = '00';
-                    //     }
-                    //     timetable.push(
-                    //         <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
-                    //     );
-                    //     index++;
-                    // }
+                // add 24 hour without onAddTask function
+                var pushedMin = String(min);
+                var pushedHour = String(hour);
+                if (pushedMin == 0) {
+                    pushedMin = '00';
                 }
-                // if min is equal to 60 change it to 0
-                if (min === 60) {
-                    min = 0;
-                };
-                taskAdded = false;
-                // console.log('before end hour for loop', hour+':'+min);           
-            }
-            // add 24 hour without onAddTask function
-            var pushedMin = String(min);
-            var pushedHour = String(hour);
-            if (pushedMin == 0) {
-                pushedMin = '00';
-            }
-            timetable.push(_react2.default.createElement(
-                'div',
-                { className: 'row', key: index },
-                _react2.default.createElement(
+                timetable.push(_react2.default.createElement(
                     'div',
-                    { className: 'col-md-2' },
-                    pushedHour,
-                    ':',
-                    pushedMin
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'col-md-10' },
+                    { className: 'row', key: index },
                     _react2.default.createElement(
                         'div',
-                        { className: 'taskInput' },
-                        'Task'
+                        { className: 'col-md-2' },
+                        pushedHour,
+                        ':',
+                        pushedMin
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-10' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'taskInput' },
+                            'Task'
+                        )
                     )
-                )
-            ));
+                ));
+            } // if loaded
 
             return _react2.default.createElement(
                 'div',
@@ -20538,7 +20531,7 @@ module.exports = EnterLeaveEventPlugin;
 
 var _assign = __webpack_require__(5);
 
-var PooledClass = __webpack_require__(19);
+var PooledClass = __webpack_require__(20);
 
 var getTextContentAccessor = __webpack_require__(97);
 
@@ -25248,7 +25241,7 @@ var _assign = __webpack_require__(5);
 
 var EventListener = __webpack_require__(75);
 var ExecutionEnvironment = __webpack_require__(9);
-var PooledClass = __webpack_require__(19);
+var PooledClass = __webpack_require__(20);
 var ReactDOMComponentTree = __webpack_require__(7);
 var ReactUpdates = __webpack_require__(14);
 
@@ -26170,7 +26163,7 @@ module.exports = ReactPropTypeLocationNames;
 var _assign = __webpack_require__(5);
 
 var CallbackQueue = __webpack_require__(82);
-var PooledClass = __webpack_require__(19);
+var PooledClass = __webpack_require__(20);
 var ReactBrowserEventEmitter = __webpack_require__(35);
 var ReactInputSelection = __webpack_require__(89);
 var ReactInstrumentation = __webpack_require__(13);
@@ -26447,7 +26440,7 @@ module.exports = ReactRef;
 
 var _assign = __webpack_require__(5);
 
-var PooledClass = __webpack_require__(19);
+var PooledClass = __webpack_require__(20);
 var Transaction = __webpack_require__(37);
 var ReactInstrumentation = __webpack_require__(13);
 var ReactServerUpdateQueue = __webpack_require__(235);
@@ -29350,7 +29343,7 @@ module.exports = KeyEscapeUtils;
 
 
 
-var _prodInvariant = __webpack_require__(21);
+var _prodInvariant = __webpack_require__(22);
 
 var invariant = __webpack_require__(1);
 
@@ -29468,7 +29461,7 @@ module.exports = PooledClass;
 
 
 var PooledClass = __webpack_require__(271);
-var ReactElement = __webpack_require__(20);
+var ReactElement = __webpack_require__(21);
 
 var emptyFunction = __webpack_require__(12);
 var traverseAllChildren = __webpack_require__(282);
@@ -29663,11 +29656,11 @@ module.exports = ReactChildren;
 
 
 
-var _prodInvariant = __webpack_require__(21),
+var _prodInvariant = __webpack_require__(22),
     _assign = __webpack_require__(5);
 
 var ReactComponent = __webpack_require__(64);
-var ReactElement = __webpack_require__(20);
+var ReactElement = __webpack_require__(21);
 var ReactPropTypeLocationNames = __webpack_require__(108);
 var ReactNoopUpdateQueue = __webpack_require__(65);
 
@@ -30392,7 +30385,7 @@ module.exports = ReactClass;
 
 
 
-var ReactElement = __webpack_require__(20);
+var ReactElement = __webpack_require__(21);
 
 /**
  * Create a factory that creates HTML tag elements.
@@ -30568,7 +30561,7 @@ module.exports = ReactDOMFactories;
 
 
 
-var _require = __webpack_require__(20),
+var _require = __webpack_require__(21),
     isValidElement = _require.isValidElement;
 
 var factory = __webpack_require__(79);
@@ -30680,7 +30673,7 @@ module.exports = '15.5.4';
 
 
 
-var _prodInvariant = __webpack_require__(21);
+var _prodInvariant = __webpack_require__(22);
 
 var ReactPropTypeLocationNames = __webpack_require__(108);
 var ReactPropTypesSecret = __webpack_require__(276);
@@ -30798,9 +30791,9 @@ module.exports = getNextDebugID;
  */
 
 
-var _prodInvariant = __webpack_require__(21);
+var _prodInvariant = __webpack_require__(22);
 
-var ReactElement = __webpack_require__(20);
+var ReactElement = __webpack_require__(21);
 
 var invariant = __webpack_require__(1);
 
@@ -30843,7 +30836,7 @@ module.exports = onlyChild;
 
 
 
-var _prodInvariant = __webpack_require__(21);
+var _prodInvariant = __webpack_require__(22);
 
 var ReactCurrentOwner = __webpack_require__(15);
 var REACT_ELEMENT_TYPE = __webpack_require__(106);
