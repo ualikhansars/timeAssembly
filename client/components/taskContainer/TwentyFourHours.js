@@ -49,8 +49,10 @@ class TwentyFourHours extends React.Component {
             } = this.props.preferences;
             let taskMin;
             
-            for(hour=startDisplayHour; hour<finishDisplayHour; ++hour) { // every hour
-                for(let min=0; min<60; min+=timeInterval) { // depends on timeInterval
+            for(hour = startDisplayHour; hour <= finishDisplayHour; ++hour) { // every hour
+                for(let min = 0; min < 60; min += timeInterval) { // depends on timeInterval
+                    console.error('hour and mins', hour+':'+min);
+                    if(hour === 24 && min !== 0) continue; // if time more that 24:00 return from the loop
                     for(let i = 0; i < updatedTasks.length; ++i) { 
                         // check if task' startTime equal to iteration hour and minites
                         // then add Task with same startHour instead of time Component
@@ -72,13 +74,12 @@ class TwentyFourHours extends React.Component {
                                 <Task onClickUpdate={this.props.onClickUpdateTask} property={property} removeTask={this.props.removeTask} key={index}/>
                             );
                             index++;
-                            taskAdded = true;
-                            let {finishMin} = calcFinishTime(hour, min, property.duration);
-                            taskMin = min;
+                            taskAdded = true; 
+                            taskMin = min; // save task startTime
                             updatedTasks.splice(i, 1); // delete task
                             console.log('taskAdded', taskAdded);
                         } 
-                    } // end for tasks
+                    } // end tasks for loop
                     // if task is not added, then add Time component
                     if(!taskAdded) {
                         let pushedMin = String(min);
@@ -91,37 +92,35 @@ class TwentyFourHours extends React.Component {
                         );
                         index++;
                     }
-                }
+                } // end of min foor loop
+                
                 // console.log('after min for loop min == ',min) // 0
                 //if Task has been added, then update hour and minutes
                 // change hour and minutes to finishHour and finishMinites of the task
                 if(taskAdded) {
                     // console.log('duration', property.duration);
-                    console.error('startHour', hour + ':'+ min);
-                    console.log('taskFinishMin', taskMin)
+                    // console.error('startHour', hour + ':'+ min);
+                    // console.log('taskFinishMin', taskMin)
                     let {finishHour, finishMin} = calcFinishTime(hour, taskMin, property.duration);
-                    console.error('finishHour', finishHour, 'finishMin',finishMin, 'duration', property.duration);
+                    // console.error('finishHour', finishHour, 'finishMin',finishMin, 'duration', property.duration);
                     hour = finishHour;
                     min = finishMin;
-                    console.error('hour after added task', hour);
-                    console.error('min after added task', min);
+
                     // add finish hour and min to timetable
                     // before hour incremention
-                    
-                    // console.error('adding timeInterval');
-                    // console.error('min ===', min);
+
                     for(let i = min; i < 60; i += timeInterval) {
-                        console.log('before hour inc hour and min === ', hour +':'+i);
+                        // console.log('before hour inc hour and min === ', hour +':'+i);
                         let pushedMin = String(i);
                         let pushedHour = String(hour);
                         if(pushedMin == 0) {
                             pushedMin = '00';
                         }
-                        console.log('pushedHour pushedMin', pushedHour + ':'+pushedMin)
+                        // console.log('pushedHour pushedMin', pushedHour + ':'+pushedMin)
                         timetable.push(
                             <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
                         );
-                        console.log('TimeInterval is added');
+                        // console.log('TimeInterval is added');
                         index++;
                     }
                     
@@ -131,28 +130,10 @@ class TwentyFourHours extends React.Component {
                 if(min === 60) {
                     min = 0;
                 };
-                taskAdded = false;
+                taskAdded = false; // reset taskAdded to false
                 // console.log('before end hour for loop', hour+':'+min);           
-            }
-            // add 24 hour without onAddTask function
-            let pushedMin = String(min);
-            let pushedHour = String(hour);
-            if(pushedMin == 0) {
-                pushedMin = '00';
-            }
-            timetable.push(
-                <div className="row" key={index}>
-                <div className="col-md-2">
-                         {pushedHour}:{pushedMin}
-                </div>
-                <div className="col-md-10">
-                    <div className="taskInput">
-                        Task
-                    </div>
-                </div>
-            </div>
-            );
-        } // if loaded
+            } // end hour for loop
+        } 
 
         return (
             <div className="container">

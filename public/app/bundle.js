@@ -14155,7 +14155,7 @@ var CreateTaskForm = function (_React$Component) {
             // if hour is less than 24, then save task
 
 
-            if (finishHour < 24) {
+            if (finishHour <= 24) {
                 var updatedTask = Object.assign({}, this.state.task, {
                     finishTimeHours: finishHour,
                     finishTimeMinutes: finishMin,
@@ -17138,10 +17138,12 @@ var TwentyFourHours = function (_React$Component) {
 
                 var taskMin = void 0;
 
-                for (hour = startDisplayHour; hour < finishDisplayHour; ++hour) {
+                for (hour = startDisplayHour; hour <= finishDisplayHour; ++hour) {
                     // every hour
                     for (var _min = 0; _min < 60; _min += timeInterval) {
                         // depends on timeInterval
+                        console.error('hour and mins', hour + ':' + _min);
+                        if (hour === 24 && _min !== 0) continue; // if time more that 24:00 return from the loop
                         for (var i = 0; i < updatedTasks.length; ++i) {
                             // check if task' startTime equal to iteration hour and minites
                             // then add Task with same startHour instead of time Component
@@ -17162,58 +17164,52 @@ var TwentyFourHours = function (_React$Component) {
                                 timetable.push(_react2.default.createElement(_Task2.default, { onClickUpdate: this.props.onClickUpdateTask, property: property, removeTask: this.props.removeTask, key: index }));
                                 index++;
                                 taskAdded = true;
-
-                                var _calcFinishTime = (0, _timeCalc.calcFinishTime)(hour, _min, property.duration),
-                                    finishMin = _calcFinishTime.finishMin;
-
-                                taskMin = _min;
+                                taskMin = _min; // save task startTime
                                 updatedTasks.splice(i, 1); // delete task
                                 console.log('taskAdded', taskAdded);
                             }
-                        } // end for tasks
+                        } // end tasks for loop
                         // if task is not added, then add Time component
                         if (!taskAdded) {
-                            var _pushedMin = String(_min);
-                            var _pushedHour = String(hour);
-                            if (_pushedMin == 0) {
-                                _pushedMin = '00';
+                            var pushedMin = String(_min);
+                            var pushedHour = String(hour);
+                            if (pushedMin == 0) {
+                                pushedMin = '00';
                             }
-                            timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: _pushedHour, min: _pushedMin, key: index }));
+                            timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: pushedHour, min: pushedMin, key: index }));
                             index++;
                         }
-                    }
+                    } // end of min foor loop
+
                     // console.log('after min for loop min == ',min) // 0
                     //if Task has been added, then update hour and minutes
                     // change hour and minutes to finishHour and finishMinites of the task
                     if (taskAdded) {
                         // console.log('duration', property.duration);
-                        console.error('startHour', hour + ':' + min);
-                        console.log('taskFinishMin', taskMin);
+                        // console.error('startHour', hour + ':'+ min);
+                        // console.log('taskFinishMin', taskMin)
+                        var _calcFinishTime = (0, _timeCalc.calcFinishTime)(hour, taskMin, property.duration),
+                            finishHour = _calcFinishTime.finishHour,
+                            finishMin = _calcFinishTime.finishMin;
+                        // console.error('finishHour', finishHour, 'finishMin',finishMin, 'duration', property.duration);
 
-                        var _calcFinishTime2 = (0, _timeCalc.calcFinishTime)(hour, taskMin, property.duration),
-                            finishHour = _calcFinishTime2.finishHour,
-                            _finishMin = _calcFinishTime2.finishMin;
 
-                        console.error('finishHour', finishHour, 'finishMin', _finishMin, 'duration', property.duration);
                         hour = finishHour;
-                        min = _finishMin;
-                        console.error('hour after added task', hour);
-                        console.error('min after added task', min);
+                        min = finishMin;
+
                         // add finish hour and min to timetable
                         // before hour incremention
 
-                        // console.error('adding timeInterval');
-                        // console.error('min ===', min);
                         for (var _i = min; _i < 60; _i += timeInterval) {
-                            console.log('before hour inc hour and min === ', hour + ':' + _i);
-                            var _pushedMin2 = String(_i);
-                            var _pushedHour2 = String(hour);
-                            if (_pushedMin2 == 0) {
-                                _pushedMin2 = '00';
+                            // console.log('before hour inc hour and min === ', hour +':'+i);
+                            var _pushedMin = String(_i);
+                            var _pushedHour = String(hour);
+                            if (_pushedMin == 0) {
+                                _pushedMin = '00';
                             }
-                            console.log('pushedHour pushedMin', _pushedHour2 + ':' + _pushedMin2);
-                            timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: _pushedHour2, min: _pushedMin2, key: index }));
-                            console.log('TimeInterval is added');
+                            // console.log('pushedHour pushedMin', pushedHour + ':'+pushedMin)
+                            timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: _pushedHour, min: _pushedMin, key: index }));
+                            // console.log('TimeInterval is added');
                             index++;
                         }
                     }
@@ -17221,36 +17217,10 @@ var TwentyFourHours = function (_React$Component) {
                     if (min === 60) {
                         min = 0;
                     };
-                    taskAdded = false;
+                    taskAdded = false; // reset taskAdded to false
                     // console.log('before end hour for loop', hour+':'+min);           
-                }
-                // add 24 hour without onAddTask function
-                var pushedMin = String(min);
-                var pushedHour = String(hour);
-                if (pushedMin == 0) {
-                    pushedMin = '00';
-                }
-                timetable.push(_react2.default.createElement(
-                    'div',
-                    { className: 'row', key: index },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-md-2' },
-                        pushedHour,
-                        ':',
-                        pushedMin
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-md-10' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'taskInput' },
-                            'Task'
-                        )
-                    )
-                ));
-            } // if loaded
+                } // end hour for loop
+            }
 
             return _react2.default.createElement(
                 'div',
