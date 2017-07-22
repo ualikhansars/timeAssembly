@@ -17194,24 +17194,31 @@ var TwentyFourHours = function (_React$Component) {
                         // console.error('finishHour', finishHour, 'finishMin',finishMin, 'duration', property.duration);
 
 
-                        hour = finishHour;
+                        if (finishHour > hour) {
+                            finishHour--;
+                            hour = finishHour;
+                            min = finishMin;
+                        }
                         min = finishMin;
 
                         // add finish hour and min to timetable
                         // before hour incremention
 
-                        for (var _i = min; _i < 60; _i += timeInterval) {
-                            // console.log('before hour inc hour and min === ', hour +':'+i);
-                            var _pushedMin = String(_i);
-                            var _pushedHour = String(hour);
-                            if (_pushedMin == 0) {
-                                _pushedMin = '00';
-                            }
-                            // console.log('pushedHour pushedMin', pushedHour + ':'+pushedMin)
-                            timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: _pushedHour, min: _pushedMin, key: index }));
-                            // console.log('TimeInterval is added');
-                            index++;
-                        }
+                        // for(let i = min; i < 60; i += timeInterval) {
+                        //     // console.log('before hour inc hour and min === ', hour +':'+i);
+                        //     let pushedMin = String(i);
+                        //     let pushedHour = String(hour);
+                        //     if(pushedMin == 0) {
+                        //         pushedMin = '00';
+                        //     }
+                        //     // console.log('pushedHour pushedMin', pushedHour + ':'+pushedMin)
+                        //     timetable.push(
+                        //         <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
+                        //     );
+                        //     // console.log('TimeInterval is added');
+                        //     index++;
+                        // }
+
                     }
                     // if min is equal to 60 change it to 0
                     if (min === 60) {
