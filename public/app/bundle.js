@@ -17137,89 +17137,142 @@ var TwentyFourHours = function (_React$Component) {
                     finishDisplayHour = _props$preferences.finishDisplayHour;
 
                 var taskMin = void 0;
+                var taskFinishHour = 0;
+                var taskFinishMin = 0;
 
                 for (hour = startDisplayHour; hour <= finishDisplayHour; ++hour) {
                     // every hour
                     for (var _min = 0; _min < 60; _min += timeInterval) {
                         // depends on timeInterval
-                        console.error('hour and mins', hour + ':' + _min);
-                        if (hour === 24 && _min !== 0) continue; // if time more that 24:00 return from the loop
-                        for (var i = 0; i < updatedTasks.length; ++i) {
-                            // check if task' startTime equal to iteration hour and minites
-                            // then add Task with same startHour instead of time Component
-                            if (hour === updatedTasks[i].startTimeHours && _min === updatedTasks[i].startTimeMinutes) {
-                                property = {
-                                    title: updatedTasks[i].title,
-                                    category: updatedTasks[i].category,
-                                    description: updatedTasks[i].description,
-                                    duration: updatedTasks[i].duration,
-                                    startTimeHours: updatedTasks[i].startTimeHours,
-                                    startTimeMinutes: updatedTasks[i].startTimeMinutes,
-                                    finishTimeHours: updatedTasks[i].finishTimeHours,
-                                    finishTimeMinutes: updatedTasks[i].finishTimeMinutes,
-                                    day: updatedTasks[i].day,
-                                    slot: updatedTasks[i].slot,
-                                    id: updatedTasks[i]._id
-                                };
-                                timetable.push(_react2.default.createElement(_Task2.default, { onClickUpdate: this.props.onClickUpdateTask, property: property, removeTask: this.props.removeTask, key: index }));
+                        console.error('inside min for loop, before tasks: hour = ', hour + ':' + _min);
+                        if (hour === 24 && _min !== 0) break; // if time more that 24:00 return from the loop
+                        if (updatedTasks.length > 0) {
+                            for (var i = 0; i < updatedTasks.length; ++i) {
+                                // check if task' startTime equal to iteration hour and minites
+                                // then add Task with same startHour instead of time Component
+                                if (hour === updatedTasks[i].startTimeHours && _min === updatedTasks[i].startTimeMinutes) {
+                                    property = {
+                                        title: updatedTasks[i].title,
+                                        category: updatedTasks[i].category,
+                                        description: updatedTasks[i].description,
+                                        duration: updatedTasks[i].duration,
+                                        startTimeHours: updatedTasks[i].startTimeHours,
+                                        startTimeMinutes: updatedTasks[i].startTimeMinutes,
+                                        finishTimeHours: updatedTasks[i].finishTimeHours,
+                                        finishTimeMinutes: updatedTasks[i].finishTimeMinutes,
+                                        day: updatedTasks[i].day,
+                                        slot: updatedTasks[i].slot,
+                                        id: updatedTasks[i]._id
+                                    };
+                                    timetable.push(_react2.default.createElement(_Task2.default, { onClickUpdate: this.props.onClickUpdateTask, property: property, removeTask: this.props.removeTask, key: index }));
+                                    index++;
+                                    taskAdded = true;
+                                    taskMin = _min; // save task startTime
+                                    console.log('task is equal to hour');
+                                    // updatedTasks.splice(i, 1); // delete task
+
+                                    var _calcFinishTime = (0, _timeCalc.calcFinishTime)(hour, taskMin, property.duration),
+                                        finishHour = _calcFinishTime.finishHour,
+                                        finishMin = _calcFinishTime.finishMin;
+
+                                    if (finishHour > hour) {
+                                        taskFinishHour = finishHour;
+                                        taskFinishMin = finishMin;
+                                        finishHour--;
+                                        if (finishMin === 30) {
+                                            _min = 0;
+                                        }
+                                        hour = finishHour;
+                                        _min = 30;
+                                        console.log('finHour > hour, hour and mins', hour + ':' + _min);
+                                        console.log('taskAdded', taskAdded);
+                                        updatedTasks.splice(i, 1);
+                                        break;
+                                    }
+                                    if (_min > 0) _min = finishMin - timeInterval;
+                                    taskFinishHour = finishHour;
+                                    taskFinishMin = finishMin;
+                                    hour = finishHour;
+                                    updatedTasks.splice(i, 1);
+                                    console.log('hour and mins', hour + ':' + _min);
+                                    console.log('taskAdded', taskAdded);
+                                    break;
+                                    // continue;
+                                } else {
+                                    console.error('task not equal to hour');
+                                    var pushedMin = String(_min);
+                                    var pushedHour = String(hour);
+                                    if (pushedMin == 0) {
+                                        pushedMin = '00';
+                                    }
+                                    timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: pushedHour, min: pushedMin, key: index }));
+                                    index++;
+                                    break;
+                                }
+                            } // end tasks for loop
+                        } else {
+                            console.error('task is less than 0');
+                            if (taskFinishHour <= hour && taskFinishMin <= _min) {
+                                var _pushedMin = String(_min);
+                                var _pushedHour = String(hour);
+                                if (_pushedMin == 0) {
+                                    _pushedMin = '00';
+                                }
+                                timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: _pushedHour, min: _pushedMin, key: index }));
                                 index++;
-                                taskAdded = true;
-                                taskMin = _min; // save task startTime
-                                updatedTasks.splice(i, 1); // delete task
-                                console.log('taskAdded', taskAdded);
                             }
-                        } // end tasks for loop
-                        // if task is not added, then add Time component
-                        if (!taskAdded) {
-                            var pushedMin = String(_min);
-                            var pushedHour = String(hour);
-                            if (pushedMin == 0) {
-                                pushedMin = '00';
-                            }
-                            timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: pushedHour, min: pushedMin, key: index }));
-                            index++;
                         }
+                        // if task is not added, then add Time component
+                        // if(!taskAdded && updatedTasks.length > 0) {
+                        //     let pushedMin = String(min);
+                        //     let pushedHour = String(hour);
+                        //     if(pushedMin == 0) {
+                        //         pushedMin = '00';
+                        //     }
+                        //     timetable.push(
+                        //         <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
+                        //     );
+                        //     index++;
+                        // }
                     } // end of min foor loop
 
                     // console.log('after min for loop min == ',min) // 0
                     //if Task has been added, then update hour and minutes
                     // change hour and minutes to finishHour and finishMinites of the task
-                    if (taskAdded) {
-                        // console.log('duration', property.duration);
-                        // console.error('startHour', hour + ':'+ min);
-                        // console.log('taskFinishMin', taskMin)
-                        var _calcFinishTime = (0, _timeCalc.calcFinishTime)(hour, taskMin, property.duration),
-                            finishHour = _calcFinishTime.finishHour,
-                            finishMin = _calcFinishTime.finishMin;
-                        // console.error('finishHour', finishHour, 'finishMin',finishMin, 'duration', property.duration);
+                    // if(taskAdded) {
+                    //     // console.log('duration', property.duration);
+                    //     // console.error('startHour', hour + ':'+ min);
+                    //     // console.log('taskFinishMin', taskMin)
+                    //     let {finishHour, finishMin} = calcFinishTime(hour, taskMin, property.duration);
+                    //     // console.error('finishHour', finishHour, 'finishMin',finishMin, 'duration', property.duration);
+                    //     if(finishHour > hour) {
+                    //         finishHour--;
+                    //         hour = finishHour;
+                    //         min = finishMin;
+                    //     }
+                    //     min = finishMin;
+                    //     hour = finishHour;
+
+                    // add finish hour and min to timetable
+                    // before hour incremention
+
+                    // for(let i = min; i < 60; i += timeInterval) {
+                    //     // console.log('before hour inc hour and min === ', hour +':'+i);
+                    //     let pushedMin = String(i);
+                    //     let pushedHour = String(hour);
+                    //     if(pushedMin == 0) {
+                    //         pushedMin = '00';
+                    //     }
+                    //     // console.log('pushedHour pushedMin', pushedHour + ':'+pushedMin)
+                    //     timetable.push(
+                    //         <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
+                    //     );
+                    //     // console.log('TimeInterval is added');
+                    //     index++;
+                    // }
 
 
-                        if (finishHour > hour) {
-                            finishHour--;
-                            hour = finishHour;
-                            min = finishMin;
-                        }
-                        min = finishMin;
-
-                        // add finish hour and min to timetable
-                        // before hour incremention
-
-                        // for(let i = min; i < 60; i += timeInterval) {
-                        //     // console.log('before hour inc hour and min === ', hour +':'+i);
-                        //     let pushedMin = String(i);
-                        //     let pushedHour = String(hour);
-                        //     if(pushedMin == 0) {
-                        //         pushedMin = '00';
-                        //     }
-                        //     // console.log('pushedHour pushedMin', pushedHour + ':'+pushedMin)
-                        //     timetable.push(
-                        //         <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
-                        //     );
-                        //     // console.log('TimeInterval is added');
-                        //     index++;
-                        // }
-
-                    }
+                    //}
                     // if min is equal to 60 change it to 0
                     if (min === 60) {
                         min = 0;

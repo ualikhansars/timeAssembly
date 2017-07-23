@@ -48,67 +48,122 @@ class TwentyFourHours extends React.Component {
                 finishDisplayHour
             } = this.props.preferences;
             let taskMin;
+            let taskFinishHour = 0;
+            let taskFinishMin = 0;
             
             for(hour = startDisplayHour; hour <= finishDisplayHour; ++hour) { // every hour
                 for(let min = 0; min < 60; min += timeInterval) { // depends on timeInterval
-                    console.error('hour and mins', hour+':'+min);
-                    if(hour === 24 && min !== 0) continue; // if time more that 24:00 return from the loop
-                    for(let i = 0; i < updatedTasks.length; ++i) { 
-                        // check if task' startTime equal to iteration hour and minites
-                        // then add Task with same startHour instead of time Component
-                        if(hour === updatedTasks[i].startTimeHours && min === updatedTasks[i].startTimeMinutes) {
-                            property = {
-                                title: updatedTasks[i].title,
-                                category: updatedTasks[i].category,
-                                description: updatedTasks[i].description,
-                                duration: updatedTasks[i].duration,
-                                startTimeHours: updatedTasks[i].startTimeHours,
-                                startTimeMinutes: updatedTasks[i].startTimeMinutes,
-                                finishTimeHours: updatedTasks[i].finishTimeHours,
-                                finishTimeMinutes: updatedTasks[i].finishTimeMinutes,
-                                day: updatedTasks[i].day,
-                                slot: updatedTasks[i].slot,
-                                id: updatedTasks[i]._id
+                    console.error('inside min for loop, before tasks: hour = ', hour+':'+min);
+                    if(hour === 24 && min !== 0) break; // if time more that 24:00 return from the loop
+                    if(updatedTasks.length > 0) {
+                        for(let i = 0; i < updatedTasks.length; ++i) { 
+                            // check if task' startTime equal to iteration hour and minites
+                            // then add Task with same startHour instead of time Component
+                            if(hour === updatedTasks[i].startTimeHours && min === updatedTasks[i].startTimeMinutes) {
+                                property = {
+                                    title: updatedTasks[i].title,
+                                    category: updatedTasks[i].category,
+                                    description: updatedTasks[i].description,
+                                    duration: updatedTasks[i].duration,
+                                    startTimeHours: updatedTasks[i].startTimeHours,
+                                    startTimeMinutes: updatedTasks[i].startTimeMinutes,
+                                    finishTimeHours: updatedTasks[i].finishTimeHours,
+                                    finishTimeMinutes: updatedTasks[i].finishTimeMinutes,
+                                    day: updatedTasks[i].day,
+                                    slot: updatedTasks[i].slot,
+                                    id: updatedTasks[i]._id
+                                }
+                                timetable.push(
+                                    <Task onClickUpdate={this.props.onClickUpdateTask} property={property} removeTask={this.props.removeTask} key={index}/>
+                                );
+                                index++;
+                                taskAdded = true; 
+                                taskMin = min; // save task startTime
+                                console.log('task is equal to hour');
+                                // updatedTasks.splice(i, 1); // delete task
+                                let {finishHour, finishMin} = calcFinishTime(hour, taskMin, property.duration);
+                                if(finishHour > hour) {
+                                    taskFinishHour = finishHour;
+                                    taskFinishMin = finishMin;
+                                    finishHour--;
+                                    if(finishMin === 30) {
+                                        min = 0
+                                    }
+                                    hour = finishHour;
+                                    min = 30;
+                                    console.log('finHour > hour, hour and mins', hour + ':'+min);
+                                    console.log('taskAdded', taskAdded);
+                                    updatedTasks.splice(i, 1);
+                                    break;
+                                }
+                                if(min > 0) min = finishMin - timeInterval;
+                                taskFinishHour = finishHour;
+                                taskFinishMin = finishMin;
+                                hour = finishHour;
+                                updatedTasks.splice(i, 1);
+                                console.log('hour and mins', hour + ':'+min);
+                                console.log('taskAdded', taskAdded);
+                                break;
+                                // continue;
+                            }  else {
+                                console.error('task not equal to hour');
+                                let pushedMin = String(min);
+                                let pushedHour = String(hour);
+                                if(pushedMin == 0) {
+                                    pushedMin = '00';
+                                }
+                                timetable.push(
+                                    <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
+                                );
+                                index++;
+                                break;
                             }
-                            timetable.push(
-                                <Task onClickUpdate={this.props.onClickUpdateTask} property={property} removeTask={this.props.removeTask} key={index}/>
-                            );
-                            index++;
-                            taskAdded = true; 
-                            taskMin = min; // save task startTime
-                            updatedTasks.splice(i, 1); // delete task
-                            console.log('taskAdded', taskAdded);
-                        } 
-                    } // end tasks for loop
-                    // if task is not added, then add Time component
-                    if(!taskAdded) {
-                        let pushedMin = String(min);
-                        let pushedHour = String(hour);
-                        if(pushedMin == 0) {
-                            pushedMin = '00';
-                        }
-                        timetable.push(
-                            <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
-                        );
-                        index++;
+                        } // end tasks for loop
+                    } else {
+                             console.error('task is less than 0');
+                            if(taskFinishHour <= hour && taskFinishMin <= min) {
+                                let pushedMin = String(min);
+                                let pushedHour = String(hour);
+                                if(pushedMin == 0) {
+                                    pushedMin = '00';
+                                }
+                                timetable.push(
+                                    <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
+                                );
+                                index++;
+                            }
+                            
                     }
+                    // if task is not added, then add Time component
+                    // if(!taskAdded && updatedTasks.length > 0) {
+                    //     let pushedMin = String(min);
+                    //     let pushedHour = String(hour);
+                    //     if(pushedMin == 0) {
+                    //         pushedMin = '00';
+                    //     }
+                    //     timetable.push(
+                    //         <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
+                    //     );
+                    //     index++;
+                    // }
                 } // end of min foor loop
                 
                 // console.log('after min for loop min == ',min) // 0
                 //if Task has been added, then update hour and minutes
                 // change hour and minutes to finishHour and finishMinites of the task
-                if(taskAdded) {
-                    // console.log('duration', property.duration);
-                    // console.error('startHour', hour + ':'+ min);
-                    // console.log('taskFinishMin', taskMin)
-                    let {finishHour, finishMin} = calcFinishTime(hour, taskMin, property.duration);
-                    // console.error('finishHour', finishHour, 'finishMin',finishMin, 'duration', property.duration);
-                    if(finishHour > hour) {
-                        finishHour--;
-                        hour = finishHour;
-                        min = finishMin;
-                    }
-                    min = finishMin;
+                // if(taskAdded) {
+                //     // console.log('duration', property.duration);
+                //     // console.error('startHour', hour + ':'+ min);
+                //     // console.log('taskFinishMin', taskMin)
+                //     let {finishHour, finishMin} = calcFinishTime(hour, taskMin, property.duration);
+                //     // console.error('finishHour', finishHour, 'finishMin',finishMin, 'duration', property.duration);
+                //     if(finishHour > hour) {
+                //         finishHour--;
+                //         hour = finishHour;
+                //         min = finishMin;
+                //     }
+                //     min = finishMin;
+                //     hour = finishHour;
 
                     // add finish hour and min to timetable
                     // before hour incremention
@@ -129,7 +184,7 @@ class TwentyFourHours extends React.Component {
                     // }
                     
                     
-                }
+                //}
                 // if min is equal to 60 change it to 0
                 if(min === 60) {
                     min = 0;
