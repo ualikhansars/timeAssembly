@@ -12,6 +12,7 @@ import {fetchTasksByDay,
         } from '../../actions/taskAction';
 
 import {calcFinishTime} from '../../utils/timeCalc';
+import {tasksSelectionSort} from '../../utils/sort';
 
 class TwentyFourHours extends React.Component {
     render() {
@@ -36,7 +37,8 @@ class TwentyFourHours extends React.Component {
         if(loaded) {
         // when data loaded
         // display every tasks
-            let updatedTasks = Object.assign([], tasks);
+            let unsortedTasks = Object.assign([], tasks);
+            let updatedTasks = tasksSelectionSort(unsortedTasks); // sort tasks
             let min = 0;
             let hour = 0;
             let taskAdded = false;

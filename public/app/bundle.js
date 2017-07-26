@@ -17070,6 +17070,8 @@ var _taskAction = __webpack_require__(16);
 
 var _timeCalc = __webpack_require__(19);
 
+var _sort = __webpack_require__(292);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -17125,7 +17127,8 @@ var TwentyFourHours = function (_React$Component) {
             if (loaded) {
                 // when data loaded
                 // display every tasks
-                var updatedTasks = Object.assign([], tasks);
+                var unsortedTasks = Object.assign([], tasks);
+                var updatedTasks = (0, _sort.tasksSelectionSort)(unsortedTasks); // sort tasks
                 var min = 0;
                 var hour = 0;
                 var taskAdded = false;
@@ -31442,6 +31445,44 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+/* 292 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+var swap = function swap(arr, a, b) {
+	var temp = arr[a];
+	arr[a] = arr[b];
+	arr[b] = temp;
+};
+
+// selection sort for tasks
+// sorting tasks by startTime
+var tasksSelectionSort = exports.tasksSelectionSort = function tasksSelectionSort(tasks) {
+	for (var i = 0; i < tasks.length - 1; ++i) {
+		var min = i;
+		for (var j = i + 1; j < tasks.length; ++j) {
+			if (tasks[j].startTimeHours === tasks[min].startTimeHours) {
+				if (tasks[j].startTimeMinutes < tasks[min].startTimeMinutes) {
+					min = j;
+				}
+			}
+			if (tasks[j].startTimeHours < tasks[min].startTimeHours) {
+				min = j;
+			}
+		}
+		if (min !== i) {
+			swap(tasks, min, i);
+		}
+	}
+	return tasks;
+};
 
 /***/ })
 /******/ ]);
