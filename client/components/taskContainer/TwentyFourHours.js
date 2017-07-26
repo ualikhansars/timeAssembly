@@ -105,23 +105,24 @@ class TwentyFourHours extends React.Component {
                                 console.log('taskAdded', taskAdded);
                                 break;
                                 // continue;
-                            }  else {
-                                console.error('task not equal to hour');
-                                let pushedMin = String(min);
-                                let pushedHour = String(hour);
-                                if(pushedMin == 0) {
-                                    pushedMin = '00';
-                                }
-                                timetable.push(
-                                    <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
-                                );
-                                index++;
-                                break;
-                            }
+                            } 
                         } // end tasks for loop
+                        if(!taskAdded) {
+                            console.log('task not added');
+                            let pushedMin = String(min);
+                            let pushedHour = String(hour);
+                            if(pushedMin == 0) {
+                                pushedMin = '00';
+                            }
+                            timetable.push(
+                                <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
+                            );
+                            index++;
+                        }
+                        console.log('taskFinishHour', taskFinishHour + ':' + taskFinishMin)
                     } else {
-                             console.error('task is less than 0');
-                            if(taskFinishHour <= hour && taskFinishMin <= min) {
+                            console.error('task is less than 0');
+                            if(taskFinishHour <= hour || taskFinishHour === hour && taskFinishMin < min) {
                                 let pushedMin = String(min);
                                 let pushedHour = String(hour);
                                 if(pushedMin == 0) {
@@ -190,6 +191,9 @@ class TwentyFourHours extends React.Component {
                     min = 0;
                 };
                 taskAdded = false; // reset taskAdded to false
+                for(let task of updatedTasks) {
+                    console.log(task.startTimeHours + ':' + task.startTimeMinutes);
+                }
                 // console.log('before end hour for loop', hour+':'+min);           
             } // end hour for loop
         } 

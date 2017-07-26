@@ -17198,21 +17198,22 @@ var TwentyFourHours = function (_React$Component) {
                                     console.log('taskAdded', taskAdded);
                                     break;
                                     // continue;
-                                } else {
-                                    console.error('task not equal to hour');
-                                    var pushedMin = String(_min);
-                                    var pushedHour = String(hour);
-                                    if (pushedMin == 0) {
-                                        pushedMin = '00';
-                                    }
-                                    timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: pushedHour, min: pushedMin, key: index }));
-                                    index++;
-                                    break;
                                 }
                             } // end tasks for loop
+                            if (!taskAdded) {
+                                console.log('task not added');
+                                var pushedMin = String(_min);
+                                var pushedHour = String(hour);
+                                if (pushedMin == 0) {
+                                    pushedMin = '00';
+                                }
+                                timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: pushedHour, min: pushedMin, key: index }));
+                                index++;
+                            }
+                            console.log('taskFinishHour', taskFinishHour + ':' + taskFinishMin);
                         } else {
                             console.error('task is less than 0');
-                            if (taskFinishHour <= hour && taskFinishMin <= _min) {
+                            if (taskFinishHour <= hour || taskFinishHour === hour && taskFinishMin < _min) {
                                 var _pushedMin = String(_min);
                                 var _pushedHour = String(hour);
                                 if (_pushedMin == 0) {
@@ -17278,7 +17279,31 @@ var TwentyFourHours = function (_React$Component) {
                         min = 0;
                     };
                     taskAdded = false; // reset taskAdded to false
-                    // console.log('before end hour for loop', hour+':'+min);           
+                    var _iteratorNormalCompletion = true;
+                    var _didIteratorError = false;
+                    var _iteratorError = undefined;
+
+                    try {
+                        for (var _iterator = updatedTasks[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                            var task = _step.value;
+
+                            console.log(task.startTimeHours + ':' + task.startTimeMinutes);
+                        }
+                        // console.log('before end hour for loop', hour+':'+min);           
+                    } catch (err) {
+                        _didIteratorError = true;
+                        _iteratorError = err;
+                    } finally {
+                        try {
+                            if (!_iteratorNormalCompletion && _iterator.return) {
+                                _iterator.return();
+                            }
+                        } finally {
+                            if (_didIteratorError) {
+                                throw _iteratorError;
+                            }
+                        }
+                    }
                 } // end hour for loop
             }
 
