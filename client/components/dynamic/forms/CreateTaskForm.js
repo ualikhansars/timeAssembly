@@ -64,6 +64,7 @@ class CreateTaskForm extends React.Component {
             startTimeMinutes = Number(this.state.task.startTimeMinutes);
         }
         let {finishHour, finishMin} = calcFinishTime(startTimeHours, startTimeMinutes, duration);
+        console.error('finishHour:', finishHour + ':' + finishMin);
         // if hour is less than 24, then save task
         if(finishHour <= 24) {
             let updatedTask = Object.assign({}, this.state.task, {

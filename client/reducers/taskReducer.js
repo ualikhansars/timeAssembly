@@ -6,10 +6,6 @@ const initialState = {
         errors: null
     },
     task: {},
-    // taskToAdd: {
-    //     startTimeHours: '',
-    //     startTimeMinutes: ''
-    // },
     taskRequest: {
         loading: false,
         loaded: false,
