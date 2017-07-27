@@ -17182,6 +17182,7 @@ var TwentyFourHours = function (_React$Component) {
                     for (var _min = 0; _min < 60; _min += 15) {
                         // every 15 minutes
                         console.error('inside min for loop, before tasks: hour = ', hour + ':' + _min);
+                        console.log('taskAdded before tasks', taskAdded);
                         if (hour === 24 && _min !== 0) break; // if time more that 24:00 return from the loop
                         if (updatedTasks.length > 0) {
                             for (var i = 0; i < updatedTasks.length; ++i) {
@@ -17212,24 +17213,21 @@ var TwentyFourHours = function (_React$Component) {
                                         finishHour = _calcFinishTime.finishHour,
                                         finishMin = _calcFinishTime.finishMin;
 
+                                    taskFinishHour = finishHour;
+                                    taskFinishMin = finishMin;
+                                    if (finishMin === 0) _min = 45;
+                                    if (finishMin === 15) _min = 0;
+                                    if (finishMin === 30) _min = 15;
+                                    if (finishMin === 45) _min = 30;
                                     if (finishHour > hour) {
-                                        taskFinishHour = finishHour;
-                                        taskFinishMin = finishMin;
                                         // go to 15 minutes back
                                         finishHour--;
-                                        if (finishMin === 0) ;
-                                        if (finishMin === 15) _min = 0;
-                                        if (finishMin === 30) _min = 15;
-                                        if (finishMin === 45) _min = 30;
                                         hour = finishHour;
                                         console.log('finHour > hour, hour and mins', hour + ':' + _min);
                                         console.log('taskAdded', taskAdded);
                                         updatedTasks.splice(i, 1);
                                         break;
                                     }
-                                    if (_min > 0) _min = finishMin - timeInterval;
-                                    taskFinishHour = finishHour;
-                                    taskFinishMin = finishMin;
                                     hour = finishHour;
                                     updatedTasks.splice(i, 1);
                                     console.log('hour and mins', hour + ':' + _min);
@@ -17240,25 +17238,17 @@ var TwentyFourHours = function (_React$Component) {
                             } // end tasks for loop
                             if (!taskAdded) {
                                 console.log('task not added');
-                                // let pushedMin = String(min);
-                                // let pushedHour = String(hour);
-                                // if(pushedMin == 0) {
-                                //     pushedMin = '00';
-                                // }
-                                // timetable.push(
-                                //     <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
-                                // );
-                                // index++;
                                 timetable = this.addTimeInterval(timetable, hour, _min, index, timeInterval);
                                 index++;
                             }
-                            console.log('taskFinishHour', taskFinishHour + ':' + taskFinishMin);
                         } else {
                             console.error('task is less than 0');
                             if (taskFinishHour === 24 && taskFinishMin === 0) {
                                 break;
                             }
-                            if (taskFinishHour <= hour || taskFinishHour === hour && taskFinishMin < _min) {
+                            // if finishHour less than current hour
+                            // that means that task was added
+                            if (taskFinishHour !== hour || taskFinishHour === hour && taskFinishMin >= _min) {
                                 if (timeInterval === 30) {
                                     if (_min === 0 || _min === 30 || _min === 60) {
                                         timetable = this.addTimeInterval(timetable, hour, _min, index, timeInterval);
@@ -17277,36 +17267,12 @@ var TwentyFourHours = function (_React$Component) {
                                 }
                             }
                         }
+                        taskAdded = false; // reset taskAdded to false
                     } // end of min foor loop
 
                     if (min === 60) {
                         min = 0;
                     };
-                    taskAdded = false; // reset taskAdded to false
-                    var _iteratorNormalCompletion = true;
-                    var _didIteratorError = false;
-                    var _iteratorError = undefined;
-
-                    try {
-                        for (var _iterator = updatedTasks[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                            var task = _step.value;
-
-                            console.log(task.startTimeHours + ':' + task.startTimeMinutes);
-                        }
-                    } catch (err) {
-                        _didIteratorError = true;
-                        _iteratorError = err;
-                    } finally {
-                        try {
-                            if (!_iteratorNormalCompletion && _iterator.return) {
-                                _iterator.return();
-                            }
-                        } finally {
-                            if (_didIteratorError) {
-                                throw _iteratorError;
-                            }
-                        }
-                    }
                 } // end hour for loop
             }
 
