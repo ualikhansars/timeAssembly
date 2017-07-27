@@ -17090,6 +17090,40 @@ var TwentyFourHours = function (_React$Component) {
     }
 
     _createClass(TwentyFourHours, [{
+        key: 'addTimeInterval',
+        value: function addTimeInterval(timetable, hour, min, index, timeInterval) {
+            var updatedTimetable = Object.assign([], timetable);
+            if (timeInterval === 30) {
+                if (min === 0 || min === 30 || min === 60) {
+                    var pushedMin = String(min);
+                    var pushedHour = String(hour);
+                    if (pushedMin == 0) {
+                        pushedMin = '00';
+                    }
+                    updatedTimetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: pushedHour, min: pushedMin, key: index }));
+                }
+            }
+            if (timeInterval === 60) {
+                if (min === 0 || min === 60) {
+                    var _pushedMin = String(min);
+                    var _pushedHour = String(hour);
+                    if (_pushedMin == 0) {
+                        _pushedMin = '00';
+                    }
+                    updatedTimetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: _pushedHour, min: _pushedMin, key: index }));
+                }
+            }
+            if (timeInterval === 15) {
+                var _pushedMin2 = String(min);
+                var _pushedHour2 = String(hour);
+                if (_pushedMin2 == 0) {
+                    _pushedMin2 = '00';
+                }
+                updatedTimetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: _pushedHour2, min: _pushedMin2, key: index }));
+            }
+            return updatedTimetable;
+        }
+    }, {
         key: 'render',
         value: function render() {
             var tasks = this.props.taskInfo.tasks;
@@ -17145,8 +17179,8 @@ var TwentyFourHours = function (_React$Component) {
 
                 for (hour = startDisplayHour; hour <= finishDisplayHour; ++hour) {
                     // every hour
-                    for (var _min = 0; _min < 60; _min += timeInterval) {
-                        // depends on timeInterval
+                    for (var _min = 0; _min < 60; _min += 15) {
+                        // every 15 minutes
                         console.error('inside min for loop, before tasks: hour = ', hour + ':' + _min);
                         if (hour === 24 && _min !== 0) break; // if time more that 24:00 return from the loop
                         if (updatedTasks.length > 0) {
@@ -17181,12 +17215,13 @@ var TwentyFourHours = function (_React$Component) {
                                     if (finishHour > hour) {
                                         taskFinishHour = finishHour;
                                         taskFinishMin = finishMin;
+                                        // go to 15 minutes back
                                         finishHour--;
-                                        if (finishMin === 30) {
-                                            _min = 0;
-                                        }
+                                        if (finishMin === 0) ;
+                                        if (finishMin === 15) _min = 0;
+                                        if (finishMin === 30) _min = 15;
+                                        if (finishMin === 45) _min = 30;
                                         hour = finishHour;
-                                        _min = 30;
                                         console.log('finHour > hour, hour and mins', hour + ':' + _min);
                                         console.log('taskAdded', taskAdded);
                                         updatedTasks.splice(i, 1);
@@ -17205,25 +17240,41 @@ var TwentyFourHours = function (_React$Component) {
                             } // end tasks for loop
                             if (!taskAdded) {
                                 console.log('task not added');
-                                var pushedMin = String(_min);
-                                var pushedHour = String(hour);
-                                if (pushedMin == 0) {
-                                    pushedMin = '00';
-                                }
-                                timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: pushedHour, min: pushedMin, key: index }));
+                                // let pushedMin = String(min);
+                                // let pushedHour = String(hour);
+                                // if(pushedMin == 0) {
+                                //     pushedMin = '00';
+                                // }
+                                // timetable.push(
+                                //     <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
+                                // );
+                                // index++;
+                                timetable = this.addTimeInterval(timetable, hour, _min, index, timeInterval);
                                 index++;
                             }
                             console.log('taskFinishHour', taskFinishHour + ':' + taskFinishMin);
                         } else {
                             console.error('task is less than 0');
+                            if (taskFinishHour === 24 && taskFinishMin === 0) {
+                                break;
+                            }
                             if (taskFinishHour <= hour || taskFinishHour === hour && taskFinishMin < _min) {
-                                var _pushedMin = String(_min);
-                                var _pushedHour = String(hour);
-                                if (_pushedMin == 0) {
-                                    _pushedMin = '00';
+                                if (timeInterval === 30) {
+                                    if (_min === 0 || _min === 30 || _min === 60) {
+                                        timetable = this.addTimeInterval(timetable, hour, _min, index, timeInterval);
+                                        index++;
+                                    }
                                 }
-                                timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: _pushedHour, min: _pushedMin, key: index }));
-                                index++;
+                                if (timeInterval === 60) {
+                                    if (_min === 0 || _min === 60) {
+                                        timetable = this.addTimeInterval(timetable, hour, _min, index, timeInterval);
+                                        index++;
+                                    }
+                                }
+                                if (timeInterval === 15) {
+                                    timetable = this.addTimeInterval(timetable, hour, _min, index, timeInterval);
+                                    index++;
+                                }
                             }
                         }
                     } // end of min foor loop

@@ -15,6 +15,45 @@ import {calcFinishTime} from '../../utils/timeCalc';
 import {tasksSelectionSort} from '../../utils/sort';
 
 class TwentyFourHours extends React.Component {
+
+    addTimeInterval(timetable, hour, min, index, timeInterval) {
+        let updatedTimetable = Object.assign([], timetable);
+        if(timeInterval === 30) {
+            if(min === 0 || min === 30 || min === 60) {
+                let pushedMin = String(min);
+                let pushedHour = String(hour);
+                if(pushedMin == 0) {
+                    pushedMin = '00';
+                }
+                updatedTimetable.push(
+                    <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
+                );
+            }
+        }
+        if(timeInterval === 60) {
+            if(min === 0 || min === 60) {
+                let pushedMin = String(min);
+                let pushedHour = String(hour);
+                if(pushedMin == 0) {
+                    pushedMin = '00';
+                }
+                updatedTimetable.push(
+                    <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
+                );
+            }
+        }
+        if(timeInterval === 15) {
+            let pushedMin = String(min);
+            let pushedHour = String(hour);
+            if(pushedMin == 0) {
+            pushedMin = '00';
+            }
+            updatedTimetable.push(
+            <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
+            );
+        }
+        return updatedTimetable;
+    }
     render() {
         const {tasks} = this.props.taskInfo;
         const {loading, loaded, errors} = this.props.taskInfo.tasksRequest;
@@ -54,7 +93,7 @@ class TwentyFourHours extends React.Component {
             let taskFinishMin = 0;
             
             for(hour = startDisplayHour; hour <= finishDisplayHour; ++hour) { // every hour
-                for(let min = 0; min < 60; min += timeInterval) { // depends on timeInterval
+                for(let min = 0; min < 60; min += 15) { // every 15 minutes
                     console.error('inside min for loop, before tasks: hour = ', hour+':'+min);
                     if(hour === 24 && min !== 0) break; // if time more that 24:00 return from the loop
                     if(updatedTasks.length > 0) {
@@ -87,12 +126,13 @@ class TwentyFourHours extends React.Component {
                                 if(finishHour > hour) {
                                     taskFinishHour = finishHour;
                                     taskFinishMin = finishMin;
+                                    // go to 15 minutes back
                                     finishHour--;
-                                    if(finishMin === 30) {
-                                        min = 0
-                                    }
+                                    if(finishMin === 0);
+                                    if(finishMin === 15) min = 0;
+                                    if(finishMin === 30) min = 15;
+                                    if(finishMin === 45) min = 30;
                                     hour = finishHour;
-                                    min = 30;
                                     console.log('finHour > hour, hour and mins', hour + ':'+min);
                                     console.log('taskAdded', taskAdded);
                                     updatedTasks.splice(i, 1);
@@ -111,29 +151,41 @@ class TwentyFourHours extends React.Component {
                         } // end tasks for loop
                         if(!taskAdded) {
                             console.log('task not added');
-                            let pushedMin = String(min);
-                            let pushedHour = String(hour);
-                            if(pushedMin == 0) {
-                                pushedMin = '00';
-                            }
-                            timetable.push(
-                                <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
-                            );
+                            // let pushedMin = String(min);
+                            // let pushedHour = String(hour);
+                            // if(pushedMin == 0) {
+                            //     pushedMin = '00';
+                            // }
+                            // timetable.push(
+                            //     <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
+                            // );
+                            // index++;
+                            timetable = this.addTimeInterval(timetable, hour, min, index, timeInterval);
                             index++;
                         }
                         console.log('taskFinishHour', taskFinishHour + ':' + taskFinishMin)
                     } else {
                             console.error('task is less than 0');
+                            if(taskFinishHour === 24 && taskFinishMin === 0) {
+                                break;
+                            }
                             if(taskFinishHour <= hour || taskFinishHour === hour && taskFinishMin < min) {
-                                let pushedMin = String(min);
-                                let pushedHour = String(hour);
-                                if(pushedMin == 0) {
-                                    pushedMin = '00';
+                                if(timeInterval === 30) {
+                                    if(min === 0 || min === 30 || min === 60) {
+                                       timetable = this.addTimeInterval(timetable, hour, min, index, timeInterval);
+                                       index++;
+                                    }
                                 }
-                                timetable.push(
-                                    <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
-                                );
-                                index++;
+                                if(timeInterval === 60) {
+                                    if(min === 0 || min === 60) {
+                                        timetable = this.addTimeInterval(timetable, hour, min, index, timeInterval);
+                                        index++;
+                                    }
+                                }
+                                if(timeInterval === 15) {
+                                    timetable = this.addTimeInterval(timetable, hour, min, index, timeInterval);
+                                    index++;
+                                }
                             }
                             
                     }
