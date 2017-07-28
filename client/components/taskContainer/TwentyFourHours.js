@@ -3,7 +3,7 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
-import HalfAnHour from './HalfAnHour';
+import TimeInterval from './TimeInterval';
 import Task from './Task';
 
 import {fetchTasksByDay, 
@@ -16,40 +16,46 @@ import {tasksSelectionSort} from '../../utils/sort';
 
 class TwentyFourHours extends React.Component {
 
-    addTimeInterval(timetable, hour, min, index, timeInterval) {
+    // prepare minite and hour to trasfer to
+    // view component
+    convertTimeToString(hour, min) {
+        let pushedMin = String(min);
+        let pushedHour = String(hour);
+        if(hour < 10) {
+            pushedHour = '0' + pushedHour;
+        }
+        if(pushedMin == 0) {
+            pushedMin = '00';
+        }
+
+        return {
+            pushedMin,
+            pushedHour
+        }
+    }
+
+    addTimeInterval(timetable, hour, min, index, timeInterval, meridien) {
         let updatedTimetable = Object.assign([], timetable);
         if(timeInterval === 30) {
             if(min === 0 || min === 30 || min === 60) {
-                let pushedMin = String(min);
-                let pushedHour = String(hour);
-                if(pushedMin == 0) {
-                    pushedMin = '00';
-                }
+                let {pushedMin, pushedHour} = this.convertTimeToString(hour, min);
                 updatedTimetable.push(
-                    <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
+                    <TimeInterval hour={pushedHour} min={pushedMin} meridien={meridien} key={index}/>
                 );
             }
         }
         if(timeInterval === 60) {
             if(min === 0 || min === 60) {
-                let pushedMin = String(min);
-                let pushedHour = String(hour);
-                if(pushedMin == 0) {
-                    pushedMin = '00';
-                }
+               let {pushedMin, pushedHour} = this.convertTimeToString(hour, min);
                 updatedTimetable.push(
-                    <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
+                    <TimeInterval hour={pushedHour} min={pushedMin} meridien={meridien} key={index}/>
                 );
             }
         }
         if(timeInterval === 15) {
-            let pushedMin = String(min);
-            let pushedHour = String(hour);
-            if(pushedMin == 0) {
-            pushedMin = '00';
-            }
+            let {pushedMin, pushedHour} = this.convertTimeToString(hour, min);
             updatedTimetable.push(
-            <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
+                <TimeInterval hour={pushedHour} min={pushedMin} meridien={meridien} key={index}/>
             );
         }
         return updatedTimetable;
@@ -84,6 +90,8 @@ class TwentyFourHours extends React.Component {
             let index = 0;
             let property = {}
             let {
+                timeFormat,
+                meridien,
                 timeInterval,
                 startDisplayHour,
                 finishDisplayHour
@@ -91,12 +99,48 @@ class TwentyFourHours extends React.Component {
             let taskMin;
             let taskFinishHour = 0;
             let taskFinishMin = 0;
+            let startTime, finishTime;
+
+            // logic if 12 o'clock hours was chosen
+            if(timeFormat === 12) {
+                if(meridien === 'a.m') {
+                    if(startDisplayHour < 12) {
+                        startTime = startDisplayHour;
+                    } else {
+                        startTime = 0;
+                    }
+                    if(finishDisplayHour <= 12) {
+                        finishTime = finishDisplayHour;
+                    } else {
+                        finishTime = 12;
+                    }
+                }
+                if(meridien === 'p.m') {
+                    if(startTime >= 12) {
+                        startTime = startDisplayHour;
+                    } else {
+                        startTime = 12;
+                    }
+                    if(finishTime > 12) {
+                        finishTime = finishDisplayHour;
+                    } else {
+                        finishTime = 24;
+                    }
+                }
+            } 
+            // 24 o'clock hours was chosen
+            if(timeFormat === 24) {
+                startTime = startDisplayHour;
+                finishTime = finishDisplayHour;
+            }
+
             
-            for(hour = startDisplayHour; hour <= finishDisplayHour; ++hour) { // every hour
+            for(hour = startTime; hour <= finishTime; ++hour) { // every hour
                 for(let min = 0; min < 60; min += 15) { // every 15 minutes
                     console.error('inside min for loop, before tasks: hour = ', hour+':'+min);
                     console.log('taskAdded before tasks', taskAdded);
                     if(hour === 24 && min !== 0) break; // if time more that 24:00 return from the loop
+                    if(timeFormat === 12 && hour === 12 && min !== 0) break; // time is more than 12:00 for 12 hours format
                     if(updatedTasks.length > 0) {
                         for(let i = 0; i < updatedTasks.length; ++i) { 
                             // check if task' startTime equal to iteration hour and minites
@@ -122,10 +166,9 @@ class TwentyFourHours extends React.Component {
                                 taskAdded = true; 
                                 taskMin = min; // save task startTime
                                 console.log('task is equal to hour');
-                                // updatedTasks.splice(i, 1); // delete task
                                 let {finishHour, finishMin} = calcFinishTime(hour, taskMin, property.duration);
                                 console.log('finish hour', finishHour + ':' + finishMin);
-                                taskFinishHour = finishHour;
+                                taskFinishHour = finishHour; // save finish Time of particular task
                                 taskFinishMin = finishMin;
                                 // go to 15 minutes back to display finish time
                                 if(finishMin === 0) min = 45;
@@ -151,7 +194,7 @@ class TwentyFourHours extends React.Component {
                         } // end tasks for loop
                         if(!taskAdded) {
                             console.log('task not added');
-                            timetable = this.addTimeInterval(timetable, hour, min, index, timeInterval);
+                            timetable = this.addTimeInterval(timetable, hour, min, index, timeInterval, meridien);
                             index++;
                         }
                     } else {
@@ -163,7 +206,7 @@ class TwentyFourHours extends React.Component {
                             // if finishHour less than current hour
                             // that means task was added
                             if(taskFinishHour !== hour || taskFinishHour === hour && taskFinishMin >= min) { 
-                                 timetable = this.addTimeInterval(timetable, hour, min, index, timeInterval);
+                                 timetable = this.addTimeInterval(timetable, hour, min, index, timeInterval, meridien);
                                  index++;
                             }
                             

@@ -4400,136 +4400,7 @@ var changeMeridienToPM = exports.changeMeridienToPM = function changeMeridienToP
 };
 
 /***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(46);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _redux = __webpack_require__(8);
-
-var _reactRedux = __webpack_require__(6);
-
-var _daysAction = __webpack_require__(42);
-
-var _timeCalc = __webpack_require__(19);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var HalfAnHour = function (_React$Component) {
-    _inherits(HalfAnHour, _React$Component);
-
-    function HalfAnHour() {
-        _classCallCheck(this, HalfAnHour);
-
-        return _possibleConstructorReturn(this, (HalfAnHour.__proto__ || Object.getPrototypeOf(HalfAnHour)).apply(this, arguments));
-    }
-
-    _createClass(HalfAnHour, [{
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            var _props = this.props,
-                hour = _props.hour,
-                min = _props.min,
-                meridien = _props.meridien;
-            var timeFormat = this.props.preferences.timeFormat;
-            // if 12 o'clock hours and p.m is chosen
-            // then convert 24 hours into 12 hours
-
-            var displayHour = void 0;
-            if (timeFormat === 12) {
-                if (meridien === 'p.m') {
-                    if (hour === '12' && min === '00') {
-                        displayHour = '12';
-                    } else {
-                        displayHour = (0, _timeCalc.get12HoursFrom24Hours)(hour);
-                    }
-                }
-                if (meridien === 'a.m') {
-                    if (hour === '0' && min === '00') {
-                        displayHour = '12';
-                    } else {
-                        displayHour = hour;
-                    }
-                }
-            } else {
-                displayHour = hour;
-            }
-
-            return _react2.default.createElement(
-                'div',
-                { onClick: function onClick() {
-                        return _this2.props.onClickTime(hour, min);
-                    }, className: 'row' },
-                _react2.default.createElement(
-                    'div',
-                    { className: 'col-md-4' },
-                    displayHour,
-                    ':',
-                    min,
-                    ' ',
-                    meridien
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'col-md-8' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'taskInput' },
-                        'Task'
-                    )
-                )
-            );
-        }
-    }]);
-
-    return HalfAnHour;
-}(_react2.default.Component);
-
-function mapDispatchToProps(dispatch) {
-    return (0, _redux.bindActionCreators)({
-        onClickTime: _daysAction.onClickTime
-    }, dispatch);
-}
-
-var mapStateToProps = function mapStateToProps(state) {
-    return {
-        preferences: state.preferences
-    };
-};
-
-HalfAnHour.PropTypes = {
-    hour: _propTypes2.default.string.isRequired,
-    min: _propTypes2.default.string.isRequired,
-    meridien: _propTypes2.default.string,
-    onClickTime: _propTypes2.default.func.isRequired
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(HalfAnHour);
-
-/***/ }),
+/* 33 */,
 /* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16030,244 +15901,7 @@ function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Sidebar);
 
 /***/ }),
-/* 148 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _redux = __webpack_require__(8);
-
-var _reactRedux = __webpack_require__(6);
-
-var _HalfAnHour = __webpack_require__(33);
-
-var _HalfAnHour2 = _interopRequireDefault(_HalfAnHour);
-
-var _Task = __webpack_require__(26);
-
-var _Task2 = _interopRequireDefault(_Task);
-
-var _taskAction = __webpack_require__(16);
-
-var _timeCalc = __webpack_require__(19);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AnteMeridien = function (_React$Component) {
-    _inherits(AnteMeridien, _React$Component);
-
-    function AnteMeridien() {
-        _classCallCheck(this, AnteMeridien);
-
-        return _possibleConstructorReturn(this, (AnteMeridien.__proto__ || Object.getPrototypeOf(AnteMeridien)).apply(this, arguments));
-    }
-
-    _createClass(AnteMeridien, [{
-        key: 'render',
-        value: function render() {
-            var tasks = this.props.taskInfo.tasks;
-            var _props$taskInfo$tasks = this.props.taskInfo.tasksRequest,
-                loading = _props$taskInfo$tasks.loading,
-                loaded = _props$taskInfo$tasks.loaded,
-                errors = _props$taskInfo$tasks.errors;
-
-            var timetable = [];
-            // when data loaded
-            // display every tasks
-            var min = 0;
-            var hour = 0;
-            var taskAdded = false;
-            var index = 0;
-            var property = {};
-            var _props$preferences = this.props.preferences,
-                meridien = _props$preferences.meridien,
-                timeInterval = _props$preferences.timeInterval,
-                startDisplayHour = _props$preferences.startDisplayHour,
-                finishDisplayHour = _props$preferences.finishDisplayHour;
-
-            // set StartTime to start and finish DisplayHour
-            // if displayHour < 12
-
-            var startTime = void 0,
-                finishTime = void 0;
-            if (startDisplayHour > 12) {
-                startTime = 0;
-            } else {
-                startTime = startDisplayHour;
-            }
-
-            if (finishDisplayHour > 12) {
-                finishTime = 12;
-            } else {
-                finishTime = finishDisplayHour;
-            }
-
-            for (hour = startTime; hour < finishTime; ++hour) {
-                // every hour
-                for (var _min = 0; _min < 60; _min += timeInterval) {
-                    // depends on timeInterval
-                    // console.log('before tasks for loop after min == ', hour+':'+min);
-                    var _iteratorNormalCompletion = true;
-                    var _didIteratorError = false;
-                    var _iteratorError = undefined;
-
-                    try {
-                        for (var _iterator = tasks[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                            var task = _step.value;
-
-                            // check if task' startTime equal to iteration hour and minites
-                            // then add Task with same startHour instead of time Component
-                            if (hour == task.startTimeHours && _min == task.startTimeMinutes) {
-                                property = {
-                                    title: task.title,
-                                    category: task.category,
-                                    description: task.description,
-                                    duration: task.duration,
-                                    startTimeHours: task.startTimeHours,
-                                    startTimeMinutes: task.startTimeMinutes,
-                                    finishTimeHours: task.finishTimeHours,
-                                    finishTimeMinutes: task.finishTimeMinutes,
-                                    day: task.day,
-                                    slot: task.slot,
-                                    id: task._id
-                                };
-                                timetable.push(_react2.default.createElement(_Task2.default, { onClickUpdate: this.props.onClickUpdateTask, property: property, removeTask: this.props.removeTask, key: index }));
-                                index++;
-                                taskAdded = true;
-                                // console.log('taskAdded', taskAdded);
-                            }
-                        } // end for tasks
-                        // if task is not added, then add Time component
-                    } catch (err) {
-                        _didIteratorError = true;
-                        _iteratorError = err;
-                    } finally {
-                        try {
-                            if (!_iteratorNormalCompletion && _iterator.return) {
-                                _iterator.return();
-                            }
-                        } finally {
-                            if (_didIteratorError) {
-                                throw _iteratorError;
-                            }
-                        }
-                    }
-
-                    if (!taskAdded) {
-                        var pushedMin = String(_min);
-                        var pushedHour = String(hour);
-                        if (pushedMin == 0) {
-                            pushedMin = '00';
-                        }
-                        timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: pushedHour, min: pushedMin, meridien: meridien, key: index }));
-                        index++;
-                    }
-                }
-                // console.log('after min for loop min == ',min) // 0
-                //if Task has been added, then update hour and minutes
-                // change hour and minutes to finishHour and finishMinites of the task
-                if (taskAdded) {
-                    var _calcFinishTime = (0, _timeCalc.calcFinishTime)(hour, min, property.duration),
-                        finishHour = _calcFinishTime.finishHour,
-                        finishMin = _calcFinishTime.finishMin;
-
-                    console.log('finishHour', finishHour, 'finishMin', finishMin);
-                    hour = finishHour;
-                    min = finishMin;
-                    // add finish hour amd min to timetable
-                    // before hour incremention
-                    // for(let i = min; i < 60; i+=30) {
-                    //     let pushedMin = String(min);
-                    //     let pushedHour = String(hour);
-                    //     if(pushedMin == 0) {
-                    //         pushedMin = '00';
-                    //     }
-                    //     timetable.push(
-                    //         <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
-                    //     );
-                    //     index++;
-                    // }
-                }
-                // if min is equal to 60 change it to 0
-                if (min === 60) {
-                    min = 0;
-                };
-                taskAdded = false;
-                // console.log('before end hour for loop', hour+':'+min);           
-            }
-            // add 11: 59 a.m hour without onAddTask function
-            if (finishTime > 11) {
-                timetable.push(_react2.default.createElement(
-                    'div',
-                    { className: 'row', key: index },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-md-4' },
-                        '11:59 a.m'
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-md-8' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'taskInput' },
-                            'Task'
-                        )
-                    )
-                ));
-            }
-
-            return _react2.default.createElement(
-                'div',
-                { className: 'container' },
-                _react2.default.createElement(
-                    'h6',
-                    null,
-                    'A.M'
-                ),
-                timetable
-            );
-        }
-    }]);
-
-    return AnteMeridien;
-}(_react2.default.Component);
-
-function mapDispatchToProps(dispatch) {
-    return (0, _redux.bindActionCreators)({
-        fetchTasksByDay: _taskAction.fetchTasksByDay,
-        removeTask: _taskAction.removeTask,
-        onClickUpdateTask: _taskAction.onClickUpdateTask
-    }, dispatch);
-}
-
-var mapStateToProps = function mapStateToProps(state) {
-    return {
-        taskInfo: state.taskInfo,
-        preferences: state.preferences
-    };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(AnteMeridien);
-
-/***/ }),
+/* 148 */,
 /* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16298,9 +15932,9 @@ var _TwentyFourHours = __webpack_require__(155);
 
 var _TwentyFourHours2 = _interopRequireDefault(_TwentyFourHours);
 
-var _TwelveHours = __webpack_require__(154);
+var _Meridien = __webpack_require__(151);
 
-var _TwelveHours2 = _interopRequireDefault(_TwelveHours);
+var _Meridien2 = _interopRequireDefault(_Meridien);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -16376,10 +16010,19 @@ var Day = function (_React$Component) {
             // display every tasks
             if (loaded) {
                 if (timeFormat === 24) {
-                    display = _react2.default.createElement(_TwentyFourHours2.default, { tasks: tasks });
+                    display = _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(_TwentyFourHours2.default, { tasks: tasks })
+                    );
                 }
                 if (timeFormat === 12) {
-                    display = _react2.default.createElement(_TwelveHours2.default, null);
+                    display = _react2.default.createElement(
+                        'div',
+                        null,
+                        _react2.default.createElement(_TwentyFourHours2.default, { tasks: tasks }),
+                        _react2.default.createElement(_Meridien2.default, null)
+                    );
                 }
             }
 
@@ -16582,255 +16225,7 @@ function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Meridien);
 
 /***/ }),
-/* 152 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _redux = __webpack_require__(8);
-
-var _reactRedux = __webpack_require__(6);
-
-var _HalfAnHour = __webpack_require__(33);
-
-var _HalfAnHour2 = _interopRequireDefault(_HalfAnHour);
-
-var _Task = __webpack_require__(26);
-
-var _Task2 = _interopRequireDefault(_Task);
-
-var _taskAction = __webpack_require__(16);
-
-var _timeCalc = __webpack_require__(19);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var PostMeridien = function (_React$Component) {
-    _inherits(PostMeridien, _React$Component);
-
-    function PostMeridien() {
-        _classCallCheck(this, PostMeridien);
-
-        return _possibleConstructorReturn(this, (PostMeridien.__proto__ || Object.getPrototypeOf(PostMeridien)).apply(this, arguments));
-    }
-
-    _createClass(PostMeridien, [{
-        key: 'render',
-        value: function render() {
-            var tasks = this.props.taskInfo.tasks;
-            var _props$taskInfo$tasks = this.props.taskInfo.tasksRequest,
-                loading = _props$taskInfo$tasks.loading,
-                loaded = _props$taskInfo$tasks.loaded,
-                errors = _props$taskInfo$tasks.errors;
-
-            var timetable = [];
-            // when data loaded
-            // display every tasks
-            var min = 0;
-            var hour = 0;
-            var taskAdded = false;
-            var index = 0;
-            var property = {};
-            var _props$preferences = this.props.preferences,
-                meridien = _props$preferences.meridien,
-                timeInterval = _props$preferences.timeInterval,
-                startDisplayHour = _props$preferences.startDisplayHour,
-                finishDisplayHour = _props$preferences.finishDisplayHour;
-
-            // set StartTime to start and finish DisplayHour
-            // if displayHour > 12
-
-            var startTime = void 0,
-                finishTime = void 0;
-            if (startDisplayHour < 12) {
-                startTime = 12;
-            } else {
-                startTime = startDisplayHour;
-            }
-
-            if (finishDisplayHour < 12) {
-                finishTime = 24;
-            } else {
-                finishTime = finishDisplayHour;
-            }
-
-            //     // add 12 p.m start of the day
-            //    if(startTime < 1 || show12pm) {
-            //         timetable.push(
-            //             <HalfAnHour hour={'12'} min={'00'} meridien={meridien} key={index}/>
-            //         );
-            //         index++;
-            //     }
-
-            for (hour = startTime; hour < finishTime; ++hour) {
-                // every hour
-                var _min = 0;
-                if (hour === 0) {
-                    // if hour == 0, don't display 00:00 but 00:30
-                    _min = 30;
-                }
-                for (_min; _min < 60; _min += timeInterval) {
-                    // depends on timeInterval
-                    // console.log('before tasks for loop after min == ', hour+':'+min);
-                    var _iteratorNormalCompletion = true;
-                    var _didIteratorError = false;
-                    var _iteratorError = undefined;
-
-                    try {
-                        for (var _iterator = tasks[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                            var task = _step.value;
-
-                            // check if task' startTime equal to iteration hour and minites
-                            // then add Task with same startHour instead of time Component
-                            if (hour == task.startTimeHours && _min == task.startTimeMinutes) {
-                                property = {
-                                    title: task.title,
-                                    category: task.category,
-                                    description: task.description,
-                                    duration: task.duration,
-                                    startTimeHours: task.startTimeHours,
-                                    startTimeMinutes: task.startTimeMinutes,
-                                    finishTimeHours: task.finishTimeHours,
-                                    finishTimeMinutes: task.finishTimeMinutes,
-                                    day: task.day,
-                                    slot: task.slot,
-                                    id: task._id
-                                };
-                                timetable.push(_react2.default.createElement(_Task2.default, { onClickUpdate: this.props.onClickUpdateTask, property: property, removeTask: this.props.removeTask, key: index }));
-                                index++;
-                                taskAdded = true;
-                                // console.log('taskAdded', taskAdded);
-                            }
-                        } // end for tasks
-                        // if task is not added, then add Time component
-                    } catch (err) {
-                        _didIteratorError = true;
-                        _iteratorError = err;
-                    } finally {
-                        try {
-                            if (!_iteratorNormalCompletion && _iterator.return) {
-                                _iterator.return();
-                            }
-                        } finally {
-                            if (_didIteratorError) {
-                                throw _iteratorError;
-                            }
-                        }
-                    }
-
-                    if (!taskAdded) {
-                        var pushedMin = String(_min);
-                        var pushedHour = String(hour);
-                        if (pushedMin == 0) {
-                            pushedMin = '00';
-                        }
-                        timetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: pushedHour, min: pushedMin, meridien: meridien, key: index }));
-                        index++;
-                    }
-                }
-                // console.log('after min for loop min == ',min) // 0
-                //if Task has been added, then update hour and minutes
-                // change hour and minutes to finishHour and finishMinites of the task
-                if (taskAdded) {
-                    var _calcFinishTime = (0, _timeCalc.calcFinishTime)(hour, _min, property.duration),
-                        finishHour = _calcFinishTime.finishHour,
-                        finishMin = _calcFinishTime.finishMin;
-
-                    console.log('finishHour', finishHour, 'finishMin', finishMin);
-                    hour = finishHour;
-                    _min = finishMin;
-                    // add finish hour amd min to timetable
-                    // before hour incremention
-                    // for(let i = min; i < 60; i+=30) {
-                    //     let pushedMin = String(min);
-                    //     let pushedHour = String(hour);
-                    //     if(pushedMin == 0) {
-                    //         pushedMin = '00';
-                    //     }
-                    //     timetable.push(
-                    //         <HalfAnHour hour={pushedHour} min={pushedMin} key={index}/>
-                    //     );
-                    //     index++;
-                    // }
-                }
-                // if min is equal to 60 change it to 0
-                if (_min === 60) {
-                    _min = 0;
-                };
-                taskAdded = false;
-                // console.log('before end hour for loop', hour+':'+min);           
-            }
-            // add 11:59 p.m hour without onAddTask function
-            timetable.push(_react2.default.createElement(
-                'div',
-                { className: 'row', key: index },
-                _react2.default.createElement(
-                    'div',
-                    { className: 'col-md-4' },
-                    '11:59 p.m'
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'col-md-8' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'taskInput' },
-                        'Task'
-                    )
-                )
-            ));
-
-            return _react2.default.createElement(
-                'div',
-                { className: 'container' },
-                _react2.default.createElement(
-                    'h6',
-                    null,
-                    'P.M'
-                ),
-                timetable
-            );
-        }
-    }]);
-
-    return PostMeridien;
-}(_react2.default.Component);
-
-function mapDispatchToProps(dispatch) {
-    return (0, _redux.bindActionCreators)({
-        fetchTasksByDay: _taskAction.fetchTasksByDay,
-        removeTask: _taskAction.removeTask,
-        onClickUpdateTask: _taskAction.onClickUpdateTask
-    }, dispatch);
-}
-
-var mapStateToProps = function mapStateToProps(state) {
-    return {
-        taskInfo: state.taskInfo,
-        preferences: state.preferences
-    };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PostMeridien);
-
-/***/ }),
+/* 152 */,
 /* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16924,120 +16319,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(TaskContainer);
 
 /***/ }),
-/* 154 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _redux = __webpack_require__(8);
-
-var _reactRedux = __webpack_require__(6);
-
-var _HalfAnHour = __webpack_require__(33);
-
-var _HalfAnHour2 = _interopRequireDefault(_HalfAnHour);
-
-var _Task = __webpack_require__(26);
-
-var _Task2 = _interopRequireDefault(_Task);
-
-var _AnteMeridien = __webpack_require__(148);
-
-var _AnteMeridien2 = _interopRequireDefault(_AnteMeridien);
-
-var _PostMeridien = __webpack_require__(152);
-
-var _PostMeridien2 = _interopRequireDefault(_PostMeridien);
-
-var _Meridien = __webpack_require__(151);
-
-var _Meridien2 = _interopRequireDefault(_Meridien);
-
-var _taskAction = __webpack_require__(16);
-
-var _timeCalc = __webpack_require__(19);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var TwelveHours = function (_React$Component) {
-    _inherits(TwelveHours, _React$Component);
-
-    function TwelveHours() {
-        _classCallCheck(this, TwelveHours);
-
-        return _possibleConstructorReturn(this, (TwelveHours.__proto__ || Object.getPrototypeOf(TwelveHours)).apply(this, arguments));
-    }
-
-    _createClass(TwelveHours, [{
-        key: 'render',
-        value: function render() {
-            var tasks = this.props.taskInfo.tasks;
-            var _props$taskInfo$tasks = this.props.taskInfo.tasksRequest,
-                loading = _props$taskInfo$tasks.loading,
-                loaded = _props$taskInfo$tasks.loaded,
-                errors = _props$taskInfo$tasks.errors;
-
-            var resource = null;
-            var tasksUntilNoon = [];
-            var tasksAfterNoon = [];
-            var meridien = this.props.preferences.meridien;
-
-            var display = void 0;
-
-            if (meridien === 'a.m') {
-                display = _react2.default.createElement(_AnteMeridien2.default, null);
-            }
-            if (meridien === 'p.m') {
-                display = _react2.default.createElement(_PostMeridien2.default, null);
-            }
-
-            return _react2.default.createElement(
-                'div',
-                null,
-                display,
-                _react2.default.createElement(_Meridien2.default, null)
-            );
-        }
-    }]);
-
-    return TwelveHours;
-}(_react2.default.Component);
-
-function mapDispatchToProps(dispatch) {
-    return (0, _redux.bindActionCreators)({
-        fetchTasksByDay: _taskAction.fetchTasksByDay,
-        removeTask: _taskAction.removeTask,
-        onClickUpdateTask: _taskAction.onClickUpdateTask
-    }, dispatch);
-}
-
-var mapStateToProps = function mapStateToProps(state) {
-    return {
-        taskInfo: state.taskInfo,
-        preferences: state.preferences
-    };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TwelveHours);
-
-/***/ }),
+/* 154 */,
 /* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17058,9 +16340,9 @@ var _redux = __webpack_require__(8);
 
 var _reactRedux = __webpack_require__(6);
 
-var _HalfAnHour = __webpack_require__(33);
+var _TimeInterval = __webpack_require__(293);
 
-var _HalfAnHour2 = _interopRequireDefault(_HalfAnHour);
+var _TimeInterval2 = _interopRequireDefault(_TimeInterval);
 
 var _Task = __webpack_require__(26);
 
@@ -17090,36 +16372,54 @@ var TwentyFourHours = function (_React$Component) {
     }
 
     _createClass(TwentyFourHours, [{
+        key: 'convertTimeToString',
+
+
+        // prepare minite and hour to trasfer to
+        // view component
+        value: function convertTimeToString(hour, min) {
+            var pushedMin = String(min);
+            var pushedHour = String(hour);
+            if (hour < 10) {
+                pushedHour = '0' + pushedHour;
+            }
+            if (pushedMin == 0) {
+                pushedMin = '00';
+            }
+
+            return {
+                pushedMin: pushedMin,
+                pushedHour: pushedHour
+            };
+        }
+    }, {
         key: 'addTimeInterval',
-        value: function addTimeInterval(timetable, hour, min, index, timeInterval) {
+        value: function addTimeInterval(timetable, hour, min, index, timeInterval, meridien) {
             var updatedTimetable = Object.assign([], timetable);
             if (timeInterval === 30) {
                 if (min === 0 || min === 30 || min === 60) {
-                    var pushedMin = String(min);
-                    var pushedHour = String(hour);
-                    if (pushedMin == 0) {
-                        pushedMin = '00';
-                    }
-                    updatedTimetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: pushedHour, min: pushedMin, key: index }));
+                    var _convertTimeToString = this.convertTimeToString(hour, min),
+                        pushedMin = _convertTimeToString.pushedMin,
+                        pushedHour = _convertTimeToString.pushedHour;
+
+                    updatedTimetable.push(_react2.default.createElement(_TimeInterval2.default, { hour: pushedHour, min: pushedMin, meridien: meridien, key: index }));
                 }
             }
             if (timeInterval === 60) {
                 if (min === 0 || min === 60) {
-                    var _pushedMin = String(min);
-                    var _pushedHour = String(hour);
-                    if (_pushedMin == 0) {
-                        _pushedMin = '00';
-                    }
-                    updatedTimetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: _pushedHour, min: _pushedMin, key: index }));
+                    var _convertTimeToString2 = this.convertTimeToString(hour, min),
+                        _pushedMin = _convertTimeToString2.pushedMin,
+                        _pushedHour = _convertTimeToString2.pushedHour;
+
+                    updatedTimetable.push(_react2.default.createElement(_TimeInterval2.default, { hour: _pushedHour, min: _pushedMin, meridien: meridien, key: index }));
                 }
             }
             if (timeInterval === 15) {
-                var _pushedMin2 = String(min);
-                var _pushedHour2 = String(hour);
-                if (_pushedMin2 == 0) {
-                    _pushedMin2 = '00';
-                }
-                updatedTimetable.push(_react2.default.createElement(_HalfAnHour2.default, { hour: _pushedHour2, min: _pushedMin2, key: index }));
+                var _convertTimeToString3 = this.convertTimeToString(hour, min),
+                    _pushedMin2 = _convertTimeToString3.pushedMin,
+                    _pushedHour2 = _convertTimeToString3.pushedHour;
+
+                updatedTimetable.push(_react2.default.createElement(_TimeInterval2.default, { hour: _pushedHour2, min: _pushedMin2, meridien: meridien, key: index }));
             }
             return updatedTimetable;
         }
@@ -17169,6 +16469,8 @@ var TwentyFourHours = function (_React$Component) {
                 var index = 0;
                 var property = {};
                 var _props$preferences = this.props.preferences,
+                    timeFormat = _props$preferences.timeFormat,
+                    meridien = _props$preferences.meridien,
                     timeInterval = _props$preferences.timeInterval,
                     startDisplayHour = _props$preferences.startDisplayHour,
                     finishDisplayHour = _props$preferences.finishDisplayHour;
@@ -17176,14 +16478,50 @@ var TwentyFourHours = function (_React$Component) {
                 var taskMin = void 0;
                 var taskFinishHour = 0;
                 var taskFinishMin = 0;
+                var startTime = void 0,
+                    finishTime = void 0;
 
-                for (hour = startDisplayHour; hour <= finishDisplayHour; ++hour) {
+                // logic if 12 o'clock hours was chosen
+                if (timeFormat === 12) {
+                    if (meridien === 'a.m') {
+                        if (startDisplayHour < 12) {
+                            startTime = startDisplayHour;
+                        } else {
+                            startTime = 0;
+                        }
+                        if (finishDisplayHour <= 12) {
+                            finishTime = finishDisplayHour;
+                        } else {
+                            finishTime = 12;
+                        }
+                    }
+                    if (meridien === 'p.m') {
+                        if (startTime >= 12) {
+                            startTime = startDisplayHour;
+                        } else {
+                            startTime = 12;
+                        }
+                        if (finishTime > 12) {
+                            finishTime = finishDisplayHour;
+                        } else {
+                            finishTime = 24;
+                        }
+                    }
+                }
+                // 24 o'clock hours was chosen
+                if (timeFormat === 24) {
+                    startTime = startDisplayHour;
+                    finishTime = finishDisplayHour;
+                }
+
+                for (hour = startTime; hour <= finishTime; ++hour) {
                     // every hour
                     for (var _min = 0; _min < 60; _min += 15) {
                         // every 15 minutes
                         console.error('inside min for loop, before tasks: hour = ', hour + ':' + _min);
                         console.log('taskAdded before tasks', taskAdded);
                         if (hour === 24 && _min !== 0) break; // if time more that 24:00 return from the loop
+                        if (timeFormat === 12 && hour === 12 && _min !== 0) break; // time is more than 12:00 for 12 hours format
                         if (updatedTasks.length > 0) {
                             for (var i = 0; i < updatedTasks.length; ++i) {
                                 // check if task' startTime equal to iteration hour and minites
@@ -17207,14 +16545,13 @@ var TwentyFourHours = function (_React$Component) {
                                     taskAdded = true;
                                     taskMin = _min; // save task startTime
                                     console.log('task is equal to hour');
-                                    // updatedTasks.splice(i, 1); // delete task
 
                                     var _calcFinishTime = (0, _timeCalc.calcFinishTime)(hour, taskMin, property.duration),
                                         finishHour = _calcFinishTime.finishHour,
                                         finishMin = _calcFinishTime.finishMin;
 
                                     console.log('finish hour', finishHour + ':' + finishMin);
-                                    taskFinishHour = finishHour;
+                                    taskFinishHour = finishHour; // save finish Time of particular task
                                     taskFinishMin = finishMin;
                                     // go to 15 minutes back to display finish time
                                     if (finishMin === 0) _min = 45;
@@ -17240,7 +16577,7 @@ var TwentyFourHours = function (_React$Component) {
                             } // end tasks for loop
                             if (!taskAdded) {
                                 console.log('task not added');
-                                timetable = this.addTimeInterval(timetable, hour, _min, index, timeInterval);
+                                timetable = this.addTimeInterval(timetable, hour, _min, index, timeInterval, meridien);
                                 index++;
                             }
                         } else {
@@ -17252,7 +16589,7 @@ var TwentyFourHours = function (_React$Component) {
                             // if finishHour less than current hour
                             // that means task was added
                             if (taskFinishHour !== hour || taskFinishHour === hour && taskFinishMin >= _min) {
-                                timetable = this.addTimeInterval(timetable, hour, _min, index, timeInterval);
+                                timetable = this.addTimeInterval(timetable, hour, _min, index, timeInterval, meridien);
                                 index++;
                             }
                         }
@@ -31434,6 +30771,144 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+/* 293 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(46);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _redux = __webpack_require__(8);
+
+var _reactRedux = __webpack_require__(6);
+
+var _daysAction = __webpack_require__(42);
+
+var _timeCalc = __webpack_require__(19);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TimeInterval = function (_React$Component) {
+    _inherits(TimeInterval, _React$Component);
+
+    function TimeInterval() {
+        _classCallCheck(this, TimeInterval);
+
+        return _possibleConstructorReturn(this, (TimeInterval.__proto__ || Object.getPrototypeOf(TimeInterval)).apply(this, arguments));
+    }
+
+    _createClass(TimeInterval, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var _props = this.props,
+                hour = _props.hour,
+                min = _props.min,
+                meridien = _props.meridien;
+            var timeFormat = this.props.preferences.timeFormat;
+
+            console.error('meridien', meridien);
+            // if 12 o'clock hours and p.m is chosen
+            // then convert 24 hours into 12 hours
+            var displayHour = void 0;
+            if (timeFormat === 12) {
+                if (meridien === 'a.m') {
+                    if (hour === '00' && min === '00') displayHour = '12';else if (hour === '12' && min === '00') {
+                        displayHour = '12';
+                        meridien = 'p.m';
+                    } else {
+                        displayHour = hour;
+                    }
+                }
+                if (meridien === 'p.m') {
+                    if (hour === '12' && min === '00') displayHour = '12';else if (hour === '24' && min === '00') {
+                        displayHour = '12';
+                        meridien = 'a.m';
+                    } else {
+                        displayHour = (0, _timeCalc.get12HoursFrom24Hours)(hour);
+                        if (displayHour < 10) {
+                            displayHour = '0' + displayHour;
+                        }
+                    }
+                }
+            }
+            if (timeFormat === 24) {
+                displayHour = hour;
+                meridien = '';
+            }
+
+            return _react2.default.createElement(
+                'div',
+                { onClick: function onClick() {
+                        return _this2.props.onClickTime(hour, min);
+                    }, className: 'row' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'col-md-4' },
+                    displayHour,
+                    ':',
+                    min,
+                    ' ',
+                    meridien
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'col-md-8' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'taskInput' },
+                        'Task'
+                    )
+                )
+            );
+        }
+    }]);
+
+    return TimeInterval;
+}(_react2.default.Component);
+
+function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({
+        onClickTime: _daysAction.onClickTime
+    }, dispatch);
+}
+
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        preferences: state.preferences
+    };
+};
+
+TimeInterval.PropTypes = {
+    hour: _propTypes2.default.string.isRequired,
+    min: _propTypes2.default.string.isRequired,
+    meridien: _propTypes2.default.string,
+    onClickTime: _propTypes2.default.func.isRequired
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TimeInterval);
 
 /***/ })
 /******/ ]);

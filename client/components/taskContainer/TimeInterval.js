@@ -8,33 +8,44 @@ import {connect} from 'react-redux';
 import {onClickTime} from '../../actions/daysAction';
 import {get12HoursFrom24Hours,} from '../../utils/timeCalc';
 
-class HalfAnHour extends React.Component {
+class TimeInterval extends React.Component {
 
     render() {
         let {hour, min, meridien} = this.props
         let {timeFormat} = this.props.preferences;
+        console.error('meridien', meridien);
         // if 12 o'clock hours and p.m is chosen
         // then convert 24 hours into 12 hours
         let displayHour;
         if(timeFormat === 12) {
-            if(meridien === 'p.m') {
-                if(hour === '12' && min === '00') {
-                    displayHour = '12';
-                } else {
-                    displayHour = get12HoursFrom24Hours(hour);
-                }
-            }
             if(meridien === 'a.m') {
-                if(hour === '0' && min === '00') {
+                if(hour === '00' && min === '00') displayHour = '12';
+                else if(hour === '12' && min === '00') {
                     displayHour = '12';
-                }
+                    meridien = 'p.m';
+                } 
                 else {
                     displayHour = hour;
                 }
             }
-        } else {
+            if(meridien === 'p.m') {
+                if(hour === '12' && min === '00') displayHour = '12';
+                else if(hour === '24' && min === '00') {
+                    displayHour = '12';
+                    meridien = 'a.m';
+                }
+                else {
+                    displayHour = get12HoursFrom24Hours(hour);
+                    if(displayHour < 10) {
+                        displayHour = '0' + displayHour;
+                    }
+                }
+            }
+        }
+        if(timeFormat === 24) {
             displayHour = hour;
-        } 
+            meridien = ''; 
+        }
 
         return (
             <div onClick={() => this.props.onClickTime(hour, min)} className="row">
@@ -65,12 +76,12 @@ const mapStateToProps = (state) => {
     };
 }
 
-HalfAnHour.PropTypes = {
+TimeInterval.PropTypes = {
     hour: PropTypes.string.isRequired,
     min: PropTypes.string.isRequired,
     meridien: PropTypes.string,
     onClickTime: PropTypes.func.isRequired,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HalfAnHour);
+export default connect(mapStateToProps, mapDispatchToProps)(TimeInterval);
 

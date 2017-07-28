@@ -8,7 +8,7 @@ import {fetchTasksByDay,
 
 import Task from './Task';
 import TwentyFourHours from './TwentyFourHours';
-import TwelveHours from './TwelveHours';
+import Meridien from './Meridien';
 
 class Day extends React.Component {
     componentDidMount() {
@@ -49,10 +49,18 @@ class Day extends React.Component {
         // display every tasks
         if(loaded) {
             if(timeFormat === 24) {
-                display =  <TwentyFourHours tasks={tasks}/>
+                display =
+                    <div>
+                        <TwentyFourHours tasks={tasks}/>
+                    </div>  
+                    
             }
             if(timeFormat === 12) {
-                display = <TwelveHours/>
+                display = 
+                    <div>
+                        <TwentyFourHours tasks={tasks}/>
+                        <Meridien/>
+                    </div>  
             }
         }
       
