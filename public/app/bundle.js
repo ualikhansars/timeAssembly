@@ -17216,12 +17216,13 @@ var TwentyFourHours = function (_React$Component) {
                                     console.log('finish hour', finishHour + ':' + finishMin);
                                     taskFinishHour = finishHour;
                                     taskFinishMin = finishMin;
+                                    // go to 15 minutes back to display finish time
                                     if (finishMin === 0) _min = 45;
                                     if (finishMin === 15) _min = 0;
                                     if (finishMin === 30) _min = 15;
                                     if (finishMin === 45) _min = 30;
                                     if (finishHour > hour) {
-                                        // go to 15 minutes back
+                                        // if finishMin is equal to 0, then descrese hour
                                         if (finishMin === 0) finishHour--;
                                         hour = finishHour;
                                         console.log('finHour > hour, hour and mins', hour + ':' + _min);
@@ -17230,7 +17231,7 @@ var TwentyFourHours = function (_React$Component) {
                                         break;
                                     }
                                     hour = finishHour;
-                                    updatedTasks.splice(i, 1);
+                                    updatedTasks.splice(i, 1); // delete added task from updated tasks
                                     console.log('hour and mins', hour + ':' + _min);
                                     console.log('taskAdded', taskAdded);
                                     break;
@@ -17244,28 +17245,15 @@ var TwentyFourHours = function (_React$Component) {
                             }
                         } else {
                             console.error('task is less than 0');
+                            // prevent adding tasks than ends after 24:00
                             if (taskFinishHour === 24 && taskFinishMin === 0) {
                                 break;
                             }
                             // if finishHour less than current hour
-                            // that means that task was added
+                            // that means task was added
                             if (taskFinishHour !== hour || taskFinishHour === hour && taskFinishMin >= _min) {
-                                if (timeInterval === 30) {
-                                    if (_min === 0 || _min === 30 || _min === 60) {
-                                        timetable = this.addTimeInterval(timetable, hour, _min, index, timeInterval);
-                                        index++;
-                                    }
-                                }
-                                if (timeInterval === 60) {
-                                    if (_min === 0 || _min === 60) {
-                                        timetable = this.addTimeInterval(timetable, hour, _min, index, timeInterval);
-                                        index++;
-                                    }
-                                }
-                                if (timeInterval === 15) {
-                                    timetable = this.addTimeInterval(timetable, hour, _min, index, timeInterval);
-                                    index++;
-                                }
+                                timetable = this.addTimeInterval(timetable, hour, _min, index, timeInterval);
+                                index++;
                             }
                         }
                         taskAdded = false; // reset taskAdded to false
