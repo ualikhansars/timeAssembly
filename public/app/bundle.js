@@ -17213,6 +17213,7 @@ var TwentyFourHours = function (_React$Component) {
                                         finishHour = _calcFinishTime.finishHour,
                                         finishMin = _calcFinishTime.finishMin;
 
+                                    console.log('finish hour', finishHour + ':' + finishMin);
                                     taskFinishHour = finishHour;
                                     taskFinishMin = finishMin;
                                     if (finishMin === 0) _min = 45;
@@ -17221,7 +17222,7 @@ var TwentyFourHours = function (_React$Component) {
                                     if (finishMin === 45) _min = 30;
                                     if (finishHour > hour) {
                                         // go to 15 minutes back
-                                        finishHour--;
+                                        if (finishMin === 0) finishHour--;
                                         hour = finishHour;
                                         console.log('finHour > hour, hour and mins', hour + ':' + _min);
                                         console.log('taskAdded', taskAdded);

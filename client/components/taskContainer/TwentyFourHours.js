@@ -124,6 +124,7 @@ class TwentyFourHours extends React.Component {
                                 console.log('task is equal to hour');
                                 // updatedTasks.splice(i, 1); // delete task
                                 let {finishHour, finishMin} = calcFinishTime(hour, taskMin, property.duration);
+                                console.log('finish hour', finishHour + ':' + finishMin);
                                 taskFinishHour = finishHour;
                                 taskFinishMin = finishMin;
                                 if(finishMin === 0) min = 45;
@@ -132,7 +133,7 @@ class TwentyFourHours extends React.Component {
                                 if(finishMin === 45) min = 30;
                                 if(finishHour > hour) {
                                     // go to 15 minutes back
-                                    finishHour--;
+                                    if(finishMin === 0) finishHour--;
                                     hour = finishHour;
                                     console.log('finHour > hour, hour and mins', hour + ':'+min);
                                     console.log('taskAdded', taskAdded);
