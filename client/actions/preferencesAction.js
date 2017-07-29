@@ -56,16 +56,26 @@ export const changeFinishDisplayHour = (finishDisplayHour) => {
 
 // change meridien to a.m
 export const changeMeridienToAM = () => {
-    return {
-        type: 'CHANGE_MERIDIEN_TO_AM',
-        meridien: 'a.m'
+    return dispatch => {
+        dispatch({
+            type: 'CHANGE_MERIDIEN_TO_AM',
+            meridien: 'a.m'
+        });
+        return dispatch({
+            type: 'RESET_ADD_TASK'
+        });
     }
 }
 
 // change meridien to p.m
 export const changeMeridienToPM = () => {
-    return {
-        type: 'CHANGE_MERIDIEN_TO_PM',
-        meridien: 'p.m'
+    return dispatch => {
+        dispatch({
+            type: 'CHANGE_MERIDIEN_TO_PM',
+            meridien: 'a.m'
+        });
+        return dispatch({
+            type: 'RESET_ADD_TASK'
+        });
     }
 }

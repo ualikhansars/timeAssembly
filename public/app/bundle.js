@@ -4088,17 +4088,27 @@ var changeFinishDisplayHour = exports.changeFinishDisplayHour = function changeF
 
 // change meridien to a.m
 var changeMeridienToAM = exports.changeMeridienToAM = function changeMeridienToAM() {
-    return {
-        type: 'CHANGE_MERIDIEN_TO_AM',
-        meridien: 'a.m'
+    return function (dispatch) {
+        dispatch({
+            type: 'CHANGE_MERIDIEN_TO_AM',
+            meridien: 'a.m'
+        });
+        return dispatch({
+            type: 'RESET_ADD_TASK'
+        });
     };
 };
 
 // change meridien to p.m
 var changeMeridienToPM = exports.changeMeridienToPM = function changeMeridienToPM() {
-    return {
-        type: 'CHANGE_MERIDIEN_TO_PM',
-        meridien: 'p.m'
+    return function (dispatch) {
+        dispatch({
+            type: 'CHANGE_MERIDIEN_TO_PM',
+            meridien: 'a.m'
+        });
+        return dispatch({
+            type: 'RESET_ADD_TASK'
+        });
     };
 };
 
