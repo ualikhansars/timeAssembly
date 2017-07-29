@@ -11,7 +11,7 @@ import {
         showCreateSlotForm, 
         hideSlotForm,
     } from '../../../actions/slotAction';
-
+import {getTimeDependsOnTimeFormat} from '../../../utils/timeCalc';
 import Slot from './Slot';
 
 class SlotContainer extends React.Component {
@@ -25,11 +25,15 @@ class SlotContainer extends React.Component {
         const {loading, loaded, errors} = this.props.slotInfo.slotsRequest;
         let resource = null;
         let {startTimeHours, startTimeMinutes} = this.props.taskInfo;
+        let {meridien, timeFormat} = this.props.preferences;
         let {chosenDay} = this.props.daysInfo;
+        // get right time depends on timeFormat
+        let displayTime = getTimeDependsOnTimeFormat(startTimeHours, startTimeMinutes, timeFormat, meridien);
         // Properties that will be displayed in AddButton in Slot Component
         let timeAndDayProperty = {
             startTimeHours,
             startTimeMinutes,
+            displayTime,
             chosenDay
         }
 
@@ -70,7 +74,6 @@ class SlotContainer extends React.Component {
                         removeSlot: this.props.removeSlot,
                         addTask: this.props.addTask,
                         slotAttr,
-
                     }
                     return (
                         <div key={i}>
@@ -104,7 +107,8 @@ const mapStateToProps = (state) => {
         // slots info
         slotInfo: state.slotInfo,
         daysInfo: state.daysInfo,
-        taskInfo: state.taskInfo
+        taskInfo: state.taskInfo,
+        preferences: state.preferences
     };
 }
 

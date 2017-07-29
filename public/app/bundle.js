@@ -15244,7 +15244,9 @@ var Slot = function (_React$Component) {
 
             var _props$slotProperty$t = this.props.slotProperty.timeAndDayProperty,
                 startTimeHours = _props$slotProperty$t.startTimeHours,
-                startTimeMinutes = _props$slotProperty$t.startTimeMinutes;
+                startTimeMinutes = _props$slotProperty$t.startTimeMinutes,
+                chosenDay = _props$slotProperty$t.chosenDay,
+                displayTime = _props$slotProperty$t.displayTime;
 
             var addButton = null;
             var date = null;
@@ -15261,18 +15263,20 @@ var Slot = function (_React$Component) {
             if (startTimeHours && startTimeMinutes && free > 0) {
                 addButton = _react2.default.createElement(
                     "div",
-                    { className: "col-md-4" },
+                    { className: "row" },
                     _react2.default.createElement(
-                        "button",
-                        { onClick: function onClick() {
-                                return _this2.props.slotProperty.addTask(_this2.props.slotProperty.slotAttr.id);
-                            }, className: "btn btn-success" },
-                        "Add to ",
-                        this.props.slotProperty.timeAndDayProperty.chosenDay,
-                        " ",
-                        startTimeHours,
-                        ":",
-                        startTimeMinutes
+                        "div",
+                        { className: "col-md-12" },
+                        _react2.default.createElement(
+                            "button",
+                            { onClick: function onClick() {
+                                    return _this2.props.slotProperty.addTask(_this2.props.slotProperty.slotAttr.id);
+                                }, className: "btn btn-success" },
+                            "Add to ",
+                            chosenDay,
+                            " at ",
+                            displayTime
+                        )
                     )
                 );
             }
@@ -15349,10 +15353,10 @@ var Slot = function (_React$Component) {
                     )
                 ),
                 date,
+                addButton,
                 _react2.default.createElement(
                     "div",
                     { className: "row" },
-                    addButton,
                     _react2.default.createElement(
                         "div",
                         { className: "col-md-4" },
@@ -15410,6 +15414,8 @@ var _taskAction = __webpack_require__(21);
 
 var _slotAction = __webpack_require__(41);
 
+var _timeCalc = __webpack_require__(31);
+
 var _Slot = __webpack_require__(142);
 
 var _Slot2 = _interopRequireDefault(_Slot);
@@ -15451,12 +15457,18 @@ var SlotContainer = function (_React$Component) {
             var _props$taskInfo = this.props.taskInfo,
                 startTimeHours = _props$taskInfo.startTimeHours,
                 startTimeMinutes = _props$taskInfo.startTimeMinutes;
+            var _props$preferences = this.props.preferences,
+                meridien = _props$preferences.meridien,
+                timeFormat = _props$preferences.timeFormat;
             var chosenDay = this.props.daysInfo.chosenDay;
-            // Properties that will be displayed in AddButton in Slot Component
+            // get right time depends on timeFormat
 
+            var displayTime = (0, _timeCalc.getTimeDependsOnTimeFormat)(startTimeHours, startTimeMinutes, timeFormat, meridien);
+            // Properties that will be displayed in AddButton in Slot Component
             var timeAndDayProperty = {
                 startTimeHours: startTimeHours,
                 startTimeMinutes: startTimeMinutes,
+                displayTime: displayTime,
                 chosenDay: chosenDay
 
                 // when data is loading
@@ -15505,7 +15517,6 @@ var SlotContainer = function (_React$Component) {
                         removeSlot: _this2.props.removeSlot,
                         addTask: _this2.props.addTask,
                         slotAttr: slotAttr
-
                     };
                     return _react2.default.createElement(
                         'div',
@@ -15562,7 +15573,8 @@ var mapStateToProps = function mapStateToProps(state) {
         // slots info
         slotInfo: state.slotInfo,
         daysInfo: state.daysInfo,
-        taskInfo: state.taskInfo
+        taskInfo: state.taskInfo,
+        preferences: state.preferences
     };
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 class Slot extends React.Component {
     render() {
-        let {startTimeHours, startTimeMinutes} = this.props.slotProperty.timeAndDayProperty;
+        let {startTimeHours, startTimeMinutes, chosenDay, displayTime} = this.props.slotProperty.timeAndDayProperty;
         let addButton = null;
         let date = null;
         let {
@@ -16,10 +16,12 @@ class Slot extends React.Component {
         } = this.props.slotProperty.slotAttr;
         // if time is chosen and there are free tasks, then show the add button
         if(startTimeHours && startTimeMinutes && free > 0) {
-            addButton = <div className="col-md-4">
-                        <button onClick={() => this.props.slotProperty.addTask(this.props.slotProperty.slotAttr.id)} className="btn btn-success">
-                            Add to {this.props.slotProperty.timeAndDayProperty.chosenDay} {startTimeHours}:{startTimeMinutes}
-                        </button>
+            addButton = <div className="row">
+                            <div className="col-md-12">
+                                <button onClick={() => this.props.slotProperty.addTask(this.props.slotProperty.slotAttr.id)} className="btn btn-success">
+                                    Add to {chosenDay} at {displayTime}
+                                </button>
+                            </div>
                         </div>
         }
 
@@ -52,8 +54,8 @@ class Slot extends React.Component {
                     </div>
                 </div>
                 {date}
+                {addButton}
                 <div className="row">
-                    {addButton}
                      <div className="col-md-4">
                             <button onClick={() => this.props.slotProperty.fetchSlot(id)} className="btn btn-info">Edit</button>
                         </div>
