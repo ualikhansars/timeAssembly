@@ -6,51 +6,19 @@ import {connect} from 'react-redux';
 
 
 import {onClickTime} from '../../actions/daysAction';
-import {get12HoursFrom24Hours,} from '../../utils/timeCalc';
+import {getTimeDependsOnTimeFormat} from '../../utils/timeCalc';
 
 class TimeInterval extends React.Component {
 
     render() {
         let {hour, min, meridien} = this.props
         let {timeFormat} = this.props.preferences;
-        console.error('meridien', meridien);
-        // if 12 o'clock hours and p.m is chosen
-        // then convert 24 hours into 12 hours
-        let displayHour;
-        if(timeFormat === 12) {
-            if(meridien === 'a.m') {
-                if(hour === '00' && min === '00') displayHour = '12';
-                else if(hour === '12' && min === '00') {
-                    displayHour = '12';
-                    meridien = 'p.m';
-                } 
-                else {
-                    displayHour = hour;
-                }
-            }
-            if(meridien === 'p.m') {
-                if(hour === '12' && min === '00') displayHour = '12';
-                else if(hour === '24' && min === '00') {
-                    displayHour = '12';
-                    meridien = 'a.m';
-                }
-                else {
-                    displayHour = get12HoursFrom24Hours(hour);
-                    if(displayHour < 10) {
-                        displayHour = '0' + displayHour;
-                    }
-                }
-            }
-        }
-        if(timeFormat === 24) {
-            displayHour = hour;
-            meridien = ''; 
-        }
+        let displayTime = getTimeDependsOnTimeFormat(hour, min, timeFormat, meridien);
 
         return (
             <div onClick={() => this.props.onClickTime(hour, min)} className="row">
                 <div className="col-md-4">
-                         {displayHour}:{min} {meridien}
+                         {displayTime}
                 </div>
                 <div className="col-md-8">
                     <div className="taskInput">

@@ -116,12 +116,12 @@ class TwentyFourHours extends React.Component {
                     }
                 }
                 if(meridien === 'p.m') {
-                    if(startTime >= 12) {
+                    if(startDisplayHour >= 12) {
                         startTime = startDisplayHour;
                     } else {
                         startTime = 12;
                     }
-                    if(finishTime > 12) {
+                    if(startDisplayHour > 12) {
                         finishTime = finishDisplayHour;
                     } else {
                         finishTime = 24;

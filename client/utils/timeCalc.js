@@ -70,3 +70,38 @@ export const get12HoursFrom24Hours = (twentyFourHour) => {
 export const get24HoursFrom12Hours = (hour) => {
     return hour + 12;
 }
+
+// get hour, minutes, timeFormat and meridien
+// and return time in proper format
+export const getTimeDependsOnTimeFormat = (hour, min, timeFormat, meridien) => {
+    console.log('hour in getTimeDependsOnTimeFormat', hour);
+    let displayTime;
+    if(timeFormat === 12) {
+        if(meridien === 'a.m') {
+            if(hour === '00' && min === '00') displayTime = '12:' + min + ' ' + meridien;
+            else if(hour === '12' && min === '00') {
+                displayTime = hour + ':' + min + ' p.m';
+            } 
+            else {
+                displayTime = hour + ':' + min + ' ' + meridien;
+            }
+        }
+        if(meridien === 'p.m') {
+            if(hour === '12' && min === '00') displayTime = hour + ':' + min + ' ' + meridien;
+            else if(hour === '24' && min === '00') displayTime = '12:' + min + ' a.m'; 
+            else {
+                let displayHour = get12HoursFrom24Hours(hour);
+                console.log('displayHour', displayHour);
+                if(displayHour < 10) {
+                    displayTime = '0' + displayHour + ':' + min + ' ' + meridien;
+                } else {
+                    displayTime = displayHour + ':' + min + ' ' + meridien;
+                }
+            }
+        }
+    }
+    if(timeFormat === 24) {
+        displayTime = hour + ':' + min;
+    }
+    return displayTime;
+}

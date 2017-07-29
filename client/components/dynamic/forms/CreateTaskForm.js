@@ -1,7 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import {calcFinishTime, calcMins} from '../../../utils/timeCalc';
+import {
+    calcFinishTime, 
+    calcMins, 
+    get12HoursFrom24Hours
+} from '../../../utils/timeCalc';
 import {twentyFourHours, mins} from '../../../utils/vars';
 
 class CreateTaskForm extends React.Component {
@@ -84,6 +88,17 @@ class CreateTaskForm extends React.Component {
     
     render() {
         let {startTimeHours, startTimeMinutes} = this.props.taskInfo;
+        let {meridien, timeFormat} = this.props.preferences;
+        let displayTime;
+        // display hour depends on time format
+        // if(timeFormat === 12) {
+        //     if(meridien === 'a.m') {
+        //         displayTime = startTimeHours + ':' + startTimeMinutes + meridien;
+        //     }
+        //     if(meridien === 'p.m') {
+        //         displayTime = get12HoursFrom24Hours(startTimeHours) + ':' + 
+        //     }
+        // }
         let hours = twentyFourHours.map((hour, i) => {
             let stringHour = 'hours';
             if(hour == 1) stringHour = 'hour';
@@ -136,7 +151,8 @@ const mapStateToProps = (state) => {
     return {
         slotInfo: state.slotInfo,
         daysInfo: state.daysInfo,
-        taskInfo: state.taskInfo
+        taskInfo: state.taskInfo,
+        preferences: state.preferences
     };
 }
 
