@@ -4,7 +4,8 @@ import {connect} from 'react-redux';
 import {
     calcFinishTime, 
     calcMins, 
-    get12HoursFrom24Hours
+    get12HoursFrom24Hours,
+    getTimeDependsOnTimeFormat
 } from '../../../utils/timeCalc';
 import {twentyFourHours, mins} from '../../../utils/vars';
 
@@ -89,16 +90,7 @@ class CreateTaskForm extends React.Component {
     render() {
         let {startTimeHours, startTimeMinutes} = this.props.taskInfo;
         let {meridien, timeFormat} = this.props.preferences;
-        let displayTime;
-        // display hour depends on time format
-        // if(timeFormat === 12) {
-        //     if(meridien === 'a.m') {
-        //         displayTime = startTimeHours + ':' + startTimeMinutes + meridien;
-        //     }
-        //     if(meridien === 'p.m') {
-        //         displayTime = get12HoursFrom24Hours(startTimeHours) + ':' + 
-        //     }
-        // }
+        let displayTime = getTimeDependsOnTimeFormat(startTimeHours, startTimeMinutes, timeFormat, meridien);
         let hours = twentyFourHours.map((hour, i) => {
             let stringHour = 'hours';
             if(hour == 1) stringHour = 'hour';
@@ -115,7 +107,7 @@ class CreateTaskForm extends React.Component {
                     </div>
                     <div>
                         <h6>Add to {this.day} </h6>
-                        <span>Time: {startTimeHours}:{startTimeMinutes}</span>
+                        <span>Time: {displayTime}</span>
                     </div>
                     <div className="form-group row">
                         <label htmlFor="description" className="col-md-12">Description</label>

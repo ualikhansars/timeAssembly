@@ -14082,16 +14082,7 @@ var CreateTaskForm = function (_React$Component) {
                 meridien = _props$preferences.meridien,
                 timeFormat = _props$preferences.timeFormat;
 
-            var displayTime = void 0;
-            // display hour depends on time format
-            // if(timeFormat === 12) {
-            //     if(meridien === 'a.m') {
-            //         displayTime = startTimeHours + ':' + startTimeMinutes + meridien;
-            //     }
-            //     if(meridien === 'p.m') {
-            //         displayTime = get12HoursFrom24Hours(startTimeHours) + ':' + 
-            //     }
-            // }
+            var displayTime = (0, _timeCalc.getTimeDependsOnTimeFormat)(startTimeHours, startTimeMinutes, timeFormat, meridien);
             var hours = _vars.twentyFourHours.map(function (hour, i) {
                 var stringHour = 'hours';
                 if (hour == 1) stringHour = 'hour';
@@ -14143,9 +14134,7 @@ var CreateTaskForm = function (_React$Component) {
                         'span',
                         null,
                         'Time: ',
-                        startTimeHours,
-                        ':',
-                        startTimeMinutes
+                        displayTime
                     )
                 ),
                 _react2.default.createElement(
