@@ -52,7 +52,7 @@ export const calcMins = (hours, mins) => {
 }
 
 // get startTime and finishTime and 
-// calculate time schedule Time
+// calculate schedule Time preferences
 export const getScheduleTime = (startHour=0, finishHour=24) => {
     let schedule = [];
     for(let i = startHour; i <= finishHour; ++i) {

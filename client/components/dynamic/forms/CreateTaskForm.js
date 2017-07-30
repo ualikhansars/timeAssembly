@@ -7,6 +7,10 @@ import {
     get12HoursFrom24Hours,
     getTimeDependsOnTimeFormat
 } from '../../../utils/timeCalc';
+import {
+   getTasksStartsAfterStartTime,
+   getMinTask
+} from '../../../utils/timeCalc';
 import {twentyFourHours, mins} from '../../../utils/vars';
 
 class CreateTaskForm extends React.Component {
@@ -88,9 +92,18 @@ class CreateTaskForm extends React.Component {
 
     
     render() {
-        let {startTimeHours, startTimeMinutes} = this.props.taskInfo;
+        let {startTimeHours, startTimeMinutes, tasks} = this.props.taskInfo;
         let {meridien, timeFormat} = this.props.preferences;
+        // to display time in proper format
         let displayTime = getTimeDependsOnTimeFormat(startTimeHours, startTimeMinutes, timeFormat, meridien);
+
+        let tasksStartsAfterStartTime = getTasksStartsAfterStartTime(tasks);
+        // get min tasks that starts after start time
+        // to calculate possible duration
+        let minTask = getMinTask(tasksStartsAfterStartTime);
+        let maxTaskHours = minTask.startTimeHours;
+        let maxTaskMinutes = minTask.startTimeMinutes; 
+         
         let hours = twentyFourHours.map((hour, i) => {
             let stringHour = 'hours';
             if(hour == 1) stringHour = 'hour';

@@ -3459,6 +3459,128 @@ module.exports = React;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+// get startHour and startMinutes and duration
+//  and return finishHour and finish Minites 
+
+var calcFinishTime = exports.calcFinishTime = function calcFinishTime(startHour, startMin) {
+    var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+
+    var finishHour = startHour;
+    var finishMin = startMin;
+    if (duration < 0) {
+        // console.log('duration < 0', duration);
+        duration = 0;
+    }
+    if (duration < 60) {
+        var addition = startMin + duration; // 80 or 30
+        // console.log('timeCalc startMin', startMin);
+        if (addition == 60) {
+            // console.log('addition === 60', addition);
+            finishHour++;
+            finishMin = 0;
+        }
+        if (addition < 60) {
+            // 30
+            if (startMin + duration === 60) {
+                finishMin = 0;
+                finishHour++;
+            }
+            finishMin = startMin + duration;
+        }
+        if (addition > 60) {
+            // 80
+            var balance = startMin - duration;
+            finishHour++;
+            finishMin = balance;
+        }
+    } else {
+        // duration > 60
+        var parameter = Math.floor(duration / 60); // 200 / 60 === 3
+        var _balance = duration % 60;
+        finishHour = startHour + parameter;
+        if (finishMin + _balance == 60) {
+            finishHour++;
+            finishMin = 0;
+        } else {
+            finishMin = startMin + _balance;
+        }
+    }
+    return {
+        finishHour: finishHour,
+        finishMin: finishMin
+    };
+};
+
+// this function expect hours and mins and
+// return time in minutes
+var calcMins = exports.calcMins = function calcMins(hours, mins) {
+    return hours * 60 + mins;
+};
+
+// get startTime and finishTime and 
+// calculate schedule Time preferences
+var getScheduleTime = exports.getScheduleTime = function getScheduleTime() {
+    var startHour = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+    var finishHour = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 24;
+
+    var schedule = [];
+    for (var i = startHour; i <= finishHour; ++i) {
+        schedule.push(i);
+    }
+    return schedule;
+};
+
+// convert 24 hours to 12 hours
+var get12HoursFrom24Hours = exports.get12HoursFrom24Hours = function get12HoursFrom24Hours(twentyFourHour) {
+    return twentyFourHour - 12;
+};
+
+// convert 12 hours to 12 o'clock hours
+var get24HoursFrom12Hours = exports.get24HoursFrom12Hours = function get24HoursFrom12Hours(hour) {
+    return hour + 12;
+};
+
+// get hour, minutes, timeFormat and meridien
+// and return time in proper format
+var getTimeDependsOnTimeFormat = exports.getTimeDependsOnTimeFormat = function getTimeDependsOnTimeFormat(hour, min, timeFormat, meridien) {
+    console.log('hour in getTimeDependsOnTimeFormat', hour);
+    var displayTime = void 0;
+    if (timeFormat === 12) {
+        if (meridien === 'a.m') {
+            if (hour === '00' && min === '00') displayTime = '12:' + min + ' ' + meridien;else if (hour === '12' && min === '00') {
+                displayTime = hour + ':' + min + ' p.m';
+            } else {
+                displayTime = hour + ':' + min + ' ' + meridien;
+            }
+        }
+        if (meridien === 'p.m') {
+            if (hour === '12' && min === '00') displayTime = hour + ':' + min + ' ' + meridien;else if (hour === '24' && min === '00') displayTime = '12:' + min + ' a.m';else {
+                var displayHour = get12HoursFrom24Hours(hour);
+                console.log('displayHour', displayHour);
+                if (displayHour < 10) {
+                    displayTime = '0' + displayHour + ':' + min + ' ' + meridien;
+                } else {
+                    displayTime = displayHour + ':' + min + ' ' + meridien;
+                }
+            }
+        }
+    }
+    if (timeFormat === 24) {
+        displayTime = hour + ':' + min;
+    }
+    return displayTime;
+};
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/**
  * Copyright (c) 2013-present, Facebook, Inc.
  * All rights reserved.
@@ -3481,7 +3603,7 @@ module.exports = emptyObject;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3765,7 +3887,7 @@ module.exports = EventPluginHub;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3781,7 +3903,7 @@ module.exports = EventPluginHub;
 
 
 
-var EventPluginHub = __webpack_require__(26);
+var EventPluginHub = __webpack_require__(27);
 var EventPluginUtils = __webpack_require__(48);
 
 var accumulateInto = __webpack_require__(93);
@@ -3905,7 +4027,7 @@ module.exports = EventPropagators;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3958,7 +4080,7 @@ var ReactInstanceMap = {
 module.exports = ReactInstanceMap;
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4022,7 +4144,7 @@ SyntheticEvent.augmentClass(SyntheticUIEvent, UIEventInterface);
 module.exports = SyntheticUIEvent;
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4110,128 +4232,6 @@ var changeMeridienToPM = exports.changeMeridienToPM = function changeMeridienToP
             type: 'RESET_ADD_TASK'
         });
     };
-};
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-// get startHour and startMinutes and duration
-//  and return finishHour and finish Minites 
-
-var calcFinishTime = exports.calcFinishTime = function calcFinishTime(startHour, startMin) {
-    var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-
-    var finishHour = startHour;
-    var finishMin = startMin;
-    if (duration < 0) {
-        // console.log('duration < 0', duration);
-        duration = 0;
-    }
-    if (duration < 60) {
-        var addition = startMin + duration; // 80 or 30
-        // console.log('timeCalc startMin', startMin);
-        if (addition == 60) {
-            // console.log('addition === 60', addition);
-            finishHour++;
-            finishMin = 0;
-        }
-        if (addition < 60) {
-            // 30
-            if (startMin + duration === 60) {
-                finishMin = 0;
-                finishHour++;
-            }
-            finishMin = startMin + duration;
-        }
-        if (addition > 60) {
-            // 80
-            var balance = startMin - duration;
-            finishHour++;
-            finishMin = balance;
-        }
-    } else {
-        // duration > 60
-        var parameter = Math.floor(duration / 60); // 200 / 60 === 3
-        var _balance = duration % 60;
-        finishHour = startHour + parameter;
-        if (finishMin + _balance == 60) {
-            finishHour++;
-            finishMin = 0;
-        } else {
-            finishMin = startMin + _balance;
-        }
-    }
-    return {
-        finishHour: finishHour,
-        finishMin: finishMin
-    };
-};
-
-// this function expect hours and mins and
-// return time in minutes
-var calcMins = exports.calcMins = function calcMins(hours, mins) {
-    return hours * 60 + mins;
-};
-
-// get startTime and finishTime and 
-// calculate time schedule Time
-var getScheduleTime = exports.getScheduleTime = function getScheduleTime() {
-    var startHour = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-    var finishHour = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 24;
-
-    var schedule = [];
-    for (var i = startHour; i <= finishHour; ++i) {
-        schedule.push(i);
-    }
-    return schedule;
-};
-
-// convert 24 hours to 12 hours
-var get12HoursFrom24Hours = exports.get12HoursFrom24Hours = function get12HoursFrom24Hours(twentyFourHour) {
-    return twentyFourHour - 12;
-};
-
-// convert 12 hours to 12 o'clock hours
-var get24HoursFrom12Hours = exports.get24HoursFrom12Hours = function get24HoursFrom12Hours(hour) {
-    return hour + 12;
-};
-
-// get hour, minutes, timeFormat and meridien
-// and return time in proper format
-var getTimeDependsOnTimeFormat = exports.getTimeDependsOnTimeFormat = function getTimeDependsOnTimeFormat(hour, min, timeFormat, meridien) {
-    console.log('hour in getTimeDependsOnTimeFormat', hour);
-    var displayTime = void 0;
-    if (timeFormat === 12) {
-        if (meridien === 'a.m') {
-            if (hour === '00' && min === '00') displayTime = '12:' + min + ' ' + meridien;else if (hour === '12' && min === '00') {
-                displayTime = hour + ':' + min + ' p.m';
-            } else {
-                displayTime = hour + ':' + min + ' ' + meridien;
-            }
-        }
-        if (meridien === 'p.m') {
-            if (hour === '12' && min === '00') displayTime = hour + ':' + min + ' ' + meridien;else if (hour === '24' && min === '00') displayTime = '12:' + min + ' a.m';else {
-                var displayHour = get12HoursFrom24Hours(hour);
-                console.log('displayHour', displayHour);
-                if (displayHour < 10) {
-                    displayTime = '0' + displayHour + ':' + min + ' ' + meridien;
-                } else {
-                    displayTime = displayHour + ':' + min + ' ' + meridien;
-                }
-            }
-        }
-    }
-    if (timeFormat === 24) {
-        displayTime = hour + ':' + min;
-    }
-    return displayTime;
 };
 
 /***/ }),
@@ -4845,7 +4845,7 @@ module.exports = ReactBrowserEventEmitter;
 
 
 
-var SyntheticUIEvent = __webpack_require__(29);
+var SyntheticUIEvent = __webpack_require__(30);
 var ViewportMetrics = __webpack_require__(92);
 
 var getEventModifierState = __webpack_require__(56);
@@ -6801,7 +6801,7 @@ module.exports = ReactErrorUtils;
 var _prodInvariant = __webpack_require__(3);
 
 var ReactCurrentOwner = __webpack_require__(15);
-var ReactInstanceMap = __webpack_require__(28);
+var ReactInstanceMap = __webpack_require__(29);
 var ReactInstrumentation = __webpack_require__(13);
 var ReactUpdates = __webpack_require__(14);
 
@@ -7748,7 +7748,7 @@ var _prodInvariant = __webpack_require__(20);
 var ReactNoopUpdateQueue = __webpack_require__(63);
 
 var canDefineProperty = __webpack_require__(38);
-var emptyObject = __webpack_require__(25);
+var emptyObject = __webpack_require__(26);
 var invariant = __webpack_require__(1);
 var warning = __webpack_require__(2);
 
@@ -10303,14 +10303,14 @@ var ReactDOMComponentTree = __webpack_require__(6);
 var ReactDOMContainerInfo = __webpack_require__(204);
 var ReactDOMFeatureFlags = __webpack_require__(206);
 var ReactFeatureFlags = __webpack_require__(86);
-var ReactInstanceMap = __webpack_require__(28);
+var ReactInstanceMap = __webpack_require__(29);
 var ReactInstrumentation = __webpack_require__(13);
 var ReactMarkupChecksum = __webpack_require__(226);
 var ReactReconciler = __webpack_require__(23);
 var ReactUpdateQueue = __webpack_require__(53);
 var ReactUpdates = __webpack_require__(14);
 
-var emptyObject = __webpack_require__(25);
+var emptyObject = __webpack_require__(26);
 var instantiateReactComponent = __webpack_require__(97);
 var invariant = __webpack_require__(1);
 var setInnerHTML = __webpack_require__(37);
@@ -13979,7 +13979,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(7);
 
-var _timeCalc = __webpack_require__(31);
+var _timeCalc = __webpack_require__(25);
 
 var _vars = __webpack_require__(161);
 
@@ -14087,12 +14087,22 @@ var CreateTaskForm = function (_React$Component) {
 
             var _props$taskInfo = this.props.taskInfo,
                 startTimeHours = _props$taskInfo.startTimeHours,
-                startTimeMinutes = _props$taskInfo.startTimeMinutes;
+                startTimeMinutes = _props$taskInfo.startTimeMinutes,
+                tasks = _props$taskInfo.tasks;
             var _props$preferences = this.props.preferences,
                 meridien = _props$preferences.meridien,
                 timeFormat = _props$preferences.timeFormat;
+            // to display time in proper format
 
             var displayTime = (0, _timeCalc.getTimeDependsOnTimeFormat)(startTimeHours, startTimeMinutes, timeFormat, meridien);
+
+            var tasksStartsAfterStartTime = (0, _timeCalc.getTasksStartsAfterStartTime)(tasks);
+            // get min tasks that starts after start time
+            // to calculate possible duration
+            var minTask = (0, _timeCalc.getMinTask)(tasksStartsAfterStartTime);
+            var maxTaskHours = minTask.startTimeHours;
+            var maxTaskMinutes = minTask.startTimeMinutes;
+
             var hours = _vars.twentyFourHours.map(function (hour, i) {
                 var stringHour = 'hours';
                 if (hour == 1) stringHour = 'hour';
@@ -14733,9 +14743,9 @@ var _redux = __webpack_require__(9);
 
 var _reactRedux = __webpack_require__(7);
 
-var _timeCalc = __webpack_require__(31);
+var _timeCalc = __webpack_require__(25);
 
-var _preferencesAction = __webpack_require__(30);
+var _preferencesAction = __webpack_require__(31);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14914,7 +14924,7 @@ var _redux = __webpack_require__(9);
 
 var _reactRedux = __webpack_require__(7);
 
-var _preferencesAction = __webpack_require__(30);
+var _preferencesAction = __webpack_require__(31);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15055,7 +15065,7 @@ var _redux = __webpack_require__(9);
 
 var _reactRedux = __webpack_require__(7);
 
-var _preferencesAction = __webpack_require__(30);
+var _preferencesAction = __webpack_require__(31);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15424,7 +15434,7 @@ var _taskAction = __webpack_require__(21);
 
 var _slotAction = __webpack_require__(41);
 
-var _timeCalc = __webpack_require__(31);
+var _timeCalc = __webpack_require__(25);
 
 var _Slot = __webpack_require__(142);
 
@@ -16213,7 +16223,7 @@ var _redux = __webpack_require__(9);
 
 var _reactRedux = __webpack_require__(7);
 
-var _preferencesAction = __webpack_require__(30);
+var _preferencesAction = __webpack_require__(31);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -16398,7 +16408,7 @@ var _reactRedux = __webpack_require__(7);
 
 var _daysAction = __webpack_require__(40);
 
-var _timeCalc = __webpack_require__(31);
+var _timeCalc = __webpack_require__(25);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -16508,7 +16518,7 @@ var _Task2 = _interopRequireDefault(_Task);
 
 var _taskAction = __webpack_require__(21);
 
-var _timeCalc = __webpack_require__(31);
+var _timeCalc = __webpack_require__(25);
 
 var _sort = __webpack_require__(160);
 
@@ -18925,7 +18935,7 @@ module.exports = AutoFocusUtils;
 
 
 
-var EventPropagators = __webpack_require__(27);
+var EventPropagators = __webpack_require__(28);
 var ExecutionEnvironment = __webpack_require__(8);
 var FallbackCompositionState = __webpack_require__(197);
 var SyntheticCompositionEvent = __webpack_require__(240);
@@ -19530,8 +19540,8 @@ module.exports = CSSPropertyOperations;
 
 
 
-var EventPluginHub = __webpack_require__(26);
-var EventPropagators = __webpack_require__(27);
+var EventPluginHub = __webpack_require__(27);
+var EventPropagators = __webpack_require__(28);
 var ExecutionEnvironment = __webpack_require__(8);
 var ReactDOMComponentTree = __webpack_require__(6);
 var ReactUpdates = __webpack_require__(14);
@@ -19966,7 +19976,7 @@ module.exports = DefaultEventPluginOrder;
 
 
 
-var EventPropagators = __webpack_require__(27);
+var EventPropagators = __webpack_require__(28);
 var ReactDOMComponentTree = __webpack_require__(6);
 var SyntheticMouseEvent = __webpack_require__(34);
 
@@ -20614,7 +20624,7 @@ var React = __webpack_require__(24);
 var ReactComponentEnvironment = __webpack_require__(51);
 var ReactCurrentOwner = __webpack_require__(15);
 var ReactErrorUtils = __webpack_require__(52);
-var ReactInstanceMap = __webpack_require__(28);
+var ReactInstanceMap = __webpack_require__(29);
 var ReactInstrumentation = __webpack_require__(13);
 var ReactNodeTypes = __webpack_require__(90);
 var ReactReconciler = __webpack_require__(23);
@@ -20623,7 +20633,7 @@ if (process.env.NODE_ENV !== 'production') {
   var checkReactTypeSpec = __webpack_require__(249);
 }
 
-var emptyObject = __webpack_require__(25);
+var emptyObject = __webpack_require__(26);
 var invariant = __webpack_require__(1);
 var shallowEqual = __webpack_require__(42);
 var shouldUpdateReactComponent = __webpack_require__(59);
@@ -21643,7 +21653,7 @@ var DOMLazyTree = __webpack_require__(22);
 var DOMNamespaces = __webpack_require__(47);
 var DOMProperty = __webpack_require__(17);
 var DOMPropertyOperations = __webpack_require__(82);
-var EventPluginHub = __webpack_require__(26);
+var EventPluginHub = __webpack_require__(27);
 var EventPluginRegistry = __webpack_require__(32);
 var ReactBrowserEventEmitter = __webpack_require__(33);
 var ReactDOMComponentFlags = __webpack_require__(83);
@@ -24741,7 +24751,7 @@ module.exports = REACT_ELEMENT_TYPE;
 
 
 
-var EventPluginHub = __webpack_require__(26);
+var EventPluginHub = __webpack_require__(27);
 
 function runEventQueueInBatch(events) {
   EventPluginHub.enqueueEvents(events);
@@ -24979,7 +24989,7 @@ module.exports = ReactHostOperationHistoryHook;
 
 
 var DOMProperty = __webpack_require__(17);
-var EventPluginHub = __webpack_require__(26);
+var EventPluginHub = __webpack_require__(27);
 var EventPluginUtils = __webpack_require__(48);
 var ReactComponentEnvironment = __webpack_require__(51);
 var ReactEmptyComponent = __webpack_require__(85);
@@ -25118,7 +25128,7 @@ module.exports = ReactMarkupChecksum;
 var _prodInvariant = __webpack_require__(3);
 
 var ReactComponentEnvironment = __webpack_require__(51);
-var ReactInstanceMap = __webpack_require__(28);
+var ReactInstanceMap = __webpack_require__(29);
 var ReactInstrumentation = __webpack_require__(13);
 
 var ReactCurrentOwner = __webpack_require__(15);
@@ -26547,7 +26557,7 @@ module.exports = SVGDOMPropertyConfig;
 
 
 
-var EventPropagators = __webpack_require__(27);
+var EventPropagators = __webpack_require__(28);
 var ExecutionEnvironment = __webpack_require__(8);
 var ReactDOMComponentTree = __webpack_require__(6);
 var ReactInputSelection = __webpack_require__(88);
@@ -26747,7 +26757,7 @@ module.exports = SelectEventPlugin;
 var _prodInvariant = __webpack_require__(3);
 
 var EventListener = __webpack_require__(74);
-var EventPropagators = __webpack_require__(27);
+var EventPropagators = __webpack_require__(28);
 var ReactDOMComponentTree = __webpack_require__(6);
 var SyntheticAnimationEvent = __webpack_require__(238);
 var SyntheticClipboardEvent = __webpack_require__(239);
@@ -26758,7 +26768,7 @@ var SyntheticMouseEvent = __webpack_require__(34);
 var SyntheticDragEvent = __webpack_require__(241);
 var SyntheticTouchEvent = __webpack_require__(245);
 var SyntheticTransitionEvent = __webpack_require__(246);
-var SyntheticUIEvent = __webpack_require__(29);
+var SyntheticUIEvent = __webpack_require__(30);
 var SyntheticWheelEvent = __webpack_require__(247);
 
 var emptyFunction = __webpack_require__(12);
@@ -27146,7 +27156,7 @@ module.exports = SyntheticDragEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(29);
+var SyntheticUIEvent = __webpack_require__(30);
 
 /**
  * @interface FocusEvent
@@ -27229,7 +27239,7 @@ module.exports = SyntheticInputEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(29);
+var SyntheticUIEvent = __webpack_require__(30);
 
 var getEventCharCode = __webpack_require__(55);
 var getEventKey = __webpack_require__(253);
@@ -27318,7 +27328,7 @@ module.exports = SyntheticKeyboardEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(29);
+var SyntheticUIEvent = __webpack_require__(30);
 
 var getEventModifierState = __webpack_require__(56);
 
@@ -27702,7 +27712,7 @@ var _prodInvariant = __webpack_require__(3);
 
 var ReactCurrentOwner = __webpack_require__(15);
 var ReactDOMComponentTree = __webpack_require__(6);
-var ReactInstanceMap = __webpack_require__(28);
+var ReactInstanceMap = __webpack_require__(29);
 
 var getHostComponentFromComposite = __webpack_require__(95);
 var invariant = __webpack_require__(1);
@@ -29206,7 +29216,7 @@ var ReactElement = __webpack_require__(19);
 var ReactPropTypeLocationNames = __webpack_require__(107);
 var ReactNoopUpdateQueue = __webpack_require__(63);
 
-var emptyObject = __webpack_require__(25);
+var emptyObject = __webpack_require__(26);
 var invariant = __webpack_require__(1);
 var warning = __webpack_require__(2);
 
@@ -30154,7 +30164,7 @@ var _assign = __webpack_require__(5);
 var ReactComponent = __webpack_require__(62);
 var ReactNoopUpdateQueue = __webpack_require__(63);
 
-var emptyObject = __webpack_require__(25);
+var emptyObject = __webpack_require__(26);
 
 /**
  * Base class helpers for the updating state of a component.
