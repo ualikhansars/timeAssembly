@@ -74,7 +74,6 @@ export const get24HoursFrom12Hours = (hour) => {
 // get hour, minutes, timeFormat and meridien
 // and return time in proper format
 export const getTimeDependsOnTimeFormat = (hour, min, timeFormat, meridien) => {
-    console.log('hour in getTimeDependsOnTimeFormat', hour);
     let displayTime;
     if(timeFormat === 12) {
         if(meridien === 'a.m') {
@@ -104,4 +103,31 @@ export const getTimeDependsOnTimeFormat = (hour, min, timeFormat, meridien) => {
         displayTime = hour + ':' + min;
     }
     return displayTime;
+}
+
+// get start and finish time and calculate
+// duration in minutes
+export const getDurationInMins = (startHour, startMin, finishHour, finishMin) => {
+    let hour = finishHour - startHour;
+    let mins = finishMin - startMin;
+    return (hour * 60) + mins;
+}
+
+export const calcPossibleHoursAndMins = (duration, chosenHours, chosenMins) => {
+    let possibleMinsDuration = duration - (chosenHours * 60);
+    let possibleMins;
+    if(possibleMinsDuration >= 45) possibleMins = 45;
+    else if(possibleMinsDuration < 45 && possibleMinsDuration >= 30) possibleMins = 30;
+    else if(possibleMinsDuration < 30 && possibleMinsDuration >= 15) possibleMins = 15;
+    else {
+        possibleMins = 0;
+    }
+    let possibleHours = Math.floor((duration - chosenMins) / 60);
+    console.log('duration', duration);
+    console.log('possibleMinsDuration', possibleMinsDuration)
+    console.log('possibleMins', possibleMins);
+    return {
+        possibleHours,
+        possibleMins
+    }
 }

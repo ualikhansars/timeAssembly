@@ -5,12 +5,14 @@ import {
     calcFinishTime, 
     calcMins, 
     get12HoursFrom24Hours,
-    getTimeDependsOnTimeFormat
+    getTimeDependsOnTimeFormat,
+    getDurationInMins,
+    calcPossibleHoursAndMins
 } from '../../../utils/timeCalc';
 import {
    getTasksStartsAfterStartTime,
-   getMinTask
-} from '../../../utils/timeCalc';
+   getDueTime
+} from '../../../utils/taskCalc';
 import {twentyFourHours, mins} from '../../../utils/vars';
 
 class CreateTaskForm extends React.Component {
@@ -93,25 +95,32 @@ class CreateTaskForm extends React.Component {
     
     render() {
         let {startTimeHours, startTimeMinutes, tasks} = this.props.taskInfo;
+        console.log('tasks', tasks);
         let {meridien, timeFormat} = this.props.preferences;
         // to display time in proper format
         let displayTime = getTimeDependsOnTimeFormat(startTimeHours, startTimeMinutes, timeFormat, meridien);
 
-        let tasksStartsAfterStartTime = getTasksStartsAfterStartTime(tasks);
+        let tasksStartsAfterStartTime = getTasksStartsAfterStartTime(startTimeHours, startTimeMinutes, tasks);
         // get min tasks that starts after start time
         // to calculate possible duration
-        let minTask = getMinTask(tasksStartsAfterStartTime);
-        let maxTaskHours = minTask.startTimeHours;
-        let maxTaskMinutes = minTask.startTimeMinutes; 
-         
-        let hours = twentyFourHours.map((hour, i) => {
+        let {dueHours, dueMins} = getDueTime(tasksStartsAfterStartTime);
+        let possibleDurationInMins = getDurationInMins(startTimeHours, startTimeMinutes, dueHours, dueMins);
+        let {possibleHours, possibleMins} = calcPossibleHoursAndMins(possibleDurationInMins, this.state.durationHours, this.state.durationMins);
+        
+        let hours = [];
+        let minutes = [];
+        for(let hour = 0; hour <= possibleHours; ++hour) {
             let stringHour = 'hours';
             if(hour == 1) stringHour = 'hour';
-            return <option value={hour} key={i}>{hour} {stringHour}</option> 
-        });
-        let minutes = mins.map((min, i) => {
-            return <option value={min} key={i}>{min} minutes</option> 
-        });
+            hours.push(
+                <option value={hour} key={hour}>{hour} {stringHour}</option> 
+            ); 
+        }
+        for(let min = 0; min <= possibleMins; min += 15) {
+            minutes.push(
+                <option value={min} key={min}>{min} minutes</option> 
+            );
+        }
         return (
              <div className="slots-form">
                      <h2>{this.state.title}</h2>
