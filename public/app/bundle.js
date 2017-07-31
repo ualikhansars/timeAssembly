@@ -5557,6 +5557,9 @@ var onClickTime = exports.onClickTime = function onClickTime(hour, min) {
             startTimeHours: hour,
             startTimeMinutes: min
         });
+        dispatch({
+            type: 'HIDE_TASK_FORMS'
+        });
         return dispatch({
             type: 'DISPLAY_SLOTS'
         });
