@@ -145,7 +145,9 @@ class TwentyFourHours extends React.Component {
                         for(let i = 0; i < updatedTasks.length; ++i) { 
                             // check if task' startTime equal to iteration hour and minites
                             // then add Task with same startHour instead of time Component
-                            if(hour === updatedTasks[i].startTimeHours && min === updatedTasks[i].startTimeMinutes) {
+                            // if 12 o'clock hours was chosen and task starts before 12 and finishes after 12
+                            // it should be displayed after noon
+                            if(hour === updatedTasks[i].startTimeHours && min === updatedTasks[i].startTimeMinutes || timeFormat === 12 && meridien === 'p.m' && updatedTasks[i].startTimeHours < 12 && updatedTasks[i].finishTimeHours > 12) {
                                 property = {
                                     title: updatedTasks[i].title,
                                     category: updatedTasks[i].category,
