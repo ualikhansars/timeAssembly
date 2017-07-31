@@ -153,7 +153,9 @@ class TwentyFourHours extends React.Component {
             
             for(hour = startTime; hour <= finishTime; ++hour) { // every hour
                 for(let min = 0; min < 60; min += 15) { // every 15 minutes
-                    if(hour === 24 && min !== 0) break; // if time more that 24:00 return from the loop
+                    console.error('finishTime', finishTime);
+                    if(hour === finishTime && min !== 0) break; // do not display mins after finishTime
+                    //if(hour === 24 && min !== 0) break; // if time more that 24:00 return from the loop
                     if(timeFormat === 12 && meridien === 'a.m' && hour === 12 && min !== 0) break; // time is more than 12:00 for 12 hours format
                     if(updatedTasks.length > 0) {
                         for(let i = 0; i < updatedTasks.length; ++i) { 
