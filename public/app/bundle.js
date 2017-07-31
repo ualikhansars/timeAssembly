@@ -4249,7 +4249,7 @@ var changeMeridienToPM = exports.changeMeridienToPM = function changeMeridienToP
     return function (dispatch) {
         dispatch({
             type: 'CHANGE_MERIDIEN_TO_PM',
-            meridien: 'a.m'
+            meridien: 'p.m'
         });
         return dispatch({
             type: 'RESET_ADD_TASK'
@@ -16725,10 +16725,10 @@ var TwentyFourHours = function (_React$Component) {
                     // every hour
                     for (var _min = 0; _min < 60; _min += 15) {
                         // every 15 minutes
-                        console.error('inside min for loop, before tasks: hour = ', hour + ':' + _min);
-                        console.log('taskAdded before tasks', taskAdded);
+                        // console.error('inside min for loop, before tasks: hour = ', hour+':'+min);
+                        // console.log('taskAdded before tasks', taskAdded);
                         if (hour === 24 && _min !== 0) break; // if time more that 24:00 return from the loop
-                        if (timeFormat === 12 && hour === 12 && _min !== 0) break; // time is more than 12:00 for 12 hours format
+                        if (timeFormat === 12 && meridien === 'a.m' && hour === 12 && _min !== 0) break; // time is more than 12:00 for 12 hours format
                         if (updatedTasks.length > 0) {
                             for (var i = 0; i < updatedTasks.length; ++i) {
                                 // check if task' startTime equal to iteration hour and minites
@@ -16751,13 +16751,14 @@ var TwentyFourHours = function (_React$Component) {
                                     index++;
                                     taskAdded = true;
                                     taskMin = _min; // save task startTime
-                                    console.log('task is equal to hour');
+                                    // console.log('task is equal to hour');
 
                                     var _calcFinishTime = (0, _timeCalc.calcFinishTime)(hour, taskMin, property.duration),
                                         finishHour = _calcFinishTime.finishHour,
                                         finishMin = _calcFinishTime.finishMin;
+                                    // console.log('finish hour', finishHour + ':' + finishMin);
 
-                                    console.log('finish hour', finishHour + ':' + finishMin);
+
                                     taskFinishHour = finishHour; // save finish Time of particular task
                                     taskFinishMin = finishMin;
                                     // go to 15 minutes back to display finish time
@@ -16769,26 +16770,26 @@ var TwentyFourHours = function (_React$Component) {
                                         // if finishMin is equal to 0, then descrese hour
                                         if (finishMin === 0) finishHour--;
                                         hour = finishHour;
-                                        console.log('finHour > hour, hour and mins', hour + ':' + _min);
-                                        console.log('taskAdded', taskAdded);
+                                        // console.log('finHour > hour, hour and mins', hour + ':'+min);
+                                        // console.log('taskAdded', taskAdded);
                                         updatedTasks.splice(i, 1);
                                         break;
                                     }
                                     hour = finishHour;
                                     updatedTasks.splice(i, 1); // delete added task from updated tasks
-                                    console.log('hour and mins', hour + ':' + _min);
-                                    console.log('taskAdded', taskAdded);
+                                    // console.log('hour and mins', hour + ':'+min);
+                                    // console.log('taskAdded', taskAdded);
                                     break;
                                     // continue;
                                 }
                             } // end tasks for loop
                             if (!taskAdded) {
-                                console.log('task not added');
+                                // console.log('task not added');
                                 timetable = this.addTimeInterval(timetable, hour, _min, index, timeInterval, meridien);
                                 index++;
                             }
                         } else {
-                            console.error('task is less than 0');
+                            // console.error('task is less than 0');
                             // prevent adding tasks than ends after 24:00
                             if (taskFinishHour === 24 && taskFinishMin === 0) {
                                 break;

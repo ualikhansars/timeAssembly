@@ -137,10 +137,10 @@ class TwentyFourHours extends React.Component {
             
             for(hour = startTime; hour <= finishTime; ++hour) { // every hour
                 for(let min = 0; min < 60; min += 15) { // every 15 minutes
-                    console.error('inside min for loop, before tasks: hour = ', hour+':'+min);
-                    console.log('taskAdded before tasks', taskAdded);
+                    // console.error('inside min for loop, before tasks: hour = ', hour+':'+min);
+                    // console.log('taskAdded before tasks', taskAdded);
                     if(hour === 24 && min !== 0) break; // if time more that 24:00 return from the loop
-                    if(timeFormat === 12 && hour === 12 && min !== 0) break; // time is more than 12:00 for 12 hours format
+                    if(timeFormat === 12 && meridien === 'a.m' && hour === 12 && min !== 0) break; // time is more than 12:00 for 12 hours format
                     if(updatedTasks.length > 0) {
                         for(let i = 0; i < updatedTasks.length; ++i) { 
                             // check if task' startTime equal to iteration hour and minites
@@ -165,9 +165,9 @@ class TwentyFourHours extends React.Component {
                                 index++;
                                 taskAdded = true; 
                                 taskMin = min; // save task startTime
-                                console.log('task is equal to hour');
+                                // console.log('task is equal to hour');
                                 let {finishHour, finishMin} = calcFinishTime(hour, taskMin, property.duration);
-                                console.log('finish hour', finishHour + ':' + finishMin);
+                                // console.log('finish hour', finishHour + ':' + finishMin);
                                 taskFinishHour = finishHour; // save finish Time of particular task
                                 taskFinishMin = finishMin;
                                 // go to 15 minutes back to display finish time
@@ -179,26 +179,26 @@ class TwentyFourHours extends React.Component {
                                     // if finishMin is equal to 0, then descrese hour
                                     if(finishMin === 0) finishHour--; 
                                     hour = finishHour;
-                                    console.log('finHour > hour, hour and mins', hour + ':'+min);
-                                    console.log('taskAdded', taskAdded);
+                                    // console.log('finHour > hour, hour and mins', hour + ':'+min);
+                                    // console.log('taskAdded', taskAdded);
                                     updatedTasks.splice(i, 1);
                                     break;
                                 }
                                 hour = finishHour;
                                 updatedTasks.splice(i, 1); // delete added task from updated tasks
-                                console.log('hour and mins', hour + ':'+min);
-                                console.log('taskAdded', taskAdded);
+                                // console.log('hour and mins', hour + ':'+min);
+                                // console.log('taskAdded', taskAdded);
                                 break;
                                 // continue;
                             } 
                         } // end tasks for loop
                         if(!taskAdded) {
-                            console.log('task not added');
+                            // console.log('task not added');
                             timetable = this.addTimeInterval(timetable, hour, min, index, timeInterval, meridien);
                             index++;
                         }
                     } else {
-                            console.error('task is less than 0');
+                            // console.error('task is less than 0');
                             // prevent adding tasks than ends after 24:00
                             if(taskFinishHour === 24 && taskFinishMin === 0) { 
                                 break;

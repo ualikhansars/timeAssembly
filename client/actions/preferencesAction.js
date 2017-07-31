@@ -72,7 +72,7 @@ export const changeMeridienToPM = () => {
     return dispatch => {
         dispatch({
             type: 'CHANGE_MERIDIEN_TO_PM',
-            meridien: 'a.m'
+            meridien: 'p.m'
         });
         return dispatch({
             type: 'RESET_ADD_TASK'
