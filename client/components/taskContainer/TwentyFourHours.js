@@ -153,7 +153,6 @@ class TwentyFourHours extends React.Component {
             
             for(hour = startTime; hour <= finishTime; ++hour) { // every hour
                 for(let min = 0; min < 60; min += 15) { // every 15 minutes
-                    console.error('finishTime', finishTime);
                     if(hour === finishTime && min !== 0) break; // do not display mins after finishTime
                     //if(hour === 24 && min !== 0) break; // if time more that 24:00 return from the loop
                     if(timeFormat === 12 && meridien === 'a.m' && hour === 12 && min !== 0) break; // time is more than 12:00 for 12 hours format
@@ -164,16 +163,18 @@ class TwentyFourHours extends React.Component {
                             // if 12 o'clock hours was chosen and task starts before 12 and finishes after 12
                             // it should be displayed after noon
                             if(hour === updatedTasks[i].startTimeHours && min === updatedTasks[i].startTimeMinutes || timeFormat === 12 && meridien === 'p.m' && updatedTasks[i].startTimeHours < 12 && updatedTasks[i].finishTimeHours > startTime) {
+                                console.error('updatedTask', updatedTasks[i]);
                                 property = this.addPropertyToTask(updatedTasks[i]);
                                 timetable.push(
                                     <Task onClickUpdate={this.props.onClickUpdateTask} property={property} removeTask={this.props.removeTask} key={index}/>
                                 );
                                 index++;
                                 taskAdded = true; 
-                                taskMin = min; // save task startTime
-                                let {finishHour, finishMin} = calcFinishTime(hour, taskMin, property.duration);
+                                //taskMin = min; // save task startTime
+                                let {finishHour, finishMin} = calcFinishTime(property.startTimeHours, property.startTimeMinutes, property.duration);
                                 taskFinishHour = finishHour; // save finish Time of particular task
                                 taskFinishMin = finishMin;
+                                console.log('task finish time', taskFinishHour + ':' + taskFinishMin);
                                 // go to 15 minutes back to display finish time
                                 if(finishMin === 0) min = 45;
                                 if(finishMin === 15) min = 0;
