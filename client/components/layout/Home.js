@@ -5,7 +5,7 @@ import Sidebar from '../sidebar/Sidebar';
 import TaskContainer from '../taskContainer/TaskContainer'; 
 
 
-export class Home extends React.Component {
+class Home extends React.Component {
     render() {
         return(
             <div className="container-fluid">
@@ -29,3 +29,5 @@ export class Home extends React.Component {
         )
     }
 }
+
+export default Home;
