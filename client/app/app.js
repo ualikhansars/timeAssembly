@@ -5,8 +5,6 @@ import store from './store';
 
 import Home from './components/layout/Home';
 
-
-
 ReactDOM.render(
     <Provider store={store}>
         <Home/>

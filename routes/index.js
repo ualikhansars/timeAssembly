@@ -7,16 +7,12 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/createTask', function(req, res, next) {
-  res.render('createTask', {});
+router.get('/signup', function(req, res, next) {
+  res.render('signup', {});
 });
 
-router.get('/createSlot', function(req, res, next) {
-  res.render('createSlot', {});
-});
-
-router.get('/createUser', function(req, res, next) {
-  res.render('createUser', {});
+router.get('/signin', function(req, res, next) {
+  res.render('signin', {});
 });
 
 module.exports = router;

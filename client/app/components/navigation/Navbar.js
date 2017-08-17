@@ -16,7 +16,7 @@ class Navbar extends React.Component {
                     </ul>  
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
-                    <a href="#">Sign Up</a>
+                    <a href="/signup">Sign Up</a>
                     </li> 
                 </ul>
             </div>

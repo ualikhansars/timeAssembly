@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var expressHbs = require('express-handlebars');
 
 // establish database connection
 var dbUrl = 'mongodb://localhost/timetable';
@@ -24,7 +25,7 @@ var api = require('./routes/api');
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
 app.set('view engine', 'hbs');
 
 // uncomment after placing your favicon in /public

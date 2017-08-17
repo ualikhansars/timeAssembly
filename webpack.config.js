@@ -5,10 +5,13 @@ var DIST_DIR = path.resolve(__dirname, "public");
 var SRC_DIR = path.resolve(__dirname, "client");
  
 module.exports = {
-  entry: SRC_DIR + '/app.js',
+  entry: {
+    app: SRC_DIR + '/app/app.js',
+    registration: SRC_DIR + '/registration/index.js'
+  },
   output: { 
       path: DIST_DIR + '/app/', 
-      filename: 'bundle.js',
+      filename: '[name].js',
       publicPath: "/public/"
      },
   module: {
