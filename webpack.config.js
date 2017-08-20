@@ -7,7 +7,8 @@ var SRC_DIR = path.resolve(__dirname, "client");
 module.exports = {
   entry: {
     app: SRC_DIR + '/app/app.js',
-    registration: SRC_DIR + '/registration/index.js'
+    registration: SRC_DIR + '/registration/index.js',
+    login: SRC_DIR + '/login/index.js'
   },
   output: { 
       path: DIST_DIR + '/app/', 
