@@ -3,6 +3,7 @@ var router = express.Router();
 var controllers = require('../controllers');
 var Task = require('../models/task');
 var Slot = require('../models/slot');
+
 // find all
 router.get('/:resource', function(req, res, next) {
   var resource = req.params.resource;
@@ -67,6 +68,7 @@ router.post('/:resource', function(req, res, next) {
   var controller = controllers[resource];
 
   if(controller == null) {
+    console.log('controller == null');
     res.json({
       confirmation: 'failed',
       message: 'Invalid resource request ' + resource
