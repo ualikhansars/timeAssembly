@@ -27,7 +27,8 @@ class SignUpForm extends React.Component {
                 email: this.state.email,
                 password: this.state.password
         });
-        axios.post('/api/user', userData);
+        axios.post('/api/user', userData)
+        .then(res => console.log(res));
         console.log(this.state);
     }
 

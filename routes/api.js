@@ -68,7 +68,6 @@ router.post('/:resource', function(req, res, next) {
   var controller = controllers[resource];
 
   if(controller == null) {
-    console.log('controller == null');
     res.json({
       confirmation: 'failed',
       message: 'Invalid resource request ' + resource
@@ -77,6 +76,19 @@ router.post('/:resource', function(req, res, next) {
   }
 
   controller.create(req.body, function(err, result) {
+    // user validation
+    if(resource == 'user') {
+      req.checkBody('email', 'email is required').notEmpty()
+      req.checkBody('email', 'enter correct email address').isEmail();
+      req.checkBody('password', 'passport is required').notEmpty();
+      req.checkBody('password', 'password cannot be less than 4 characters').isLength({min: 4});
+      req.checkBody('password', 'passwords do not match').equals(req.body.passwordConfirmation);
+
+      var errors = req.validationErrors();
+
+      console.log('errors', errors);
+
+    }
     if(err) {
       res.json({
         confirmation: 'failed',
