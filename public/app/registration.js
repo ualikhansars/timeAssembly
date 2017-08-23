@@ -23698,6 +23698,10 @@ var _axios = __webpack_require__(192);
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _classnames = __webpack_require__(295);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -23719,7 +23723,8 @@ var SignUpForm = function (_React$Component) {
         _this.state = {
             email: '',
             password: '',
-            passwordConfirmation: ''
+            passwordConfirmation: '',
+            errors: []
         };
         return _this;
     }
@@ -23732,16 +23737,46 @@ var SignUpForm = function (_React$Component) {
     }, {
         key: 'onSubmit',
         value: function onSubmit(e) {
+            var _this2 = this;
+
             e.preventDefault();
+            this.setState({
+                errors: []
+            });
             var userData = Object.assign({}, this.state);
             _axios2.default.post('/api/user', userData).then(function (res) {
-                return console.log(res);
+                console.log('res', res);
+                if (res.data.confirmation === 'validation error') {
+                    _this2.setState({
+                        errors: res.data.errors
+                    });
+                }
+                console.log('state', _this2.state);
             });
-            console.log(this.state);
         }
     }, {
         key: 'render',
         value: function render() {
+            var errors = this.state.errors;
+            var emailErrors = null;
+            var passwordErrors = null;
+            var passwordConfirmationErrors = null;
+            var emailErrorMsg = void 0,
+                passwordErrorMsg = void 0,
+                passwordConfirmationErrorMsg = void 0;
+            errors.map(function (val) {
+                if (val.param === 'email') emailErrors = val;
+                if (val.param === 'password') passwordErrors = val;
+                if (val.param === 'passwordConfirmation') passwordConfirmationErrors = val;
+            });
+
+            if (emailErrors) emailErrorMsg = emailErrors.msg;
+            if (passwordErrors) passwordErrorMsg = passwordErrors.msg;
+            if (passwordConfirmationErrors) passwordConfirmationErrorMsg = passwordConfirmationErrors.msg;
+
+            console.log('emailErrors', emailErrors);
+            console.log('passwordErrors', passwordErrors);
+            console.log('passwordConfirmationErrors', passwordConfirmationErrors);
             return _react2.default.createElement(
                 'form',
                 { onSubmit: this.onSubmit.bind(this) },
@@ -23752,10 +23787,10 @@ var SignUpForm = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'form-group' },
+                    { className: (0, _classnames2.default)("form-group", { "has-danger": emailErrorMsg }) },
                     _react2.default.createElement(
                         'label',
-                        { className: 'control-label' },
+                        { className: 'form-control-label' },
                         'Email'
                     ),
                     _react2.default.createElement('input', {
@@ -23763,15 +23798,16 @@ var SignUpForm = function (_React$Component) {
                         onChange: this.onChange.bind(this),
                         type: 'text',
                         name: 'email',
-                        className: 'form-control'
-                    })
+                        className: (0, _classnames2.default)("form-control", { "form-control-danger": passwordConfirmationErrorMsg })
+                    }),
+                    emailErrorMsg
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'form-group' },
+                    { className: (0, _classnames2.default)("form-group", { "has-danger": passwordErrorMsg }) },
                     _react2.default.createElement(
                         'label',
-                        { className: 'control-label' },
+                        { className: 'form-control-label' },
                         'Password'
                     ),
                     _react2.default.createElement('input', {
@@ -23779,15 +23815,16 @@ var SignUpForm = function (_React$Component) {
                         onChange: this.onChange.bind(this),
                         type: 'password',
                         name: 'password',
-                        className: 'form-control'
-                    })
+                        className: (0, _classnames2.default)("form-control", { "form-control-danger": passwordConfirmationErrorMsg })
+                    }),
+                    passwordErrorMsg
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'form-group' },
+                    { className: (0, _classnames2.default)("form-group", { "has-danger": passwordConfirmationErrorMsg }) },
                     _react2.default.createElement(
                         'label',
-                        { className: 'control-label' },
+                        { className: 'form-control-label' },
                         'Password confirmation'
                     ),
                     _react2.default.createElement('input', {
@@ -23795,8 +23832,9 @@ var SignUpForm = function (_React$Component) {
                         onChange: this.onChange.bind(this),
                         type: 'password',
                         name: 'passwordConfirmation',
-                        className: 'form-control'
-                    })
+                        className: (0, _classnames2.default)("form-control", { "form-control-danger": passwordConfirmationErrorMsg })
+                    }),
+                    passwordConfirmationErrorMsg
                 ),
                 _react2.default.createElement(
                     'div',
@@ -23867,6 +23905,90 @@ var RegistrationApp = function (_React$Component) {
 }(_react2.default.Component);
 
 (0, _reactDom.render)(_react2.default.createElement(RegistrationApp, null), document.getElementById("registration"));
+
+/***/ }),
+/* 266 */,
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */,
+/* 273 */,
+/* 274 */,
+/* 275 */,
+/* 276 */,
+/* 277 */,
+/* 278 */,
+/* 279 */,
+/* 280 */,
+/* 281 */,
+/* 282 */,
+/* 283 */,
+/* 284 */,
+/* 285 */,
+/* 286 */,
+/* 287 */,
+/* 288 */,
+/* 289 */,
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+  Copyright (c) 2016 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var hasOwn = {}.hasOwnProperty;
+
+	function classNames () {
+		var classes = [];
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (!arg) continue;
+
+			var argType = typeof arg;
+
+			if (argType === 'string' || argType === 'number') {
+				classes.push(arg);
+			} else if (Array.isArray(arg)) {
+				classes.push(classNames.apply(null, arg));
+			} else if (argType === 'object') {
+				for (var key in arg) {
+					if (hasOwn.call(arg, key) && arg[key]) {
+						classes.push(key);
+					}
+				}
+			}
+		}
+
+		return classes.join(' ');
+	}
+
+	if (typeof module !== 'undefined' && module.exports) {
+		module.exports = classNames;
+	} else if (true) {
+		// register as 'classnames', consistent with npm package name
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+			return classNames;
+		}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {
+		window.classNames = classNames;
+	}
+}());
+
 
 /***/ })
 /******/ ]);

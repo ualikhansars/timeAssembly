@@ -75,32 +75,30 @@ router.post('/:resource', function(req, res, next) {
     return;
   }
 
-  controller.create(req.body, function(err, result) {
-    // user validation
-    if(resource == 'user') {
-      req.checkBody('email', 'email is required').notEmpty()
-      req.checkBody('email', 'enter correct email address').isEmail();
-      req.checkBody('password', 'passport is required').notEmpty();
-      req.checkBody('password', 'password cannot be less than 4 characters').isLength({min: 4});
-      req.checkBody('password', 'passwords do not match').equals(req.body.passwordConfirmation);
+  // user validation
+  if(resource == 'user') {
+    console.log('req.body', req.body);
+    req.checkBody('email', 'email is required').notEmpty()
+    req.checkBody('email', 'enter correct email address').isEmail();
+    req.checkBody('password', 'passport is required').notEmpty();
+    req.checkBody('password', 'password cannot be less than 4 characters').isLength({min: 4});
+    req.checkBody('passwordConfirmation', 'passwords do not match').equals(req.body.password);
 
-      req.getValidationResult()
-      .then(response => {
-        let errors = response.array();
-        if(errors.length > 0) {
-          res.json({
-            confirmation: 'validation error',
-            errors: errors
-          });
-          return;
-        }
+    req.getValidationResult()
+    .then(response => {
+      let errors = response.array();
+      if(errors.length > 0) {
         res.json({
-          confirmation: 'success',
-          result: result
+          confirmation: 'validation error',
+          errors: errors
         });
-      });
+      }
       return;
-    } // end of user validation
+    });
+    return;
+  } // end of user validation
+
+  controller.create(req.body, function(err, result) {
     if(err) {
       res.json({
         confirmation: 'failed',
