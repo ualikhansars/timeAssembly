@@ -84,11 +84,23 @@ router.post('/:resource', function(req, res, next) {
       req.checkBody('password', 'password cannot be less than 4 characters').isLength({min: 4});
       req.checkBody('password', 'passwords do not match').equals(req.body.passwordConfirmation);
 
-      var errors = req.validationErrors();
-
-      console.log('errors', errors);
-
-    }
+      req.getValidationResult()
+      .then(response => {
+        let errors = response.array();
+        if(errors.length > 0) {
+          res.json({
+            confirmation: 'validation error',
+            errors: errors
+          });
+          return;
+        }
+        res.json({
+          confirmation: 'success',
+          result: result
+        });
+      });
+      return;
+    } // end of user validation
     if(err) {
       res.json({
         confirmation: 'failed',

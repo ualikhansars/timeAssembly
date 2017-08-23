@@ -23717,10 +23717,6 @@ var SignUpForm = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (SignUpForm.__proto__ || Object.getPrototypeOf(SignUpForm)).call(this, props));
 
         _this.state = {
-            user: {
-                email: '',
-                password: ''
-            },
             email: '',
             password: '',
             passwordConfirmation: ''
@@ -23737,10 +23733,7 @@ var SignUpForm = function (_React$Component) {
         key: 'onSubmit',
         value: function onSubmit(e) {
             e.preventDefault();
-            var userData = Object.assign({}, this.state.user, {
-                email: this.state.email,
-                password: this.state.password
-            });
+            var userData = Object.assign({}, this.state);
             _axios2.default.post('/api/user', userData).then(function (res) {
                 return console.log(res);
             });

@@ -5,10 +5,6 @@ class SignUpForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: {
-                email: '',
-                password: ''
-            },
             email: '',
             password: '',
             passwordConfirmation: ''
@@ -23,10 +19,7 @@ class SignUpForm extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        let userData = Object.assign({}, this.state.user, {
-                email: this.state.email,
-                password: this.state.password
-        });
+        let userData = Object.assign({}, this.state);
         axios.post('/api/user', userData)
         .then(res => console.log(res));
         console.log(this.state);
