@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var controllers = require('../controllers');
+var userValidation = require('../utils/userValidation');
 var Task = require('../models/task');
 var Slot = require('../models/slot');
 
@@ -77,24 +78,7 @@ router.post('/:resource', function(req, res, next) {
 
   // user validation
   if(resource == 'user') {
-    console.log('req.body', req.body);
-    req.checkBody('email', 'Email is required').notEmpty()
-    req.checkBody('email', 'Enter correct email address').isEmail();
-    req.checkBody('password', 'Password is required').notEmpty();
-    req.checkBody('password', 'Password cannot be less than 4 characters').isLength({min: 4});
-    req.checkBody('passwordConfirmation', 'Passwords do not match').equals(req.body.password);
-
-    req.getValidationResult()
-    .then(response => {
-      let errors = response.array();
-      if(errors.length > 0) {
-        res.json({
-          confirmation: 'validation error',
-          errors: errors
-        });
-      }
-      return;
-    });
+    userValidation(req, res);
     return;
   } // end of user validation
 
