@@ -23698,7 +23698,7 @@ var _axios = __webpack_require__(192);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _classnames = __webpack_require__(295);
+var _classnames = __webpack_require__(266);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -23800,7 +23800,11 @@ var SignUpForm = function (_React$Component) {
                         name: 'email',
                         className: (0, _classnames2.default)("form-control", { "form-control-danger": passwordConfirmationErrorMsg })
                     }),
-                    emailErrorMsg
+                    emailErrorMsg && _react2.default.createElement(
+                        'span',
+                        { className: 'form-control-feedback' },
+                        emailErrorMsg
+                    )
                 ),
                 _react2.default.createElement(
                     'div',
@@ -23817,7 +23821,11 @@ var SignUpForm = function (_React$Component) {
                         name: 'password',
                         className: (0, _classnames2.default)("form-control", { "form-control-danger": passwordConfirmationErrorMsg })
                     }),
-                    passwordErrorMsg
+                    passwordErrorMsg && _react2.default.createElement(
+                        'span',
+                        { className: 'form-control-feedback' },
+                        passwordErrorMsg
+                    )
                 ),
                 _react2.default.createElement(
                     'div',
@@ -23834,7 +23842,11 @@ var SignUpForm = function (_React$Component) {
                         name: 'passwordConfirmation',
                         className: (0, _classnames2.default)("form-control", { "form-control-danger": passwordConfirmationErrorMsg })
                     }),
-                    passwordConfirmationErrorMsg
+                    passwordConfirmationErrorMsg && _react2.default.createElement(
+                        'span',
+                        { className: 'form-control-feedback' },
+                        passwordConfirmationErrorMsg
+                    )
                 ),
                 _react2.default.createElement(
                     'div',
@@ -23907,36 +23919,7 @@ var RegistrationApp = function (_React$Component) {
 (0, _reactDom.render)(_react2.default.createElement(RegistrationApp, null), document.getElementById("registration"));
 
 /***/ }),
-/* 266 */,
-/* 267 */,
-/* 268 */,
-/* 269 */,
-/* 270 */,
-/* 271 */,
-/* 272 */,
-/* 273 */,
-/* 274 */,
-/* 275 */,
-/* 276 */,
-/* 277 */,
-/* 278 */,
-/* 279 */,
-/* 280 */,
-/* 281 */,
-/* 282 */,
-/* 283 */,
-/* 284 */,
-/* 285 */,
-/* 286 */,
-/* 287 */,
-/* 288 */,
-/* 289 */,
-/* 290 */,
-/* 291 */,
-/* 292 */,
-/* 293 */,
-/* 294 */,
-/* 295 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!

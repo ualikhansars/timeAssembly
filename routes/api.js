@@ -78,11 +78,11 @@ router.post('/:resource', function(req, res, next) {
   // user validation
   if(resource == 'user') {
     console.log('req.body', req.body);
-    req.checkBody('email', 'email is required').notEmpty()
-    req.checkBody('email', 'enter correct email address').isEmail();
-    req.checkBody('password', 'passport is required').notEmpty();
-    req.checkBody('password', 'password cannot be less than 4 characters').isLength({min: 4});
-    req.checkBody('passwordConfirmation', 'passwords do not match').equals(req.body.password);
+    req.checkBody('email', 'Email is required').notEmpty()
+    req.checkBody('email', 'Enter correct email address').isEmail();
+    req.checkBody('password', 'Password is required').notEmpty();
+    req.checkBody('password', 'Password cannot be less than 4 characters').isLength({min: 4});
+    req.checkBody('passwordConfirmation', 'Passwords do not match').equals(req.body.password);
 
     req.getValidationResult()
     .then(response => {

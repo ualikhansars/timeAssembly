@@ -68,7 +68,7 @@ class SignUpForm extends React.Component {
                         name="email"
                         className={classnames("form-control", {"form-control-danger": passwordConfirmationErrorMsg})}
                     />
-                    {emailErrorMsg}
+                    {emailErrorMsg && <span className="form-control-feedback">{emailErrorMsg}</span>}
                 </div>
 
                 <div className={classnames("form-group", {"has-danger": passwordErrorMsg})}>
@@ -80,7 +80,7 @@ class SignUpForm extends React.Component {
                         name="password"
                         className={classnames("form-control", {"form-control-danger": passwordConfirmationErrorMsg})}
                     />
-                    {passwordErrorMsg}
+                    {passwordErrorMsg && <span className="form-control-feedback">{passwordErrorMsg}</span>}
                 </div>
 
                 <div className={classnames("form-group", {"has-danger": passwordConfirmationErrorMsg})}>
@@ -92,7 +92,7 @@ class SignUpForm extends React.Component {
                         name="passwordConfirmation"
                         className={classnames("form-control", {"form-control-danger": passwordConfirmationErrorMsg})}
                     />
-                    {passwordConfirmationErrorMsg}
+                    {passwordConfirmationErrorMsg && <span className="form-control-feedback">{passwordConfirmationErrorMsg}</span>}
                 </div>
                 <div className="form-group">
                    <button className="btn btn-primary btn-lg">
