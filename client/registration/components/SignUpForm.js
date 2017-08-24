@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import classnames from 'classnames';
+import {browserHistory} from 'react-router';
 
 class SignUpForm extends React.Component {
     constructor(props) {

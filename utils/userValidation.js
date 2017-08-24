@@ -1,3 +1,5 @@
+var User = require('../models/user');
+
 module.exports =  function validateUser(req, res) {
     req.checkBody('email', 'Email is required').notEmpty()
     req.checkBody('email', 'Enter correct email address').isEmail();
@@ -12,6 +14,20 @@ module.exports =  function validateUser(req, res) {
         res.json({
           confirmation: 'validation error',
           errors: errors
+        });
+      } else {
+        User.create(req.body, function(err, result) {
+          if(err) {
+            res.json({
+              confirmation: 'failed',
+              message: err
+            });
+            return;
+          }
+          res.json({
+            confirmation: 'success',
+            result: result
+          });
         });
       }
     });
