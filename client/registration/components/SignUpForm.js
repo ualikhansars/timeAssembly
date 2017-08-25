@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import classnames from 'classnames';
-import {browserHistory} from 'react-router';
+
+import EmailConfirmation from './EmailConfirmation';
 
 class SignUpForm extends React.Component {
     constructor(props) {
@@ -10,7 +11,8 @@ class SignUpForm extends React.Component {
             email: '',
             password: '',
             passwordConfirmation: '',
-            errors: []
+            errors: [],
+            formIsSubmitted: false
         }
     }
 
@@ -19,6 +21,7 @@ class SignUpForm extends React.Component {
             [e.target.name]: e.target.value
         });
     }
+
 
     onSubmit(e) {
         e.preventDefault();
@@ -33,6 +36,12 @@ class SignUpForm extends React.Component {
                 this.setState({
                     errors: res.data.errors
                 });
+            }
+            if(res.data.confirmation === 'success') {
+                this.setState({
+                    formIsSubmitted: true
+                })
+                console.log('user is created');
             }
             console.log('state', this.state);
         });
@@ -57,9 +66,11 @@ class SignUpForm extends React.Component {
         console.log('emailErrors', emailErrors);
         console.log('passwordErrors', passwordErrors);
         console.log('passwordConfirmationErrors', passwordConfirmationErrors);
-        return (
+
+        if(!this.state.formIsSubmitted) return (
             <form onSubmit={this.onSubmit.bind(this)}>
                 <h1>Registration</h1>
+                <h6><a href="/signin">Already have an account, Signin</a></h6>
                 <div className={classnames("form-group", {"has-danger": emailErrorMsg})}>
                     <label className="form-control-label">Email</label>
                     <input 
@@ -102,6 +113,9 @@ class SignUpForm extends React.Component {
                 </div>
             </form>
         );
+        return (
+            <EmailConfirmation/>
+        )
     }
 }
 
