@@ -1,4 +1,5 @@
 var User = require('../models/user');
+var bcrypt = require('bcrypt');
 
 module.exports =  function validateUser(req, res) {
     req.checkBody('email', 'Email is required').notEmpty()
@@ -16,7 +17,13 @@ module.exports =  function validateUser(req, res) {
           errors: errors
         });
       } else {
-        User.create(req.body, function(err, result) {
+        const {email, password} = req.body;
+        bcrypt.hash(password, 10, function(err, hash) {
+         if(err) throw err;
+         User.create({
+           email: email,
+           password: hash
+         }, function(err, result) {
           if(err) {
             res.json({
               confirmation: 'failed',
@@ -29,6 +36,20 @@ module.exports =  function validateUser(req, res) {
             result: result
           });
         });
+        });
+        // User.create(req.body, function(err, result) {
+        //   if(err) {
+        //     res.json({
+        //       confirmation: 'failed',
+        //       message: err
+        //     });
+        //     return;
+        //   }
+        //   res.json({
+        //     confirmation: 'success',
+        //     result: result
+        //   });
+        // });
       }
     });
 }
