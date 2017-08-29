@@ -24186,10 +24186,18 @@ var SignUpForm = function (_React$Component) {
             });
             var userData = Object.assign({}, this.state);
             _axios2.default.post('/api/user', userData).then(function (res) {
-                console.log('res', res);
+                var updatedErrors = Object.assign([], _this2.state.errors);
                 if (res.data.confirmation === 'validation error') {
+                    updatedErrors = res.data.errors;
                     _this2.setState({
-                        errors: res.data.errors
+                        errors: updatedErrors
+                    });
+                }
+                // model validation
+                if (res.data.confirmation === 'failed' && res.data.message.name === 'ValidationError') {
+                    updatedErrors.push({ param: 'email', msg: 'There is a user with such email address' });
+                    _this2.setState({
+                        errors: updatedErrors
                     });
                 }
                 if (res.data.confirmation === 'success') {
@@ -24205,6 +24213,7 @@ var SignUpForm = function (_React$Component) {
         key: 'render',
         value: function render() {
             var errors = this.state.errors;
+            console.log('errors', errors);
             var emailErrors = null;
             var passwordErrors = null;
             var passwordConfirmationErrors = null;
@@ -24220,10 +24229,6 @@ var SignUpForm = function (_React$Component) {
             if (emailErrors) emailErrorMsg = emailErrors.msg;
             if (passwordErrors) passwordErrorMsg = passwordErrors.msg;
             if (passwordConfirmationErrors) passwordConfirmationErrorMsg = passwordConfirmationErrors.msg;
-
-            console.log('emailErrors', emailErrors);
-            console.log('passwordErrors', passwordErrors);
-            console.log('passwordConfirmationErrors', passwordConfirmationErrors);
 
             if (!this.state.formIsSubmitted) return _react2.default.createElement(
                 'form',

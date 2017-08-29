@@ -44,10 +44,20 @@ class SignUpForm extends React.Component {
         let userData = Object.assign({}, this.state);
         axios.post('/api/user', userData)
         .then(res => {
-            console.log('res', res);
+            let updatedErrors = Object.assign([], this.state.errors);
             if(res.data.confirmation === 'validation error') {
+                updatedErrors = res.data.errors;
                 this.setState({
-                    errors: res.data.errors
+                    errors: updatedErrors
+                });
+            }
+            // model validation
+            if(res.data.confirmation === 'failed' && res.data.message.name === 'ValidationError') {
+                updatedErrors.push(
+                    {param: 'email', msg: 'There is a user with such email address'}
+                )
+                this.setState({
+                    errors: updatedErrors
                 });
             }
             if(res.data.confirmation === 'success') {
@@ -62,6 +72,7 @@ class SignUpForm extends React.Component {
 
     render() {
         let errors = this.state.errors;
+        console.log('errors', errors);
         let emailErrors = null;
         let passwordErrors = null;
         let passwordConfirmationErrors = null;
@@ -76,10 +87,6 @@ class SignUpForm extends React.Component {
         if(passwordErrors) passwordErrorMsg = passwordErrors.msg;
         if(passwordConfirmationErrors) passwordConfirmationErrorMsg = passwordConfirmationErrors.msg;
     
-        console.log('emailErrors', emailErrors);
-        console.log('passwordErrors', passwordErrors);
-        console.log('passwordConfirmationErrors', passwordConfirmationErrors);
-
         if(!this.state.formIsSubmitted) return (
             <form onSubmit={this.onSubmit.bind(this)}>
                 <h1>Registration</h1>
