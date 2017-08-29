@@ -2,8 +2,16 @@ var User = require('../models/user');
 var bcrypt = require('bcrypt');
 
 module.exports =  function validateUser(req, res) {
-    req.checkBody('email', 'Email is required').notEmpty()
+
+    User.findOne({email: req.body.email}, function(err, user) {
+      if(err) {
+        throw err;
+      }
+      console.log('user', user);
+    });
+    req.checkBody('email', 'Email is required').notEmpty();
     req.checkBody('email', 'Enter correct email address').isEmail();
+    
     req.checkBody('password', 'Password is required').notEmpty();
     req.checkBody('password', 'Password cannot be less than 4 characters').isLength({min: 4});
     req.checkBody('passwordConfirmation', 'Passwords do not match').equals(req.body.password);

@@ -24161,6 +24161,21 @@ var SignUpForm = function (_React$Component) {
             this.setState(_defineProperty({}, e.target.name, e.target.value));
         }
     }, {
+        key: 'checkEmailExist',
+        value: function checkEmailExist(e) {
+            var field = e.target.name;
+            var val = e.target.value;
+            if (val !== '') {
+                _axios2.default.get('/api/user/getUserEmail', {
+                    params: {
+                        email: val
+                    }
+                }).then(function (result) {
+                    console.log('result', result);
+                });
+            }
+        }
+    }, {
         key: 'onSubmit',
         value: function onSubmit(e) {
             var _this2 = this;
@@ -24238,6 +24253,7 @@ var SignUpForm = function (_React$Component) {
                     _react2.default.createElement('input', {
                         value: this.state.email,
                         onChange: this.onChange.bind(this),
+                        onBlur: this.checkEmailExist.bind(this),
                         type: 'text',
                         name: 'email',
                         className: (0, _classnames2.default)("form-control", { "form-control-danger": passwordConfirmationErrorMsg })

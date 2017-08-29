@@ -22,6 +22,19 @@ class SignUpForm extends React.Component {
         });
     }
 
+    checkEmailExist(e) {
+        const field = e.target.name;
+        const val = e.target.value;
+        if(val !== '') {
+            axios.get('/api/user/getUserEmail', {
+                params: {
+                    email: val
+                }
+            }).then(result => {
+                console.log('result', result);
+            })
+        }
+    }
 
     onSubmit(e) {
         e.preventDefault();
@@ -76,6 +89,7 @@ class SignUpForm extends React.Component {
                     <input 
                         value={this.state.email}
                         onChange={this.onChange.bind(this)}
+                        onBlur={this.checkEmailExist.bind(this)}
                         type="text"
                         name="email"
                         className={classnames("form-control", {"form-control-danger": passwordConfirmationErrorMsg})}

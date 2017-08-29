@@ -4,6 +4,7 @@ var controllers = require('../controllers');
 var userValidation = require('../utils/userValidation');
 var Task = require('../models/task');
 var Slot = require('../models/slot');
+var User = require('../models/user');
 
 // find all
 router.get('/:resource', function(req, res, next) {
@@ -17,6 +18,7 @@ router.get('/:resource', function(req, res, next) {
     })
     return;
   }
+
   controller.find(req.query, function(err, results){
     if(err) {
       res.json({
@@ -225,6 +227,24 @@ router.put('/task', function(req, res, next) {
       result: result  
     });
   })
+});
+
+router.get('/user/getUserEmail', function(req, res, next) {
+  var email = req.params.email;
+  console.log('email in users', email);
+  User.findOne({email: email}, function(err, user) {
+    if(err) {
+      res.json({
+        confirmation: 'error',
+        message: err
+      });
+      return;
+    }
+    res.json({
+      confirmation: 'success',
+      resource: user,
+    });
+  });
 });
 
 module.exports = router;
