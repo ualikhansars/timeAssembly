@@ -26,13 +26,21 @@ class SignUpForm extends React.Component {
         const field = e.target.name;
         const val = e.target.value;
         if(val !== '') {
-            axios.get('/api/user/getUserEmail', {
-                params: {
-                    email: val
-                }
-            }).then(result => {
+            axios.get(`/users/getUserEmail/${val}`).
+            then(result => {
                 console.log('result', result);
-            })
+                if(result.data.confirmation === 'success') {
+                    if(result.data.user !== null) {
+                        let updatedErrors = this.state.errors;
+                        updatedErrors.push(
+                            {param: 'email', msg: 'There is a user with such email address'}
+                        )
+                        this.setState({
+                            errors: updatedErrors
+                        });
+                    } 
+                }
+            });
         }
     }
 
@@ -72,7 +80,6 @@ class SignUpForm extends React.Component {
 
     render() {
         let errors = this.state.errors;
-        console.log('errors', errors);
         let emailErrors = null;
         let passwordErrors = null;
         let passwordConfirmationErrors = null;

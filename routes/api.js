@@ -229,22 +229,4 @@ router.put('/task', function(req, res, next) {
   })
 });
 
-router.get('/user/getUserEmail', function(req, res, next) {
-  var email = req.params.email;
-  console.log('email in users', email);
-  User.findOne({email: email}, function(err, user) {
-    if(err) {
-      res.json({
-        confirmation: 'error',
-        message: err
-      });
-      return;
-    }
-    res.json({
-      confirmation: 'success',
-      resource: user,
-    });
-  });
-});
-
 module.exports = router;

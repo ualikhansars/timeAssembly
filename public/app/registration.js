@@ -24163,22 +24163,29 @@ var SignUpForm = function (_React$Component) {
     }, {
         key: 'checkEmailExist',
         value: function checkEmailExist(e) {
+            var _this2 = this;
+
             var field = e.target.name;
             var val = e.target.value;
             if (val !== '') {
-                _axios2.default.get('/api/user/getUserEmail', {
-                    params: {
-                        email: val
-                    }
-                }).then(function (result) {
+                _axios2.default.get('/users/getUserEmail/' + val).then(function (result) {
                     console.log('result', result);
+                    if (result.data.confirmation === 'success') {
+                        if (result.data.user !== null) {
+                            var updatedErrors = _this2.state.errors;
+                            updatedErrors.push({ param: 'email', msg: 'There is a user with such email address' });
+                            _this2.setState({
+                                errors: updatedErrors
+                            });
+                        }
+                    }
                 });
             }
         }
     }, {
         key: 'onSubmit',
         value: function onSubmit(e) {
-            var _this2 = this;
+            var _this3 = this;
 
             e.preventDefault();
             this.setState({
@@ -24186,34 +24193,33 @@ var SignUpForm = function (_React$Component) {
             });
             var userData = Object.assign({}, this.state);
             _axios2.default.post('/api/user', userData).then(function (res) {
-                var updatedErrors = Object.assign([], _this2.state.errors);
+                var updatedErrors = Object.assign([], _this3.state.errors);
                 if (res.data.confirmation === 'validation error') {
                     updatedErrors = res.data.errors;
-                    _this2.setState({
+                    _this3.setState({
                         errors: updatedErrors
                     });
                 }
                 // model validation
                 if (res.data.confirmation === 'failed' && res.data.message.name === 'ValidationError') {
                     updatedErrors.push({ param: 'email', msg: 'There is a user with such email address' });
-                    _this2.setState({
+                    _this3.setState({
                         errors: updatedErrors
                     });
                 }
                 if (res.data.confirmation === 'success') {
-                    _this2.setState({
+                    _this3.setState({
                         formIsSubmitted: true
                     });
                     console.log('user is created');
                 }
-                console.log('state', _this2.state);
+                console.log('state', _this3.state);
             });
         }
     }, {
         key: 'render',
         value: function render() {
             var errors = this.state.errors;
-            console.log('errors', errors);
             var emailErrors = null;
             var passwordErrors = null;
             var passwordConfirmationErrors = null;
