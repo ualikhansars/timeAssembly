@@ -24169,7 +24169,6 @@ var SignUpForm = function (_React$Component) {
             var val = e.target.value;
             if (val !== '') {
                 _axios2.default.get('/users/getUserEmail/' + val).then(function (result) {
-                    console.log('result', result);
                     if (result.data.confirmation === 'success') {
                         if (result.data.user !== null) {
                             var updatedErrors = _this2.state.errors;
@@ -24267,7 +24266,7 @@ var SignUpForm = function (_React$Component) {
                         onBlur: this.checkEmailExist.bind(this),
                         type: 'text',
                         name: 'email',
-                        className: (0, _classnames2.default)("form-control", { "form-control-danger": passwordConfirmationErrorMsg })
+                        className: (0, _classnames2.default)("form-control", { "form-control-danger": emailErrorMsg })
                     }),
                     emailErrorMsg && _react2.default.createElement(
                         'span',
@@ -24288,7 +24287,7 @@ var SignUpForm = function (_React$Component) {
                         onChange: this.onChange.bind(this),
                         type: 'password',
                         name: 'password',
-                        className: (0, _classnames2.default)("form-control", { "form-control-danger": passwordConfirmationErrorMsg })
+                        className: (0, _classnames2.default)("form-control", { "form-control-danger": passwordErrorMsg })
                     }),
                     passwordErrorMsg && _react2.default.createElement(
                         'span',

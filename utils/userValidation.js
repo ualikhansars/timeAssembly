@@ -56,19 +56,6 @@ module.exports =  function validateUser(req, res) {
           });
         });
         });
-        // User.create(req.body, function(err, result) {
-        //   if(err) {
-        //     res.json({
-        //       confirmation: 'failed',
-        //       message: err
-        //     });
-        //     return;
-        //   }
-        //   res.json({
-        //     confirmation: 'success',
-        //     result: result
-        //   });
-        // });
       }
     });
 }

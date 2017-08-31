@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var User = require('../models/user');
+var loginValidation = require('../utils/loginValidation');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -27,6 +28,11 @@ router.get('/getUserEmail/:email', function(req, res, next) {
       user: user
     });
   });
+});
+
+router.post('/login', function(req, res, next) {
+  loginValidation(req, res);
+  return;
 });
 
 

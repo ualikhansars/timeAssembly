@@ -28,7 +28,6 @@ class SignUpForm extends React.Component {
         if(val !== '') {
             axios.get(`/users/getUserEmail/${val}`).
             then(result => {
-                console.log('result', result);
                 if(result.data.confirmation === 'success') {
                     if(result.data.user !== null) {
                         let updatedErrors = this.state.errors;
@@ -106,7 +105,7 @@ class SignUpForm extends React.Component {
                         onBlur={this.checkEmailExist.bind(this)}
                         type="text"
                         name="email"
-                        className={classnames("form-control", {"form-control-danger": passwordConfirmationErrorMsg})}
+                        className={classnames("form-control", {"form-control-danger": emailErrorMsg})}
                     />
                     {emailErrorMsg && <span className="form-control-feedback">{emailErrorMsg}</span>}
                 </div>
@@ -118,7 +117,7 @@ class SignUpForm extends React.Component {
                         onChange={this.onChange.bind(this)}
                         type="password"
                         name="password"
-                        className={classnames("form-control", {"form-control-danger": passwordConfirmationErrorMsg})}
+                        className={classnames("form-control", {"form-control-danger": passwordErrorMsg})}
                     />
                     {passwordErrorMsg && <span className="form-control-feedback">{passwordErrorMsg}</span>}
                 </div>
