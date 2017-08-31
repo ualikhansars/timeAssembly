@@ -8,6 +8,7 @@ class LoginForm extends React.Component {
         this.state = {
             email: '',
             password: '',
+            formError: '',
             errors: []
         }
     }
@@ -17,6 +18,7 @@ class LoginForm extends React.Component {
         let userData = Object.assign({}, this.state);
         axios.post('/users/login', userData)
         .then(res => {
+            console.log('res', res);
             let updatedErrors = Object.assign([], this.state.errors);
             if(res.data.confirmation === 'validation error') {
                 updatedErrors = res.data.errors;
@@ -24,7 +26,12 @@ class LoginForm extends React.Component {
                     errors: updatedErrors
                 });
             }
-            console.log('state', this.state);
+
+            if(res.data.confirmation === 'failed' && res.data.message==='Invalid email address or password') {
+                this.setState({
+                    formError: res.data.message
+                });
+            }
         });
     }
 
@@ -38,6 +45,7 @@ class LoginForm extends React.Component {
         let emailErrors = null;
         let passwordErrors = null;
         let emailErrorMsg, passwordErrorMsg;
+        let formError = this.state.formError;
 
         errors.map(val => {
             if(val.param === 'email') emailErrors = val;
@@ -47,8 +55,10 @@ class LoginForm extends React.Component {
         if(emailErrors) emailErrorMsg = emailErrors.msg;
         if(passwordErrors) passwordErrorMsg = passwordErrors.msg;
         return(
+            
             <form onSubmit={this.onSubmit.bind(this)}>
                 <h1>Login</h1>
+                {formError && <div className="alert alert-danger">{formError}</div>}
                 <div className={classnames("form-group", {"has-danger": emailErrorMsg})}>
                     <label className="form-control-label">Email</label>
                     <input 

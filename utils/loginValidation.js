@@ -14,7 +14,31 @@ module.exports =  function loginValidation(req, res) {
           errors: errors
         });
       } else {
-        console.log('login');
+        let {email, password} = req.body;
+        User.findOne({email: email}, function(err, user) {
+            if(err) {
+                res.json({
+                  confirmation: 'failed',
+                  message: err
+                });
+                return;
+            }
+            if(user) {
+                console.log('user', user);
+                if(bcrypt.compareSync(password, user.password)) {
+                } else {
+                    res.json({
+                        confirmation: 'failed',
+                        message: 'Invalid email address or password'
+                    });
+                }
+            } else {
+                res.json({
+                    confirmation: 'failed',
+                    message: 'Invalid email address or password'
+                });
+            }
+        });
       }
     });
 }

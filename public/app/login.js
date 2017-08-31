@@ -24220,6 +24220,7 @@ var LoginForm = function (_React$Component) {
         _this.state = {
             email: '',
             password: '',
+            formError: '',
             errors: []
         };
         return _this;
@@ -24233,6 +24234,7 @@ var LoginForm = function (_React$Component) {
             e.preventDefault();
             var userData = Object.assign({}, this.state);
             _axios2.default.post('/users/login', userData).then(function (res) {
+                console.log('res', res);
                 var updatedErrors = Object.assign([], _this2.state.errors);
                 if (res.data.confirmation === 'validation error') {
                     updatedErrors = res.data.errors;
@@ -24240,7 +24242,12 @@ var LoginForm = function (_React$Component) {
                         errors: updatedErrors
                     });
                 }
-                console.log('state', _this2.state);
+
+                if (res.data.confirmation === 'failed' && res.data.message === 'Invalid email address or password') {
+                    _this2.setState({
+                        formError: res.data.message
+                    });
+                }
             });
         }
     }, {
@@ -24257,6 +24264,7 @@ var LoginForm = function (_React$Component) {
             var passwordErrors = null;
             var emailErrorMsg = void 0,
                 passwordErrorMsg = void 0;
+            var formError = this.state.formError;
 
             errors.map(function (val) {
                 if (val.param === 'email') emailErrors = val;
@@ -24272,6 +24280,11 @@ var LoginForm = function (_React$Component) {
                     'h1',
                     null,
                     'Login'
+                ),
+                formError && _react2.default.createElement(
+                    'div',
+                    { className: 'alert alert-danger' },
+                    formError
                 ),
                 _react2.default.createElement(
                     'div',
