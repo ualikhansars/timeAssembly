@@ -1,5 +1,7 @@
 var User = require('../models/user');
 var bcrypt = require('bcrypt');
+var jwt = require('jsonwebtoken');
+var jwtConfig = require('../config/jwtConfig');
 
 module.exports =  function loginValidation(req, res) {
     req.checkBody('email', 'Email is required').notEmpty();
@@ -26,6 +28,15 @@ module.exports =  function loginValidation(req, res) {
             if(user) {
                 console.log('user', user);
                 if(bcrypt.compareSync(password, user.password)) {
+                    // success
+                    const token = jwt.sign(
+                    {
+                        email: user.email // payload
+                    },
+                    jwtConfig.jwtSecret);
+                    res.json({
+                        token
+                    });
                 } else {
                     res.json({
                         confirmation: 'failed',
