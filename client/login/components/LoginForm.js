@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import classnames from 'classnames';
+import setAuthToken from '../../utils/setAuthToken';
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -26,11 +27,16 @@ class LoginForm extends React.Component {
                     errors: updatedErrors
                 });
             }
-
             if(res.data.confirmation === 'failed' && res.data.message==='Invalid email address or password') {
                 this.setState({
                     formError: res.data.message
                 });
+            }
+            if(res.data.confirmation === 'success') {
+                const token = res.data.token;
+                localStorage.setItem('jwtToken', token);
+                setAuthToken(token);
+                window.location.href = 'http://localhost:3000/';
             }
         });
     }

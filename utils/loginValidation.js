@@ -35,6 +35,7 @@ module.exports =  function loginValidation(req, res) {
                     },
                     jwtConfig.jwtSecret);
                     res.json({
+                        confirmation: 'success',
                         token
                     });
                 } else {

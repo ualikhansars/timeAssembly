@@ -58,5 +58,5 @@ typings/
 .env
 
 #secret web token
-config/secret.js
+config/jwtConfig.js
 
