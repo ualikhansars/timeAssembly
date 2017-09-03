@@ -31,6 +31,7 @@ module.exports =  function loginValidation(req, res) {
                     // success
                     const token = jwt.sign(
                     {
+                        id: user.id,
                         email: user.email // payload
                     },
                     jwtConfig.jwtSecret);

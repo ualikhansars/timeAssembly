@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import classnames from 'classnames';
+import jwt from 'jsonwebtoken';
+
 import setAuthToken from '../../utils/setAuthToken';
 
 class LoginForm extends React.Component {
@@ -36,7 +38,8 @@ class LoginForm extends React.Component {
                 const token = res.data.token;
                 localStorage.setItem('jwtToken', token);
                 setAuthToken(token);
-                window.location.href = 'http://localhost:3000/';
+                //window.location.href = 'http://localhost:3000/';
+                console.log(jwt.decode(token));
             }
         });
     }
