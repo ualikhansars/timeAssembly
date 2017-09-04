@@ -8,6 +8,7 @@ var User = require('../models/user');
 
 // find all
 router.get('/:resource', function(req, res, next) {
+  console.log('user', req.user);
   var resource = req.params.resource;
   var controller = controllers[resource];
 

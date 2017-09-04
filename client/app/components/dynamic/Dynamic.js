@@ -1,6 +1,7 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import jwt from 'jsonwebtoken';
 
 import Slots from './slots/Slots';
 import Preferences from './preferences/Preferences';
@@ -8,12 +9,20 @@ import UpdateTaskForm from './forms/UpdateTaskForm';
 
 // import actions
 import {fetchTemporarySlots} from '../../actions/slotAction';
+import setAuthToken from '../../../utils/setAuthToken';
+import {setCurrentUser} from '../../actions/userAction';
 
 
 class Dynamic extends React.Component {
 
     componentDidMount() {
         this.props.fetchTemporarySlots();
+        if(localStorage.jwtToken) {
+            setAuthToken(localStorage.jwtToken);
+            let token = localStorage.jwtToken;
+            let decodeToken = jwt.decode(token);
+            this.props.setCurrentUser(decodeToken);
+        }
     }
 
     render() {
@@ -60,6 +69,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
         fetchTemporarySlots,
+        setCurrentUser
         }, 
         dispatch
     );

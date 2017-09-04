@@ -2,10 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import store from './store';
-import setAuthToken from '../utils/setAuthToken';
-import Home from './components/layout/Home';
 
-setAuthToken(localStorage.jwtToken);
+import Home from './components/layout/Home';
 
 ReactDOM.render(
     <Provider store={store}>
