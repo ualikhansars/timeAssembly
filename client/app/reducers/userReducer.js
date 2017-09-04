@@ -6,11 +6,15 @@ const initialState = {
 const userInfo = (state=initialState, action) => {
     switch(action.type) {
         case 'SET_CURRENT_USER':
-            let updatedUser = Object.assign({}, state, {
+            return Object.assign({}, state, {
                 isAuthenticated: true,
                 user: action.user
             });
-            return updatedUser;
+        case 'LOGOUT':
+            return Object.assign({}, state, {
+                isAuthenticated: false,
+                user: action.user
+            });
         default:
             return state;
     }

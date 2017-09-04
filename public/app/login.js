@@ -59062,7 +59062,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function setAuthToken(token) {
     if (token) {
-        console.log('Headers auth');
         _axios2.default.defaults.headers.common['Authorization'] = 'Bearer ' + token; // set header to every request
     } else {
         delete _axios2.default.defaults.headers.common['Authorization']; // delete auth header

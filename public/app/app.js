@@ -59512,7 +59512,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function setAuthToken(token) {
     if (token) {
-        console.log('Headers auth');
         _axios2.default.defaults.headers.common['Authorization'] = 'Bearer ' + token; // set header to every request
     } else {
         delete _axios2.default.defaults.headers.common['Authorization']; // delete auth header
@@ -74015,10 +74014,30 @@ exports.default = (0, _redux.createStore)(_reducers2.default, (0, _redux.applyMi
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.logout = exports.setCurrentUser = undefined;
+
+var _setAuthToken = __webpack_require__(445);
+
+var _setAuthToken2 = _interopRequireDefault(_setAuthToken);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var setCurrentUser = exports.setCurrentUser = function setCurrentUser(user) {
     return {
         type: 'SET_CURRENT_USER',
         user: user
+    };
+};
+
+var logout = exports.logout = function logout() {
+    return function (dispatch) {
+        localStorage.removeItem('jwtToken');
+        (0, _setAuthToken2.default)(false);
+        dispatch(setCurrentUser({}));
+        return dispatch({
+            type: 'LOGOUT',
+            user: {}
+        });
     };
 };
 
@@ -76217,6 +76236,12 @@ var _react = __webpack_require__(10);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _redux = __webpack_require__(41);
+
+var _reactRedux = __webpack_require__(34);
+
+var _userAction = __webpack_require__(580);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -76235,64 +76260,88 @@ var Navbar = function (_React$Component) {
     }
 
     _createClass(Navbar, [{
-        key: "render",
+        key: 'logout',
+        value: function logout(e) {
+            e.preventDefault();
+            this.props.logout();
+        }
+    }, {
+        key: 'render',
         value: function render() {
-            return _react2.default.createElement(
-                "nav",
-                { className: "navbar navbar-tes navbar-toggleable-md navbar-light bg-faded" },
+            var isAuthenticated = this.props.userInfo.isAuthenticated;
+
+            var userLinks = _react2.default.createElement(
+                'ul',
+                { className: 'navbar-nav ml-auto' },
                 _react2.default.createElement(
-                    "button",
-                    { className: "navbar-toggler navbar-toggler-right", type: "button", "data-toggle": "collapse", "data-target": "#navbarNav", "aria-controls": "navbarNav", "aria-expanded": "false", "aria-label": "Toggle navigation" },
-                    _react2.default.createElement("span", { className: "navbar-toggler-icon" })
-                ),
-                _react2.default.createElement(
-                    "a",
-                    { href: "#", className: "navbar-brand" },
-                    "Timetable"
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "collapse navbar-collapse", id: "navbarNav" },
+                    'li',
+                    { className: 'nav-item' },
                     _react2.default.createElement(
-                        "ul",
-                        { className: "navbar-nav" },
+                        'a',
+                        { href: '#', onClick: this.logout.bind(this) },
+                        'Logout'
+                    )
+                )
+            );
+
+            var guestLinks = _react2.default.createElement(
+                'ul',
+                { className: 'navbar-nav ml-auto' },
+                _react2.default.createElement(
+                    'li',
+                    { className: 'nav-item' },
+                    _react2.default.createElement(
+                        'a',
+                        { href: '/signup' },
+                        'Registration'
+                    )
+                ),
+                _react2.default.createElement(
+                    'li',
+                    { className: 'nav-item' },
+                    _react2.default.createElement(
+                        'a',
+                        { href: '/signin' },
+                        'Login'
+                    )
+                )
+            );
+
+            return _react2.default.createElement(
+                'nav',
+                { className: 'navbar navbar-tes navbar-toggleable-md navbar-light bg-faded' },
+                _react2.default.createElement(
+                    'button',
+                    { className: 'navbar-toggler navbar-toggler-right', type: 'button', 'data-toggle': 'collapse', 'data-target': '#navbarNav', 'aria-controls': 'navbarNav', 'aria-expanded': 'false', 'aria-label': 'Toggle navigation' },
+                    _react2.default.createElement('span', { className: 'navbar-toggler-icon' })
+                ),
+                _react2.default.createElement(
+                    'a',
+                    { href: '#', className: 'navbar-brand' },
+                    'Timetable'
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'collapse navbar-collapse', id: 'navbarNav' },
+                    _react2.default.createElement(
+                        'ul',
+                        { className: 'navbar-nav' },
                         _react2.default.createElement(
-                            "li",
-                            { className: "nav-item" },
+                            'li',
+                            { className: 'nav-item' },
                             _react2.default.createElement(
-                                "a",
-                                { className: "nav-link", href: "#" },
-                                "Get Started",
+                                'a',
+                                { className: 'nav-link', href: '#' },
+                                'Get Started',
                                 _react2.default.createElement(
-                                    "span",
-                                    { className: "sr-only" },
-                                    "(current)"
+                                    'span',
+                                    { className: 'sr-only' },
+                                    '(current)'
                                 )
                             )
                         )
                     ),
-                    _react2.default.createElement(
-                        "ul",
-                        { className: "navbar-nav ml-auto" },
-                        _react2.default.createElement(
-                            "li",
-                            { className: "nav-item" },
-                            _react2.default.createElement(
-                                "a",
-                                { href: "/signup" },
-                                "Registration"
-                            )
-                        ),
-                        _react2.default.createElement(
-                            "li",
-                            { className: "nav-item" },
-                            _react2.default.createElement(
-                                "a",
-                                { href: "/signin" },
-                                "Login"
-                            )
-                        )
-                    )
+                    isAuthenticated ? userLinks : guestLinks
                 )
             );
         }
@@ -76301,7 +76350,19 @@ var Navbar = function (_React$Component) {
     return Navbar;
 }(_react2.default.Component);
 
-exports.default = Navbar;
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        userInfo: state.userInfo
+    };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({
+        logout: _userAction.logout
+    }, dispatch);
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Navbar);
 
 /***/ }),
 /* 595 */
@@ -77977,11 +78038,15 @@ var userInfo = function userInfo() {
 
     switch (action.type) {
         case 'SET_CURRENT_USER':
-            var updatedUser = Object.assign({}, state, {
+            return Object.assign({}, state, {
                 isAuthenticated: true,
                 user: action.user
             });
-            return updatedUser;
+        case 'LOGOUT':
+            return Object.assign({}, state, {
+                isAuthenticated: false,
+                user: action.user
+            });
         default:
             return state;
     }
