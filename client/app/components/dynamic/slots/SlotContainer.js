@@ -1,6 +1,8 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+
 import {addTask} from '../../../actions/taskAction';
 import {
         fetchSlots,
@@ -126,6 +128,21 @@ const mapDispatchToProps = (dispatch) => {
         }, 
         dispatch
     );
+}
+
+SlotContainer.propTypes = {
+    slotInfo: PropTypes.object.isRequired,
+    daysInfo: PropTypes.object.isRequired,
+    taskInfo: PropTypes.object.isRequired,
+    preferences: PropTypes.object.isRequired,
+    fetchSlots: PropTypes.func.isRequired,
+    addTask: PropTypes.func.isRequired,
+    showCreateSlotForm: PropTypes.func.isRequired,
+    hideSlotForm: PropTypes.func.isRequired,
+    removeSlot: PropTypes.func.isRequired,
+    showUpdateSlotForm: PropTypes.func.isRequired,
+    createSlot: PropTypes.func.isRequired,
+    onClickUpdateSlot: PropTypes.func.isRequired,
 }
 
 

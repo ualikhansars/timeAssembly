@@ -75967,6 +75967,10 @@ var _redux = __webpack_require__(35);
 
 var _reactRedux = __webpack_require__(32);
 
+var _propTypes = __webpack_require__(42);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _taskAction = __webpack_require__(147);
 
 var _slotAction = __webpack_require__(445);
@@ -76149,6 +76153,21 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     }, dispatch);
 };
 
+SlotContainer.propTypes = {
+    slotInfo: _propTypes2.default.object.isRequired,
+    daysInfo: _propTypes2.default.object.isRequired,
+    taskInfo: _propTypes2.default.object.isRequired,
+    preferences: _propTypes2.default.object.isRequired,
+    fetchSlots: _propTypes2.default.func.isRequired,
+    addTask: _propTypes2.default.func.isRequired,
+    showCreateSlotForm: _propTypes2.default.func.isRequired,
+    hideSlotForm: _propTypes2.default.func.isRequired,
+    removeSlot: _propTypes2.default.func.isRequired,
+    showUpdateSlotForm: _propTypes2.default.func.isRequired,
+    createSlot: _propTypes2.default.func.isRequired,
+    onClickUpdateSlot: _propTypes2.default.func.isRequired
+};
+
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SlotContainer);
 
 /***/ }),
@@ -76167,6 +76186,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(10);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(42);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _CreateSlotForm = __webpack_require__(583);
 
@@ -76296,6 +76319,19 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         createTask: _taskAction.createTask,
         removeSlot: _slotAction.removeSlot
     }, dispatch);
+};
+
+Slots.propTypes = {
+    slotInfo: _propTypes2.default.object.isRequired,
+    taskInfo: _propTypes2.default.object.isRequired,
+    daysInfo: _propTypes2.default.object.isRequired,
+    showSlotForm: _propTypes2.default.func.isRequired,
+    hideSlotForm: _propTypes2.default.func.isRequired,
+    createSlot: _propTypes2.default.func.isRequired,
+    updateSlot: _propTypes2.default.func.isRequired,
+    hideTaskForms: _propTypes2.default.func.isRequired,
+    createTask: _propTypes2.default.func.isRequired,
+    removeSlot: _propTypes2.default.func.isRequired
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Slots);

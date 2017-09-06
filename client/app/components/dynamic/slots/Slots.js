@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import CreateSlotForm from '../forms/CreateSlotForm';
 import UpdateSlotForm from '../forms/UpdateSlotForm';
@@ -77,6 +78,19 @@ const mapDispatchToProps = (dispatch) => {
         }, 
         dispatch
     );
+}
+
+Slots.propTypes = {
+    slotInfo: PropTypes.object.isRequired,
+    taskInfo: PropTypes.object.isRequired,
+    daysInfo: PropTypes.object.isRequired,
+    showSlotForm: PropTypes.func.isRequired,
+    hideSlotForm: PropTypes.func.isRequired,
+    createSlot: PropTypes.func.isRequired,
+    updateSlot: PropTypes.func.isRequired,
+    hideTaskForms: PropTypes.func.isRequired,
+    createTask: PropTypes.func.isRequired,
+    removeSlot: PropTypes.func.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Slots);
