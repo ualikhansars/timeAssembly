@@ -2,6 +2,7 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import jwt from 'jsonwebtoken';
+import PropTypes from 'prop-types';
 
 import Slots from './slots/Slots';
 import Preferences from './preferences/Preferences';
@@ -73,6 +74,14 @@ const mapDispatchToProps = (dispatch) => {
         }, 
         dispatch
     );
+}
+
+Dynamic.propTypes = {
+    display: PropTypes.object.isRequired,
+    daysInfo: PropTypes.object.isRequired,
+    slotInfo: PropTypes.object.isRequired,
+    fetchTemporarySlots: PropTypes.func.isRequired,
+    setCurrentUser: PropTypes.func.isRequired
 }
 
 

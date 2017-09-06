@@ -4,6 +4,8 @@ var router = express.Router();
 var User = require('../models/user');
 var loginValidation = require('../utils/loginValidation');
 
+var authenticate = require('../middlewares/authenticate');
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');

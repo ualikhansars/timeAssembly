@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+//var authenticate = require('../middlewares/authenticate');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

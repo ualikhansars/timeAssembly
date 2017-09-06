@@ -44,7 +44,7 @@ const mapStateToProps = (state) => {
     };
 }
 
-TimeInterval.PropTypes = {
+TimeInterval.propTypes = {
     hour: PropTypes.string.isRequired,
     min: PropTypes.string.isRequired,
     meridien: PropTypes.string,
