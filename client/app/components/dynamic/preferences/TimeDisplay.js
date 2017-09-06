@@ -1,16 +1,16 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 // import actions
 import {
-    ChangeToTwentyFourHoursFormat,
-    ChangeToTwelveHoursFormat
+    changeToTwentyFourHoursFormat,
+    changeToTwelveHoursFormat
 } from '../../../actions/preferencesAction';
 
 class TimeDisplay extends React.Component {
     render() {
-
             // display On or Off if depends of which
             // time Format is switched
             let twentyFourOn = 'On';
@@ -57,11 +57,17 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-            twentyFour: ChangeToTwentyFourHoursFormat,
-            twelve: ChangeToTwelveHoursFormat
+            twentyFour: changeToTwentyFourHoursFormat,
+            twelve: changeToTwelveHoursFormat
         }, 
         dispatch
     );
+}
+
+TimeDisplay.propTypes = {
+    preferences: PropTypes.object.isRequired,
+    twentyFour: PropTypes.func.isRequired,
+    twelve: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimeDisplay);

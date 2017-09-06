@@ -1,6 +1,7 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 // import actions
 import {
@@ -81,6 +82,13 @@ function mapDispatchToProps(dispatch) {
         }, 
         dispatch
     );
+}
+
+TimeInterval.propTypes = {
+    preferences: PropTypes.object.isRequired,
+    showEvery15Minutes: PropTypes.func.isRequired,
+    showEvery30Minutes: PropTypes.func.isRequired,
+    showEveryHour: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimeInterval);

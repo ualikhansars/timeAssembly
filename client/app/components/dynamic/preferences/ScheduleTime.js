@@ -1,6 +1,7 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 import {getScheduleTime} from '../../../utils/timeCalc';
 
@@ -102,6 +103,12 @@ function mapDispatchToProps(dispatch) {
         }, 
         dispatch
     );
+}
+
+ScheduleTime.propTypes = {
+    preferences: PropTypes.object.isRequired,
+    changeStartDisplayHour: PropTypes.func.isRequired,
+    changeFinishDisplayHour: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ScheduleTime);

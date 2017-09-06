@@ -58175,7 +58175,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 // change time Format to 24 base
-var ChangeToTwentyFourHoursFormat = exports.ChangeToTwentyFourHoursFormat = function ChangeToTwentyFourHoursFormat() {
+var changeToTwentyFourHoursFormat = exports.changeToTwentyFourHoursFormat = function changeToTwentyFourHoursFormat() {
     return {
         type: 'TWENTY_FOUR_HOURS_FORMAT',
         timeFormat: 24
@@ -58183,7 +58183,7 @@ var ChangeToTwentyFourHoursFormat = exports.ChangeToTwentyFourHoursFormat = func
 };
 
 // change time Format to 12 base
-var ChangeToTwelveHoursFormat = exports.ChangeToTwelveHoursFormat = function ChangeToTwelveHoursFormat() {
+var changeToTwelveHoursFormat = exports.changeToTwelveHoursFormat = function changeToTwelveHoursFormat() {
     return {
         type: 'TWELVE_HOURS_FORMAT',
         timeFormat: 12
@@ -75249,6 +75249,10 @@ var _redux = __webpack_require__(35);
 
 var _reactRedux = __webpack_require__(32);
 
+var _propTypes = __webpack_require__(42);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _timeCalc = __webpack_require__(170);
 
 var _preferencesAction = __webpack_require__(433);
@@ -75407,6 +75411,12 @@ function mapDispatchToProps(dispatch) {
     }, dispatch);
 }
 
+ScheduleTime.propTypes = {
+    preferences: _propTypes2.default.object.isRequired,
+    changeStartDisplayHour: _propTypes2.default.func.isRequired,
+    changeFinishDisplayHour: _propTypes2.default.func.isRequired
+};
+
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ScheduleTime);
 
 /***/ }),
@@ -75429,6 +75439,10 @@ var _react2 = _interopRequireDefault(_react);
 var _redux = __webpack_require__(35);
 
 var _reactRedux = __webpack_require__(32);
+
+var _propTypes = __webpack_require__(42);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _preferencesAction = __webpack_require__(433);
 
@@ -75543,10 +75557,16 @@ var mapStateToProps = function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)({
-        twentyFour: _preferencesAction.ChangeToTwentyFourHoursFormat,
-        twelve: _preferencesAction.ChangeToTwelveHoursFormat
+        twentyFour: _preferencesAction.changeToTwentyFourHoursFormat,
+        twelve: _preferencesAction.changeToTwelveHoursFormat
     }, dispatch);
 }
+
+TimeDisplay.propTypes = {
+    preferences: _propTypes2.default.object.isRequired,
+    twentyFour: _propTypes2.default.func.isRequired,
+    twelve: _propTypes2.default.func.isRequired
+};
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TimeDisplay);
 
@@ -75570,6 +75590,10 @@ var _react2 = _interopRequireDefault(_react);
 var _redux = __webpack_require__(35);
 
 var _reactRedux = __webpack_require__(32);
+
+var _propTypes = __webpack_require__(42);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _preferencesAction = __webpack_require__(433);
 
@@ -75726,6 +75750,13 @@ function mapDispatchToProps(dispatch) {
         showEvery30Minutes: _preferencesAction.showEvery30Minutes
     }, dispatch);
 }
+
+TimeInterval.propTypes = {
+    preferences: _propTypes2.default.object.isRequired,
+    showEvery15Minutes: _propTypes2.default.func.isRequired,
+    showEvery30Minutes: _propTypes2.default.func.isRequired,
+    showEveryHour: _propTypes2.default.func.isRequired
+};
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TimeInterval);
 
