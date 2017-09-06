@@ -2,6 +2,7 @@ import React from 'react';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 import {displayNothing} from '../../../actions/displayAction';
 import {updateTask} from '../../../actions/taskAction';
@@ -128,6 +129,12 @@ const mapDispatchToProps = (dispatch) => {
         }, 
         dispatch
     );
+}
+
+UpdateTaskForm.propTypes = {
+    taskInfo: PropTypes.object.isRequired,
+    displayNothing: PropTypes.func.isRequired,
+    updatedTask: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateTaskForm);

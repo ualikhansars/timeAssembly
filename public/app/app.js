@@ -74238,6 +74238,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(32);
 
+var _propTypes = __webpack_require__(42);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _getCurrentDate = __webpack_require__(560);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -74414,6 +74418,10 @@ var mapStateToProps = function mapStateToProps(state) {
     };
 };
 
+CreateSlotForm.propTypes = {
+    daysInfo: _propTypes2.default.object.isRequired
+};
+
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(CreateSlotForm);
 
 /***/ }),
@@ -74434,6 +74442,10 @@ var _react = __webpack_require__(10);
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(32);
+
+var _propTypes = __webpack_require__(42);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _timeCalc = __webpack_require__(170);
 
@@ -74706,6 +74718,13 @@ var mapStateToProps = function mapStateToProps(state) {
     };
 };
 
+CreateTaskForm.propTypes = {
+    slotInfo: _propTypes2.default.object.isRequired,
+    daysInfo: _propTypes2.default.object.isRequired,
+    taskInfo: _propTypes2.default.object.isRequired,
+    preferences: _propTypes2.default.object.isRequired
+};
+
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(CreateTaskForm);
 
 /***/ }),
@@ -74726,6 +74745,10 @@ var _react = __webpack_require__(10);
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(32);
+
+var _propTypes = __webpack_require__(42);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -74880,6 +74903,10 @@ var mapStateToProps = function mapStateToProps(state) {
     };
 };
 
+UpdateSlotForm.propTypes = {
+    slotInfo: _propTypes2.default.object.isRequired
+};
+
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(UpdateSlotForm);
 
 /***/ }),
@@ -74902,6 +74929,10 @@ var _react2 = _interopRequireDefault(_react);
 var _redux = __webpack_require__(35);
 
 var _reactRedux = __webpack_require__(32);
+
+var _propTypes = __webpack_require__(42);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _displayAction = __webpack_require__(557);
 
@@ -75098,6 +75129,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         displayNothing: _displayAction.displayNothing,
         updateTask: _taskAction.updateTask
     }, dispatch);
+};
+
+UpdateTaskForm.propTypes = {
+    taskInfo: _propTypes2.default.object.isRequired,
+    displayNothing: _propTypes2.default.func.isRequired,
+    updatedTask: _propTypes2.default.func.isRequired
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(UpdateTaskForm);

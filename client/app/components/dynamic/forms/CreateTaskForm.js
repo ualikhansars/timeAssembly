@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 import {
     calcFinishTime, 
@@ -170,7 +171,12 @@ const mapStateToProps = (state) => {
     };
 }
 
-
+CreateTaskForm.propTypes = {
+    slotInfo: PropTypes.object.isRequired,
+    daysInfo: PropTypes.object.isRequired,
+    taskInfo: PropTypes.object.isRequired,
+    preferences: PropTypes.object.isRequired
+}
 
 export default connect(mapStateToProps, null)(CreateTaskForm);
 

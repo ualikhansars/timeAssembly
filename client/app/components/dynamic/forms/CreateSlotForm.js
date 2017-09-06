@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 import {getCurrentDate} from '../../../utils/getCurrentDate';
 
@@ -94,6 +95,10 @@ const mapStateToProps = (state) => {
     return {
         daysInfo: state.daysInfo,
     };
+}
+
+CreateSlotForm.propTypes = {
+    daysInfo: PropTypes.object.isRequired
 }
 
 export default connect(mapStateToProps, null)(CreateSlotForm);

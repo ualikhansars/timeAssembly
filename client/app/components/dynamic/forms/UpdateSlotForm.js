@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 class UpdateSlotForm extends React.Component {
     constructor(props) {
@@ -78,6 +79,10 @@ const mapStateToProps = (state) => {
     return {
         slotInfo: state.slotInfo
     };
+}
+
+UpdateSlotForm.propTypes = {
+    slotInfo: PropTypes.object.isRequired
 }
 
 
