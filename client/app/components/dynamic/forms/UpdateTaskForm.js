@@ -19,7 +19,7 @@ class UpdateTaskForm extends React.Component {
         this.finishTimeMinutes = this.props.taskInfo.task.finishHours;
         this.finishTimeHours = this.props.taskInfo.task.finishTimeMinutes;
         this.day = this.props.taskInfo.task.day;
-        this.username = this.props.taskInfo.task.username;
+        this.userId = this.props.taskInfo.task.userId;
         this.slot = this.props.taskInfo.task.slot;
         this.id = this.props.taskInfo.task._id;       
         this.state = {
@@ -32,7 +32,7 @@ class UpdateTaskForm extends React.Component {
             finishTimeHours: this.finishTimeHours,
             finishTimeMinutes: this.finishTimeMinutes,
             day: this.day,
-            username: this.username,
+            userId: this.userId,
             slot: this.slot,
             _id: this.id       
         }
