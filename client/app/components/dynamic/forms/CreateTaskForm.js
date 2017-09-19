@@ -25,7 +25,8 @@ class CreateTaskForm extends React.Component {
         this.slot = this.props.slotInfo.slot._id;  
         this.day =  this.props.daysInfo.chosenDay;
         this.startTimeHours = this.props.taskInfo.startTimeHours;
-        this.startTimeMinutes = this.props.taskInfo.startTimeMinutes;        
+        this.startTimeMinutes = this.props.taskInfo.startTimeMinutes;     
+        this.userId = this.props.slotInfo.slot.userId;   
         this.state = {
             task: {
                 title: this.title,
@@ -37,7 +38,7 @@ class CreateTaskForm extends React.Component {
                 finishTimeHours: 0,
                 finishTimeMinutes: 0,
                 day: this.day,
-                username: '5954dadd41b4a32e8b86c405',
+                userId: this.userId,
                 slot: this.slot
             },
             durationHours: 0,

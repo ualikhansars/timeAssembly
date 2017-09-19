@@ -74482,6 +74482,7 @@ var CreateTaskForm = function (_React$Component) {
         _this.day = _this.props.daysInfo.chosenDay;
         _this.startTimeHours = _this.props.taskInfo.startTimeHours;
         _this.startTimeMinutes = _this.props.taskInfo.startTimeMinutes;
+        _this.userId = _this.props.slotInfo.slot.userId;
         _this.state = {
             task: {
                 title: _this.title,
@@ -74493,7 +74494,7 @@ var CreateTaskForm = function (_React$Component) {
                 finishTimeHours: 0,
                 finishTimeMinutes: 0,
                 day: _this.day,
-                username: '5954dadd41b4a32e8b86c405',
+                userId: _this.userId,
                 slot: _this.slot
             },
             durationHours: 0,
