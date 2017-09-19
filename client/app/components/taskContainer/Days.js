@@ -1,6 +1,7 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Day from './Day';
 
@@ -36,6 +37,11 @@ const mapDispatchToProps = (dispatch) => {
         dispatch
     );
 }
+
+Days.propTypes = {
+    daysInfo: PropTypes.object.isRequired,
+    getCurrentDayAndTime: PropTypes.func.isRequired
+} 
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Days);

@@ -1,6 +1,8 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+
 import {displaySlots} from '../../actions/displayAction';
 import {displaySettings} from '../../actions/displayAction';
 
@@ -31,6 +33,11 @@ function mapDispatchToProps(dispatch) {
         }, 
         dispatch
     );
+}
+
+Sidebar.propTypes = {
+    displaySlots: PropTypes.func.isRequired,
+    displaySettings: PropTypes.func.isRequired,
 }
 
 export default connect(null, mapDispatchToProps)(Sidebar);

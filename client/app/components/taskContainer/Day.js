@@ -1,6 +1,8 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+
 import {fetchTasksByDay, 
         removeTask,
         onClickUpdateTask 
@@ -87,6 +89,14 @@ const mapDispatchToProps = (dispatch) => {
         }, 
         dispatch
     );
+}
+
+Day.PropTypes = {
+    taskInfo: PropTypes.object.isRequired,
+    preferences: PropTypes.object.isRequired,
+    fetchTasksByDay: PropTypes.func.isRequired,
+    removeTask: PropTypes.func.isRequired,
+    onClickUpdateTask: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Day);

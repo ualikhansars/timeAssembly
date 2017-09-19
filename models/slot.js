@@ -18,7 +18,7 @@ var slotSchema = mongoose.Schema({
     },
     temporary: {type: Boolean, default: false},
     dueDate: {type: String},
-    username: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }

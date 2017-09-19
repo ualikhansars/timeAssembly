@@ -1,7 +1,7 @@
 import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-
+import PropTypes from 'prop-types';
 import {logout} from '../../actions/userAction';
 
 class Navbar extends React.Component {
@@ -64,6 +64,11 @@ const mapDispatchToProps = (dispatch) => {
         }, 
         dispatch
     );
+}
+
+Navbar.propTypes = {
+    userInfo: PropTypes.object.isRequired,
+    logout: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

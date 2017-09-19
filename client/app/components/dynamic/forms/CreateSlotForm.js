@@ -14,10 +14,12 @@ class CreateSlotForm extends React.Component {
             free: 1,
             temporary: false,
             dueDate: '',
+            userId: this.props.userInfo.user.id
         }
     }
 
     onChange(event) {
+        console.log(this.state);
         this.setState({
                 [event.target.id]: event.target.value
         });
@@ -94,11 +96,13 @@ class CreateSlotForm extends React.Component {
 const mapStateToProps = (state) => {
     return {
         daysInfo: state.daysInfo,
+        userInfo: state.userInfo
     };
 }
 
 CreateSlotForm.propTypes = {
-    daysInfo: PropTypes.object.isRequired
+    daysInfo: PropTypes.object.isRequired,
+    userInfo: PropTypes.object.isRequired
 }
 
 export default connect(mapStateToProps, null)(CreateSlotForm);

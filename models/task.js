@@ -44,7 +44,7 @@ var taskSchema = mongoose.Schema({
     day: {
         type: String, 
     },
-    username: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
