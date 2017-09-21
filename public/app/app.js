@@ -59378,16 +59378,28 @@ var hideSlotForm = exports.hideSlotForm = function hideSlotForm() {
     };
 };
 
-function fetchSlots() {
+function fetchSlots(id) {
     return function (dispatch) {
         dispatch({
             type: 'LOAD_SLOTS_REQUESTED'
         });
-        _axios2.default.get('/api/slot').then(function (res) {
-            dispatch({
-                type: 'LOAD_SLOTS_OK',
-                slots: res.data.resource
-            });
+        _axios2.default.get('/api/slot/', {
+            params: {
+                userId: id
+            }
+        }).then(function (res) {
+            console.error('fetch slots response', res);
+            if (id) {
+                dispatch({
+                    type: 'LOAD_SLOTS_OK',
+                    slots: res.data.resource
+                });
+            } else {
+                dispatch({
+                    type: 'LOAD_SLOTS_FAIL',
+                    slotsErrors: 'incorrect userId'
+                });
+            }
         }).catch(function (result) {
             dispatch({
                 type: 'LOAD_SLOTS_FAIL',
@@ -76007,7 +76019,9 @@ var SlotContainer = function (_React$Component) {
     _createClass(SlotContainer, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            this.props.fetchSlots();
+            var userId = this.props.userInfo.user.id;
+            console.error('userId:', userId);
+            this.props.fetchSlots(userId);
         }
     }, {
         key: 'render',
@@ -76141,6 +76155,7 @@ var mapStateToProps = function mapStateToProps(state) {
         slotInfo: state.slotInfo,
         daysInfo: state.daysInfo,
         taskInfo: state.taskInfo,
+        userInfo: state.userInfo,
         preferences: state.preferences
     };
 };
@@ -76166,12 +76181,13 @@ SlotContainer.propTypes = {
     preferences: _propTypes2.default.object.isRequired,
     fetchSlots: _propTypes2.default.func.isRequired,
     addTask: _propTypes2.default.func.isRequired,
-    showCreateSlotForm: _propTypes2.default.func.isRequired,
+    showCreateSlotForm: _propTypes2.default.func,
     hideSlotForm: _propTypes2.default.func.isRequired,
     removeSlot: _propTypes2.default.func.isRequired,
-    showUpdateSlotForm: _propTypes2.default.func.isRequired,
+    showUpdateSlotForm: _propTypes2.default.func,
     createSlot: _propTypes2.default.func.isRequired,
-    onClickUpdateSlot: _propTypes2.default.func.isRequired
+    onClickUpdateSlot: _propTypes2.default.func.isRequired,
+    userInfo: _propTypes2.default.object.isRequired
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SlotContainer);
@@ -76331,7 +76347,7 @@ Slots.propTypes = {
     slotInfo: _propTypes2.default.object.isRequired,
     taskInfo: _propTypes2.default.object.isRequired,
     daysInfo: _propTypes2.default.object.isRequired,
-    showSlotForm: _propTypes2.default.func.isRequired,
+    showSlotForm: _propTypes2.default.func,
     hideSlotForm: _propTypes2.default.func.isRequired,
     createSlot: _propTypes2.default.func.isRequired,
     updateSlot: _propTypes2.default.func.isRequired,

@@ -19,7 +19,9 @@ import Slot from './Slot';
 class SlotContainer extends React.Component {
         
     componentDidMount() {
-        this.props.fetchSlots();
+        let userId = this.props.userInfo.user.id;
+        console.error('userId:', userId);
+        this.props.fetchSlots(userId);
     }
 
     render() {
@@ -110,6 +112,7 @@ const mapStateToProps = (state) => {
         slotInfo: state.slotInfo,
         daysInfo: state.daysInfo,
         taskInfo: state.taskInfo,
+        userInfo: state.userInfo,
         preferences: state.preferences
     };
 }
@@ -137,12 +140,13 @@ SlotContainer.propTypes = {
     preferences: PropTypes.object.isRequired,
     fetchSlots: PropTypes.func.isRequired,
     addTask: PropTypes.func.isRequired,
-    showCreateSlotForm: PropTypes.func.isRequired,
+    showCreateSlotForm: PropTypes.func,
     hideSlotForm: PropTypes.func.isRequired,
     removeSlot: PropTypes.func.isRequired,
-    showUpdateSlotForm: PropTypes.func.isRequired,
+    showUpdateSlotForm: PropTypes.func,
     createSlot: PropTypes.func.isRequired,
     onClickUpdateSlot: PropTypes.func.isRequired,
+    userInfo: PropTypes.object.isRequired
 }
 
 

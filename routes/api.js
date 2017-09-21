@@ -8,7 +8,6 @@ var User = require('../models/user');
 
 // find all
 router.get('/:resource', function(req, res, next) {
-  console.log('user', req.user);
   var resource = req.params.resource;
   var controller = controllers[resource];
 
@@ -28,11 +27,13 @@ router.get('/:resource', function(req, res, next) {
       });
       return;
     }
+    console.log('resource', resource);
+    console.log('req.query', req.query);
     res.json({
       confirmation: 'success',
       resource: results
     });
-
+    return;
   })
 });
 
@@ -229,5 +230,22 @@ router.put('/task', function(req, res, next) {
     });
   })
 });
+
+// get slots by user id
+// router.get('/slot/:userId', function(req, res, next) {
+//   Slot.find({userId: userId}, function(err, result) {
+//     if(err) {
+//       res.json({
+//         confirmation: 'error',
+//         message: err
+//       });
+//       return;
+//     }
+//     res.json({
+//       confirmation: 'success',
+//       resource: result  
+//     });
+//   })
+// });
 
 module.exports = router;

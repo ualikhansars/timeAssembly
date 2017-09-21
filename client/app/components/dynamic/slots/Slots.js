@@ -84,7 +84,7 @@ Slots.propTypes = {
     slotInfo: PropTypes.object.isRequired,
     taskInfo: PropTypes.object.isRequired,
     daysInfo: PropTypes.object.isRequired,
-    showSlotForm: PropTypes.func.isRequired,
+    showSlotForm: PropTypes.func,
     hideSlotForm: PropTypes.func.isRequired,
     createSlot: PropTypes.func.isRequired,
     updateSlot: PropTypes.func.isRequired,

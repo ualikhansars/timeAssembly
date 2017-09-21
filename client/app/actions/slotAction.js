@@ -22,17 +22,29 @@ export const hideSlotForm = () => {
     };
 }
 
-export function fetchSlots() {
+export function fetchSlots(id) {
     return dispatch => {
         dispatch({
             type: 'LOAD_SLOTS_REQUESTED'
         });
-        axios.get('/api/slot')
-            .then(res => {
-                dispatch({
-                    type: 'LOAD_SLOTS_OK',
-                    slots: res.data.resource
-                });
+        axios.get(`/api/slot/`,{ 
+            params: {
+                userId: id
+            }
+        })
+            .then(res => {    
+                console.error('fetch slots response', res);
+                if(id) {
+                    dispatch({
+                        type: 'LOAD_SLOTS_OK',
+                        slots: res.data.resource
+                    });
+                } else {
+                    dispatch({
+                        type: 'LOAD_SLOTS_FAIL',
+                        slotsErrors: 'incorrect userId'
+                    });
+                }
             })
             .catch(result => {
                 dispatch({
