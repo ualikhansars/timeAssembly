@@ -17,7 +17,8 @@ import {setCurrentUser} from '../../actions/userAction';
 class Dynamic extends React.Component {
 
     componentDidMount() {
-        this.props.fetchTemporarySlots();
+        let userId = this.props.userInfo.user.id;
+        this.props.fetchTemporarySlots(userId);
         if(localStorage.jwtToken) {
             setAuthToken(localStorage.jwtToken);
             let token = localStorage.jwtToken;
@@ -63,7 +64,8 @@ const mapStateToProps = (state) => {
     return {
         display: state.display,
         daysInfo: state.daysInfo,
-        slotInfo: state.slotInfo
+        slotInfo: state.slotInfo,
+        userInfo: state.userInfo
     };
 }
 

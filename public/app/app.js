@@ -59410,18 +59410,25 @@ function fetchSlots(id) {
 }
 
 // fetch only temporary tasks
-var fetchTemporarySlots = exports.fetchTemporarySlots = function fetchTemporarySlots() {
+var fetchTemporarySlots = exports.fetchTemporarySlots = function fetchTemporarySlots(id) {
     return function (dispatch) {
         return _axios2.default.get('/api/slot', {
             params: {
-                temporary: true
+                temporary: true,
+                userId: id
             }
         }).then(function (res) {
-            var data = res.data.resource;
-            dispatch({
-                type: 'FETCH_TEMPORARY_SLOTS_SUCCESS',
-                temporarySlots: data
-            });
+            if (id) {
+                var data = res.data.resource;
+                dispatch({
+                    type: 'FETCH_TEMPORARY_SLOTS_SUCCESS',
+                    temporarySlots: data
+                });
+            } else {
+                dispatch({
+                    type: 'FETCH_TEMPORARY_SLOTS_FAIL'
+                });
+            }
         }).catch(function (error) {
             console.log(error);
         });
@@ -74159,7 +74166,8 @@ var Dynamic = function (_React$Component) {
     _createClass(Dynamic, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            this.props.fetchTemporarySlots();
+            var userId = this.props.userInfo.user.id;
+            this.props.fetchTemporarySlots(userId);
             if (localStorage.jwtToken) {
                 (0, _setAuthToken2.default)(localStorage.jwtToken);
                 var token = localStorage.jwtToken;
@@ -74210,7 +74218,8 @@ var mapStateToProps = function mapStateToProps(state) {
     return {
         display: state.display,
         daysInfo: state.daysInfo,
-        slotInfo: state.slotInfo
+        slotInfo: state.slotInfo,
+        userInfo: state.userInfo
     };
 };
 
@@ -77923,6 +77932,9 @@ var SlotInfo = function SlotInfo() {
             return Object.assign({}, state, {
                 temporarySlots: action.temporarySlots
             });
+        case 'FETCH_TEMPORARY_SLOTS_FAIL':
+            console.error('cannot fetch temporary slots, incorrect userID');
+            return state;
         case 'FETCH_SLOT_BY_ID':
             return Object.assign({}, state, {
                 slot: action.slot

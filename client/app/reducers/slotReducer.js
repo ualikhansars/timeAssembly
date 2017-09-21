@@ -87,6 +87,9 @@ const SlotInfo = (state = initialState, action) => {
             return Object.assign({}, state, {
                 temporarySlots: action.temporarySlots
             });
+        case 'FETCH_TEMPORARY_SLOTS_FAIL':
+            console.error('cannot fetch temporary slots, incorrect userID');
+            return state;
         case 'FETCH_SLOT_BY_ID':
             return Object.assign({}, state, {
                 slot: action.slot

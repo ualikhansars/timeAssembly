@@ -56,19 +56,26 @@ export function fetchSlots(id) {
 }
 
 // fetch only temporary tasks
-export const fetchTemporarySlots = () => {
+export const fetchTemporarySlots = (id) => {
     return dispatch => {
         return axios.get('/api/slot', {
             params: {
-                temporary: true
+                temporary: true,
+                userId: id
             }
         })
             .then(res => {
-                let data = res.data.resource;
-                dispatch({
-                    type: 'FETCH_TEMPORARY_SLOTS_SUCCESS',
-                    temporarySlots: data
-                });
+                if(id) {
+                    let data = res.data.resource;
+                    dispatch({
+                        type: 'FETCH_TEMPORARY_SLOTS_SUCCESS',
+                        temporarySlots: data
+                    });
+                } else {
+                    dispatch({
+                        type: 'FETCH_TEMPORARY_SLOTS_FAIL',
+                    });
+                }
             })
             .catch(error => {
                 console.log(error)
