@@ -22,7 +22,6 @@ class Day extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if(this.props.day != nextProps.day || this.props.userInfo.user.id !== nextProps.userInfo.user.id) {
-            console.error('nextProps', nextProps);
             this.props.fetchTasksByDay(nextProps.userInfo.user.id, nextProps.day);
         }
     }

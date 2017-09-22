@@ -18,28 +18,28 @@ var taskSchema = mongoose.Schema({
         get: v => Math.round(v),
         set: v => Math.round(v),
         min: 0,
-        max: 23,  
+        max: 23  
     },
     startTimeMinutes: {
         type: Number,
         get: v => Math.round(v),
         set: v => Math.round(v),
         min: 0,
-        max: 59,  
+        max: 59  
     },
     finishTimeHours: {
         type: Number,
         get: v => Math.round(v),
         set: v => Math.round(v),
         min: 0,
-        max: 24,  
+        max: 24  
     },
     finishTimeMinutes: {
         type: Number,
         get: v => Math.round(v),
         set: v => Math.round(v),
         min: 0,
-        max: 59,  
+        max: 59 
     },
     day: {
         type: String, 
