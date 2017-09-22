@@ -1,11 +1,29 @@
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import jwt from 'jsonwebtoken';
+import PropTypes from 'prop-types';
+
 import Dynamic from '../dynamic/Dynamic';
 import Navbar from '../navigation/Navbar';
 import Sidebar from '../sidebar/Sidebar'; 
 import TaskContainer from '../taskContainer/TaskContainer'; 
 
+import setAuthToken from '../../../utils/setAuthToken';
+import {setCurrentUser} from '../../actions/userAction';
+
 
 class Home extends React.Component {
+
+    componentDidMount() {
+        if(localStorage.jwtToken) {
+            setAuthToken(localStorage.jwtToken);
+            let token = localStorage.jwtToken;
+            let decodeToken = jwt.decode(token);
+            this.props.setCurrentUser(decodeToken);
+        }
+    }
+
     render() {
         return(
             <div className="container-fluid">
@@ -30,4 +48,17 @@ class Home extends React.Component {
     }
 }
 
-export default Home;
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        setCurrentUser
+        }, 
+        dispatch
+    );
+}
+
+Home.propTypes = {
+    setCurrentUser: PropTypes.func.isRequired
+}
+
+
+export default connect(null, mapDispatchToProps)(Home);

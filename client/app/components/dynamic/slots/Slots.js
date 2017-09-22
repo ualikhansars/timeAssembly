@@ -27,8 +27,6 @@ class Slots extends React.Component {
             }
         }
     render() {
-        console.log('currentDate Slots', this.props.currentDate);
-        console.log('temporarySlots Slots', this.props.temporarySlots)
         const {displayCreateSlotForm, displayUpdateSlotForm} = this.props.slotInfo;
         const {displayCreateTaskForm} = this.props.taskInfo;
         let {currentDate} = this.props.daysInfo;

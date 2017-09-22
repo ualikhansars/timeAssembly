@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import {addTask} from '../../../actions/taskAction';
 import {
+        fetchTemporarySlots,
         fetchSlots,
         onClickUpdateSlot, 
         removeSlot, 
@@ -20,7 +21,7 @@ class SlotContainer extends React.Component {
         
     componentDidMount() {
         let userId = this.props.userInfo.user.id;
-        console.error('userId:', userId);
+        this.props.fetchTemporarySlots(userId);
         this.props.fetchSlots(userId);
     }
 
@@ -120,6 +121,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
             // fetch slots from database
+            fetchTemporarySlots,
             fetchSlots,
             addTask,
             showCreateSlotForm,

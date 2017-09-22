@@ -24176,8 +24176,7 @@ module.exports = traverseAllChildren;
 /* 456 */,
 /* 457 */,
 /* 458 */,
-/* 459 */,
-/* 460 */
+/* 459 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -24232,6 +24231,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 
 /***/ }),
+/* 460 */,
 /* 461 */,
 /* 462 */,
 /* 463 */,
@@ -24326,8 +24326,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 /* 552 */,
 /* 553 */,
 /* 554 */,
-/* 555 */,
-/* 556 */
+/* 555 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24386,6 +24385,7 @@ var EmailConfirmation = function (_React$Component) {
 exports.default = EmailConfirmation;
 
 /***/ }),
+/* 556 */,
 /* 557 */,
 /* 558 */,
 /* 559 */,
@@ -24521,11 +24521,11 @@ var _axios = __webpack_require__(93);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _classnames = __webpack_require__(460);
+var _classnames = __webpack_require__(459);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _EmailConfirmation = __webpack_require__(556);
+var _EmailConfirmation = __webpack_require__(555);
 
 var _EmailConfirmation2 = _interopRequireDefault(_EmailConfirmation);
 
@@ -24756,7 +24756,7 @@ var _SignUpPage = __webpack_require__(579);
 
 var _SignUpPage2 = _interopRequireDefault(_SignUpPage);
 
-var _EmailConfirmation = __webpack_require__(556);
+var _EmailConfirmation = __webpack_require__(555);
 
 var _EmailConfirmation2 = _interopRequireDefault(_EmailConfirmation);
 

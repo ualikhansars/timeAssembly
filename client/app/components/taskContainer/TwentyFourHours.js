@@ -221,7 +221,7 @@ class TwentyFourHours extends React.Component {
 
         return (
             <div className="container">
-                <h6>{this.props.day}</h6>
+                <h6>{this.props.dayInfo}</h6>
                 <h6>24 Hours</h6>
                {timetable}
             </div>

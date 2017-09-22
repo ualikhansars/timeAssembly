@@ -1,21 +1,31 @@
 import axios from 'axios';
 
-export const fetchTasksByDay = (day) => {
+export const fetchTasksByDay = (userId, day) => {
+    console.log('fetchTasksByDay userId:', userId);
     return dispatch => {
         dispatch({
             type: 'LOAD_TASKS_REQUESTED'
         });
         axios.get('/api/task', {
             params: {
-                day: day
+                day: day,
+                userId
             }
             })
             .then(result => {
-                console.log('result',result);
-                dispatch({
-                    type: 'LOAD_TASKS_OK',
-                    tasks: result.data.resource
-                });
+                console.error('result userId:', userId);
+                if(userId) {
+                    dispatch({
+                        type: 'LOAD_TASKS_OK',
+                        tasks: result.data.resource
+                    });
+                } else {
+                    dispatch({
+                        type: 'LOAD_TASKS_FAIL',
+                        tasksErrors: 'Incorrect userID'
+                    });
+                }
+                
             })
             .catch(result => {
                 dispatch({
