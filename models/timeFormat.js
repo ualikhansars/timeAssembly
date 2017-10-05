@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var User = require('./user');
+var uniqueValidator = require('mongoose-unique-validator');
 
 var timeFormatSchema = mongoose.Schema({
     format: {
@@ -9,8 +10,11 @@ var timeFormatSchema = mongoose.Schema({
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        unique: true
     },
 });
+
+timeFormatSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('TimeFormat', timeFormatSchema);

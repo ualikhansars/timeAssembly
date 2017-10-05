@@ -1,5 +1,8 @@
 var User = require('../models/user');
 var bcrypt = require('bcrypt');
+var ScheduleTime = require('../models/scheduleTime');
+var TimeFormat = require('../models/timeFormat');
+var TimeInterval = require('../models/timeInterval');
 
 module.exports =  function validateUser(req, res) {
     // User.findOne({email: req.body.email}, function(err, user) {
@@ -50,6 +53,44 @@ module.exports =  function validateUser(req, res) {
             });
             return;
           }
+          // create user preferences
+          // schedule time
+          ScheduleTime.create({
+            userId: result._id
+          }, function(err, scheduleTime) {
+            if(err) {
+              res.json({
+                confirmation: 'failed',
+                message: err
+              });
+              return;
+            }
+          });
+          // timeFormat
+          TimeFormat.create({
+            userId: result._id
+          }, function(err, scheduleTime) {
+            if(err) {
+              res.json({
+                confirmation: 'failed',
+                message: err
+              });
+              return;
+            }
+          });
+          // timeInterval
+          TimeInterval.create({
+            userId: result._id
+          }, function(err, scheduleTime) {
+            if(err) {
+              res.json({
+                confirmation: 'failed',
+                message: err
+              });
+              return;
+            }
+          });
+          console.log('create user: result:', result);
           res.json({
             confirmation: 'success',
             result: result

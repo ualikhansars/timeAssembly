@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var User = require('./user');
+var uniqueValidator = require('mongoose-unique-validator');
 
 var timeIntervalSchema = mongoose.Schema({
     interval: {
@@ -9,8 +10,11 @@ var timeIntervalSchema = mongoose.Schema({
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        unique: true
     },
 });
+
+timeIntervalSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('TimeInterval', timeIntervalSchema);

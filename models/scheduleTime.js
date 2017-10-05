@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var User = require('./user');
+var uniqueValidator = require('mongoose-unique-validator');
 
 var scheduleTimeSchema = mongoose.Schema({
     startHour: {
@@ -20,8 +21,11 @@ var scheduleTimeSchema = mongoose.Schema({
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        unique: true
     },
 });
+
+scheduleTimeSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('ScheduleTime', scheduleTimeSchema);
