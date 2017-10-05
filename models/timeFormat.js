@@ -1,10 +1,11 @@
 var mongoose = require('mongoose');
 var User = require('./user');
 
-var timeFormat = mongoose.Schema({
+var timeFormatSchema = mongoose.Schema({
     format: {
         type: Number,
         enum: [12, 24],
+        default: 24
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -12,4 +13,4 @@ var timeFormat = mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('TimeFormat', timeFormat);
+module.exports = mongoose.model('TimeFormat', timeFormatSchema);

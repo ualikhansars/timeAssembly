@@ -1,10 +1,11 @@
 var mongoose = require('mongoose');
 var User = require('./user');
 
-var timeInterval = mongoose.Schema({
+var timeIntervalSchema = mongoose.Schema({
     interval: {
         type: Number,
         enum: [15, 30, 60],
+        default: 30
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -12,4 +13,4 @@ var timeInterval = mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('TimeInterval', timeInterval);
+module.exports = mongoose.model('TimeInterval', timeIntervalSchema);

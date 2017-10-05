@@ -1,20 +1,22 @@
 var mongoose = require('mongoose');
 var User = require('./user');
 
-var scheduleTime = mongoose.Schema({
+var scheduleTimeSchema = mongoose.Schema({
     startHour: {
         type: Number,
         get: v => Math.round(v),
         set: v => Math.round(v),
         min: 0,
-        max: 24
+        max: 24,
+        default: 0
     },
     finishHour: {
         type: Number,
         get: v => Math.round(v),
         set: v => Math.round(v),
         min: 0,
-        max: 24
+        max: 24,
+        default: 24
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -22,4 +24,4 @@ var scheduleTime = mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('ScheduleTime', scheduleTime);
+module.exports = mongoose.model('ScheduleTime', scheduleTimeSchema);
