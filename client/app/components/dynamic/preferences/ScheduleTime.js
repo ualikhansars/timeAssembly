@@ -28,7 +28,7 @@ class ScheduleTime extends React.Component {
         });
         // convert finishTime to Number
         let startTime = Number(event.target.value);
-        this.props.changeStartDisplayHour(startTime);
+        this.props.changeStartDisplayHour(startTime, this.props.userInfo.user.id);
     }
 
     // change preferences finishTime
@@ -38,7 +38,7 @@ class ScheduleTime extends React.Component {
         });
         // convert finishTime to Number
         let finishTime = Number(event.target.value);
-        this.props.changeFinishDisplayHour(finishTime);
+        this.props.changeFinishDisplayHour(finishTime, this.props.userInfo.user.id);
     }
 
     render() {
@@ -93,6 +93,7 @@ class ScheduleTime extends React.Component {
 const mapStateToProps = (state) => {
     return {
         preferences: state.preferences,
+        userInfo: state.userInfo
     };
 }
 
@@ -108,7 +109,8 @@ function mapDispatchToProps(dispatch) {
 ScheduleTime.propTypes = {
     preferences: PropTypes.object.isRequired,
     changeStartDisplayHour: PropTypes.func.isRequired,
-    changeFinishDisplayHour: PropTypes.func.isRequired
+    changeFinishDisplayHour: PropTypes.func.isRequired,
+    userInfo: PropTypes.object.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ScheduleTime);

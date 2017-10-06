@@ -34,6 +34,17 @@ module.exports = {
             callback(null, time);
         });
     },
+    updateByUserId: function(id, params, callback) {
+        console.log('updateByUserId userId:', id);
+        console.log('updateByUserId params:', params);
+        ScheduleTime.findOneAndUpdate({userId: id}, params, {new: true}, function(err, time) {
+            if(err) {
+                callback(err, null);
+            }
+            console.log('result', time);
+            callback(null, time);
+        })
+    },
     remove: function(id, callback) {
         ScheduleTime.findByIdAndRemove(id, function(err, time) {
             if(err) {

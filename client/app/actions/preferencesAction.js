@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 // change time Format to 24 base
 export const changeToTwentyFourHoursFormat = () => {
     return {
@@ -39,7 +41,20 @@ export const showEvery30Minutes = () => {
 
 
 // change startDisplay Hour
-export const changeStartDisplayHour = (startDisplayHour) => {
+export const changeStartDisplayHour = (startDisplayHour, userId) => {
+    return dispatch => {
+        return axios.put(`/api/scheduleTime/byUserId/${userId}`, {startHour: startDisplayHour})
+            .then(res => {
+                console.log('changeStartDisplayHour', res);
+                dispatch(changeStartDisplayHourSuccess(startDisplayHour));
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    }
+}
+
+export const changeStartDisplayHourSuccess = (startDisplayHour) => {
     return {
         type: 'CHANGE_START_DISPLAY_HOUR',
         startDisplayHour

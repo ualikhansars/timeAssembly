@@ -130,6 +130,35 @@ router.put('/:resource/:id', function(req, res, next) {
   });
 });
 
+// update by userId
+router.put('/:resource/byUserId/:userId', function(req, res, next) {
+  var resource = req.params.resource;
+  var userId = req.params.userId;
+  var controller = controllers[resource];
+
+  if(controller == null) {
+    res.json({
+      confirmation: 'failed',
+      message: 'Invalid resource request ' + resource
+    })
+    return;
+  }
+
+  controller.updateByUserId(userId, req.body, function(err, result) {
+    if(err) {
+      res.json({
+        confirmation: 'error',
+        message: err
+      });
+      return;
+    }
+    res.json({
+      confirmation: 'success',
+      result: result
+    });
+  });
+});
+
 // remove
 router.delete('/:resource/:id', function(req, res, next) {
   var resource = req.params.resource;

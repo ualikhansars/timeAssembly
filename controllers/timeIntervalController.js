@@ -34,6 +34,14 @@ module.exports = {
             callback(null, time);
         });
     },
+    updateByUserId: function(userId, params, callback) {
+        TimeInterval.findOneAndUpdate({userId: userId}, params, {new: true}, function(err, time) {
+            if(err) {
+                callback(err, null);
+            }
+            callback(null, time);
+        })
+    },
     remove: function(id, callback) {
         TimeInterval.findByIdAndRemove(id, function(err, time) {
             if(err) {
