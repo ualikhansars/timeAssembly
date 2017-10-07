@@ -58183,13 +58183,26 @@ function extend() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.changeMeridienToPM = exports.changeMeridienToAM = exports.changeFinishDisplayHourSuccess = exports.changeFinishDisplayHour = exports.changeStartDisplayHourSuccess = exports.changeStartDisplayHour = exports.showEvery30Minutes = exports.showEvery15Minutes = exports.showEveryHour = exports.changeToTwelveHoursFormat = exports.changeToTwentyFourHoursFormat = undefined;
+exports.changeMeridienToPM = exports.changeMeridienToAM = exports.changeFinishDisplayHourSuccess = exports.changeFinishDisplayHour = exports.changeStartDisplayHourSuccess = exports.changeStartDisplayHour = exports.showEvery30Minutes = exports.showEvery15Minutes = exports.showEveryHour = exports.changeToTwelveHoursFormat = exports.changeToTwentyFourHoursFormat = exports.fetchScheduleTimeByUserId = undefined;
 
 var _axios = __webpack_require__(84);
 
 var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var fetchScheduleTimeByUserId = exports.fetchScheduleTimeByUserId = function fetchScheduleTimeByUserId(userId) {
+    return function (dispatch) {
+        return _axios2.default.get('/api/scheduleTime/byUserId/' + userId).then(function (result) {
+            var startHour = result.data.resource.startHour;
+            var finishHour = result.data.resource.finishHour;
+            dispatch(changeStartDisplayHourSuccess(startHour));
+            dispatch(changeFinishDisplayHourSuccess(finishHour));
+        }).catch(function (error) {
+            throw error;
+        });
+    };
+};
 
 // change time Format to 24 base
 var changeToTwentyFourHoursFormat = exports.changeToTwentyFourHoursFormat = function changeToTwentyFourHoursFormat() {
@@ -77038,6 +77051,10 @@ var _redux = __webpack_require__(35);
 
 var _reactRedux = __webpack_require__(29);
 
+var _propTypes = __webpack_require__(18);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _Week = __webpack_require__(602);
 
 var _Week2 = _interopRequireDefault(_Week);
@@ -77048,6 +77065,8 @@ var _Days2 = _interopRequireDefault(_Days);
 
 var _daysAction = __webpack_require__(444);
 
+var _preferencesAction = __webpack_require__(433);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -77055,6 +77074,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// preferences
+
 
 var TaskContainer = function (_React$Component) {
     _inherits(TaskContainer, _React$Component);
@@ -77066,6 +77088,23 @@ var TaskContainer = function (_React$Component) {
     }
 
     _createClass(TaskContainer, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var userId = this.props.userInfo.user.id;
+            console.log('Task Container userId', userId);
+            if (userId) {
+                this.props.fetchScheduleTimeByUserId(userId);
+            }
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            if (this.props.userInfo.user.id !== nextProps.userInfo.user.id) {
+                var userId = nextProps.userInfo.user.id;
+                this.props.fetchScheduleTimeByUserId(userId);
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
@@ -77098,17 +77137,26 @@ var TaskContainer = function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
     return {
-        taskInfo: state.taskInfo
+        taskInfo: state.taskInfo,
+        userInfo: state.userInfo
     };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)({
-        onClickDayInTheWeek: _daysAction.onClickDayInTheWeek
+        onClickDayInTheWeek: _daysAction.onClickDayInTheWeek,
+        fetchScheduleTimeByUserId: _preferencesAction.fetchScheduleTimeByUserId
     }, dispatch);
 };
 
-exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(TaskContainer);
+TaskContainer.propTypes = {
+    taskInfo: _propTypes2.default.object.isRequired,
+    userInfo: _propTypes2.default.object.isRequired,
+    onClickDayInTheWeek: _propTypes2.default.func.isRequired,
+    fetchScheduleTimeByUserId: _propTypes2.default.func.isRequired
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TaskContainer);
 
 /***/ }),
 /* 600 */

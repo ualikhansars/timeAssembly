@@ -67,6 +67,35 @@ router.get('/:resource/:id', function(req, res, next) {
   });
 });
 
+// find One by UserId
+router.get('/:resource/byUserId/:userId', function(req, res, next) {
+  var resource = req.params.resource;
+  var controller = controllers[resource];
+  var userId = req.params.userId;
+
+  if(controller == null) {
+    res.json({
+      confirmation: 'failed',
+      message: 'Invalid resource request ' + resource
+    })
+    return;
+  }
+
+  controller.findByUserId(userId, function(err, result) {
+    if(err) {
+      res.json({
+        confirmation: 'failed',
+        message: 'Not Found'
+      });
+      return;
+    }
+    res.json({
+      confirmation: 'success',
+      resource: result
+    });
+  });
+});
+
 // create 
 router.post('/:resource', function(req, res, next) {
   var resource = req.params.resource;

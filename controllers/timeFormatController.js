@@ -17,6 +17,14 @@ module.exports = {
             callback(null, time);
         });
     },
+    findByUserId: function(params, callback) {
+        TimeFormat.findOne(params, function(err, time) {
+            if(err) {
+                callback(err, null)
+            }
+            callback(null, time);
+        });
+    },
     create: function(params, callback) {
         // logic to save into database
         TimeFormat.create(params, function(err, time) {

@@ -1,5 +1,21 @@
 import axios from 'axios';
 
+export const fetchScheduleTimeByUserId = (userId) => {
+    return dispatch => {
+        return axios.get(`/api/scheduleTime/byUserId/${userId}`)
+        .then(result => {
+            let startHour = result.data.resource.startHour;
+            let finishHour = result.data.resource.finishHour;
+            dispatch(changeStartDisplayHourSuccess(startHour));
+            dispatch(changeFinishDisplayHourSuccess(finishHour));
+        })
+        .catch(error => {
+           throw error;
+        });
+    }    
+    
+}
+
 // change time Format to 24 base
 export const changeToTwentyFourHoursFormat = () => {
     return {

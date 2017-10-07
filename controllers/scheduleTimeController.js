@@ -17,6 +17,14 @@ module.exports = {
             callback(null, time);
         });
     },
+    findByUserId: function(id, callback) {
+        ScheduleTime.findOne({userId: id}, function(err, time) {
+            if(err) {
+                callback(err, null)
+            }
+            callback(null, time);
+        });
+    },
     create: function(params, callback) {
         // logic to save into database
         ScheduleTime.create(params, function(err, time) {
@@ -35,8 +43,6 @@ module.exports = {
         });
     },
     updateByUserId: function(id, params, callback) {
-        console.log('updateByUserId userId:', id);
-        console.log('updateByUserId params:', params);
         ScheduleTime.findOneAndUpdate({userId: id}, params, {new: true}, function(err, time) {
             if(err) {
                 callback(err, null);

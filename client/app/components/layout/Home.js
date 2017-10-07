@@ -12,7 +12,6 @@ import TaskContainer from '../taskContainer/TaskContainer';
 import setAuthToken from '../../../utils/setAuthToken';
 import {setCurrentUser} from '../../actions/userAction';
 
-
 class Home extends React.Component {
 
     componentDidMount() {
