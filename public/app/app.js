@@ -58183,7 +58183,7 @@ function extend() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.changeMeridienToPM = exports.changeMeridienToAM = exports.changeFinishDisplayHour = exports.changeStartDisplayHourSuccess = exports.changeStartDisplayHour = exports.showEvery30Minutes = exports.showEvery15Minutes = exports.showEveryHour = exports.changeToTwelveHoursFormat = exports.changeToTwentyFourHoursFormat = undefined;
+exports.changeMeridienToPM = exports.changeMeridienToAM = exports.changeFinishDisplayHourSuccess = exports.changeFinishDisplayHour = exports.changeStartDisplayHourSuccess = exports.changeStartDisplayHour = exports.showEvery30Minutes = exports.showEvery15Minutes = exports.showEveryHour = exports.changeToTwelveHoursFormat = exports.changeToTwentyFourHoursFormat = undefined;
 
 var _axios = __webpack_require__(84);
 
@@ -58250,7 +58250,18 @@ var changeStartDisplayHourSuccess = exports.changeStartDisplayHourSuccess = func
 };
 
 // change finishDisplay Hour
-var changeFinishDisplayHour = exports.changeFinishDisplayHour = function changeFinishDisplayHour(finishDisplayHour) {
+var changeFinishDisplayHour = exports.changeFinishDisplayHour = function changeFinishDisplayHour(finishDisplayHour, userId) {
+    return function (dispatch) {
+        return _axios2.default.put('/api/scheduleTime/byUserId/' + userId, { finishHour: finishDisplayHour }).then(function (res) {
+            console.log('changeFinishDisplayHour', res);
+            dispatch(changeFinishDisplayHourSuccess(finishDisplayHour));
+        }).catch(function (error) {
+            console.log(error);
+        });
+    };
+};
+
+var changeFinishDisplayHourSuccess = exports.changeFinishDisplayHourSuccess = function changeFinishDisplayHourSuccess(finishDisplayHour) {
     return {
         type: 'CHANGE_FINISH_DISPLAY_HOUR',
         finishDisplayHour: finishDisplayHour

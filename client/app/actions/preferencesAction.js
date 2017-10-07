@@ -62,7 +62,20 @@ export const changeStartDisplayHourSuccess = (startDisplayHour) => {
 }
 
 // change finishDisplay Hour
-export const changeFinishDisplayHour = (finishDisplayHour) => {
+export const changeFinishDisplayHour = (finishDisplayHour, userId) => {
+    return dispatch => {
+        return axios.put(`/api/scheduleTime/byUserId/${userId}`, {finishHour: finishDisplayHour})
+            .then(res => {
+                console.log('changeFinishDisplayHour', res);
+                dispatch(changeFinishDisplayHourSuccess(finishDisplayHour));
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    }
+}
+
+export const changeFinishDisplayHourSuccess = (finishDisplayHour) => {
     return {
         type: 'CHANGE_FINISH_DISPLAY_HOUR',
         finishDisplayHour
