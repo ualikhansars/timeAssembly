@@ -29626,9 +29626,13 @@ var fetchScheduleTimeByUserId = exports.fetchScheduleTimeByUserId = function fet
 var fetchTimeFormatByUserId = exports.fetchTimeFormatByUserId = function fetchTimeFormatByUserId(userId) {
     return function (dispatch) {
         return _axios2.default.get('/api/timeFormat/byUserId/' + userId).then(function (result) {
-            console.log('fetchTimeFormatByUserId:', result);
             var format = result.data.resource.format;
-            console.error('format:', format);
+            if (format === 12) {
+                dispatch(changeToTwelveHoursFormat());
+            }
+            if (format === 24) {
+                dispatch(changeToTwentyFourHoursFormat());
+            }
         }).catch(function (error) {
             throw error;
         });

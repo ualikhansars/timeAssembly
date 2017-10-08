@@ -19,9 +19,13 @@ export const fetchTimeFormatByUserId = (userId) => {
     return dispatch => {
         return axios.get(`/api/timeFormat/byUserId/${userId}`)
         .then(result => {
-            console.log('fetchTimeFormatByUserId:', result);
             let format = result.data.resource.format;
-            console.error('format:', format);
+            if(format === 12) {
+                dispatch(changeToTwelveHoursFormat());
+            }
+            if(format === 24) {
+                dispatch(changeToTwentyFourHoursFormat());
+            }
         })
         .catch(error => {
            throw error;
