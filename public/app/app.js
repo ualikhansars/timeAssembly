@@ -75703,16 +75703,13 @@ var mapStateToProps = function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)({
-        twentyFour: _preferencesAction.changeToTwentyFourHoursFormat,
-        twelve: _preferencesAction.changeToTwelveHoursFormat,
         changeTimeFormat: _preferencesAction.changeTimeFormat
     }, dispatch);
 }
 
 TimeDisplay.propTypes = {
     preferences: _propTypes2.default.object.isRequired,
-    twentyFour: _propTypes2.default.func.isRequired,
-    twelve: _propTypes2.default.func.isRequired,
+    userInfo: _propTypes2.default.object.isRequired,
     changeTimeFormat: _propTypes2.default.func.isRequired
 };
 

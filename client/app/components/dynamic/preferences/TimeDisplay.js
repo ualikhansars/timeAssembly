@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 
 // import actions
 import {
-    changeToTwentyFourHoursFormat,
-    changeToTwelveHoursFormat,
     changeTimeFormat
 } from '../../../actions/preferencesAction';
 
@@ -59,8 +57,6 @@ const mapStateToProps = (state) => {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-            twentyFour: changeToTwentyFourHoursFormat,
-            twelve: changeToTwelveHoursFormat,
             changeTimeFormat
         }, 
         dispatch
@@ -69,8 +65,7 @@ function mapDispatchToProps(dispatch) {
 
 TimeDisplay.propTypes = {
     preferences: PropTypes.object.isRequired,
-    twentyFour: PropTypes.func.isRequired,
-    twelve: PropTypes.func.isRequired,
+    userInfo: PropTypes.object.isRequired,
     changeTimeFormat: PropTypes.func.isRequired
 }
 
