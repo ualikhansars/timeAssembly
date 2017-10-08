@@ -11,17 +11,18 @@ import {onClickDayInTheWeek} from '../../actions/daysAction';
 // preferences
 import {
     fetchScheduleTimeByUserId,
-    fetchTimeFormatByUserId
+    fetchTimeFormatByUserId,
+    fetchTimeIntervalByUserId
 } from '../../actions/preferencesAction';
 
 class TaskContainer extends React.Component {
 
     componentDidMount() {
         let userId = this.props.userInfo.user.id;
-        console.log('Task Container userId', userId);
         if(userId) {
             this.props.fetchScheduleTimeByUserId(userId);
             this.props.fetchTimeFormatByUserId(userId);
+            this.props.fetchTimeIntervalByUserId(userId);
         }
         
     }
@@ -31,6 +32,7 @@ class TaskContainer extends React.Component {
             let userId = nextProps.userInfo.user.id
             this.props.fetchScheduleTimeByUserId(userId);
             this.props.fetchTimeFormatByUserId(userId);
+            this.props.fetchTimeIntervalByUserId(userId);
         }
     }
 
@@ -63,7 +65,8 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
             onClickDayInTheWeek,
             fetchScheduleTimeByUserId,
-            fetchTimeFormatByUserId
+            fetchTimeFormatByUserId,
+            fetchTimeIntervalByUserId
         }, 
         dispatch
     );
@@ -74,7 +77,8 @@ TaskContainer.propTypes = {
     userInfo: PropTypes.object.isRequired,
     onClickDayInTheWeek: PropTypes.func.isRequired,
     fetchScheduleTimeByUserId: PropTypes.func.isRequired,
-    fetchTimeFormatByUserId: PropTypes.func.isRequired
+    fetchTimeFormatByUserId: PropTypes.func.isRequired,
+    fetchTimeIntervalByUserId: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskContainer);

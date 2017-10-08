@@ -29602,7 +29602,7 @@ module.exports = function spread(callback) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.changeMeridienToPM = exports.changeMeridienToAM = exports.changeFinishDisplayHourSuccess = exports.changeFinishDisplayHour = exports.changeStartDisplayHourSuccess = exports.changeStartDisplayHour = exports.showEveryHour = exports.showEvery30Minutes = exports.showEvery15Minutes = exports.changeTimeInterval = exports.changeToTwelveHoursFormat = exports.changeToTwentyFourHoursFormat = exports.changeTimeFormat = exports.fetchTimeFormatByUserId = exports.fetchScheduleTimeByUserId = undefined;
+exports.changeMeridienToPM = exports.changeMeridienToAM = exports.changeFinishDisplayHourSuccess = exports.changeFinishDisplayHour = exports.changeStartDisplayHourSuccess = exports.changeStartDisplayHour = exports.showEveryHour = exports.showEvery30Minutes = exports.showEvery15Minutes = exports.changeTimeInterval = exports.changeToTwelveHoursFormat = exports.changeToTwentyFourHoursFormat = exports.changeTimeFormat = exports.fetchTimeIntervalByUserId = exports.fetchTimeFormatByUserId = exports.fetchScheduleTimeByUserId = undefined;
 
 var _axios = __webpack_require__(84);
 
@@ -29631,6 +29631,23 @@ var fetchTimeFormatByUserId = exports.fetchTimeFormatByUserId = function fetchTi
                 dispatch(changeToTwelveHoursFormat());
             } else if (format === 24) {
                 dispatch(changeToTwentyFourHoursFormat());
+            }
+        }).catch(function (error) {
+            throw error;
+        });
+    };
+};
+
+var fetchTimeIntervalByUserId = exports.fetchTimeIntervalByUserId = function fetchTimeIntervalByUserId(userId) {
+    return function (dispatch) {
+        return _axios2.default.get('/api/timeInterval/byUserId/' + userId).then(function (result) {
+            var timeInterval = result.data.resource.interval;
+            if (timeInterval === 15) {
+                dispatch(showEvery15Minutes());
+            } else if (timeInterval === 30) {
+                dispatch(showEvery30Minutes());
+            } else if (timeInterval === 60) {
+                dispatch(showEveryHour());
             }
         }).catch(function (error) {
             throw error;
@@ -29676,7 +29693,6 @@ var changeTimeInterval = exports.changeTimeInterval = function changeTimeInterva
     if (timeInterval === 15 || timeInterval === 30 || timeInterval === 60) {
         return function (dispatch) {
             return _axios2.default.put('/api/timeInterval/byUserId/' + userId, { interval: timeInterval }).then(function (res) {
-                console.log('changeTimeInterval', res);
                 if (timeInterval === 15) {
                     dispatch(showEvery15Minutes());
                 } else if (timeInterval === 30) {
@@ -29685,7 +29701,7 @@ var changeTimeInterval = exports.changeTimeInterval = function changeTimeInterva
                     dispatch(showEveryHour());
                 }
             }).catch(function (error) {
-                console.log(error);
+                throw error;
             });
         };
     }
@@ -29719,7 +29735,7 @@ var changeStartDisplayHour = exports.changeStartDisplayHour = function changeSta
             console.log('changeStartDisplayHour', res);
             dispatch(changeStartDisplayHourSuccess(startDisplayHour));
         }).catch(function (error) {
-            console.log(error);
+            throw error;
         });
     };
 };
@@ -29738,7 +29754,7 @@ var changeFinishDisplayHour = exports.changeFinishDisplayHour = function changeF
             console.log('changeFinishDisplayHour', res);
             dispatch(changeFinishDisplayHourSuccess(finishDisplayHour));
         }).catch(function (error) {
-            console.log(error);
+            throw error;
         });
     };
 };
@@ -77142,10 +77158,10 @@ var TaskContainer = function (_React$Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             var userId = this.props.userInfo.user.id;
-            console.log('Task Container userId', userId);
             if (userId) {
                 this.props.fetchScheduleTimeByUserId(userId);
                 this.props.fetchTimeFormatByUserId(userId);
+                this.props.fetchTimeIntervalByUserId(userId);
             }
         }
     }, {
@@ -77155,6 +77171,7 @@ var TaskContainer = function (_React$Component) {
                 var userId = nextProps.userInfo.user.id;
                 this.props.fetchScheduleTimeByUserId(userId);
                 this.props.fetchTimeFormatByUserId(userId);
+                this.props.fetchTimeIntervalByUserId(userId);
             }
         }
     }, {
@@ -77199,7 +77216,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)({
         onClickDayInTheWeek: _daysAction.onClickDayInTheWeek,
         fetchScheduleTimeByUserId: _preferencesAction.fetchScheduleTimeByUserId,
-        fetchTimeFormatByUserId: _preferencesAction.fetchTimeFormatByUserId
+        fetchTimeFormatByUserId: _preferencesAction.fetchTimeFormatByUserId,
+        fetchTimeIntervalByUserId: _preferencesAction.fetchTimeIntervalByUserId
     }, dispatch);
 };
 
@@ -77208,7 +77226,8 @@ TaskContainer.propTypes = {
     userInfo: _propTypes2.default.object.isRequired,
     onClickDayInTheWeek: _propTypes2.default.func.isRequired,
     fetchScheduleTimeByUserId: _propTypes2.default.func.isRequired,
-    fetchTimeFormatByUserId: _propTypes2.default.func.isRequired
+    fetchTimeFormatByUserId: _propTypes2.default.func.isRequired,
+    fetchTimeIntervalByUserId: _propTypes2.default.func.isRequired
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TaskContainer);

@@ -33,6 +33,27 @@ export const fetchTimeFormatByUserId = (userId) => {
     }     
 }
 
+export const fetchTimeIntervalByUserId = (userId) => {
+    return dispatch => {
+        return axios.get(`/api/timeInterval/byUserId/${userId}`)
+        .then(result => {
+            let timeInterval = result.data.resource.interval;
+            if(timeInterval === 15) {
+                dispatch(showEvery15Minutes());
+            }
+            else if(timeInterval === 30) {
+                dispatch(showEvery30Minutes());
+            }
+            else if(timeInterval === 60) {
+                dispatch(showEveryHour());
+            }
+        })
+        .catch(error => {
+           throw error;
+        });
+    }     
+}
+
 // change time format
 export const changeTimeFormat = (timeFormat, userId) => {
     return dispatch => {
@@ -75,7 +96,6 @@ export const changeTimeInterval = (timeInterval, userId) => {
         return dispatch => {
             return axios.put(`/api/timeInterval/byUserId/${userId}`, {interval: timeInterval})
                 .then(res => {
-                    console.log('changeTimeInterval', res);
                     if(timeInterval === 15) {
                         dispatch(showEvery15Minutes());
                     }
@@ -87,7 +107,7 @@ export const changeTimeInterval = (timeInterval, userId) => {
                     }
                 })
                 .catch(error => {
-                    console.log(error);
+                    throw error;
                 });
         }
     }
@@ -124,7 +144,7 @@ export const changeStartDisplayHour = (startDisplayHour, userId) => {
                 dispatch(changeStartDisplayHourSuccess(startDisplayHour));
             })
             .catch(error => {
-                console.log(error)
+                throw error;
             });
     }
 }
@@ -145,7 +165,7 @@ export const changeFinishDisplayHour = (finishDisplayHour, userId) => {
                 dispatch(changeFinishDisplayHourSuccess(finishDisplayHour));
             })
             .catch(error => {
-                console.log(error)
+                throw error;
             });
     }
 }
