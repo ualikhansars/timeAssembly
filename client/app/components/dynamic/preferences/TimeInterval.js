@@ -5,9 +5,7 @@ import PropTypes from 'prop-types';
 
 // import actions
 import {
-    showEveryHour,
-    showEvery15Minutes,
-    showEvery30Minutes
+    changeTimeInterval
 } from '../../../actions/preferencesAction';
 
 class TimeInterval extends React.Component {
@@ -44,7 +42,7 @@ class TimeInterval extends React.Component {
                         <span>Every Hour</span>
                     </div>
                     <div className="col-md-6">
-                        <span onClick={() => this.props.showEveryHour()}>{everyHour}</span>
+                        <span onClick={() => this.props.changeTimeInterval(60, this.props.userInfo.user.id)}>{everyHour}</span>
                     </div>
                 </div>
                 <div className="row">
@@ -52,7 +50,7 @@ class TimeInterval extends React.Component {
                         <span>Every 15 Minutes</span>
                     </div>
                     <div className="col-md-6">
-                         <span onClick={() => this.props.showEvery15Minutes()}>{every15Minutes}</span>
+                         <span onClick={() => this.props.changeTimeInterval(15, this.props.userInfo.user.id)}>{every15Minutes}</span>
                     </div>
                 </div>
                 <div className="row">
@@ -60,7 +58,7 @@ class TimeInterval extends React.Component {
                         <span>Every 30 minutes</span>
                     </div>
                     <div className="col-md-6">
-                         <span onClick={() => this.props.showEvery30Minutes()}>{every30Minutes}</span>
+                         <span onClick={() => this.props.changeTimeInterval(30, this.props.userInfo.user.id)}>{every30Minutes}</span>
                     </div>
                 </div>
             </div>
@@ -71,14 +69,13 @@ class TimeInterval extends React.Component {
 const mapStateToProps = (state) => {
     return {
         preferences: state.preferences,
+        userInfo: state.userInfo
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-            showEveryHour,
-            showEvery15Minutes,
-            showEvery30Minutes
+            changeTimeInterval
         }, 
         dispatch
     );
@@ -86,9 +83,8 @@ function mapDispatchToProps(dispatch) {
 
 TimeInterval.propTypes = {
     preferences: PropTypes.object.isRequired,
-    showEvery15Minutes: PropTypes.func.isRequired,
-    showEvery30Minutes: PropTypes.func.isRequired,
-    showEveryHour: PropTypes.func.isRequired
+    userInfo: PropTypes.object.isRequired,
+    changeTimeInterval: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimeInterval);

@@ -23,7 +23,7 @@ export const fetchTimeFormatByUserId = (userId) => {
             if(format === 12) {
                 dispatch(changeToTwelveHoursFormat());
             }
-            if(format === 24) {
+            else if(format === 24) {
                 dispatch(changeToTwentyFourHoursFormat());
             }
         })
@@ -42,7 +42,7 @@ export const changeTimeFormat = (timeFormat, userId) => {
                 if(timeFormat === 12) {
                     dispatch(changeToTwelveHoursFormat());
                 }
-                if(timeFormat === 24) {
+                else if(timeFormat === 24) {
                     dispatch(changeToTwentyFourHoursFormat());
                 }
             })
@@ -70,11 +70,26 @@ export const changeToTwelveHoursFormat = () => {
 }
 
 // time Intervals
-
-// change timeInterval to every hour
-export const showEveryHour = () => {
-    return {
-        type: 'SHOW_EVERY_HOUR'
+export const changeTimeInterval = (timeInterval, userId) => {
+    if(timeInterval === 15 || timeInterval === 30 || timeInterval === 60) {
+        return dispatch => {
+            return axios.put(`/api/timeInterval/byUserId/${userId}`, {interval: timeInterval})
+                .then(res => {
+                    console.log('changeTimeInterval', res);
+                    if(timeInterval === 15) {
+                        dispatch(showEvery15Minutes());
+                    }
+                    else if(timeInterval === 30) {
+                        dispatch(showEvery30Minutes());
+                    }
+                    else if(timeInterval === 60) {
+                        dispatch(showEveryHour());
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
     }
 }
 
@@ -89,6 +104,13 @@ export const showEvery15Minutes = () => {
 export const showEvery30Minutes = () => {
     return {
         type: 'SHOW_EVERY_30_MINUTES'
+    }
+}
+
+// change timeInterval to every hour
+export const showEveryHour = () => {
+    return {
+        type: 'SHOW_EVERY_HOUR'
     }
 }
 

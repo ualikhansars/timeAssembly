@@ -29602,7 +29602,7 @@ module.exports = function spread(callback) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.changeMeridienToPM = exports.changeMeridienToAM = exports.changeFinishDisplayHourSuccess = exports.changeFinishDisplayHour = exports.changeStartDisplayHourSuccess = exports.changeStartDisplayHour = exports.showEvery30Minutes = exports.showEvery15Minutes = exports.showEveryHour = exports.changeToTwelveHoursFormat = exports.changeToTwentyFourHoursFormat = exports.changeTimeFormat = exports.fetchTimeFormatByUserId = exports.fetchScheduleTimeByUserId = undefined;
+exports.changeMeridienToPM = exports.changeMeridienToAM = exports.changeFinishDisplayHourSuccess = exports.changeFinishDisplayHour = exports.changeStartDisplayHourSuccess = exports.changeStartDisplayHour = exports.showEveryHour = exports.showEvery30Minutes = exports.showEvery15Minutes = exports.changeTimeInterval = exports.changeToTwelveHoursFormat = exports.changeToTwentyFourHoursFormat = exports.changeTimeFormat = exports.fetchTimeFormatByUserId = exports.fetchScheduleTimeByUserId = undefined;
 
 var _axios = __webpack_require__(84);
 
@@ -29629,8 +29629,7 @@ var fetchTimeFormatByUserId = exports.fetchTimeFormatByUserId = function fetchTi
             var format = result.data.resource.format;
             if (format === 12) {
                 dispatch(changeToTwelveHoursFormat());
-            }
-            if (format === 24) {
+            } else if (format === 24) {
                 dispatch(changeToTwentyFourHoursFormat());
             }
         }).catch(function (error) {
@@ -29646,8 +29645,7 @@ var changeTimeFormat = exports.changeTimeFormat = function changeTimeFormat(time
             return _axios2.default.put('/api/timeFormat/byUserId/' + userId, { format: timeFormat }).then(function (res) {
                 if (timeFormat === 12) {
                     dispatch(changeToTwelveHoursFormat());
-                }
-                if (timeFormat === 24) {
+                } else if (timeFormat === 24) {
                     dispatch(changeToTwentyFourHoursFormat());
                 }
             }).catch(function (error) {
@@ -29674,12 +29672,23 @@ var changeToTwelveHoursFormat = exports.changeToTwelveHoursFormat = function cha
 };
 
 // time Intervals
-
-// change timeInterval to every hour
-var showEveryHour = exports.showEveryHour = function showEveryHour() {
-    return {
-        type: 'SHOW_EVERY_HOUR'
-    };
+var changeTimeInterval = exports.changeTimeInterval = function changeTimeInterval(timeInterval, userId) {
+    if (timeInterval === 15 || timeInterval === 30 || timeInterval === 60) {
+        return function (dispatch) {
+            return _axios2.default.put('/api/timeInterval/byUserId/' + userId, { interval: timeInterval }).then(function (res) {
+                console.log('changeTimeInterval', res);
+                if (timeInterval === 15) {
+                    dispatch(showEvery15Minutes());
+                } else if (timeInterval === 30) {
+                    dispatch(showEvery30Minutes());
+                } else if (timeInterval === 60) {
+                    dispatch(showEveryHour());
+                }
+            }).catch(function (error) {
+                console.log(error);
+            });
+        };
+    }
 };
 
 // change timeInterval to every 15 minutes
@@ -29693,6 +29702,13 @@ var showEvery15Minutes = exports.showEvery15Minutes = function showEvery15Minute
 var showEvery30Minutes = exports.showEvery30Minutes = function showEvery30Minutes() {
     return {
         type: 'SHOW_EVERY_30_MINUTES'
+    };
+};
+
+// change timeInterval to every hour
+var showEveryHour = exports.showEveryHour = function showEveryHour() {
+    return {
+        type: 'SHOW_EVERY_HOUR'
     };
 };
 
@@ -75792,7 +75808,7 @@ var TimeInterval = function (_React$Component) {
                         _react2.default.createElement(
                             'span',
                             { onClick: function onClick() {
-                                    return _this2.props.showEveryHour();
+                                    return _this2.props.changeTimeInterval(60, _this2.props.userInfo.user.id);
                                 } },
                             everyHour
                         )
@@ -75816,7 +75832,7 @@ var TimeInterval = function (_React$Component) {
                         _react2.default.createElement(
                             'span',
                             { onClick: function onClick() {
-                                    return _this2.props.showEvery15Minutes();
+                                    return _this2.props.changeTimeInterval(15, _this2.props.userInfo.user.id);
                                 } },
                             every15Minutes
                         )
@@ -75840,7 +75856,7 @@ var TimeInterval = function (_React$Component) {
                         _react2.default.createElement(
                             'span',
                             { onClick: function onClick() {
-                                    return _this2.props.showEvery30Minutes();
+                                    return _this2.props.changeTimeInterval(30, _this2.props.userInfo.user.id);
                                 } },
                             every30Minutes
                         )
@@ -75855,23 +75871,21 @@ var TimeInterval = function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
     return {
-        preferences: state.preferences
+        preferences: state.preferences,
+        userInfo: state.userInfo
     };
 };
 
 function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)({
-        showEveryHour: _preferencesAction.showEveryHour,
-        showEvery15Minutes: _preferencesAction.showEvery15Minutes,
-        showEvery30Minutes: _preferencesAction.showEvery30Minutes
+        changeTimeInterval: _preferencesAction.changeTimeInterval
     }, dispatch);
 }
 
 TimeInterval.propTypes = {
     preferences: _propTypes2.default.object.isRequired,
-    showEvery15Minutes: _propTypes2.default.func.isRequired,
-    showEvery30Minutes: _propTypes2.default.func.isRequired,
-    showEveryHour: _propTypes2.default.func.isRequired
+    userInfo: _propTypes2.default.object.isRequired,
+    changeTimeInterval: _propTypes2.default.func.isRequired
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TimeInterval);
