@@ -6,7 +6,8 @@ import PropTypes from 'prop-types';
 // import actions
 import {
     changeToTwentyFourHoursFormat,
-    changeToTwelveHoursFormat
+    changeToTwelveHoursFormat,
+    changeTimeFormat
 } from '../../../actions/preferencesAction';
 
 class TimeDisplay extends React.Component {
@@ -34,13 +35,13 @@ class TimeDisplay extends React.Component {
                             <label htmlFor="twentyFour">24 hours</label>
                         </div>
                         <div className="col-md-4">
-                           <span onClick={() => this.props.twentyFour()}>{twentyFourOn}</span>
+                           <span onClick={() => this.props.changeTimeFormat(24, this.props.userInfo.user.id)}>{twentyFourOn}</span>
                         </div>
                         <div className="col-md-8">
                              <label htmlFor="twelve">12 hours</label>
                         </div>
                         <div className="col-md-4">
-                            <span onClick={() => this.props.twelve()}>{twelveOn}</span>          
+                            <span onClick={() => this.props.changeTimeFormat(12, this.props.userInfo.user.id)}>{twelveOn}</span>          
                         </div>
                     </div>
                 </div>
@@ -52,13 +53,15 @@ class TimeDisplay extends React.Component {
 const mapStateToProps = (state) => {
     return {
         preferences: state.preferences,
+        userInfo: state.userInfo
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
             twentyFour: changeToTwentyFourHoursFormat,
-            twelve: changeToTwelveHoursFormat
+            twelve: changeToTwelveHoursFormat,
+            changeTimeFormat
         }, 
         dispatch
     );
@@ -67,7 +70,8 @@ function mapDispatchToProps(dispatch) {
 TimeDisplay.propTypes = {
     preferences: PropTypes.object.isRequired,
     twentyFour: PropTypes.func.isRequired,
-    twelve: PropTypes.func.isRequired
+    twelve: PropTypes.func.isRequired,
+    changeTimeFormat: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimeDisplay);

@@ -17,8 +17,8 @@ module.exports = {
             callback(null, time);
         });
     },
-    findByUserId: function(params, callback) {
-        TimeInterval.findOne(params, function(err, time) {
+    findByUserId: function(id, callback) {
+        TimeInterval.findOne({userId: id}, function(err, time) {
             if(err) {
                 callback(err, null)
             }

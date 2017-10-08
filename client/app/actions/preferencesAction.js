@@ -12,8 +12,41 @@ export const fetchScheduleTimeByUserId = (userId) => {
         .catch(error => {
            throw error;
         });
-    }    
-    
+    }     
+}
+
+export const fetchTimeFormatByUserId = (userId) => {
+    return dispatch => {
+        return axios.get(`/api/timeFormat/byUserId/${userId}`)
+        .then(result => {
+            console.log('fetchTimeFormatByUserId:', result);
+            let format = result.data.resource.format;
+            console.error('format:', format);
+        })
+        .catch(error => {
+           throw error;
+        });
+    }     
+}
+
+// change time format
+export const changeTimeFormat = (timeFormat, userId) => {
+    return dispatch => {
+        if(timeFormat === 12 || timeFormat === 24) {
+            return axios.put(`/api/timeFormat/byUserId/${userId}`, {format: timeFormat})
+            .then(res => {
+                if(timeFormat === 12) {
+                    dispatch(changeToTwelveHoursFormat());
+                }
+                if(timeFormat === 24) {
+                    dispatch(changeToTwentyFourHoursFormat());
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            });
+        }
+    }
 }
 
 // change time Format to 24 base
