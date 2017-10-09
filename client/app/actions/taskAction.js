@@ -13,7 +13,6 @@ export const fetchTasksByDay = (userId, day) => {
             }
             })
             .then(result => {
-                console.error('result userId:', userId);
                 if(userId) {
                     dispatch({
                         type: 'LOAD_TASKS_OK',
@@ -22,7 +21,7 @@ export const fetchTasksByDay = (userId, day) => {
                 } else {
                     dispatch({
                         type: 'LOAD_TASKS_FAIL',
-                        tasksErrors: 'Incorrect userID'
+                        tasksErrors: 'Cannot load tasks, incorrect userID'
                     });
                 }
                 

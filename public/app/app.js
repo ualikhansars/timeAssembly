@@ -27775,7 +27775,6 @@ var fetchTasksByDay = exports.fetchTasksByDay = function fetchTasksByDay(userId,
                 userId: userId
             }
         }).then(function (result) {
-            console.error('result userId:', userId);
             if (userId) {
                 dispatch({
                     type: 'LOAD_TASKS_OK',
@@ -27784,7 +27783,7 @@ var fetchTasksByDay = exports.fetchTasksByDay = function fetchTasksByDay(userId,
             } else {
                 dispatch({
                     type: 'LOAD_TASKS_FAIL',
-                    tasksErrors: 'Incorrect userID'
+                    tasksErrors: 'Cannot load tasks, incorrect userID'
                 });
             }
         }).catch(function (result) {
@@ -75422,8 +75421,8 @@ var ScheduleTime = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (ScheduleTime.__proto__ || Object.getPrototypeOf(ScheduleTime)).call(this, props));
 
         _this.state = {
-            startHour: '',
-            finishHour: ''
+            startHour: _this.props.preferences.startDisplayHour,
+            finishHour: _this.props.preferences.finishDisplayHour
         };
         return _this;
     }

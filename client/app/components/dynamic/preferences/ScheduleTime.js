@@ -16,8 +16,8 @@ class ScheduleTime extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            startHour: '',
-            finishHour: ''
+            startHour: this.props.preferences.startDisplayHour,
+            finishHour: this.props.preferences.finishDisplayHour
         }
     }
 
