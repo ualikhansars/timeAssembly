@@ -74136,33 +74136,41 @@ var Home = function (_React$Component) {
         value: function render() {
             return _react2.default.createElement(
                 'div',
-                { className: 'container-fluid' },
+                null,
                 _react2.default.createElement(
                     'div',
-                    { className: 'row' },
+                    { className: 'container-fluid' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-12' },
-                        _react2.default.createElement(_Navbar2.default, null)
+                        { className: 'row' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'col-md-12' },
+                            _react2.default.createElement(_Navbar2.default, null)
+                        )
                     )
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'row' },
+                    { className: 'container-fluid' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-4 tasks' },
-                        _react2.default.createElement(_TaskContainer2.default, null)
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-md-6 dynamic' },
-                        _react2.default.createElement(_Dynamic2.default, null)
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-md-2 settings' },
-                        _react2.default.createElement(_Sidebar2.default, null)
+                        { className: 'row' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'col-md-4 tasks' },
+                            _react2.default.createElement(_TaskContainer2.default, null)
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'col-md-6 dynamic' },
+                            _react2.default.createElement(_Dynamic2.default, null)
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'col-md-2 settings' },
+                            _react2.default.createElement(_Sidebar2.default, null)
+                        )
                     )
                 )
             );
