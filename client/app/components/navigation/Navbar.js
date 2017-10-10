@@ -17,7 +17,7 @@ class Navbar extends React.Component {
         const userLinks = (
             <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                    <a href="#" onClick={this.logout.bind(this)}>Logout</a>
+                    <a className="nav-link" href="#" onClick={this.logout.bind(this)}>Logout</a>
                 </li> 
             </ul>
         );
@@ -25,28 +25,28 @@ class Navbar extends React.Component {
         const guestLinks = (
             <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                    <a href="/signup">Registration</a>
+                    <a className="nav-link" href="/signup">Registration</a>
                 </li> 
                 <li className="nav-item">
-                    <a href="/signin">Login</a>
+                    <a className="nav-link" href="/signin">Login</a>
                 </li> 
             </ul>
         );
 
         return(
-            <nav className="navbar navbar-tes navbar-toggleable-md navbar-light bg-faded">
-            <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            <a href="#" className="navbar-brand">Timetable</a>
-            <div className="collapse navbar-collapse" id="navbarNav">
-                <ul className="navbar-nav">
-                    <li className="nav-item">
-                        <a className="nav-link" href="#">Get Started<span className="sr-only">(current)</span></a>
-                    </li>
-                </ul>  
-                {isAuthenticated ? userLinks : guestLinks}
-            </div>
+            <nav className="navbar navbar-toggleable-md navbar-light">
+                <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <a href="#" className="navbar-brand">Timetable</a>
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav">
+                        <li className="nav-item">
+                            <a className="nav-link" href="#">Get Started<span className="sr-only">(current)</span></a>
+                        </li>
+                    </ul>  
+                    {isAuthenticated ? userLinks : guestLinks}
+                </div>
             </nav>
         );
     }

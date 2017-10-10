@@ -13,17 +13,11 @@ export const fetchTasksByDay = (userId, day) => {
             }
             })
             .then(result => {
-                if(userId) {
-                    dispatch({
-                        type: 'LOAD_TASKS_OK',
-                        tasks: result.data.resource
-                    });
-                } else {
-                    dispatch({
-                        type: 'LOAD_TASKS_FAIL',
-                        tasksErrors: 'Cannot load tasks, incorrect userID'
-                    });
-                }
+                dispatch({
+                    type: 'LOAD_TASKS_OK',
+                    tasks: result.data.resource
+                });
+                 
                 
             })
             .catch(result => {

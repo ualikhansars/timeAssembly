@@ -27775,17 +27775,10 @@ var fetchTasksByDay = exports.fetchTasksByDay = function fetchTasksByDay(userId,
                 userId: userId
             }
         }).then(function (result) {
-            if (userId) {
-                dispatch({
-                    type: 'LOAD_TASKS_OK',
-                    tasks: result.data.resource
-                });
-            } else {
-                dispatch({
-                    type: 'LOAD_TASKS_FAIL',
-                    tasksErrors: 'Cannot load tasks, incorrect userID'
-                });
-            }
+            dispatch({
+                type: 'LOAD_TASKS_OK',
+                tasks: result.data.resource
+            });
         }).catch(function (result) {
             dispatch({
                 type: 'LOAD_TASKS_FAIL',
@@ -76553,7 +76546,7 @@ var Navbar = function (_React$Component) {
                     { className: 'nav-item' },
                     _react2.default.createElement(
                         'a',
-                        { href: '#', onClick: this.logout.bind(this) },
+                        { className: 'nav-link', href: '#', onClick: this.logout.bind(this) },
                         'Logout'
                     )
                 )
@@ -76567,7 +76560,7 @@ var Navbar = function (_React$Component) {
                     { className: 'nav-item' },
                     _react2.default.createElement(
                         'a',
-                        { href: '/signup' },
+                        { className: 'nav-link', href: '/signup' },
                         'Registration'
                     )
                 ),
@@ -76576,7 +76569,7 @@ var Navbar = function (_React$Component) {
                     { className: 'nav-item' },
                     _react2.default.createElement(
                         'a',
-                        { href: '/signin' },
+                        { className: 'nav-link', href: '/signin' },
                         'Login'
                     )
                 )
@@ -76584,7 +76577,7 @@ var Navbar = function (_React$Component) {
 
             return _react2.default.createElement(
                 'nav',
-                { className: 'navbar navbar-tes navbar-toggleable-md navbar-light bg-faded' },
+                { className: 'navbar navbar-toggleable-md navbar-light' },
                 _react2.default.createElement(
                     'button',
                     { className: 'navbar-toggler navbar-toggler-right', type: 'button', 'data-toggle': 'collapse', 'data-target': '#navbarNav', 'aria-controls': 'navbarNav', 'aria-expanded': 'false', 'aria-label': 'Toggle navigation' },
