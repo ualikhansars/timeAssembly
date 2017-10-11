@@ -77712,49 +77712,49 @@ var Week = function (_React$Component) {
                             { onClick: function onClick() {
                                     return _this2.props.onClickDay('Sunday');
                                 } },
-                            "| Su |"
+                            "Su"
                         ),
                         _react2.default.createElement(
                             "span",
                             { onClick: function onClick() {
                                     return _this2.props.onClickDay('Monday');
                                 } },
-                            " Mo |"
+                            "Mo"
                         ),
                         _react2.default.createElement(
                             "span",
                             { onClick: function onClick() {
                                     return _this2.props.onClickDay('Tuesday');
                                 } },
-                            " Tu |"
+                            "Tu"
                         ),
                         _react2.default.createElement(
                             "span",
                             { onClick: function onClick() {
                                     return _this2.props.onClickDay('Wednesday');
                                 } },
-                            " We |"
+                            "We"
                         ),
                         _react2.default.createElement(
                             "span",
                             { onClick: function onClick() {
                                     return _this2.props.onClickDay('Thursday');
                                 } },
-                            " Th |"
+                            "Th"
                         ),
                         _react2.default.createElement(
                             "span",
                             { onClick: function onClick() {
                                     return _this2.props.onClickDay('Friday');
                                 } },
-                            " Fr |"
+                            "Fr"
                         ),
                         _react2.default.createElement(
                             "span",
                             { onClick: function onClick() {
                                     return _this2.props.onClickDay('Saturday');
                                 } },
-                            " St |"
+                            "St"
                         )
                     )
                 )
