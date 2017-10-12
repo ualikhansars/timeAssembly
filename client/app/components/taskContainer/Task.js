@@ -16,7 +16,7 @@ class Task extends React.Component {
             id
         } = this.props.property;
         return (
-            <div className="container-fluid"> 
+            <div className="container-fluid task"> 
                 <div className="row">
                     <div className="col-md-4 offset-md-4">
                         <span>{title}</span>

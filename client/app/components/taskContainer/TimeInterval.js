@@ -16,11 +16,11 @@ class TimeInterval extends React.Component {
         let displayTime = getTimeDependsOnTimeFormat(hour, min, timeFormat, meridien);
 
         return (
-            <div onClick={() => this.props.onClickTime(hour, min)} className="row">
-                <div className="col-md-4">
+            <div onClick={() => this.props.onClickTime(hour, min)} className="row timeInterval">
+                <div className="col-md-2 time">
                          {displayTime}
                 </div>
-                <div className="col-md-8">
+                <div className="col-md-10 addTask">
                     <div className="taskInput">
                         Task
                     </div>

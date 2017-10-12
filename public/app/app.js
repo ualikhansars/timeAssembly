@@ -73094,7 +73094,7 @@ var Task = function (_React$Component) {
 
             return _react2.default.createElement(
                 "div",
-                { className: "container-fluid" },
+                { className: "container-fluid task" },
                 _react2.default.createElement(
                     "div",
                     { className: "row" },
@@ -76974,13 +76974,10 @@ var Days = function (_React$Component) {
             var chosenDay = this.props.daysInfo.chosenDay;
 
 
-            return (
-                //  <Day day={currentDay}/>
-                _react2.default.createElement(
-                    'div',
-                    { className: 'container' },
-                    _react2.default.createElement(_Day2.default, { day: chosenDay })
-                )
+            return _react2.default.createElement(
+                'div',
+                { className: 'container days' },
+                _react2.default.createElement(_Day2.default, { day: chosenDay })
             );
         }
     }]);
@@ -77292,15 +77289,15 @@ var TimeInterval = function (_React$Component) {
                 'div',
                 { onClick: function onClick() {
                         return _this2.props.onClickTime(hour, min);
-                    }, className: 'row' },
+                    }, className: 'row timeInterval' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'col-md-4' },
+                    { className: 'col-md-2 time' },
                     displayTime
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'col-md-8' },
+                    { className: 'col-md-10 addTask' },
                     _react2.default.createElement(
                         'div',
                         { className: 'taskInput' },
@@ -77623,18 +77620,29 @@ var TwentyFourHours = function (_React$Component) {
 
             return _react2.default.createElement(
                 'div',
-                { className: 'container' },
+                { className: 'container day' },
                 _react2.default.createElement(
-                    'h6',
-                    null,
-                    this.props.dayInfo
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-12' },
+                        _react2.default.createElement(
+                            'h4',
+                            { className: 'dayname' },
+                            this.props.dayInfo
+                        )
+                    )
                 ),
                 _react2.default.createElement(
-                    'h6',
-                    null,
-                    '24 Hours'
-                ),
-                timetable
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-12 timetable' },
+                        timetable
+                    )
+                )
             );
         }
     }]);

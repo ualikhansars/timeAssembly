@@ -15,8 +15,7 @@ class Days extends React.Component {
         const {chosenDay} = this.props.daysInfo;
 
         return (
-            //  <Day day={currentDay}/>
-            <div className="container">
+            <div className="container days">
                 <Day day={chosenDay}/>
             </div>
         );

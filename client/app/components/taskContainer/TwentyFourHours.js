@@ -220,10 +220,18 @@ class TwentyFourHours extends React.Component {
         } 
 
         return (
-            <div className="container">
-                <h6>{this.props.dayInfo}</h6>
-                <h6>24 Hours</h6>
-               {timetable}
+            <div className="container day">
+                <div className="row">
+                    <div className="col-md-12">
+                        <h4 className="dayname">{this.props.dayInfo}</h4>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12 timetable">
+                        {timetable}
+                    </div>
+                </div>
+               
             </div>
         );
     }
