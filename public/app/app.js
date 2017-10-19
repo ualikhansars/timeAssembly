@@ -77251,6 +77251,10 @@ var _redux = __webpack_require__(35);
 
 var _reactRedux = __webpack_require__(29);
 
+var _styles = __webpack_require__(667);
+
+var _styles2 = _interopRequireDefault(_styles);
+
 var _daysAction = __webpack_require__(444);
 
 var _timeCalc = __webpack_require__(171);
@@ -77282,8 +77286,20 @@ var TimeInterval = function (_React$Component) {
                 min = _props.min,
                 meridien = _props.meridien;
             var timeFormat = this.props.preferences.timeFormat;
+            var _props$taskInfo = this.props.taskInfo,
+                startTimeHours = _props$taskInfo.startTimeHours,
+                startTimeMinutes = _props$taskInfo.startTimeMinutes;
 
             var displayTime = (0, _timeCalc.getTimeDependsOnTimeFormat)(hour, min, timeFormat, meridien);
+            console.log('hour', hour, 'min', min);
+            console.log('startTimeHours', startTimeHours, 'startTimeMin', startTimeMinutes);
+            var time = void 0,
+                addTask = void 0;
+            if (startTimeHours == hour && startTimeMinutes == min) {
+                console.log('time is equal');
+                time = _styles2.default.timeInterval.time;
+                addTask = _styles2.default.timeInterval.addTask;
+            }
 
             return _react2.default.createElement(
                 'div',
@@ -77292,12 +77308,12 @@ var TimeInterval = function (_React$Component) {
                     }, className: 'row timeInterval' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'col-md-2 time' },
+                    { className: 'col-md-2 time', style: time },
                     displayTime
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'col-md-10 addTask' },
+                    { className: 'col-md-10 addTask', style: addTask },
                     _react2.default.createElement(
                         'div',
                         { className: 'taskInput' },
@@ -77319,7 +77335,8 @@ function mapDispatchToProps(dispatch) {
 
 var mapStateToProps = function mapStateToProps(state) {
     return {
-        preferences: state.preferences
+        preferences: state.preferences,
+        taskInfo: state.taskInfo
     };
 };
 
@@ -79722,6 +79739,27 @@ function symbolObservablePonyfill(root) {
 	}
 
 	return result;
+};
+
+/***/ }),
+/* 667 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = {
+    timeInterval: {
+        time: {
+            backgroundColor: '#5ea755'
+        },
+        addTask: {
+            backgroundColor: '#5ea755'
+        }
+    }
 };
 
 /***/ })

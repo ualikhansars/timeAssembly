@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import styles from './styles';
 
 
 import {onClickTime} from '../../actions/daysAction';
@@ -11,16 +12,25 @@ import {getTimeDependsOnTimeFormat} from '../../utils/timeCalc';
 class TimeInterval extends React.Component {
 
     render() {
-        let {hour, min, meridien} = this.props
+        let {hour, min, meridien} = this.props;
         let {timeFormat} = this.props.preferences;
+        let {startTimeHours, startTimeMinutes} = this.props.taskInfo;
         let displayTime = getTimeDependsOnTimeFormat(hour, min, timeFormat, meridien);
-
+        console.log('hour', hour, 'min', min);
+        console.log('startTimeHours', startTimeHours, 'startTimeMin', startTimeMinutes);
+        let time, addTask;
+        if(startTimeHours == hour && startTimeMinutes == min) {
+            console.log('time is equal');
+            time = styles.timeInterval.time;
+            addTask = styles.timeInterval.addTask;
+        }
+        
         return (
             <div onClick={() => this.props.onClickTime(hour, min)} className="row timeInterval">
-                <div className="col-md-2 time">
+                <div className="col-md-2 time" style={time}>
                          {displayTime}
                 </div>
-                <div className="col-md-10 addTask">
+                <div className="col-md-10 addTask" style={addTask}>
                     <div className="taskInput">
                         Task
                     </div>
@@ -40,7 +50,8 @@ function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = (state) => {
     return {
-        preferences: state.preferences
+        preferences: state.preferences,
+        taskInfo: state.taskInfo
     };
 }
 
