@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 
 import TimeInterval from './TimeInterval';
 import Task from './Task';
+import PropTypes from 'prop-types';
 
 import {fetchTasksByDay, 
         removeTask,
@@ -252,6 +253,14 @@ const mapStateToProps = (state) => {
         taskInfo: state.taskInfo,
         preferences: state.preferences
     };
+}
+
+TwentyFourHours.propTypes = {
+    fetchTasksByDay: PropTypes.func.isRequired,
+    removeTask: PropTypes.func.isRequired,
+    onClickUpdateTask: PropTypes.func.isRequired,
+    taskInfo: PropTypes.object.isRequired,
+    preferences: PropTypes.object.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TwentyFourHours);

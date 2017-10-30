@@ -1,10 +1,13 @@
 export default {
     timeInterval: {
         time: {
-            backgroundColor: '#5ea755'
+            backgroundColor: '#cec67e'
         },
         addTask: {
-            backgroundColor: '#5ea755'
+            backgroundColor: '#cec67e'
         } 
     },
+    week: {
+        color: 'red'
+    }
 }

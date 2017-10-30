@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "/public/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 616);
+/******/ 	return __webpack_require__(__webpack_require__.s = 617);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -24408,7 +24408,8 @@ exports.default = EmailConfirmation;
 /* 576 */,
 /* 577 */,
 /* 578 */,
-/* 579 */
+/* 579 */,
+/* 580 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24424,7 +24425,7 @@ var _react = __webpack_require__(10);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _SignUpForm = __webpack_require__(615);
+var _SignUpForm = __webpack_require__(616);
 
 var _SignUpForm2 = _interopRequireDefault(_SignUpForm);
 
@@ -24466,7 +24467,6 @@ var SignUpPage = function (_React$Component) {
 exports.default = SignUpPage;
 
 /***/ }),
-/* 580 */,
 /* 581 */,
 /* 582 */,
 /* 583 */,
@@ -24501,7 +24501,8 @@ exports.default = SignUpPage;
 /* 612 */,
 /* 613 */,
 /* 614 */,
-/* 615 */
+/* 615 */,
+/* 616 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24738,7 +24739,7 @@ var SignUpForm = function (_React$Component) {
 exports.default = SignUpForm;
 
 /***/ }),
-/* 616 */
+/* 617 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24752,7 +24753,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(130);
 
-var _SignUpPage = __webpack_require__(579);
+var _SignUpPage = __webpack_require__(580);
 
 var _SignUpPage2 = _interopRequireDefault(_SignUpPage);
 

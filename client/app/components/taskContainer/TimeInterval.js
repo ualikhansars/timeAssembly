@@ -16,11 +16,8 @@ class TimeInterval extends React.Component {
         let {timeFormat} = this.props.preferences;
         let {startTimeHours, startTimeMinutes} = this.props.taskInfo;
         let displayTime = getTimeDependsOnTimeFormat(hour, min, timeFormat, meridien);
-        console.log('hour', hour, 'min', min);
-        console.log('startTimeHours', startTimeHours, 'startTimeMin', startTimeMinutes);
         let time, addTask;
         if(startTimeHours == hour && startTimeMinutes == min) {
-            console.log('time is equal');
             time = styles.timeInterval.time;
             addTask = styles.timeInterval.addTask;
         }

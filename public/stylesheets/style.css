@@ -38,7 +38,7 @@ div.navbar-collapse > ul.navbar-nav > li.nav-item > a:hover {
 div.week {
   margin: 0;
   padding: 0;
-  color: #154e14;
+  color: #ccc;
   min-height: 30px;
 }
 
@@ -48,7 +48,7 @@ div.week span {
 }
 
 div.week span:hover {
-  text-decoration: underline; 
+  color: #000;
   cursor: pointer;
 }
 
@@ -74,20 +74,20 @@ div.week span:hover {
   margin: 0;
   padding: 0;
   background-color: #ccc;
-  border: 1px solid #154e14;
+  border: 1px solid #000;
 }
 
 .timeInterval {
-  border-bottom: 1px solid #154e14;
+  border-bottom: 1px solid #000;
 }
 
 .timeInterval:hover {
   cursor: pointer;
-  background-color: #5ea755;
+  background-color: #f6f1c6;
 }
 
 .timeInterval .time {
-  border-right: 1px solid #154e14;
+  border-right: 1px solid #000;
 }
 
 .timeInterval .addTask {
