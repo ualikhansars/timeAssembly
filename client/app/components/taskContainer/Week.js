@@ -6,7 +6,6 @@ import styles from './styles';
 
 class Week extends React.Component {
     render() {
-        console.log('day', this.props.daysInfo.chosenDay);
         let mondayStyle, tuesdayStyle, wednesdayStyle, thursdayStyle, fridayStyle, saturdayStyle, sundayStyle;
         if(this.props.daysInfo.chosenDay === 'Monday') {
            mondayStyle = styles.week;

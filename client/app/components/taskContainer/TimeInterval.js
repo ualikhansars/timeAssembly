@@ -23,13 +23,15 @@ class TimeInterval extends React.Component {
         }
         
         return (
-            <div onClick={() => this.props.onClickTime(hour, min)} className="row timeInterval">
-                <div className="col-md-2 time" style={time}>
-                         {displayTime}
-                </div>
-                <div className="col-md-10 addTask" style={addTask}>
-                    <div className="taskInput">
-                        Task
+            <div className="container">
+                <div onClick={() => this.props.onClickTime(hour, min)} className="row timeInterval">
+                    <div className="col-md-2 time" style={time}>
+                            {displayTime}
+                    </div>
+                    <div className="col-md-10 addTask" style={addTask}>
+                        <div className="taskInput">
+                            Task
+                        </div>
                     </div>
                 </div>
             </div>

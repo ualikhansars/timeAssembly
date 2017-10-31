@@ -13668,6 +13668,25 @@ SafeBuffer.allocUnsafeSlow = function (size) {
 
 /***/ }),
 /* 27 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Provider__ = __webpack_require__(633);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__ = __webpack_require__(565);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__connect_connect__ = __webpack_require__(634);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Provider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createProvider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["b"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connectAdvanced", function() { return __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connect", function() { return __WEBPACK_IMPORTED_MODULE_2__connect_connect__["a"]; });
+
+
+
+
+
+
+/***/ }),
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13927,7 +13946,7 @@ exports.shr64_lo = shr64_lo;
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {// Load modules
@@ -14831,25 +14850,6 @@ internals.concatSettings = function (target, source) {
 };
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3).Buffer))
-
-/***/ }),
-/* 29 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Provider__ = __webpack_require__(633);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__ = __webpack_require__(565);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__connect_connect__ = __webpack_require__(634);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Provider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createProvider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["b"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connectAdvanced", function() { return __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "connect", function() { return __WEBPACK_IMPORTED_MODULE_2__connect_connect__["a"]; });
-
-
-
-
-
 
 /***/ }),
 /* 30 */
@@ -18327,7 +18327,7 @@ module.exports = shallowEqual;
 "use strict";
 
 
-var utils = __webpack_require__(27);
+var utils = __webpack_require__(28);
 var assert = __webpack_require__(23);
 
 function BlockHash() {
@@ -18446,7 +18446,7 @@ var internals = {
 
 exports.schema = function (config) {
 
-    internals.any = internals.any || new (__webpack_require__(28))();
+    internals.any = internals.any || new (__webpack_require__(29))();
     internals.alt = internals.alt || __webpack_require__(137);
     internals.object = internals.object || __webpack_require__(210);
 
@@ -25682,7 +25682,7 @@ exports.EDE = __webpack_require__(466);
 
 var hash = exports;
 
-hash.utils = __webpack_require__(27);
+hash.utils = __webpack_require__(28);
 hash.common = __webpack_require__(63);
 hash.sha = __webpack_require__(490);
 hash.ripemd = __webpack_require__(489);
@@ -25704,7 +25704,7 @@ hash.ripemd160 = hash.ripemd.ripemd160;
 // Load modules
 
 var Hoek = __webpack_require__(21);
-var Any = __webpack_require__(28);
+var Any = __webpack_require__(29);
 var Cast = __webpack_require__(64);
 var Ref = __webpack_require__(44);
 var Errors = __webpack_require__(34);
@@ -25861,7 +25861,7 @@ module.exports = new internals.Alternatives();
 
 // Load modules
 
-var Any = __webpack_require__(28);
+var Any = __webpack_require__(29);
 var Errors = __webpack_require__(34);
 var Ref = __webpack_require__(44);
 var Hoek = __webpack_require__(21);
@@ -32212,7 +32212,7 @@ module.exports = performanceNow;
 "use strict";
 
 
-var utils = __webpack_require__(27);
+var utils = __webpack_require__(28);
 var common = __webpack_require__(63);
 var shaCommon = __webpack_require__(203);
 var assert = __webpack_require__(23);
@@ -32324,7 +32324,7 @@ SHA256.prototype._digest = function digest(enc) {
 "use strict";
 
 
-var utils = __webpack_require__(27);
+var utils = __webpack_require__(28);
 var common = __webpack_require__(63);
 var assert = __webpack_require__(23);
 
@@ -32661,7 +32661,7 @@ function g1_512_lo(xh, xl) {
 "use strict";
 
 
-var utils = __webpack_require__(27);
+var utils = __webpack_require__(28);
 var rotr32 = utils.rotr32;
 
 function ft_1(s, x, y, z) {
@@ -32756,7 +32756,7 @@ module.exports = Array.isArray || function (arr) {
 
 // Load modules
 
-var Any = __webpack_require__(28);
+var Any = __webpack_require__(29);
 var Errors = __webpack_require__(34);
 var Hoek = __webpack_require__(21);
 
@@ -32803,7 +32803,7 @@ module.exports = new internals.Boolean();
 
 // Load modules
 
-var Any = __webpack_require__(28);
+var Any = __webpack_require__(29);
 var Ref = __webpack_require__(44);
 var Errors = __webpack_require__(34);
 var Hoek = __webpack_require__(21);
@@ -32995,7 +32995,7 @@ module.exports = new internals.Number();
 
 var Hoek = __webpack_require__(21);
 var Topo = __webpack_require__(547);
-var Any = __webpack_require__(28);
+var Any = __webpack_require__(29);
 var Cast = __webpack_require__(64);
 var Errors = __webpack_require__(34);
 
@@ -33756,7 +33756,7 @@ module.exports = new internals.Object();
 var Net = __webpack_require__(337);
 var Hoek = __webpack_require__(21);
 var Isemail = __webpack_require__(502);
-var Any = __webpack_require__(28);
+var Any = __webpack_require__(29);
 var Ref = __webpack_require__(44);
 var JoiDate = __webpack_require__(138);
 var Errors = __webpack_require__(34);
@@ -65932,7 +65932,7 @@ module.exports = HashBase
 "use strict";
 
 
-var utils = __webpack_require__(27);
+var utils = __webpack_require__(28);
 var assert = __webpack_require__(23);
 
 function Hmac(hash, key, enc) {
@@ -65986,7 +65986,7 @@ Hmac.prototype.digest = function digest(enc) {
 "use strict";
 
 
-var utils = __webpack_require__(27);
+var utils = __webpack_require__(28);
 var common = __webpack_require__(63);
 
 var rotl32 = utils.rotl32;
@@ -66153,7 +66153,7 @@ exports.sha512 = __webpack_require__(202);
 "use strict";
 
 
-var utils = __webpack_require__(27);
+var utils = __webpack_require__(28);
 var common = __webpack_require__(63);
 var shaCommon = __webpack_require__(203);
 
@@ -66234,7 +66234,7 @@ SHA1.prototype._digest = function digest(enc) {
 "use strict";
 
 
-var utils = __webpack_require__(27);
+var utils = __webpack_require__(28);
 var SHA256 = __webpack_require__(201);
 
 function SHA224() {
@@ -66271,7 +66271,7 @@ SHA224.prototype._digest = function digest(enc) {
 "use strict";
 
 
-var utils = __webpack_require__(27);
+var utils = __webpack_require__(28);
 
 var SHA512 = __webpack_require__(202);
 
@@ -68159,7 +68159,7 @@ module.exports = isEmail;
 
 // Load modules
 
-var Any = __webpack_require__(28);
+var Any = __webpack_require__(29);
 var Cast = __webpack_require__(64);
 var Errors = __webpack_require__(34);
 var Hoek = __webpack_require__(21);
@@ -68682,7 +68682,7 @@ module.exports = new internals.Array();
 
 /* WEBPACK VAR INJECTION */(function(Buffer) {// Load modules
 
-var Any = __webpack_require__(28);
+var Any = __webpack_require__(29);
 var Errors = __webpack_require__(34);
 var Hoek = __webpack_require__(21);
 
@@ -68787,7 +68787,7 @@ module.exports = new internals.Binary();
 
 // Load modules
 
-var Any = __webpack_require__(28);
+var Any = __webpack_require__(29);
 var Cast = __webpack_require__(64);
 var Ref = __webpack_require__(44);
 
@@ -73094,146 +73094,112 @@ var Task = function (_React$Component) {
 
             return _react2.default.createElement(
                 "div",
-                { className: "container-fluid task" },
+                { className: "task container" },
                 _react2.default.createElement(
                     "div",
                     { className: "row" },
                     _react2.default.createElement(
                         "div",
-                        { className: "col-md-4 offset-md-4" },
+                        { className: "col-md-2 taskTime" },
                         _react2.default.createElement(
-                            "span",
-                            null,
-                            title
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "row" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-md-12" },
-                        _react2.default.createElement(
-                            "span",
-                            null,
-                            "Category: ",
-                            category
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "row" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-md-12" },
-                        _react2.default.createElement(
-                            "span",
-                            null,
-                            "Description: ",
-                            description
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "row" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-md-12" },
-                        _react2.default.createElement(
-                            "span",
-                            null,
-                            "Duration: ",
-                            duration,
-                            " mins"
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "row" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-md-12" },
-                        _react2.default.createElement(
-                            "span",
-                            null,
-                            "Start Time: ",
+                            "div",
+                            { className: "taskStartTime" },
                             startTimeHours,
                             ":",
                             startTimeMinutes
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "row" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-md-12" },
+                        ),
                         _react2.default.createElement(
-                            "span",
-                            null,
-                            "Finish Time: ",
+                            "div",
+                            { className: "taskFinishTime" },
                             finishTimeHours,
                             ":",
                             finishTimeMinutes
                         )
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "row" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-md-12" },
-                        _react2.default.createElement(
-                            "span",
-                            null,
-                            "Day: ",
-                            day
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "row" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-md-12" },
-                        _react2.default.createElement(
-                            "span",
-                            null,
-                            "SlotId: ",
-                            slot
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    "div",
-                    { className: "row" },
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-md-6" },
-                        _react2.default.createElement(
-                            "button",
-                            { onClick: function onClick() {
-                                    return _this2.props.onClickUpdate(id);
-                                }, className: "btn btn-info" },
-                            "Edit"
-                        )
                     ),
                     _react2.default.createElement(
                         "div",
-                        { className: "col-md-6" },
+                        { className: "col-md-10 taskContent" },
                         _react2.default.createElement(
-                            "button",
-                            { onClick: function onClick() {
-                                    return _this2.props.removeTask(id, slot);
-                                }, className: "btn btn-danger" },
-                            "Remove"
+                            "div",
+                            { className: "row" },
+                            _react2.default.createElement(
+                                "div",
+                                { className: "col-md-4 offset-md-4" },
+                                _react2.default.createElement(
+                                    "span",
+                                    { className: "taskTitle" },
+                                    title
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "row" },
+                            _react2.default.createElement(
+                                "div",
+                                { className: "col-md-12" },
+                                _react2.default.createElement(
+                                    "span",
+                                    null,
+                                    "Category: ",
+                                    category
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "row" },
+                            _react2.default.createElement(
+                                "div",
+                                { className: "col-md-12" },
+                                _react2.default.createElement(
+                                    "span",
+                                    null,
+                                    "Description: ",
+                                    description
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "row" },
+                            _react2.default.createElement(
+                                "div",
+                                { className: "col-md-12" },
+                                _react2.default.createElement(
+                                    "span",
+                                    null,
+                                    "Duration: ",
+                                    duration,
+                                    " mins"
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            "div",
+                            { className: "row" },
+                            _react2.default.createElement(
+                                "div",
+                                { className: "col-md-6" },
+                                _react2.default.createElement(
+                                    "button",
+                                    { onClick: function onClick() {
+                                            return _this2.props.onClickUpdate(id);
+                                        }, className: "btn btn-info" },
+                                    "Edit"
+                                )
+                            ),
+                            _react2.default.createElement(
+                                "div",
+                                { className: "col-md-6" },
+                                _react2.default.createElement(
+                                    "button",
+                                    { onClick: function onClick() {
+                                            return _this2.props.removeTask(id, slot);
+                                        }, className: "btn btn-danger" },
+                                    "Remove"
+                                )
+                            )
                         )
                     )
                 )
@@ -74089,7 +74055,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(35);
 
-var _reactRedux = __webpack_require__(29);
+var _reactRedux = __webpack_require__(27);
 
 var _jsonwebtoken = __webpack_require__(510);
 
@@ -74256,7 +74222,7 @@ var _reactDom = __webpack_require__(130);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactRedux = __webpack_require__(29);
+var _reactRedux = __webpack_require__(27);
 
 var _store = __webpack_require__(578);
 
@@ -74293,7 +74259,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(35);
 
-var _reactRedux = __webpack_require__(29);
+var _reactRedux = __webpack_require__(27);
 
 var _propTypes = __webpack_require__(16);
 
@@ -74397,7 +74363,7 @@ var _react = __webpack_require__(10);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(29);
+var _reactRedux = __webpack_require__(27);
 
 var _propTypes = __webpack_require__(16);
 
@@ -74606,7 +74572,7 @@ var _react = __webpack_require__(10);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(29);
+var _reactRedux = __webpack_require__(27);
 
 var _propTypes = __webpack_require__(16);
 
@@ -74910,7 +74876,7 @@ var _react = __webpack_require__(10);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(29);
+var _reactRedux = __webpack_require__(27);
 
 var _propTypes = __webpack_require__(16);
 
@@ -75095,7 +75061,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(35);
 
-var _reactRedux = __webpack_require__(29);
+var _reactRedux = __webpack_require__(27);
 
 var _propTypes = __webpack_require__(16);
 
@@ -75414,7 +75380,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(35);
 
-var _reactRedux = __webpack_require__(29);
+var _reactRedux = __webpack_require__(27);
 
 var _propTypes = __webpack_require__(16);
 
@@ -75607,7 +75573,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(35);
 
-var _reactRedux = __webpack_require__(29);
+var _reactRedux = __webpack_require__(27);
 
 var _propTypes = __webpack_require__(16);
 
@@ -75758,7 +75724,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(35);
 
-var _reactRedux = __webpack_require__(29);
+var _reactRedux = __webpack_require__(27);
 
 var _propTypes = __webpack_require__(16);
 
@@ -76132,7 +76098,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(35);
 
-var _reactRedux = __webpack_require__(29);
+var _reactRedux = __webpack_require__(27);
 
 var _propTypes = __webpack_require__(16);
 
@@ -76381,7 +76347,7 @@ var _SlotContainer2 = _interopRequireDefault(_SlotContainer);
 
 var _redux = __webpack_require__(35);
 
-var _reactRedux = __webpack_require__(29);
+var _reactRedux = __webpack_require__(27);
 
 var _slotAction = __webpack_require__(557);
 
@@ -76525,7 +76491,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(35);
 
-var _reactRedux = __webpack_require__(29);
+var _reactRedux = __webpack_require__(27);
 
 var _propTypes = __webpack_require__(16);
 
@@ -76680,7 +76646,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(35);
 
-var _reactRedux = __webpack_require__(29);
+var _reactRedux = __webpack_require__(27);
 
 var _propTypes = __webpack_require__(16);
 
@@ -76788,7 +76754,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(35);
 
-var _reactRedux = __webpack_require__(29);
+var _reactRedux = __webpack_require__(27);
 
 var _propTypes = __webpack_require__(16);
 
@@ -76958,7 +76924,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(35);
 
-var _reactRedux = __webpack_require__(29);
+var _reactRedux = __webpack_require__(27);
 
 var _propTypes = __webpack_require__(16);
 
@@ -77048,7 +77014,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(35);
 
-var _reactRedux = __webpack_require__(29);
+var _reactRedux = __webpack_require__(27);
 
 var _preferencesAction = __webpack_require__(170);
 
@@ -77134,7 +77100,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(35);
 
-var _reactRedux = __webpack_require__(29);
+var _reactRedux = __webpack_require__(27);
 
 var _propTypes = __webpack_require__(16);
 
@@ -77273,7 +77239,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _redux = __webpack_require__(35);
 
-var _reactRedux = __webpack_require__(29);
+var _reactRedux = __webpack_require__(27);
 
 var _styles = __webpack_require__(560);
 
@@ -77324,21 +77290,25 @@ var TimeInterval = function (_React$Component) {
 
             return _react2.default.createElement(
                 'div',
-                { onClick: function onClick() {
-                        return _this2.props.onClickTime(hour, min);
-                    }, className: 'row timeInterval' },
+                { className: 'container' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'col-md-2 time', style: time },
-                    displayTime
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'col-md-10 addTask', style: addTask },
+                    { onClick: function onClick() {
+                            return _this2.props.onClickTime(hour, min);
+                        }, className: 'row timeInterval' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'taskInput' },
-                        'Task'
+                        { className: 'col-md-2 time', style: time },
+                        displayTime
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-10 addTask', style: addTask },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'taskInput' },
+                            'Task'
+                        )
                     )
                 )
             );
@@ -77389,7 +77359,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _redux = __webpack_require__(35);
 
-var _reactRedux = __webpack_require__(29);
+var _reactRedux = __webpack_require__(27);
 
 var _TimeInterval = __webpack_require__(601);
 
@@ -77734,7 +77704,7 @@ var _react = __webpack_require__(10);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(29);
+var _reactRedux = __webpack_require__(27);
 
 var _propTypes = __webpack_require__(16);
 
@@ -77768,7 +77738,6 @@ var Week = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            console.log('day', this.props.daysInfo.chosenDay);
             var mondayStyle = void 0,
                 tuesdayStyle = void 0,
                 wednesdayStyle = void 0,

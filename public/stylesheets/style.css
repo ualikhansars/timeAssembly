@@ -67,14 +67,7 @@ div.week span:hover {
 }
 
 .timetable {
- 
-}
-
-.task {
-  margin: 0;
-  padding: 0;
-  background-color: #ccc;
-  border: 1px solid #000;
+  
 }
 
 .timeInterval {
@@ -98,4 +91,27 @@ div.week span:hover {
 
 .timeInterval .addTask:hover {
   cursor: pointer;
+}
+
+/* Task */
+div.task {
+  background-color: #ccc;
+  border: 1px solid #000;
+}
+
+div.task div.taskTime {
+  position: relative;
+  text-align: center;
+  background-color: #f6f1c6;
+  border-right: 1px solid #000;
+}
+
+div.task div.taskTime taskStartTime {
+  position: absolute;
+  top: 0;
+}
+
+div.task div.taskTime taskFinishTime {
+  position: absolute;
+  bottom: 0;
 }
