@@ -30,7 +30,7 @@ class TimeInterval extends React.Component {
                     </div>
                     <div className="col-md-10 addTask" style={addTask}>
                         <div className="taskInput">
-                           
+                    
                         </div>
                     </div>
                 </div>

@@ -154,6 +154,7 @@ class TwentyFourHours extends React.Component {
             
             for(hour = startTime; hour <= finishTime; ++hour) { // every hour
                 for(let min = 0; min < 60; min += 15) { // every 15 minutes
+                    console.error('hour:', hour, 'min:', min);
                     if(hour === finishTime && min !== 0) break; // do not display mins after finishTime
                     //if(hour === 24 && min !== 0) break; // if time more that 24:00 return from the loop
                     if(timeFormat === 12 && meridien === 'a.m' && hour === 12 && min !== 0) break; // time is more than 12:00 for 12 hours format
@@ -194,21 +195,25 @@ class TwentyFourHours extends React.Component {
                                 // continue;
                             } 
                         } // end tasks for loop
+                        console.error('taskAdded:', taskAdded, 'hour:', hour, 'min:', min);
                         if(!taskAdded) {
+                            console.error('task not added hour:', hour, 'min:', min, 'taskAdded:', taskAdded);
                             timetable = this.addTimeInterval(timetable, hour, min, index, timeInterval, meridien);
                             index++;
                         }
-                    } else {
+                    } else { // no more tasks remained
                             // prevent adding tasks than ends after 24:00
                             if(taskFinishHour === 24 && taskFinishMin === 0) { 
                                 break;
                             }
                             // if finishHour less than current hour
                             // that means task was added
-                            if(taskFinishHour !== hour || taskFinishHour === hour && taskFinishMin >= min) { 
+                            console.error('taskFinishHour:', taskFinishHour, 'taskFinishMin:', taskFinishMin);
+                            //if(taskFinishHour !== hour || (taskFinishHour === hour && taskFinishMin >= min)) { 
+                                 console.error('no more tasks remained hour:', hour, 'min:', min, 'tashAdded:', taskAdded);
                                  timetable = this.addTimeInterval(timetable, hour, min, index, timeInterval, meridien);
                                  index++;
-                            }
+                            //}
                             
                     }
                     taskAdded = false; // reset taskAdded to false

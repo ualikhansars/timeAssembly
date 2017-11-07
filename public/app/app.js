@@ -77569,6 +77569,7 @@ var TwentyFourHours = function (_React$Component) {
                     // every hour
                     for (var _min = 0; _min < 60; _min += 15) {
                         // every 15 minutes
+                        console.error('hour:', hour, 'min:', _min);
                         if (hour === finishTime && _min !== 0) break; // do not display mins after finishTime
                         //if(hour === 24 && min !== 0) break; // if time more that 24:00 return from the loop
                         if (timeFormat === 12 && meridien === 'a.m' && hour === 12 && _min !== 0) break; // time is more than 12:00 for 12 hours format
@@ -77611,21 +77612,26 @@ var TwentyFourHours = function (_React$Component) {
                                     // continue;
                                 }
                             } // end tasks for loop
+                            console.error('taskAdded:', taskAdded, 'hour:', hour, 'min:', _min);
                             if (!taskAdded) {
+                                console.error('task not added hour:', hour, 'min:', _min, 'taskAdded:', taskAdded);
                                 timetable = this.addTimeInterval(timetable, hour, _min, index, timeInterval, meridien);
                                 index++;
                             }
                         } else {
+                            // no more tasks remained
                             // prevent adding tasks than ends after 24:00
                             if (taskFinishHour === 24 && taskFinishMin === 0) {
                                 break;
                             }
                             // if finishHour less than current hour
                             // that means task was added
-                            if (taskFinishHour !== hour || taskFinishHour === hour && taskFinishMin >= _min) {
-                                timetable = this.addTimeInterval(timetable, hour, _min, index, timeInterval, meridien);
-                                index++;
-                            }
+                            console.error('taskFinishHour:', taskFinishHour, 'taskFinishMin:', taskFinishMin);
+                            //if(taskFinishHour !== hour || (taskFinishHour === hour && taskFinishMin >= min)) { 
+                            console.error('no more tasks remained hour:', hour, 'min:', _min, 'tashAdded:', taskAdded);
+                            timetable = this.addTimeInterval(timetable, hour, _min, index, timeInterval, meridien);
+                            index++;
+                            //}
                         }
                         taskAdded = false; // reset taskAdded to false
                     } // end of min foor loop
