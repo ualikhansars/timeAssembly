@@ -15,6 +15,16 @@ class Task extends React.Component {
             slot,
             id
         } = this.props.property;
+        console.error('startTimeHour:', startTimeHours, 'startTimeMinutes:', startTimeMinutes);
+        console.error('finishTimeHour:', finishTimeHours, 'startTimeMinutes:', finishTimeMinutes);
+        if(startTimeHours < 10) {
+            startTimeHours = '0' + startTimeHours;
+        }
+        if(finishTimeHours < 10) {
+            finishTimeHours = '0' + finishTimeHours;
+        }
+        if(startTimeMinutes == 0) startTimeMinutes = '0' + startTimeMinutes;
+        if(finishTimeMinutes === 0) finishTimeMinutes = '0' + finishTimeMinutes;
         return (
             <div className="task container">
                 <div className="row">

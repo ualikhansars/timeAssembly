@@ -73075,7 +73075,7 @@ var Task = function (_React$Component) {
     }
 
     _createClass(Task, [{
-        key: "render",
+        key: 'render',
         value: function render() {
             var _this2 = this;
 
@@ -73092,112 +73092,122 @@ var Task = function (_React$Component) {
                 slot = _props$property.slot,
                 id = _props$property.id;
 
+            console.error('startTimeHour:', startTimeHours, 'startTimeMinutes:', startTimeMinutes);
+            console.error('finishTimeHour:', finishTimeHours, 'startTimeMinutes:', finishTimeMinutes);
+            if (startTimeHours < 10) {
+                startTimeHours = '0' + startTimeHours;
+            }
+            if (finishTimeHours < 10) {
+                finishTimeHours = '0' + finishTimeHours;
+            }
+            if (startTimeMinutes == 0) startTimeMinutes = '0' + startTimeMinutes;
+            if (finishTimeMinutes === 0) finishTimeMinutes = '0' + finishTimeMinutes;
             return _react2.default.createElement(
-                "div",
-                { className: "task container" },
+                'div',
+                { className: 'task container' },
                 _react2.default.createElement(
-                    "div",
-                    { className: "row" },
+                    'div',
+                    { className: 'row' },
                     _react2.default.createElement(
-                        "div",
-                        { className: "col-md-2 taskTime" },
+                        'div',
+                        { className: 'col-md-2 taskTime' },
                         _react2.default.createElement(
-                            "div",
-                            { className: "taskStartTime" },
+                            'div',
+                            { className: 'taskStartTime' },
                             startTimeHours,
-                            ":",
+                            ':',
                             startTimeMinutes
                         ),
                         _react2.default.createElement(
-                            "div",
-                            { className: "taskFinishTime" },
+                            'div',
+                            { className: 'taskFinishTime' },
                             finishTimeHours,
-                            ":",
+                            ':',
                             finishTimeMinutes
                         )
                     ),
                     _react2.default.createElement(
-                        "div",
-                        { className: "col-md-10 taskContent" },
+                        'div',
+                        { className: 'col-md-10 taskContent' },
                         _react2.default.createElement(
-                            "div",
-                            { className: "row" },
+                            'div',
+                            { className: 'row' },
                             _react2.default.createElement(
-                                "div",
-                                { className: "col-md-4 offset-md-4" },
+                                'div',
+                                { className: 'col-md-4 offset-md-4' },
                                 _react2.default.createElement(
-                                    "span",
-                                    { className: "taskTitle" },
+                                    'span',
+                                    { className: 'taskTitle' },
                                     title
                                 )
                             )
                         ),
                         _react2.default.createElement(
-                            "div",
-                            { className: "row" },
+                            'div',
+                            { className: 'row' },
                             _react2.default.createElement(
-                                "div",
-                                { className: "col-md-12" },
+                                'div',
+                                { className: 'col-md-12' },
                                 _react2.default.createElement(
-                                    "span",
+                                    'span',
                                     null,
-                                    "Category: ",
+                                    'Category: ',
                                     category
                                 )
                             )
                         ),
                         _react2.default.createElement(
-                            "div",
-                            { className: "row" },
+                            'div',
+                            { className: 'row' },
                             _react2.default.createElement(
-                                "div",
-                                { className: "col-md-12" },
+                                'div',
+                                { className: 'col-md-12' },
                                 _react2.default.createElement(
-                                    "span",
+                                    'span',
                                     null,
-                                    "Description: ",
+                                    'Description: ',
                                     description
                                 )
                             )
                         ),
                         _react2.default.createElement(
-                            "div",
-                            { className: "row" },
+                            'div',
+                            { className: 'row' },
                             _react2.default.createElement(
-                                "div",
-                                { className: "col-md-12" },
+                                'div',
+                                { className: 'col-md-12' },
                                 _react2.default.createElement(
-                                    "span",
+                                    'span',
                                     null,
-                                    "Duration: ",
+                                    'Duration: ',
                                     duration,
-                                    " mins"
+                                    ' mins'
                                 )
                             )
                         ),
                         _react2.default.createElement(
-                            "div",
-                            { className: "row" },
+                            'div',
+                            { className: 'row' },
                             _react2.default.createElement(
-                                "div",
-                                { className: "col-md-6" },
+                                'div',
+                                { className: 'col-md-6' },
                                 _react2.default.createElement(
-                                    "button",
+                                    'button',
                                     { onClick: function onClick() {
                                             return _this2.props.onClickUpdate(id);
-                                        }, className: "btn btn-info" },
-                                    "Edit"
+                                        }, className: 'btn btn-info' },
+                                    'Edit'
                                 )
                             ),
                             _react2.default.createElement(
-                                "div",
-                                { className: "col-md-6" },
+                                'div',
+                                { className: 'col-md-6' },
                                 _react2.default.createElement(
-                                    "button",
+                                    'button',
                                     { onClick: function onClick() {
                                             return _this2.props.removeTask(id, slot);
-                                        }, className: "btn btn-danger" },
-                                    "Remove"
+                                        }, className: 'btn btn-danger' },
+                                    'Remove'
                                 )
                             )
                         )
@@ -77304,11 +77314,7 @@ var TimeInterval = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'col-md-10 addTask', style: addTask },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'taskInput' },
-                            'Task'
-                        )
+                        _react2.default.createElement('div', { className: 'taskInput' })
                     )
                 )
             );

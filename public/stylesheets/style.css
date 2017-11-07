@@ -106,12 +106,12 @@ div.task div.taskTime {
   border-right: 1px solid #000;
 }
 
-div.task div.taskTime taskStartTime {
+div.task div.taskTime div.taskStartTime {
   position: absolute;
   top: 0;
 }
 
-div.task div.taskTime taskFinishTime {
+div.task div.taskTime div.taskFinishTime {
   position: absolute;
   bottom: 0;
 }
