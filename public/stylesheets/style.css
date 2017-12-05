@@ -115,3 +115,8 @@ div.task div.taskTime div.taskFinishTime {
   position: absolute;
   bottom: 0;
 }
+
+/* Task edit icon */
+div.task .editTask {
+  margin-top: 10px;
+}
