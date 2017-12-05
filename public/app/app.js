@@ -73190,21 +73190,13 @@ var Task = function (_React$Component) {
                             { className: 'row' },
                             _react2.default.createElement(
                                 'div',
-                                { className: 'col-md-6' },
+                                { className: 'col-md-12' },
                                 _react2.default.createElement('img', { src: '/img/edit.png', onClick: function onClick() {
                                         return _this2.props.onClickUpdate(id);
-                                    }, className: 'editTask' })
-                            ),
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'col-md-6' },
-                                _react2.default.createElement(
-                                    'button',
-                                    { onClick: function onClick() {
-                                            return _this2.props.removeTask(id, slot);
-                                        }, className: 'btn btn-danger' },
-                                    'Remove'
-                                )
+                                    }, className: 'editTask' }),
+                                _react2.default.createElement('img', { src: '/img/trushBin.png', onClick: function onClick() {
+                                        return _this2.props.removeTask(id, slot);
+                                    }, className: 'removeTask' })
                             )
                         )
                     )

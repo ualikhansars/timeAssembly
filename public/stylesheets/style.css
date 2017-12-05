@@ -118,5 +118,20 @@ div.task div.taskTime div.taskFinishTime {
 
 /* Task edit icon */
 div.task .editTask {
-  margin-top: 10px;
+  margin-top: 6px;
+  margin-bottom: 3px;
+  margin-right: 10px;
+}
+
+div.task .editTask:hover {
+  transform: scale(1.1);
+}
+
+div.task .removeTask {
+  margin-top: 6px;
+  margin-bottom: 3px;
+}
+
+div.task .removeTask:hover {
+  transform: scale(1.1);
 }
