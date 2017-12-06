@@ -135,3 +135,19 @@ div.task .removeTask {
 div.task .removeTask:hover {
   transform: scale(1.1);
 }
+
+/* Slot Container */
+.slotContainer .slotContainerTitle {
+  text-align: center;
+}
+
+.slotContainer .createSlotContainer {
+  text-align: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #000;
+}
+
+.slotContainer .createSlot {
+  margin-bottom: 5px;
+}
+

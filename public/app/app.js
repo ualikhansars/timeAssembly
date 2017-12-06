@@ -76213,29 +76213,33 @@ var SlotContainer = function (_React$Component) {
             }
             return _react2.default.createElement(
                 'div',
-                { className: 'container-fluid' },
+                { className: 'container-fluid slotContainer' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'row' },
+                    { className: 'row slotContainerTitle' },
                     _react2.default.createElement(
                         'div',
                         { className: 'col-md-4 offset-md-4' },
                         _react2.default.createElement(
-                            'span',
-                            null,
+                            'h4',
+                            { id: 'slotContainerTitle' },
                             'Tasks'
                         )
                     )
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'col-md-4 offset-md-4' },
+                    { className: 'row createSlotContainer' },
                     _react2.default.createElement(
-                        'button',
-                        { onClick: function onClick() {
-                                return _this2.props.showCreateSlotForm();
-                            }, className: 'btn btn-success' },
-                        'Create Task'
+                        'div',
+                        { className: 'col-md-4 offset-md-4' },
+                        _react2.default.createElement(
+                            'button',
+                            { onClick: function onClick() {
+                                    return _this2.props.showCreateSlotForm();
+                                }, className: 'btn btn-success createSlot' },
+                            'Create Task'
+                        )
                     )
                 ),
                 _react2.default.createElement(

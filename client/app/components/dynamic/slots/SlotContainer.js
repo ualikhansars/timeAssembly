@@ -88,14 +88,16 @@ class SlotContainer extends React.Component {
             });
         }
         return (
-             <div className="container-fluid">
-                <div className="row">
-                <div className="col-md-4 offset-md-4">
-                    <span>Tasks</span>
+             <div className="container-fluid slotContainer">
+                <div className="row slotContainerTitle">
+                    <div className="col-md-4 offset-md-4">
+                        <h4 id="slotContainerTitle">Tasks</h4>
+                    </div>
                 </div>
-                </div>
-                <div className="col-md-4 offset-md-4">
-                    <button onClick={() => this.props.showCreateSlotForm()} className="btn btn-success">Create Task</button>
+                <div className="row createSlotContainer">
+                    <div className="col-md-4 offset-md-4">
+                        <button onClick={() => this.props.showCreateSlotForm()} className="btn btn-success createSlot">Create Task</button>
+                    </div>
                 </div>
                 <div className="row">
                     <div className="col-md-12">
