@@ -56,11 +56,11 @@ class Slot extends React.Component {
                 {date}
                 {addButton}
                 <div className="row">
-                     <div className="col-md-4">
-                            <button onClick={() => this.props.slotProperty.fetchSlot(id)} className="btn btn-info">Edit</button>
-                        </div>
                     <div className="col-md-4">
-                        <button onClick={() => this.props.slotProperty.removeSlot(id)} className="btn btn-danger">Remove</button>
+                            <img src="/img/edit.png" onClick={() => this.props.slotProperty.fetchSlot(id)} className="editSlot" />
+                    </div>
+                    <div className="col-md-4">
+                        <img src="/img/trushBin.png" onClick={() => this.props.slotProperty.removeSlot(id)} className="removeSlot" />
                     </div>
                 </div>
             </div>

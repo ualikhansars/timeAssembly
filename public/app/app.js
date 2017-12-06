@@ -76048,24 +76048,16 @@ var Slot = function (_React$Component) {
                     _react2.default.createElement(
                         "div",
                         { className: "col-md-4" },
-                        _react2.default.createElement(
-                            "button",
-                            { onClick: function onClick() {
-                                    return _this2.props.slotProperty.fetchSlot(id);
-                                }, className: "btn btn-info" },
-                            "Edit"
-                        )
+                        _react2.default.createElement("img", { src: "/img/edit.png", onClick: function onClick() {
+                                return _this2.props.slotProperty.fetchSlot(id);
+                            }, className: "editSlot" })
                     ),
                     _react2.default.createElement(
                         "div",
                         { className: "col-md-4" },
-                        _react2.default.createElement(
-                            "button",
-                            { onClick: function onClick() {
-                                    return _this2.props.slotProperty.removeSlot(id);
-                                }, className: "btn btn-danger" },
-                            "Remove"
-                        )
+                        _react2.default.createElement("img", { src: "/img/trushBin.png", onClick: function onClick() {
+                                return _this2.props.slotProperty.removeSlot(id);
+                            }, className: "removeSlot" })
                     )
                 )
             );
