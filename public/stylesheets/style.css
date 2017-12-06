@@ -151,3 +151,57 @@ div.task .removeTask:hover {
   margin-bottom: 5px;
 }
 
+.slotContainer .slot {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #000;
+}
+
+.slotContainer .slot .slotTitleContainer {
+  text-align: center;
+}
+
+.slotContainer .slot .slotTitle {
+  font-size: 22px;
+}
+
+.slotContainer .slot .slotProperty {
+  font-size: 16px;
+  margin-bottom: 5px;
+} 
+
+/* Icons */
+.slotContainer .slot .editSlot {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 10px;
+}
+
+.slotContainer .slot .editSlot:hover {
+  transform: scale(1.1);
+}
+
+.slotContainer .slot .removeSlot {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.slotContainer .slot .removeSlot:hover {
+  transform: scale(1.1);
+}
+
+.slotContainer .slot .removeSlot:hover {
+  transform: scale(1.1);
+}
+
+/* add button */
+.slotContainer .addButton .slotArrow {
+  margin-right: 5px;
+} 
+
+.slotContainer .addButton .slotArrow:hover {
+  transform: scale(1.1);
+}
+
+.slotContainer .slotButtons {
+  text-align: right;
+}

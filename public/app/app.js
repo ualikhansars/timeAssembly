@@ -75951,15 +75951,16 @@ var Slot = function (_React$Component) {
             if (startTimeHours && startTimeMinutes && free > 0) {
                 addButton = _react2.default.createElement(
                     "div",
-                    { className: "row" },
+                    { className: "row addButton" },
                     _react2.default.createElement(
                         "div",
                         { className: "col-md-12" },
+                        _react2.default.createElement("img", { src: "/img/arrow24.png", onClick: function onClick() {
+                                return _this2.props.slotProperty.addTask(_this2.props.slotProperty.slotAttr.id);
+                            }, className: "slotArrow" }),
                         _react2.default.createElement(
-                            "button",
-                            { onClick: function onClick() {
-                                    return _this2.props.slotProperty.addTask(_this2.props.slotProperty.slotAttr.id);
-                                }, className: "btn btn-success" },
+                            "span",
+                            { className: "slotProperty" },
                             "Add to ",
                             chosenDay,
                             " at ",
@@ -75988,16 +75989,16 @@ var Slot = function (_React$Component) {
             }
             return _react2.default.createElement(
                 "div",
-                { className: "container-fluid" },
+                { className: "container-fluid slot" },
                 _react2.default.createElement(
                     "div",
                     { className: "row" },
                     _react2.default.createElement(
                         "div",
-                        { className: "col-md-4 offset-md-4" },
+                        { className: "col-md-4 offset-md-4 slotTitleContainer" },
                         _react2.default.createElement(
                             "span",
-                            null,
+                            { className: "slotTitle" },
                             title
                         )
                     )
@@ -76010,7 +76011,7 @@ var Slot = function (_React$Component) {
                         { className: "col-md-12" },
                         _react2.default.createElement(
                             "span",
-                            null,
+                            { className: "slotProperty slotCategory" },
                             "Category: ",
                             category
                         )
@@ -76024,7 +76025,7 @@ var Slot = function (_React$Component) {
                         { className: "col-md-6" },
                         _react2.default.createElement(
                             "span",
-                            null,
+                            { className: "slotProperty slotTotal" },
                             "Total: ",
                             total
                         )
@@ -76034,27 +76035,27 @@ var Slot = function (_React$Component) {
                         { className: "col-md-6" },
                         _react2.default.createElement(
                             "span",
-                            null,
+                            { className: "slotProperty slotFree" },
                             "Free: ",
                             free
                         )
                     )
                 ),
-                date,
-                addButton,
                 _react2.default.createElement(
                     "div",
                     { className: "row" },
                     _react2.default.createElement(
                         "div",
-                        { className: "col-md-4" },
-                        _react2.default.createElement("img", { src: "/img/edit.png", onClick: function onClick() {
-                                return _this2.props.slotProperty.fetchSlot(id);
-                            }, className: "editSlot" })
+                        { className: "col-md-6 addContainer" },
+                        date,
+                        addButton
                     ),
                     _react2.default.createElement(
                         "div",
-                        { className: "col-md-4" },
+                        { className: "col-md-6 slotButtons" },
+                        _react2.default.createElement("img", { src: "/img/edit.png", onClick: function onClick() {
+                                return _this2.props.slotProperty.fetchSlot(id);
+                            }, className: "editSlot" }),
                         _react2.default.createElement("img", { src: "/img/trushBin.png", onClick: function onClick() {
                                 return _this2.props.slotProperty.removeSlot(id);
                             }, className: "removeSlot" })
