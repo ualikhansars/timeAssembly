@@ -76673,36 +76673,31 @@ var Sidebar = function (_React$Component) {
 
             return _react2.default.createElement(
                 'div',
-                { className: 'container-fluid' },
+                { className: 'container-fluid sidebar' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'row' },
+                    { className: 'row sidebarItem' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-12' },
+                        { className: 'col-md-12 ' },
                         _react2.default.createElement(
                             'span',
-                            null,
-                            'Profile'
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-md-12' },
-                        _react2.default.createElement(
-                            'span',
-                            { onClick: function onClick() {
+                            { className: 'sidebarTask', onClick: function onClick() {
                                     return _this2.props.displaySlots();
                                 } },
                             'Tasks'
                         )
-                    ),
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row sidebarItem' },
                     _react2.default.createElement(
                         'div',
                         { className: 'col-md-12' },
                         _react2.default.createElement(
                             'span',
-                            { onClick: function onClick() {
+                            { className: 'sidebarPreferences', onClick: function onClick() {
                                     return _this2.props.displaySettings();
                                 } },
                             'Preferences'

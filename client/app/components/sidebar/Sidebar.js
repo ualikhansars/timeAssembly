@@ -9,16 +9,15 @@ import {displaySettings} from '../../actions/displayAction';
 class Sidebar extends React.Component {
     render() {
         return(
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-md-12">
-                        <span>Profile</span>
+            <div className="container-fluid sidebar">
+                <div className="row sidebarItem">
+                    <div className="col-md-12 ">
+                          <span className="sidebarTask" onClick={() => this.props.displaySlots()}>Tasks</span>
                     </div>
+                </div>
+                <div className="row sidebarItem">
                     <div className="col-md-12">
-                          <span onClick={() => this.props.displaySlots()}>Tasks</span>
-                    </div>
-                    <div className="col-md-12">
-                         <span onClick={() => this.props.displaySettings()}>Preferences</span>                       
+                        <span className="sidebarPreferences" onClick={() => this.props.displaySettings()}>Preferences</span>                       
                     </div>
                 </div>
             </div>

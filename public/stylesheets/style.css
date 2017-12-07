@@ -205,3 +205,20 @@ div.task .removeTask:hover {
 .slotContainer .slotButtons {
   text-align: right;
 }
+
+/* Sidebar */
+.settings {
+  border-left: 1px solid #000;
+}
+.sidebar {
+  font-size: 22px;
+  margin-top: 10px;
+  text-align: center;
+  
+}
+
+.sidebar .sidebarItem {
+  margin-top: 10px;
+  border-bottom: 1px solid #000;
+  cursor: pointer;
+}
