@@ -1,3 +1,6 @@
+require('babel-register'); 
+
+var request = require('http');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -7,6 +10,10 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var expressHbs = require('express-handlebars');
 var validator = require('express-validator');
+
+ 
+
+import Home from './client/app/components/layout/Home';
 
 // establish database connection
 var dbUrl = 'mongodb://localhost/timetable';
