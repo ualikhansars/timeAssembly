@@ -22,13 +22,13 @@ import LoginPage from '../login/components/LoginPage';
 
 
 ReactDOM.render((
-    <BrowserRouter history={browserHistory}>
-        <Switch>
-            <Provider store={store}>
-                <Route path="/" exact component={Home} />
-            </Provider>
-            <Route path="/register" component={SignUpPage} />
-            <Route path="/login" component={LoginPage} />
-        </Switch>
-    </BrowserRouter>
+    <Provider store={store}>
+        <BrowserRouter history={browserHistory}>
+            <Switch>
+                <Route exact path="/" component={Home} />
+                <Route path="/signup" component={SignUpPage} />
+                <Route path="/signin" component={LoginPage} />
+            </Switch>
+        </BrowserRouter>
+    </Provider>
   ), document.getElementById("app"))

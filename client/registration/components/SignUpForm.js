@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import classnames from 'classnames';
-
+import {Link, browserHistory} from 'react-router-dom';
 import EmailConfirmation from './EmailConfirmation';
 
 class SignUpForm extends React.Component {
@@ -96,7 +96,7 @@ class SignUpForm extends React.Component {
         if(!this.state.formIsSubmitted) return (
             <form onSubmit={this.onSubmit.bind(this)}>
                 <h1>Registration</h1>
-                <h6><a href="/signin">Already have an account, Signin</a></h6>
+                <h6><Link to="/signin">Already have an account, Signin</Link></h6>
                 <div className={classnames("form-group", {"has-danger": emailErrorMsg})}>
                     <label className="form-control-label">Email</label>
                     <input 

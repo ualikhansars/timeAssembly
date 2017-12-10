@@ -73511,6 +73511,10 @@ var _jsonwebtoken = __webpack_require__(510);
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
+var _reactRouterDom = __webpack_require__(581);
+
+var _propTypes = __webpack_require__(16);
+
 var _setAuthToken = __webpack_require__(434);
 
 var _setAuthToken2 = _interopRequireDefault(_setAuthToken);
@@ -73568,6 +73572,8 @@ var LoginForm = function (_React$Component) {
                     localStorage.setItem('jwtToken', token);
                     (0, _setAuthToken2.default)(token);
                     window.location.href = 'http://localhost:3000/';
+                    //history.push('/');
+                    //this.context.router.push('/');
                     //console.log(jwt.decode(token));
                 }
             });
@@ -73661,8 +73667,8 @@ var LoginForm = function (_React$Component) {
                     'h6',
                     null,
                     _react2.default.createElement(
-                        'a',
-                        { href: '/signup' },
+                        _reactRouterDom.Link,
+                        { to: '/signup' },
                         'Don\'t have an account, Register'
                     )
                 )
@@ -73672,6 +73678,10 @@ var LoginForm = function (_React$Component) {
 
     return LoginForm;
 }(_react2.default.Component);
+
+// LoginForm.contextTypes = {
+//     router: React.PropTypes.object.isRequired
+// }
 
 exports.default = LoginForm;
 
@@ -73697,33 +73707,6 @@ var _LoginPage = __webpack_require__(579);
 var _LoginPage2 = _interopRequireDefault(_LoginPage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// class LoginApp extends React.Component {
-
-//     // render() {
-//     //     return (
-//     //         <LoginPage/>
-//     //     )
-//     // }
-// }
-
-// render(<LoginApp/>, document.getElementById("login"));
-
-_reactDom2.default.render(_react2.default.createElement(
-  _reactRouterDom.BrowserRouter,
-  null,
-  _react2.default.createElement(_LoginPage2.default, null)
-), document.getElementById("login"));
-
-//   ReactDOM.render((
-//     <Route exact path="/" render={() => (
-//         loggedIn ? (
-//           <Redirect to="/dashboard"/>
-//         ) : (
-//           <PublicHomePage/>
-//         )
-//       )}/>
-//   ), document.getElementById("login"))
 
 /***/ }),
 /* 616 */,

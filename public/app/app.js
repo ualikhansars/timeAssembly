@@ -75786,18 +75786,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 
 _reactDom2.default.render(_react2.default.createElement(
-    _reactRouterDom.BrowserRouter,
-    { history: _reactRouterDom.browserHistory },
+    _reactRedux.Provider,
+    { store: _store2.default },
     _react2.default.createElement(
-        _reactRouterDom.Switch,
-        null,
+        _reactRouterDom.BrowserRouter,
+        { history: _reactRouterDom.browserHistory },
         _react2.default.createElement(
-            _reactRedux.Provider,
-            { store: _store2.default },
-            _react2.default.createElement(_reactRouterDom.Route, { path: '/', exact: true, component: _Home2.default })
-        ),
-        _react2.default.createElement(_reactRouterDom.Route, { path: '/register', component: _SignUpPage2.default }),
-        _react2.default.createElement(_reactRouterDom.Route, { path: '/login', component: _LoginPage2.default })
+            _reactRouterDom.Switch,
+            null,
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Home2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _SignUpPage2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/signin', component: _LoginPage2.default })
+        )
     )
 ), document.getElementById("app"));
 
@@ -78057,6 +78057,8 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _userAction = __webpack_require__(558);
 
+var _reactRouterDom = __webpack_require__(581);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -78079,7 +78081,8 @@ var Navbar = function (_React$Component) {
         value: function logout(e) {
             e.preventDefault();
             this.props.logout();
-            window.location.href = 'http://localhost:3000/signin';
+            //window.location.href = 'http://localhost:3000/signin';
+            _reactRouterDom.browserHistory.push('/signin');
         }
     }, {
         key: 'render',
@@ -78107,8 +78110,8 @@ var Navbar = function (_React$Component) {
                     'li',
                     { className: 'nav-item' },
                     _react2.default.createElement(
-                        'a',
-                        { className: 'nav-link', href: '/signup' },
+                        _reactRouterDom.Link,
+                        { to: '/signup', className: 'nav-link' },
                         'Registration'
                     )
                 ),
@@ -78116,8 +78119,8 @@ var Navbar = function (_React$Component) {
                     'li',
                     { className: 'nav-item' },
                     _react2.default.createElement(
-                        'a',
-                        { className: 'nav-link', href: '/signin' },
+                        _reactRouterDom.Link,
+                        { to: '/signin', className: 'nav-link' },
                         'Login'
                     )
                 )
@@ -80180,6 +80183,10 @@ var _jsonwebtoken = __webpack_require__(510);
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
+var _reactRouterDom = __webpack_require__(581);
+
+var _propTypes = __webpack_require__(16);
+
 var _setAuthToken = __webpack_require__(434);
 
 var _setAuthToken2 = _interopRequireDefault(_setAuthToken);
@@ -80237,6 +80244,8 @@ var LoginForm = function (_React$Component) {
                     localStorage.setItem('jwtToken', token);
                     (0, _setAuthToken2.default)(token);
                     window.location.href = 'http://localhost:3000/';
+                    //history.push('/');
+                    //this.context.router.push('/');
                     //console.log(jwt.decode(token));
                 }
             });
@@ -80330,8 +80339,8 @@ var LoginForm = function (_React$Component) {
                     'h6',
                     null,
                     _react2.default.createElement(
-                        'a',
-                        { href: '/signup' },
+                        _reactRouterDom.Link,
+                        { to: '/signup' },
                         'Don\'t have an account, Register'
                     )
                 )
@@ -80341,6 +80350,10 @@ var LoginForm = function (_React$Component) {
 
     return LoginForm;
 }(_react2.default.Component);
+
+// LoginForm.contextTypes = {
+//     router: React.PropTypes.object.isRequired
+// }
 
 exports.default = LoginForm;
 
@@ -80369,6 +80382,8 @@ var _axios2 = _interopRequireDefault(_axios);
 var _classnames = __webpack_require__(459);
 
 var _classnames2 = _interopRequireDefault(_classnames);
+
+var _reactRouterDom = __webpack_require__(581);
 
 var _EmailConfirmation = __webpack_require__(555);
 
@@ -80494,8 +80509,8 @@ var SignUpForm = function (_React$Component) {
                     'h6',
                     null,
                     _react2.default.createElement(
-                        'a',
-                        { href: '/signin' },
+                        _reactRouterDom.Link,
+                        { to: '/signin' },
                         'Already have an account, Signin'
                     )
                 ),

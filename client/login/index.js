@@ -16,11 +16,11 @@ import LoginPage from './components/LoginPage';
 
 // render(<LoginApp/>, document.getElementById("login"));
 
-ReactDOM.render((
-    <BrowserRouter>
-      <LoginPage/>
-    </BrowserRouter>
-  ), document.getElementById("login"))
+// ReactDOM.render((
+//     <BrowserRouter>
+//       <LoginPage/>
+//     </BrowserRouter>
+//   ), document.getElementById("login"))
 
 //   ReactDOM.render((
 //     <Route exact path="/" render={() => (

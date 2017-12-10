@@ -3,13 +3,15 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {logout} from '../../actions/userAction';
+import {browserHistory, Link} from 'react-router-dom';
 
 class Navbar extends React.Component {
     
     logout(e) {
         e.preventDefault();
         this.props.logout();
-        window.location.href = 'http://localhost:3000/signin';
+        //window.location.href = 'http://localhost:3000/signin';
+        browserHistory.push('/signin');
     }
 
     render() {
@@ -25,10 +27,10 @@ class Navbar extends React.Component {
         const guestLinks = (
             <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                    <a className="nav-link" href="/signup">Registration</a>
+                    <Link to="/signup" className="nav-link" >Registration</Link>
                 </li> 
                 <li className="nav-item">
-                    <a className="nav-link" href="/signin">Login</a>
+                    <Link to="/signin" className="nav-link" >Login</Link>
                 </li> 
             </ul>
         );
