@@ -81166,22 +81166,22 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Navbar = function (_React$Component) {
-    _inherits(Navbar, _React$Component);
+var NavbarWithoutRouter = function (_React$Component) {
+    _inherits(NavbarWithoutRouter, _React$Component);
 
-    function Navbar() {
-        _classCallCheck(this, Navbar);
+    function NavbarWithoutRouter() {
+        _classCallCheck(this, NavbarWithoutRouter);
 
-        return _possibleConstructorReturn(this, (Navbar.__proto__ || Object.getPrototypeOf(Navbar)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (NavbarWithoutRouter.__proto__ || Object.getPrototypeOf(NavbarWithoutRouter)).apply(this, arguments));
     }
 
-    _createClass(Navbar, [{
+    _createClass(NavbarWithoutRouter, [{
         key: 'logout',
         value: function logout(e) {
             e.preventDefault();
             this.props.logout();
-            window.location.href = 'http://localhost:3000/signin';
-            //this.props.history.push('/signin');
+            //window.location.href = 'http://localhost:3000/signin';
+            this.props.history.push('/signin');
         }
     }, {
         key: 'render',
@@ -81265,7 +81265,7 @@ var Navbar = function (_React$Component) {
         }
     }]);
 
-    return Navbar;
+    return NavbarWithoutRouter;
 }(_react2.default.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -81279,6 +81279,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
         logout: _userAction.logout
     }, dispatch);
 };
+
+var Navbar = (0, _reactRouterDom.withRouter)(NavbarWithoutRouter);
 
 Navbar.propTypes = {
     userInfo: _propTypes2.default.object.isRequired,

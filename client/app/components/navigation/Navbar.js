@@ -5,13 +5,13 @@ import PropTypes from 'prop-types';
 import {logout} from '../../actions/userAction';
 import {withRouter, Link} from 'react-router-dom';
 
-class Navbar extends React.Component {
+class NavbarWithoutRouter extends React.Component {
     
     logout(e) {
         e.preventDefault();
         this.props.logout();
-        window.location.href = 'http://localhost:3000/signin';
-        //this.props.history.push('/signin');
+        //window.location.href = 'http://localhost:3000/signin';
+        this.props.history.push('/signin');
     }
 
     render() {
@@ -67,6 +67,8 @@ const mapDispatchToProps = (dispatch) => {
         dispatch
     );
 }
+
+const Navbar = withRouter(NavbarWithoutRouter);
 
 Navbar.propTypes = {
     userInfo: PropTypes.object.isRequired,
