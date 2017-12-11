@@ -3,15 +3,15 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {logout} from '../../actions/userAction';
-import {browserHistory, Link} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 
 class Navbar extends React.Component {
     
     logout(e) {
         e.preventDefault();
         this.props.logout();
-        //window.location.href = 'http://localhost:3000/signin';
-        browserHistory.push('/signin');
+        window.location.href = 'http://localhost:3000/signin';
+        //this.props.history.push('/signin');
     }
 
     render() {

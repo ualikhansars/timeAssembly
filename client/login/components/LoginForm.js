@@ -2,12 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import classnames from 'classnames';
 import jwt from 'jsonwebtoken';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import {PropTypes} from 'prop-types';
-
 import setAuthToken from '../../utils/setAuthToken';
 
-class LoginForm extends React.Component {
+
+class LoginFormWithoutRouter extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -40,9 +40,7 @@ class LoginForm extends React.Component {
                 const token = res.data.token;
                 localStorage.setItem('jwtToken', token);
                 setAuthToken(token);
-                window.location.href = 'http://localhost:3000/';
-                //history.push('/');
-                //this.context.router.push('/');
+                this.props.history.push('/');
                 //console.log(jwt.decode(token));
             }
         });
@@ -104,8 +102,6 @@ class LoginForm extends React.Component {
     }
 }
 
-// LoginForm.contextTypes = {
-//     router: React.PropTypes.object.isRequired
-// }
+const LoginForm = withRouter(LoginFormWithoutRouter);
 
 export default LoginForm;
