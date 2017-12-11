@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import store from './store';
-import createBrowserHistory from 'history/createBrowserHistory';
 import {
     BrowserRouter, 
     Route, 
@@ -13,7 +12,6 @@ import Home from './components/layout/Home';
 import SignUpPage from '../registration/components/SignUpPage';
 import LoginPage from '../login/components/LoginPage'; 
 
-const browserHistory = createBrowserHistory();
 
 // ReactDOM.render(
 //     <Provider store={store}>

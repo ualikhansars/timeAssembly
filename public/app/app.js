@@ -78860,10 +78860,6 @@ var _store = __webpack_require__(605);
 
 var _store2 = _interopRequireDefault(_store);
 
-var _createBrowserHistory = __webpack_require__(427);
-
-var _createBrowserHistory2 = _interopRequireDefault(_createBrowserHistory);
-
 var _reactRouterDom = __webpack_require__(78);
 
 var _Home = __webpack_require__(604);
@@ -78879,8 +78875,6 @@ var _LoginPage = __webpack_require__(332);
 var _LoginPage2 = _interopRequireDefault(_LoginPage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var browserHistory = (0, _createBrowserHistory2.default)();
 
 // ReactDOM.render(
 //     <Provider store={store}>
