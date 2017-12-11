@@ -83356,25 +83356,24 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var SignUpForm = function (_React$Component) {
-    _inherits(SignUpForm, _React$Component);
+var SignUpFormWithoutRouter = function (_React$Component) {
+    _inherits(SignUpFormWithoutRouter, _React$Component);
 
-    function SignUpForm(props) {
-        _classCallCheck(this, SignUpForm);
+    function SignUpFormWithoutRouter(props) {
+        _classCallCheck(this, SignUpFormWithoutRouter);
 
-        var _this = _possibleConstructorReturn(this, (SignUpForm.__proto__ || Object.getPrototypeOf(SignUpForm)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (SignUpFormWithoutRouter.__proto__ || Object.getPrototypeOf(SignUpFormWithoutRouter)).call(this, props));
 
         _this.state = {
             email: '',
             password: '',
             passwordConfirmation: '',
-            errors: [],
-            formIsSubmitted: false
+            errors: []
         };
         return _this;
     }
 
-    _createClass(SignUpForm, [{
+    _createClass(SignUpFormWithoutRouter, [{
         key: 'onChange',
         value: function onChange(e) {
             this.setState(_defineProperty({}, e.target.name, e.target.value));
@@ -83426,10 +83425,7 @@ var SignUpForm = function (_React$Component) {
                     });
                 }
                 if (res.data.confirmation === 'success') {
-                    _this3.setState({
-                        formIsSubmitted: true
-                    });
-                    console.log('user is created');
+                    _this3.props.history.push('/');
                 }
                 console.log('state', _this3.state);
             });
@@ -83454,7 +83450,7 @@ var SignUpForm = function (_React$Component) {
             if (passwordErrors) passwordErrorMsg = passwordErrors.msg;
             if (passwordConfirmationErrors) passwordConfirmationErrorMsg = passwordConfirmationErrors.msg;
 
-            if (!this.state.formIsSubmitted) return _react2.default.createElement(
+            _react2.default.createElement(
                 'form',
                 { onSubmit: this.onSubmit.bind(this) },
                 _react2.default.createElement(
@@ -83545,12 +83541,13 @@ var SignUpForm = function (_React$Component) {
                     )
                 )
             );
-            return _react2.default.createElement(_EmailConfirmation2.default, null);
         }
     }]);
 
-    return SignUpForm;
+    return SignUpFormWithoutRouter;
 }(_react2.default.Component);
+
+var SignUpForm = (0, _reactRouterDom.withRouter)(SignUpFormWithoutRouter);
 
 exports.default = SignUpForm;
 
