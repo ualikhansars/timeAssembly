@@ -67,7 +67,7 @@ class SignUpFormWithoutRouter extends React.Component {
                 });
             }
             if(res.data.confirmation === 'success') {
-                this.props.history.push('/');
+                this.props.history.push('/signin');
             }
             console.log('state', this.state);
         });

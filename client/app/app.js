@@ -12,15 +12,6 @@ import Home from './components/layout/Home';
 import SignUpPage from '../registration/components/SignUpPage';
 import LoginPage from '../login/components/LoginPage'; 
 
-
-// ReactDOM.render(
-//     <Provider store={store}>
-//         <Home/>
-//     </Provider>,
-//     document.getElementById('app')
-// );
-
-
 ReactDOM.render((
     <Provider store={store}>
         <BrowserRouter>

@@ -77445,11 +77445,6 @@ function fetchSlots(id) {
                     type: 'LOAD_SLOTS_OK',
                     slots: res.data.resource
                 });
-            } else {
-                dispatch({
-                    type: 'LOAD_SLOTS_FAIL',
-                    slotsErrors: 'incorrect userId'
-                });
             }
         }).catch(function (result) {
             dispatch({
@@ -78875,14 +78870,6 @@ var _LoginPage = __webpack_require__(332);
 var _LoginPage2 = _interopRequireDefault(_LoginPage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// ReactDOM.render(
-//     <Provider store={store}>
-//         <Home/>
-//     </Provider>,
-//     document.getElementById('app')
-// );
-
 
 _reactDom2.default.render(_react2.default.createElement(
     _reactRedux.Provider,
@@ -80790,6 +80777,15 @@ var SlotContainer = function (_React$Component) {
             var userId = this.props.userInfo.user.id;
             this.props.fetchTemporarySlots(userId);
             this.props.fetchSlots(userId);
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            if (this.props.userInfo.user.id !== nextProps.userInfo.user.id) {
+                var userId = nextProps.userInfo.user.id;
+                this.props.fetchTemporarySlots(userId);
+                this.props.fetchSlots(userId);
+            }
         }
     }, {
         key: 'render',
@@ -83425,7 +83421,7 @@ var SignUpFormWithoutRouter = function (_React$Component) {
                     });
                 }
                 if (res.data.confirmation === 'success') {
-                    _this3.props.history.push('/');
+                    _this3.props.history.push('/signin');
                 }
                 console.log('state', _this3.state);
             });

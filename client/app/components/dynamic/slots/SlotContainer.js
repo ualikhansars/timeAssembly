@@ -25,6 +25,14 @@ class SlotContainer extends React.Component {
         this.props.fetchSlots(userId);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if(this.props.userInfo.user.id !== nextProps.userInfo.user.id) {
+            let userId = nextProps.userInfo.user.id
+            this.props.fetchTemporarySlots(userId);
+            this.props.fetchSlots(userId);
+        }
+    }
+
     render() {
         const {slots} = this.props.slotInfo;
         const {loading, loaded, errors} = this.props.slotInfo.slotsRequest;

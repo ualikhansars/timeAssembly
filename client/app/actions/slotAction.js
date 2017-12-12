@@ -39,12 +39,7 @@ export function fetchSlots(id) {
                         type: 'LOAD_SLOTS_OK',
                         slots: res.data.resource
                     });
-                } else {
-                    dispatch({
-                        type: 'LOAD_SLOTS_FAIL',
-                        slotsErrors: 'incorrect userId'
-                    });
-                }
+                } 
             })
             .catch(result => {
                 dispatch({
