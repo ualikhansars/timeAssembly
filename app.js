@@ -11,10 +11,6 @@ var mongoose = require('mongoose');
 var expressHbs = require('express-handlebars');
 var validator = require('express-validator');
 
- 
-
-import Home from './client/app/components/layout/Home';
-
 // establish database connection
 var dbUrl = 'mongodb://localhost/timetable';
 mongoose.connect(dbUrl, function(err, res) {
@@ -48,6 +44,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/api', api);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

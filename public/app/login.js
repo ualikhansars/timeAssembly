@@ -48218,8 +48218,6 @@ var _jsonwebtoken = __webpack_require__(336);
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
-var _reactRouterDom = __webpack_require__(78);
-
 var _propTypes = __webpack_require__(8);
 
 var _setAuthToken = __webpack_require__(132);
@@ -48236,13 +48234,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var LoginFormWithoutRouter = function (_React$Component) {
-    _inherits(LoginFormWithoutRouter, _React$Component);
+var LoginForm = function (_React$Component) {
+    _inherits(LoginForm, _React$Component);
 
-    function LoginFormWithoutRouter(props) {
-        _classCallCheck(this, LoginFormWithoutRouter);
+    function LoginForm(props) {
+        _classCallCheck(this, LoginForm);
 
-        var _this = _possibleConstructorReturn(this, (LoginFormWithoutRouter.__proto__ || Object.getPrototypeOf(LoginFormWithoutRouter)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (LoginForm.__proto__ || Object.getPrototypeOf(LoginForm)).call(this, props));
 
         _this.state = {
             email: '',
@@ -48253,7 +48251,7 @@ var LoginFormWithoutRouter = function (_React$Component) {
         return _this;
     }
 
-    _createClass(LoginFormWithoutRouter, [{
+    _createClass(LoginForm, [{
         key: 'onSubmit',
         value: function onSubmit(e) {
             var _this2 = this;
@@ -48372,8 +48370,8 @@ var LoginFormWithoutRouter = function (_React$Component) {
                     'h6',
                     null,
                     _react2.default.createElement(
-                        _reactRouterDom.Link,
-                        { to: '/signup' },
+                        'a',
+                        { href: '/signup' },
                         'Don\'t have an account, Register'
                     )
                 )
@@ -48381,10 +48379,8 @@ var LoginFormWithoutRouter = function (_React$Component) {
         }
     }]);
 
-    return LoginFormWithoutRouter;
+    return LoginForm;
 }(_react2.default.Component);
-
-var LoginForm = (0, _reactRouterDom.withRouter)(LoginFormWithoutRouter);
 
 exports.default = LoginForm;
 
@@ -76646,6 +76642,8 @@ exports.createContext = Script.createContext = function (context) {
 "use strict";
 
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(7);
 
 var _react2 = _interopRequireDefault(_react);
@@ -76661,6 +76659,37 @@ var _LoginPage = __webpack_require__(332);
 var _LoginPage2 = _interopRequireDefault(_LoginPage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LoginApp = function (_React$Component) {
+    _inherits(LoginApp, _React$Component);
+
+    function LoginApp() {
+        _classCallCheck(this, LoginApp);
+
+        return _possibleConstructorReturn(this, (LoginApp.__proto__ || Object.getPrototypeOf(LoginApp)).apply(this, arguments));
+    }
+
+    _createClass(LoginApp, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(_LoginPage2.default, null);
+        }
+    }]);
+
+    return LoginApp;
+}(_react2.default.Component);
+
+_reactDom2.default.render(_react2.default.createElement(
+    _reactRouterDom.BrowserRouter,
+    null,
+    _react2.default.createElement(_LoginPage2.default, null)
+), document.getElementById("login"));
 
 /***/ })
 /******/ ]);

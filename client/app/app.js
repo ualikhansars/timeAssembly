@@ -9,17 +9,10 @@ import {
 } from 'react-router-dom';
 
 import Home from './components/layout/Home';
-import SignUpPage from '../registration/components/SignUpPage';
-import LoginPage from '../login/components/LoginPage'; 
+
 
 ReactDOM.render((
     <Provider store={store}>
-        <BrowserRouter>
-            <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/signup"  component={SignUpPage} />
-                <Route path="/signin"  component={LoginPage} />
-            </Switch>
-        </BrowserRouter>
+        <Home />
     </Provider>
   ), document.getElementById("app"))

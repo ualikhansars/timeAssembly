@@ -2,12 +2,11 @@ import React from 'react';
 import axios from 'axios';
 import classnames from 'classnames';
 import jwt from 'jsonwebtoken';
-import {Link, withRouter} from 'react-router-dom';
 import {PropTypes} from 'prop-types';
 import setAuthToken from '../../utils/setAuthToken';
 
 
-class LoginFormWithoutRouter extends React.Component {
+class LoginForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -96,12 +95,10 @@ class LoginFormWithoutRouter extends React.Component {
                     Login
                 </button>
                 </div>
-                <h6><Link to="/signup">Don't have an account, Register</Link></h6>
+                <h6><a href="/signup">Don't have an account, Register</a></h6>
             </form>
         );
     }
 }
-
-const LoginForm = withRouter(LoginFormWithoutRouter);
 
 export default LoginForm;

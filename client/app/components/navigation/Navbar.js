@@ -3,15 +3,13 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {logout} from '../../actions/userAction';
-import {withRouter, Link} from 'react-router-dom';
 
-class NavbarWithoutRouter extends React.Component {
+class Navbar extends React.Component {
     
     logout(e) {
         e.preventDefault();
         this.props.logout();
-        //window.location.href = 'http://localhost:3000/signin';
-        this.props.history.push('/signin');
+        window.location.href = 'http://localhost:3000/signin';
     }
 
     render() {
@@ -27,10 +25,10 @@ class NavbarWithoutRouter extends React.Component {
         const guestLinks = (
             <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                    <Link to="/signup" className="nav-link" >Registration</Link>
+                    <a href="/signup" className="nav-link" >Registration</a>
                 </li> 
                 <li className="nav-item">
-                    <Link to="/signin" className="nav-link" >Login</Link>
+                    <a href="/signin" className="nav-link" >Login</a>
                 </li> 
             </ul>
         );
@@ -67,8 +65,6 @@ const mapDispatchToProps = (dispatch) => {
         dispatch
     );
 }
-
-const Navbar = withRouter(NavbarWithoutRouter);
 
 Navbar.propTypes = {
     userInfo: PropTypes.object.isRequired,
