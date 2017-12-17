@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-import {authenticate} from '../middlewares/authenticate';
+import {isAuthenticated} from '../middlewares/authenticate';
 
 /* GET home page. */
-router.get('/', authenticate, function(req, res, next) {
+router.get('/', isAuthenticated, function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
