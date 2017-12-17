@@ -76562,9 +76562,6 @@ var LoginForm = function (_React$Component) {
                     localStorage.setItem('jwtToken', token);
                     window.location = "http://localhost:3000";
                     (0, _setCookie.setCookie)(token);
-                    //setAuthToken(token);
-                    //this.props.history.push('/');
-                    //console.log(jwt.decode(token));
                 }
             });
         }

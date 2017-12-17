@@ -18,6 +18,13 @@ router.get('/signup', function(req, res, next) {
   res.render('signup', { title: 'Signup' });
 });
 
+router.get('/signup', function(req, res, next) {
+  res.render('signup', { title: 'Signup' });
+});
+
+router.get('/logout', function(req, res, next) {
+  res.redirect('/signin');
+});
 
 
 module.exports = router;

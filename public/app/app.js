@@ -77300,6 +77300,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.logout = exports.setCurrentUser = undefined;
 
+var _axios = __webpack_require__(88);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 var _setAuthToken = __webpack_require__(455);
 
 var _setAuthToken2 = _interopRequireDefault(_setAuthToken);
@@ -77319,11 +77323,7 @@ var logout = exports.logout = function logout() {
     return function (dispatch) {
         localStorage.removeItem('jwtToken');
         (0, _deleteCookie.deleteCookie)();
-        dispatch(setCurrentUser({}));
-        return dispatch({
-            type: 'LOGOUT',
-            user: {}
-        });
+        _axios2.default.get('/logout');
     };
 };
 

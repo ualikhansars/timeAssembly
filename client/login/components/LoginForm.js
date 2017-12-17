@@ -40,9 +40,6 @@ class LoginForm extends React.Component {
                 localStorage.setItem('jwtToken', token);
                 window.location = "http://localhost:3000";
                 setCookie(token);
-                //setAuthToken(token);
-                //this.props.history.push('/');
-                //console.log(jwt.decode(token));
             }
         });
     }
