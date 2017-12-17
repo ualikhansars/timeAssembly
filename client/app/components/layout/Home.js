@@ -12,6 +12,10 @@ import TaskContainer from '../taskContainer/TaskContainer';
 import setAuthToken from '../../../utils/setAuthToken';
 import {setCurrentUser} from '../../actions/userAction';
 
+import {authenticate} from '../../../../middlewares/authenticate';
+
+
+
 class Home extends React.Component {
 
     componentDidMount() {
@@ -49,6 +53,12 @@ class Home extends React.Component {
             </div>
         )
     }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        userInfo: state.userInfo
+    };
 }
 
 const mapDispatchToProps = (dispatch) => {

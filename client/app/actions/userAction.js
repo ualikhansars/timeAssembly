@@ -1,5 +1,5 @@
 import setAuthToken from '../../utils/setAuthToken';
-
+import {deleteCookie} from '../../utils/deleteCookie';
 export const setCurrentUser = (user) => {
     return {
         type: 'SET_CURRENT_USER',
@@ -10,7 +10,7 @@ export const setCurrentUser = (user) => {
 export const logout = () => {
     return dispatch => {
         localStorage.removeItem('jwtToken');
-        setAuthToken(false);
+        deleteCookie();
         dispatch(setCurrentUser({}));
         return dispatch({
             type: 'LOGOUT',

@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import jwt from 'jsonwebtoken';
 import {PropTypes} from 'prop-types';
 import setAuthToken from '../../utils/setAuthToken';
-
+import {setCookie} from '../../utils/setCookie';
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -38,8 +38,10 @@ class LoginForm extends React.Component {
             if(res.data.confirmation === 'success') {
                 const token = res.data.token;
                 localStorage.setItem('jwtToken', token);
-                setAuthToken(token);
-                this.props.history.push('/');
+                window.location = "http://localhost:3000";
+                setCookie(token);
+                //setAuthToken(token);
+                //this.props.history.push('/');
                 //console.log(jwt.decode(token));
             }
         });
