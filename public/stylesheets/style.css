@@ -222,3 +222,20 @@ div.task .removeTask:hover {
   border-bottom: 1px solid #000;
   cursor: pointer;
 }
+
+/* Preferences */
+.preferencesTitleContainer {
+  text-align: center;
+}
+
+.preferencesItemTitle {
+  text-align: center;
+}
+
+.preferencesItemContent {
+
+}
+
+.preferencesAttribute {
+  border-bottom: 1px solid #000;
+}

@@ -24,25 +24,28 @@ class TimeDisplay extends React.Component {
             return (
                 <div className="container">
                     <div className="row">
-                        <div className="col-md-4 col-offset-4">
+                        <div className="col-md-12 preferencesItemTitle">
                             <h5>Time Format</h5>
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row preferencesAttribute">
                         <div className="col-md-8">
-                            <label htmlFor="twentyFour">24 hours</label>
+                            <label htmlFor="twentyFour preferencesName">24 hours</label>
                         </div>
-                        <div className="col-md-4">
-                           <span onClick={() => this.props.changeTimeFormat(24, this.props.userInfo.user.id)}>{twentyFourOn}</span>
+                        <div className="col-md-4 preferencesValue">
+                            <span onClick={() => this.props.changeTimeFormat(24, this.props.userInfo.user.id)}>{twentyFourOn}</span>
                         </div>
-                        <div className="col-md-8">
-                             <label htmlFor="twelve">12 hours</label>
+                    </div>
+                    <div className="row preferencesAttribute">
+                        <div className="col-md-8 preferencesName">
+                            <label htmlFor="twelve">12 hours</label>
                         </div>
-                        <div className="col-md-4">
+                        <div className="col-md-4 preferencesValue">
                             <span onClick={() => this.props.changeTimeFormat(12, this.props.userInfo.user.id)}>{twelveOn}</span>          
                         </div>
                     </div>
                 </div>
+               
             );
             
     }
