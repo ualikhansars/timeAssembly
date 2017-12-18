@@ -16,7 +16,7 @@ class Preferences extends React.Component {
                 <div className="row timeDisplay">
                     <TimeDisplay/>
                 </div>
-                <div className="row timeInterval">
+                <div className="row interval">
                     <TimeInterval/>
                 </div>
                 <div className="row scheduleTime">

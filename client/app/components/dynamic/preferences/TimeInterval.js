@@ -33,31 +33,31 @@ class TimeInterval extends React.Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-md-6 offset-md-2">
+                    <div className="col-md-12 preferencesItemTitle">
                         <h5>Time Interval</h5>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col-md-6">
-                        <span>Every Hour</span>
+                <div className="row preferencesAttribute">
+                    <div className="col-md-8">
+                        <span className="preferencesName">Every Hour</span>
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-4 preferencesValue">
                         <span onClick={() => this.props.changeTimeInterval(60, this.props.userInfo.user.id)}>{everyHour}</span>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col-md-6">
+                <div className="row preferencesAttribute">
+                    <div className="col-md-8 preferencesName">
                         <span>Every 15 Minutes</span>
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-4 preferencesValue">
                          <span onClick={() => this.props.changeTimeInterval(15, this.props.userInfo.user.id)}>{every15Minutes}</span>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col-md-6">
-                        <span>Every 30 minutes</span>
+                <div className="row preferencesAttribute">
+                    <div className="col-md-8 preferencesName">
+                        <span>Every 30 Minutes</span>
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-4 preferencesValue">
                          <span onClick={() => this.props.changeTimeInterval(30, this.props.userInfo.user.id)}>{every30Minutes}</span>
                     </div>
                 </div>

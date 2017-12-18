@@ -224,18 +224,37 @@ div.task .removeTask:hover {
 }
 
 /* Preferences */
-.preferencesTitleContainer {
+div.preferences .preferencesTitleContainer {
   text-align: center;
 }
 
-.preferencesItemTitle {
+div.preferences .preferencesItemTitle {
+  margin-bottom: 5px;
   text-align: center;
 }
 
-.preferencesItemContent {
-
+div.preferences .timeDisplay {
+  margin-bottom: 15px;
 }
 
-.preferencesAttribute {
+div.preferences .interval {
+  margin-bottom: 15px;
+}
+
+div.preferences .scheduleTime .preferencesName {
+  margin-right: 5px;
+}
+
+div.preferences .preferencesAttribute {
   border-bottom: 1px solid #000;
+  min-height: 30px;
+}
+
+div.preferences .preferencesAttribute:hover {
+  cursor: pointer;
+  background-color: #f6f1c6;
+}
+
+div.preferences .preferencesName {
+  font-size: 18px;
 }

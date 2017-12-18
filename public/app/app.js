@@ -79656,7 +79656,7 @@ var Preferences = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'row timeInterval' },
+                    { className: 'row interval' },
                     _react2.default.createElement(_TimeInterval2.default, null)
                 ),
                 _react2.default.createElement(
@@ -79790,7 +79790,7 @@ var ScheduleTime = function (_React$Component) {
                     { className: 'row' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-6 offset-md-2' },
+                        { className: 'col-md-12 preferencesItemTitle' },
                         _react2.default.createElement(
                             'h5',
                             null,
@@ -79806,8 +79806,8 @@ var ScheduleTime = function (_React$Component) {
                         { className: 'col-md-6' },
                         _react2.default.createElement(
                             'span',
-                            null,
-                            'Start Hour'
+                            { className: 'preferencesName' },
+                            'Start Hour:'
                         ),
                         _react2.default.createElement(
                             'select',
@@ -79823,8 +79823,8 @@ var ScheduleTime = function (_React$Component) {
                         { className: 'col-md-6' },
                         _react2.default.createElement(
                             'span',
-                            null,
-                            'Finish Hour'
+                            { className: 'preferencesName' },
+                            'Finish Hour:'
                         ),
                         _react2.default.createElement(
                             'select',
@@ -79950,10 +79950,10 @@ var TimeDisplay = function (_React$Component) {
                     { className: 'row preferencesAttribute' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-8' },
+                        { className: 'col-md-8 preferencesName' },
                         _react2.default.createElement(
                             'label',
-                            { htmlFor: 'twentyFour preferencesName' },
+                            { htmlFor: 'twentyFour' },
                             '24 hours'
                         )
                     ),
@@ -80101,7 +80101,7 @@ var TimeInterval = function (_React$Component) {
                     { className: 'row' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-6 offset-md-2' },
+                        { className: 'col-md-12 preferencesItemTitle' },
                         _react2.default.createElement(
                             'h5',
                             null,
@@ -80111,19 +80111,19 @@ var TimeInterval = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'row' },
+                    { className: 'row preferencesAttribute' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-6' },
+                        { className: 'col-md-8' },
                         _react2.default.createElement(
                             'span',
-                            null,
+                            { className: 'preferencesName' },
                             'Every Hour'
                         )
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-6' },
+                        { className: 'col-md-4 preferencesValue' },
                         _react2.default.createElement(
                             'span',
                             { onClick: function onClick() {
@@ -80135,10 +80135,10 @@ var TimeInterval = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'row' },
+                    { className: 'row preferencesAttribute' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-6' },
+                        { className: 'col-md-8 preferencesName' },
                         _react2.default.createElement(
                             'span',
                             null,
@@ -80147,7 +80147,7 @@ var TimeInterval = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-6' },
+                        { className: 'col-md-4 preferencesValue' },
                         _react2.default.createElement(
                             'span',
                             { onClick: function onClick() {
@@ -80159,19 +80159,19 @@ var TimeInterval = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'row' },
+                    { className: 'row preferencesAttribute' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-6' },
+                        { className: 'col-md-8 preferencesName' },
                         _react2.default.createElement(
                             'span',
                             null,
-                            'Every 30 minutes'
+                            'Every 30 Minutes'
                         )
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-6' },
+                        { className: 'col-md-4 preferencesValue' },
                         _react2.default.createElement(
                             'span',
                             { onClick: function onClick() {

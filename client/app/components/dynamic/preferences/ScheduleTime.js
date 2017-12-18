@@ -61,13 +61,13 @@ class ScheduleTime extends React.Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-md-6 offset-md-2">
+                    <div className="col-md-12 preferencesItemTitle">
                         <h5>Schedule Time</h5>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-md-6">
-                        <span>Start Hour</span>
+                        <span className="preferencesName">Start Hour:</span>
                         <select value={this.state.startHour} 
                             id="startHour" 
                             onChange={this.onChangeStartTime.bind(this)}
@@ -76,7 +76,7 @@ class ScheduleTime extends React.Component {
                         </select>
                     </div>
                     <div className="col-md-6">
-                        <span>Finish Hour</span>
+                        <span className="preferencesName">Finish Hour:</span>
                         <select value={this.state.finishHour} 
                             id="finishHour" 
                             onChange={this.onChangeFinishTime.bind(this)}
