@@ -79947,9 +79947,9 @@ var TimeDisplay = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'row preferencesAttribute', onClick: function onClick() {
+                    { onClick: function onClick() {
                             return _this2.props.changeTimeFormat(24, _this2.props.userInfo.user.id);
-                        } },
+                        }, className: 'row preferencesAttribute' },
                     _react2.default.createElement(
                         'div',
                         { className: 'col-md-8 preferencesName' },
@@ -79967,9 +79967,9 @@ var TimeDisplay = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'row preferencesAttribute', onClick: function onClick() {
+                    { onClick: function onClick() {
                             return _this2.props.changeTimeFormat(12, _this2.props.userInfo.user.id);
-                        } },
+                        }, className: 'row preferencesAttribute' },
                     _react2.default.createElement(
                         'div',
                         { className: 'col-md-8 preferencesName' },
@@ -80071,19 +80071,19 @@ var TimeInterval = function (_React$Component) {
             var every15Minutes = void 0;
             var every30Minutes = void 0;
             if (this.props.preferences.timeInterval == 60) {
-                everyHour = 'On';
-                every15Minutes = 'Off';
-                every30Minutes = 'Off';
+                everyHour = _react2.default.createElement('img', { src: '/img/switchOn.png' });
+                every15Minutes = _react2.default.createElement('img', { src: '/img/switchOff.png' });
+                every30Minutes = _react2.default.createElement('img', { src: '/img/switchOff.png' });
             }
             if (this.props.preferences.timeInterval == 30) {
-                everyHour = 'Off';
-                every15Minutes = 'Off';
-                every30Minutes = 'On';
+                everyHour = _react2.default.createElement('img', { src: '/img/switchOff.png' });
+                every15Minutes = _react2.default.createElement('img', { src: '/img/switchOff.png' });
+                every30Minutes = _react2.default.createElement('img', { src: '/img/switchOn.png' });
             }
             if (this.props.preferences.timeInterval == 15) {
-                everyHour = 'Off';
-                every15Minutes = 'On';
-                every30Minutes = 'Off';
+                everyHour = _react2.default.createElement('img', { src: '/img/switchOff.png' });
+                every15Minutes = _react2.default.createElement('img', { src: '/img/switchOn.png' });
+                every30Minutes = _react2.default.createElement('img', { src: '/img/switchOff.png' });
             }
             return _react2.default.createElement(
                 'div',
@@ -80103,7 +80103,9 @@ var TimeInterval = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'row preferencesAttribute' },
+                    { onClick: function onClick() {
+                            return _this2.props.changeTimeInterval(60, _this2.props.userInfo.user.id);
+                        }, className: 'row preferencesAttribute' },
                     _react2.default.createElement(
                         'div',
                         { className: 'col-md-8' },
@@ -80118,16 +80120,16 @@ var TimeInterval = function (_React$Component) {
                         { className: 'col-md-4 preferencesValue' },
                         _react2.default.createElement(
                             'span',
-                            { onClick: function onClick() {
-                                    return _this2.props.changeTimeInterval(60, _this2.props.userInfo.user.id);
-                                } },
+                            null,
                             everyHour
                         )
                     )
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'row preferencesAttribute' },
+                    { onClick: function onClick() {
+                            return _this2.props.changeTimeInterval(15, _this2.props.userInfo.user.id);
+                        }, className: 'row preferencesAttribute' },
                     _react2.default.createElement(
                         'div',
                         { className: 'col-md-8 preferencesName' },
@@ -80142,16 +80144,16 @@ var TimeInterval = function (_React$Component) {
                         { className: 'col-md-4 preferencesValue' },
                         _react2.default.createElement(
                             'span',
-                            { onClick: function onClick() {
-                                    return _this2.props.changeTimeInterval(15, _this2.props.userInfo.user.id);
-                                } },
+                            null,
                             every15Minutes
                         )
                     )
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'row preferencesAttribute' },
+                    { onClick: function onClick() {
+                            return _this2.props.changeTimeInterval(30, _this2.props.userInfo.user.id);
+                        }, className: 'row preferencesAttribute' },
                     _react2.default.createElement(
                         'div',
                         { className: 'col-md-8 preferencesName' },
@@ -80166,9 +80168,7 @@ var TimeInterval = function (_React$Component) {
                         { className: 'col-md-4 preferencesValue' },
                         _react2.default.createElement(
                             'span',
-                            { onClick: function onClick() {
-                                    return _this2.props.changeTimeInterval(30, _this2.props.userInfo.user.id);
-                                } },
+                            null,
                             every30Minutes
                         )
                     )

@@ -16,19 +16,19 @@ class TimeInterval extends React.Component {
         let every15Minutes;
         let every30Minutes;
         if(this.props.preferences.timeInterval == 60) {
-            everyHour = 'On';
-            every15Minutes = 'Off';
-            every30Minutes = 'Off';
+            everyHour = <img src='/img/switchOn.png' />;
+            every15Minutes = <img src='/img/switchOff.png' />;
+            every30Minutes = <img src='/img/switchOff.png' />;
         } 
         if(this.props.preferences.timeInterval == 30) {
-            everyHour = 'Off';
-            every15Minutes = 'Off';
-            every30Minutes = 'On';
+            everyHour = <img src='/img/switchOff.png' />;
+            every15Minutes = <img src='/img/switchOff.png' />;
+            every30Minutes = <img src='/img/switchOn.png' />;
         }
         if(this.props.preferences.timeInterval == 15) {
-            everyHour = 'Off';
-            every15Minutes = 'On';
-            every30Minutes = 'Off';
+            everyHour = <img src='/img/switchOff.png' />;
+            every15Minutes = <img src='/img/switchOn.png' />;
+            every30Minutes = <img src='/img/switchOff.png' />;
         }
         return (
             <div className="container">
@@ -37,28 +37,28 @@ class TimeInterval extends React.Component {
                         <h5>Time Interval</h5>
                     </div>
                 </div>
-                <div className="row preferencesAttribute">
+                <div onClick={() => this.props.changeTimeInterval(60, this.props.userInfo.user.id)}  className="row preferencesAttribute">
                     <div className="col-md-8">
                         <span className="preferencesName">Every Hour</span>
                     </div>
                     <div className="col-md-4 preferencesValue">
-                        <span onClick={() => this.props.changeTimeInterval(60, this.props.userInfo.user.id)}>{everyHour}</span>
+                        <span>{everyHour}</span>
                     </div>
                 </div>
-                <div className="row preferencesAttribute">
+                <div onClick={() => this.props.changeTimeInterval(15, this.props.userInfo.user.id)} className="row preferencesAttribute">
                     <div className="col-md-8 preferencesName">
                         <span>Every 15 Minutes</span>
                     </div>
                     <div className="col-md-4 preferencesValue">
-                         <span onClick={() => this.props.changeTimeInterval(15, this.props.userInfo.user.id)}>{every15Minutes}</span>
+                         <span>{every15Minutes}</span>
                     </div>
                 </div>
-                <div className="row preferencesAttribute">
+                <div onClick={() => this.props.changeTimeInterval(30, this.props.userInfo.user.id)} className="row preferencesAttribute">
                     <div className="col-md-8 preferencesName">
                         <span>Every 30 Minutes</span>
                     </div>
                     <div className="col-md-4 preferencesValue">
-                         <span onClick={() => this.props.changeTimeInterval(30, this.props.userInfo.user.id)}>{every30Minutes}</span>
+                         <span>{every30Minutes}</span>
                     </div>
                 </div>
             </div>
