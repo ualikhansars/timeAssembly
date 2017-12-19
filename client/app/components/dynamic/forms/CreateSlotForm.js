@@ -64,8 +64,12 @@ class CreateSlotForm extends React.Component {
                     </div>
         }
         return (
-             <div className="slots-form">
-                     <h1>Create Slot</h1>
+             <div className="slots-form createSlot">
+                    <div className="createSlotTitleContainer row">
+                        <div className="col-md-12">
+                            <h1 className="createSlotTitle">Create Slot</h1>
+                        </div>
+                    </div>
                     <div className="form-group row">
                         <label htmlFor="title" className="col-md-12">Title</label>
                         <input value={this.state.title} onChange={this.onChange.bind(this)} type="text" className="form-control col-md-12" id="title" name="title" placeholder="Study" />
