@@ -12,14 +12,14 @@ class TimeDisplay extends React.Component {
     render() {
             // display On or Off if depends of which
             // time Format is switched
-            let twentyFourOn = 'On';
-            let twelveOn = 'On'
+            let twentyFourOn = <img src='/img/switchOn.png' />;
+            let twelveOn = <img src='/img/switchOn.png' />
             if(this.props.preferences.timeFormat === 24) {
-                twentyFourOn = 'On';
-                twelveOn = 'Off';
+                twentyFourOn = <img src='/img/switchOn.png' />;
+                twelveOn = <img src='/img/switchOff.png' />;
             } else {
-                twentyFourOn = 'Off';
-                twelveOn = 'On'
+                twentyFourOn = <img src='/img/switchOff.png' />;;
+                twelveOn = <img src='/img/switchOn.png' />;
             }
             return (
                 <div className="container">
@@ -28,20 +28,20 @@ class TimeDisplay extends React.Component {
                             <h5>Time Format</h5>
                         </div>
                     </div>
-                    <div className="row preferencesAttribute">
+                    <div className="row preferencesAttribute" onClick={() => this.props.changeTimeFormat(24, this.props.userInfo.user.id)}>
                         <div className="col-md-8 preferencesName">
                             <label htmlFor="twentyFour">24 hours</label>
                         </div>
                         <div className="col-md-4 preferencesValue">
-                            <span onClick={() => this.props.changeTimeFormat(24, this.props.userInfo.user.id)}>{twentyFourOn}</span>
+                            {twentyFourOn}
                         </div>
                     </div>
-                    <div className="row preferencesAttribute">
+                    <div className="row preferencesAttribute" onClick={() => this.props.changeTimeFormat(12, this.props.userInfo.user.id)}>
                         <div className="col-md-8 preferencesName">
                             <label htmlFor="twelve">12 hours</label>
                         </div>
                         <div className="col-md-4 preferencesValue">
-                            <span onClick={() => this.props.changeTimeFormat(12, this.props.userInfo.user.id)}>{twelveOn}</span>          
+                            {twelveOn}   
                         </div>
                     </div>
                 </div>

@@ -79920,14 +79920,14 @@ var TimeDisplay = function (_React$Component) {
 
             // display On or Off if depends of which
             // time Format is switched
-            var twentyFourOn = 'On';
-            var twelveOn = 'On';
+            var twentyFourOn = _react2.default.createElement('img', { src: '/img/switchOn.png' });
+            var twelveOn = _react2.default.createElement('img', { src: '/img/switchOn.png' });
             if (this.props.preferences.timeFormat === 24) {
-                twentyFourOn = 'On';
-                twelveOn = 'Off';
+                twentyFourOn = _react2.default.createElement('img', { src: '/img/switchOn.png' });
+                twelveOn = _react2.default.createElement('img', { src: '/img/switchOff.png' });
             } else {
-                twentyFourOn = 'Off';
-                twelveOn = 'On';
+                twentyFourOn = _react2.default.createElement('img', { src: '/img/switchOff.png' });;
+                twelveOn = _react2.default.createElement('img', { src: '/img/switchOn.png' });
             }
             return _react2.default.createElement(
                 'div',
@@ -79947,7 +79947,9 @@ var TimeDisplay = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'row preferencesAttribute' },
+                    { className: 'row preferencesAttribute', onClick: function onClick() {
+                            return _this2.props.changeTimeFormat(24, _this2.props.userInfo.user.id);
+                        } },
                     _react2.default.createElement(
                         'div',
                         { className: 'col-md-8 preferencesName' },
@@ -79960,18 +79962,14 @@ var TimeDisplay = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'col-md-4 preferencesValue' },
-                        _react2.default.createElement(
-                            'span',
-                            { onClick: function onClick() {
-                                    return _this2.props.changeTimeFormat(24, _this2.props.userInfo.user.id);
-                                } },
-                            twentyFourOn
-                        )
+                        twentyFourOn
                     )
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'row preferencesAttribute' },
+                    { className: 'row preferencesAttribute', onClick: function onClick() {
+                            return _this2.props.changeTimeFormat(12, _this2.props.userInfo.user.id);
+                        } },
                     _react2.default.createElement(
                         'div',
                         { className: 'col-md-8 preferencesName' },
@@ -79984,13 +79982,7 @@ var TimeDisplay = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'col-md-4 preferencesValue' },
-                        _react2.default.createElement(
-                            'span',
-                            { onClick: function onClick() {
-                                    return _this2.props.changeTimeFormat(12, _this2.props.userInfo.user.id);
-                                } },
-                            twelveOn
-                        )
+                        twelveOn
                     )
                 )
             );
