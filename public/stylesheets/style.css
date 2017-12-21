@@ -258,3 +258,40 @@ div.preferences .preferencesAttribute:hover {
 div.preferences .preferencesName {
   font-size: 18px;
 }
+
+/* Create Task form */
+div.createTask .titleContainer {
+ text-align: center;
+}
+
+div.createTask .description {
+  font-size: 22px;
+  text-align: center;
+}
+
+div.createTask .duration {
+  margin-top: 10px;
+  font-size: 22px;
+  text-align: center;
+}
+
+div.createTask .hours {
+  font-size: 18px;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+div.createTask .minutes {
+  font-size: 18px;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+div.createTask .errors {
+  color: red;
+  font-size: 16px;
+}
+
+div.createTask .buttonContainer {
+  margin-top: 15px;
+}

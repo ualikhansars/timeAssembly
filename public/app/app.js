@@ -79117,85 +79117,112 @@ var CreateTaskForm = function (_React$Component) {
             }
             return _react2.default.createElement(
                 'div',
-                { className: 'slots-form' },
-                _react2.default.createElement(
-                    'h2',
-                    null,
-                    this.state.title
-                ),
+                { className: 'container slots-form createTask' },
                 _react2.default.createElement(
                     'div',
-                    null,
+                    { className: 'row' },
                     _react2.default.createElement(
-                        'h4',
-                        null,
-                        'Category: ',
-                        this.state.category
+                        'div',
+                        { className: 'col-md-12 titleContainer' },
+                        _react2.default.createElement(
+                            'h2',
+                            { className: 'title' },
+                            this.state.task.title
+                        )
                     )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        'h6',
-                        null,
-                        'Add to ',
-                        this.day,
-                        ' '
-                    ),
-                    _react2.default.createElement(
-                        'span',
-                        null,
-                        'Time: ',
-                        displayTime
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-group row' },
-                    _react2.default.createElement(
-                        'label',
-                        { htmlFor: 'description', className: 'col-md-12' },
-                        'Description'
-                    ),
-                    _react2.default.createElement('input', { value: this.state.description, onChange: this.onChange.bind(this), type: 'text', className: 'form-control col-md-12', id: 'description', name: 'description', placeholder: 'What exactly to do' })
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-group row' },
-                    _react2.default.createElement(
-                        'label',
-                        { htmlFor: 'duration', className: 'col-md-12' },
-                        'Duration'
-                    ),
-                    _react2.default.createElement(
-                        'span',
-                        null,
-                        'Hours'
-                    ),
-                    _react2.default.createElement(
-                        'select',
-                        { value: this.state.durationHours, onChange: this.onChange.bind(this), id: 'durationHours', name: 'durationHours' },
-                        hours
-                    ),
-                    _react2.default.createElement(
-                        'span',
-                        null,
-                        'Minutes'
-                    ),
-                    _react2.default.createElement(
-                        'select',
-                        { value: this.state.durationMins, onChange: this.onChange.bind(this), id: 'durationMins', name: 'durationMins' },
-                        minutes
-                    ),
-                    this.state.errors
                 ),
                 _react2.default.createElement(
                     'div',
                     { className: 'row' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-4' },
+                        { className: 'col-md-12 categoryContainer' },
+                        _react2.default.createElement(
+                            'h4',
+                            { className: 'category' },
+                            'Category: ',
+                            this.state.task.category
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-12 addToContainer' },
+                        _react2.default.createElement(
+                            'h6',
+                            { className: 'addTo' },
+                            'Add to ',
+                            this.day,
+                            ' at ',
+                            displayTime
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'form-group row' },
+                    _react2.default.createElement(
+                        'label',
+                        { htmlFor: 'description', className: 'col-md-12 description' },
+                        'Description:'
+                    ),
+                    _react2.default.createElement('input', { onChange: this.onChange.bind(this), type: 'text', className: 'form-control col-md-12', id: 'description', name: 'description', placeholder: 'What exactly to do' })
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'form-group row' },
+                    _react2.default.createElement(
+                        'label',
+                        { htmlFor: 'duration', className: 'col-md-12 duration' },
+                        'Duration:'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-5' },
+                        _react2.default.createElement(
+                            'span',
+                            { className: 'hours' },
+                            'Hours:'
+                        ),
+                        _react2.default.createElement(
+                            'select',
+                            { value: this.state.durationHours, onChange: this.onChange.bind(this), id: 'durationHours', name: 'durationHours' },
+                            hours
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-5 offset-md-1' },
+                        _react2.default.createElement(
+                            'span',
+                            { className: 'minutes' },
+                            'Minutes:'
+                        ),
+                        _react2.default.createElement(
+                            'select',
+                            { value: this.state.durationMins, onChange: this.onChange.bind(this), id: 'durationMins', name: 'durationMins' },
+                            minutes
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row errors' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-12' },
+                        this.state.errors
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row buttonContainer' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-4 createButton' },
                         _react2.default.createElement(
                             'button',
                             { onClick: this.onSubmit.bind(this), className: 'btn btn-success' },
@@ -79204,7 +79231,7 @@ var CreateTaskForm = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-4' },
+                        { className: 'col-md-4 offset-md-4 cancelButton' },
                         _react2.default.createElement(
                             'button',
                             { onClick: function onClick() {

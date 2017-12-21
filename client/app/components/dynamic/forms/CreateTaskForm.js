@@ -182,39 +182,56 @@ class CreateTaskForm extends React.Component {
             );
         }
         return (
-             <div className="slots-form">
-                     <h2>{this.state.title}</h2>
-                     <div>
-                        <h4>Category: {this.state.category}</h4>
+             <div className="container slots-form createTask">
+                <div className="row">
+                    <div className="col-md-12 titleContainer">
+                        <h2 className="title">{this.state.task.title}</h2>
                     </div>
-                    <div>
-                        <h6>Add to {this.day} </h6>
-                        <span>Time: {displayTime}</span>
+                </div>
+                <div className="row">
+                    <div className="col-md-12 categoryContainer">
+                        <h4 className="category">Category: {this.state.task.category}</h4>
                     </div>
-                    <div className="form-group row">
-                        <label htmlFor="description" className="col-md-12">Description</label>
-                        <input value={this.state.description} onChange={this.onChange.bind(this)} type="text" className="form-control col-md-12" id="description" name="description" placeholder="What exactly to do" />
+                </div>
+                <div className="row">
+                    <div className="col-md-12 addToContainer">
+                        <h6 className="addTo">Add to {this.day} at {displayTime}</h6>
                     </div>
-                    <div className="form-group row">
-                        <label htmlFor="duration" className="col-md-12">Duration</label>
-                        <span>Hours</span>
+                </div>
+                    
+                <div className="form-group row">
+                    <label htmlFor="description" className="col-md-12 description">Description:</label>
+                    <input onChange={this.onChange.bind(this)} type="text" className="form-control col-md-12" id="description" name="description" placeholder="What exactly to do" />
+                </div>
+                <div className="form-group row">
+                    <label htmlFor="duration" className="col-md-12 duration">Duration:</label>
+                    <div className="col-md-5">
+                        <span className="hours">Hours:</span>
                         <select value={this.state.durationHours} onChange={this.onChange.bind(this)} id="durationHours" name="durationHours">
                             {hours}
                         </select>
-                        <span>Minutes</span>
+                    </div>
+                    
+                    <div className="col-md-5 offset-md-1">
+                        <span className="minutes">Minutes:</span>
                         <select value={this.state.durationMins} onChange={this.onChange.bind(this)} id="durationMins" name="durationMins">
                             {minutes}
                         </select>
+                    </div>
+                </div>
+                <div className="row errors">
+                    <div className="col-md-12">
                         {this.state.errors}
                     </div>
-                    <div className="row">
-                        <div className="col-md-4">
-                            <button onClick={this.onSubmit.bind(this)} className="btn btn-success">Create</button>
-                        </div>
-                        <div className="col-md-4">
-                            <button onClick={() => this.props.hideTaskForm()} className="btn btn-danger">Cancel</button>
-                        </div>
+                </div>
+                <div className="row buttonContainer">
+                    <div className="col-md-4 createButton">
+                        <button onClick={this.onSubmit.bind(this)} className="btn btn-success">Create</button>
                     </div>
+                    <div className="col-md-4 offset-md-4 cancelButton">
+                        <button onClick={() => this.props.hideTaskForm()} className="btn btn-danger">Cancel</button>
+                    </div>
+                </div>
              </div>   
         );
     }
