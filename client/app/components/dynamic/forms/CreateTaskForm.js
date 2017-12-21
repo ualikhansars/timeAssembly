@@ -53,30 +53,29 @@ class CreateTaskForm extends React.Component {
         function() {
             this.onCheckValidation();
         }
-    );
-
-        console.log('id', event.target.id);
-        console.log('value', event.target.value);
-        
-        console.log('On Change', this.state);
-        
+        );  
     }
 
     onCheckValidation() {
+        let createButton = document.getElementById('createBtn');
+        console.error('createButton', createButton);
         if(!this.isFinishHourValidated() && this.isDurationValidated()) {
             this.setState({
                 errors: 'Due time for task cannot be more than 24 hours'
             });
+            createButton.disabled = true;
         }
         else if(!this.isDurationValidated()) {
             this.setState({
                 errors: 'Please, assign duration time for your task'
             });
+            createButton.disabled = true;
         }
         else if(this.isDurationValidated() && this.isDurationValidated()) {
             this.setState({
                 errors: ''
             });
+            createButton.disabled = false;
         }
     }
 
@@ -226,7 +225,7 @@ class CreateTaskForm extends React.Component {
                 </div>
                 <div className="row buttonContainer">
                     <div className="col-md-4 createButton">
-                        <button onClick={this.onSubmit.bind(this)} className="btn btn-success">Create</button>
+                        <button onClick={this.onSubmit.bind(this)} className="btn btn-success" id="createBtn">Create</button>
                     </div>
                     <div className="col-md-4 offset-md-4 cancelButton">
                         <button onClick={() => this.props.hideTaskForm()} className="btn btn-danger">Cancel</button>

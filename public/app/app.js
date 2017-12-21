@@ -78956,27 +78956,27 @@ var CreateTaskForm = function (_React$Component) {
             this.setState(_defineProperty({}, event.target.id, event.target.value), function () {
                 this.onCheckValidation();
             });
-
-            console.log('id', event.target.id);
-            console.log('value', event.target.value);
-
-            console.log('On Change', this.state);
         }
     }, {
         key: 'onCheckValidation',
         value: function onCheckValidation() {
+            var createButton = document.getElementById('createBtn');
+            console.error('createButton', createButton);
             if (!this.isFinishHourValidated() && this.isDurationValidated()) {
                 this.setState({
                     errors: 'Due time for task cannot be more than 24 hours'
                 });
+                createButton.disabled = true;
             } else if (!this.isDurationValidated()) {
                 this.setState({
                     errors: 'Please, assign duration time for your task'
                 });
+                createButton.disabled = true;
             } else if (this.isDurationValidated() && this.isDurationValidated()) {
                 this.setState({
                     errors: ''
                 });
+                createButton.disabled = false;
             }
         }
     }, {
@@ -79225,7 +79225,7 @@ var CreateTaskForm = function (_React$Component) {
                         { className: 'col-md-4 createButton' },
                         _react2.default.createElement(
                             'button',
-                            { onClick: this.onSubmit.bind(this), className: 'btn btn-success' },
+                            { onClick: this.onSubmit.bind(this), className: 'btn btn-success', id: 'createBtn' },
                             'Create'
                         )
                     ),
