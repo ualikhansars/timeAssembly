@@ -2,6 +2,7 @@ import React from 'react';
 
 class Task extends React.Component {
     render() {
+        console.error('property', this.props.property);
         let {
             title,
             category,

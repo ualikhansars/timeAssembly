@@ -26,12 +26,13 @@ class CreateTaskForm extends React.Component {
         this.day =  this.props.daysInfo.chosenDay;
         this.startTimeHours = this.props.taskInfo.startTimeHours;
         this.startTimeMinutes = this.props.taskInfo.startTimeMinutes;     
-        this.userId = this.props.slotInfo.slot.userId;   
+        this.userId = this.props.slotInfo.slot.userId;
+        this.description = '';   
         this.state = {
             task: {
                 title: this.title,
                 category: this.category,
-                description: '',
+                description: this.description,
                 duration: 30,
                 startTimeHours: this.startTimeHours,
                 startTimeMinutes: this.startTimeMinutes,
@@ -54,11 +55,12 @@ class CreateTaskForm extends React.Component {
             this.onCheckValidation();
         }
         );  
+        console.log('state:', this.state);
     }
+
 
     onCheckValidation() {
         let createButton = document.getElementById('createBtn');
-        console.error('createButton', createButton);
         if(!this.isFinishHourValidated() && this.isDurationValidated()) {
             this.setState({
                 errors: 'Due time for task cannot be more than 24 hours'
@@ -82,9 +84,6 @@ class CreateTaskForm extends React.Component {
     isDurationValidated() {
         let durationHours = Number(this.state.durationHours);
         let durationMins = Number(this.state.durationMins);
-        console.log('durationValidation');
-        console.log('durationHour:', durationHours);
-        console.log('durationMinutes:', durationMins);
         if(durationHours === 0 && durationMins === 0) {
            return false;
         } else {
@@ -139,7 +138,8 @@ class CreateTaskForm extends React.Component {
                 let updatedTask = Object.assign({}, this.state.task, {
                     finishTimeHours: finishHour,
                     finishTimeMinutes: finishMin,
-                    duration: duration
+                    duration: duration,
+                    description: this.state.description
                 });
                 this.props.createTask(updatedTask);
             }

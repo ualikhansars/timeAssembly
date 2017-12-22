@@ -77352,6 +77352,7 @@ var Task = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            console.error('property', this.props.property);
             var _props$property = this.props.property,
                 title = _props$property.title,
                 category = _props$property.category,
@@ -78930,11 +78931,12 @@ var CreateTaskForm = function (_React$Component) {
         _this.startTimeHours = _this.props.taskInfo.startTimeHours;
         _this.startTimeMinutes = _this.props.taskInfo.startTimeMinutes;
         _this.userId = _this.props.slotInfo.slot.userId;
+        _this.description = '';
         _this.state = {
             task: {
                 title: _this.title,
                 category: _this.category,
-                description: '',
+                description: _this.description,
                 duration: 30,
                 startTimeHours: _this.startTimeHours,
                 startTimeMinutes: _this.startTimeMinutes,
@@ -78956,12 +78958,12 @@ var CreateTaskForm = function (_React$Component) {
             this.setState(_defineProperty({}, event.target.id, event.target.value), function () {
                 this.onCheckValidation();
             });
+            console.log('state:', this.state);
         }
     }, {
         key: 'onCheckValidation',
         value: function onCheckValidation() {
             var createButton = document.getElementById('createBtn');
-            console.error('createButton', createButton);
             if (!this.isFinishHourValidated() && this.isDurationValidated()) {
                 this.setState({
                     errors: 'Due time for task cannot be more than 24 hours'
@@ -78984,9 +78986,6 @@ var CreateTaskForm = function (_React$Component) {
         value: function isDurationValidated() {
             var durationHours = Number(this.state.durationHours);
             var durationMins = Number(this.state.durationMins);
-            console.log('durationValidation');
-            console.log('durationHour:', durationHours);
-            console.log('durationMinutes:', durationMins);
             if (durationHours === 0 && durationMins === 0) {
                 return false;
             } else {
@@ -79051,7 +79050,8 @@ var CreateTaskForm = function (_React$Component) {
                     var updatedTask = Object.assign({}, this.state.task, {
                         finishTimeHours: finishHour,
                         finishTimeMinutes: finishMin,
-                        duration: duration
+                        duration: duration,
+                        description: this.state.description
                     });
                     this.props.createTask(updatedTask);
                 }
