@@ -78969,12 +78969,17 @@ var CreateTaskForm = function (_React$Component) {
                     errors: 'Due time for task cannot be more than 24 hours'
                 });
                 createButton.disabled = true;
+            } else if (!this.isDescriptionValidated() && this.isDurationValidated()) {
+                this.setState({
+                    errors: 'description cannot be more than 180 characters'
+                });
+                createButton.disabled = true;
             } else if (!this.isDurationValidated()) {
                 this.setState({
                     errors: 'Please, assign duration time for your task'
                 });
                 createButton.disabled = true;
-            } else if (this.isDurationValidated() && this.isDurationValidated()) {
+            } else if (this.isDurationValidated() && this.isDurationValidated() && this.isDescriptionValidated()) {
                 this.setState({
                     errors: ''
                 });
@@ -78987,6 +78992,16 @@ var CreateTaskForm = function (_React$Component) {
             var durationHours = Number(this.state.durationHours);
             var durationMins = Number(this.state.durationMins);
             if (durationHours === 0 && durationMins === 0) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }, {
+        key: 'isDescriptionValidated',
+        value: function isDescriptionValidated() {
+            var description = this.state.description;
+            if (description.length > 180) {
                 return false;
             } else {
                 return true;

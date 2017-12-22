@@ -67,13 +67,19 @@ class CreateTaskForm extends React.Component {
             });
             createButton.disabled = true;
         }
+        else if(!this.isDescriptionValidated() && this.isDurationValidated()) {
+            this.setState({
+                errors: 'description cannot be more than 180 characters'
+            });
+            createButton.disabled = true;
+        }
         else if(!this.isDurationValidated()) {
             this.setState({
                 errors: 'Please, assign duration time for your task'
             });
             createButton.disabled = true;
         }
-        else if(this.isDurationValidated() && this.isDurationValidated()) {
+        else if(this.isDurationValidated() && this.isDurationValidated() && this.isDescriptionValidated()) {
             this.setState({
                 errors: ''
             });
@@ -86,6 +92,15 @@ class CreateTaskForm extends React.Component {
         let durationMins = Number(this.state.durationMins);
         if(durationHours === 0 && durationMins === 0) {
            return false;
+        } else {
+            return true;
+        }
+    }
+
+    isDescriptionValidated() {
+        let description = this.state.description;
+        if(description.length > 180) {
+            return false;
         } else {
             return true;
         }
