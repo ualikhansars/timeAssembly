@@ -296,3 +296,33 @@ div.createTask .errors {
 div.createTask .buttonContainer {
   margin-top: 15px;
 }
+
+/* Create Slot */
+
+div.createSlot .createSlotTitleContainer{
+  text-align: center;
+}
+
+div.createSlot .title {
+  font-size: 18px;
+}
+
+div.createSlot .category {
+  font-size: 18px;
+}
+
+div.createSlot .temporary {
+  font-size: 18px;
+}
+
+div.createSlot .dueDate {
+  font-size: 18px;
+}
+
+div.createSlot .total {
+  font-size: 18px;
+}
+
+div.createSlot .buttons {
+  margin-top: 50px;
+}

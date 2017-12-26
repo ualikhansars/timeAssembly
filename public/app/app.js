@@ -78753,7 +78753,7 @@ var CreateSlotForm = function (_React$Component) {
             var dueDate = null;
             var total = _react2.default.createElement(
                 'div',
-                { className: 'form-group row' },
+                { className: 'form-group row total' },
                 _react2.default.createElement(
                     'label',
                     { htmlFor: 'total', className: 'col-md-12' },
@@ -78765,7 +78765,7 @@ var CreateSlotForm = function (_React$Component) {
             if (this.state.temporary) {
                 dueDate = _react2.default.createElement(
                     'div',
-                    { className: 'form-group row' },
+                    { className: 'form-group row dueDate' },
                     _react2.default.createElement(
                         'label',
                         { htmlFor: 'dueDate', className: 'col-md-12' },
@@ -78775,7 +78775,7 @@ var CreateSlotForm = function (_React$Component) {
                 );
                 total = _react2.default.createElement(
                     'div',
-                    { className: 'form-group row' },
+                    { className: 'form-group row total' },
                     _react2.default.createElement(
                         'span',
                         { className: 'col-md-12' },
@@ -78791,49 +78791,49 @@ var CreateSlotForm = function (_React$Component) {
                     { className: 'createSlotTitleContainer row' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-12' },
+                        { className: 'col-md-12 createSlotTitleContainer' },
                         _react2.default.createElement(
                             'h1',
                             { className: 'createSlotTitle' },
-                            'Create Slot'
+                            'Create Task'
                         )
                     )
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'form-group row' },
+                    { className: 'form-group row title' },
                     _react2.default.createElement(
                         'label',
                         { htmlFor: 'title', className: 'col-md-12' },
-                        'Title'
+                        'Title:'
                     ),
                     _react2.default.createElement('input', { value: this.state.title, onChange: this.onChange.bind(this), type: 'text', className: 'form-control col-md-12', id: 'title', name: 'title', placeholder: 'Study' })
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'form-group row' },
+                    { className: 'form-group row category' },
                     _react2.default.createElement(
                         'label',
                         { htmlFor: 'category', className: 'col-md-12' },
-                        'Category'
+                        'Category:'
                     ),
                     _react2.default.createElement('input', { value: this.state.category, onChange: this.onChange.bind(this), type: 'text', className: 'form-control col-md-12', id: 'category', name: 'category', placeholder: 'Important' })
                 ),
                 total,
                 _react2.default.createElement(
                     'div',
-                    { className: 'form-group row' },
+                    { className: 'form-group row temporary' },
                     _react2.default.createElement(
                         'label',
-                        { htmlFor: 'temporary', className: 'col-md-3' },
-                        'Temporary'
+                        { htmlFor: 'temporary', className: 'col-md-12' },
+                        'Temporary:'
                     ),
-                    _react2.default.createElement('input', _defineProperty({ value: this.state.temporary, onChange: this.onCheckboxChange.bind(this), type: 'checkbox', className: 'col-md-3', id: 'temporary', name: 'temporary' }, 'value', 'temporary'))
+                    _react2.default.createElement('input', _defineProperty({ value: this.state.temporary, onChange: this.onCheckboxChange.bind(this), type: 'checkbox', className: 'col-md-1', id: 'temporary', name: 'temporary' }, 'value', 'temporary'))
                 ),
                 dueDate,
                 _react2.default.createElement(
                     'div',
-                    { className: 'row' },
+                    { className: 'row buttons' },
                     _react2.default.createElement(
                         'div',
                         { className: 'col-md-4' },

@@ -49,42 +49,42 @@ class CreateSlotForm extends React.Component {
     render() {
         let currentDate = getCurrentDate();
         let dueDate = null;
-        let total = <div className="form-group row">
+        let total = <div className="form-group row total">
                         <label htmlFor="total" className="col-md-12">Total</label>
                         <input value={this.state.total} onChange={this.onChange.bind(this)} type="number" className="form-control col-md-12" id="total" name="total" placeholder="Enter week frequency" />
                     </div>
         // show dueDate if temporary is chosen
         if(this.state.temporary) {
-            dueDate = <div className="form-group row">
+            dueDate = <div className="form-group row dueDate">
                         <label htmlFor="dueDate" className="col-md-12">Due Date</label>
                         <input value={this.state.dueDate} onChange={this.onChange.bind(this)} type="date" className="form-control col-md-12" id="dueDate" name="dueDate" min={currentDate}/>
                     </div>
-            total = <div className="form-group row">
+            total = <div className="form-group row total">
                         <span className="col-md-12">Total: 1</span>
                     </div>
         }
         return (
              <div className="slots-form createSlot">
                     <div className="createSlotTitleContainer row">
-                        <div className="col-md-12">
-                            <h1 className="createSlotTitle">Create Slot</h1>
+                        <div className="col-md-12 createSlotTitleContainer">
+                            <h1 className="createSlotTitle">Create Task</h1>
                         </div>
                     </div>
-                    <div className="form-group row">
-                        <label htmlFor="title" className="col-md-12">Title</label>
+                    <div className="form-group row title">
+                        <label htmlFor="title" className="col-md-12">Title:</label>
                         <input value={this.state.title} onChange={this.onChange.bind(this)} type="text" className="form-control col-md-12" id="title" name="title" placeholder="Study" />
                     </div>
-                    <div className="form-group row">
-                        <label htmlFor="category" className="col-md-12">Category</label>
+                    <div className="form-group row category">
+                        <label htmlFor="category" className="col-md-12">Category:</label>
                         <input value={this.state.category} onChange={this.onChange.bind(this)} type="text" className="form-control col-md-12" id="category" name="category" placeholder="Important" />
                     </div>
                     {total}
-                    <div className="form-group row">
-                        <label htmlFor="temporary" className="col-md-3">Temporary</label>
-                        <input value={this.state.temporary} onChange={this.onCheckboxChange.bind(this)} type="checkbox" className="col-md-3" id="temporary" name="temporary" value="temporary" />
+                    <div className="form-group row temporary">
+                        <label htmlFor="temporary" className="col-md-12">Temporary:</label>
+                        <input value={this.state.temporary} onChange={this.onCheckboxChange.bind(this)} type="checkbox" className="col-md-1" id="temporary" name="temporary" value="temporary" />
                     </div>
                     {dueDate}
-                    <div className="row">
+                    <div className="row buttons">
                         <div className="col-md-4">
                             <button onClick={this.onSubmit.bind(this)} className="btn btn-success">Create</button>
                         </div>
