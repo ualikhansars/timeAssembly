@@ -6,12 +6,18 @@ import PropTypes from 'prop-types';
 import Slots from './slots/Slots';
 import Preferences from './preferences/Preferences';
 import UpdateTaskForm from './forms/UpdateTaskForm';
+import { displayTaskProperties } from '../../actions/displayAction';
 
 
 class Dynamic extends React.Component {
 
     render() {
-        let {displaySlots, displaySettings, showUpdateTaskForm} = this.props.display;
+        let {
+            displaySlots, 
+            displaySettings,
+            displayTaskProperties, 
+            showUpdateTaskForm
+        } = this.props.display;
         let {currentDate} = this.props.daysInfo;
         let {temporarySlots} = this.props.slotInfo;
 
@@ -20,14 +26,19 @@ class Dynamic extends React.Component {
                 <Slots temporarySlots={temporarySlots} currentDate={currentDate} removeSlotsAfterDueDate={this.removeSlotsAfterDueDate}/>
             );
         }
-        if(displaySettings) {
+        else if(displaySettings) {
             return(
                 <Preferences/>
             );
         }
-        if(showUpdateTaskForm) {
+        else if(showUpdateTaskForm) {
             return (
                <UpdateTaskForm/> 
+            );
+        }
+        else if(displayTaskProperties) {
+            return (
+               <h1>Display Task Properties</h1>
             );
         }
         else {

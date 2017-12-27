@@ -1,8 +1,12 @@
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import {displayTaskProperties} from '../../actions/displayAction';
 
 class Task extends React.Component {
     render() {
-        console.error('property', this.props.property);
+        //console.error('property', this.props.property);
         let {
             title,
             category,
@@ -24,8 +28,8 @@ class Task extends React.Component {
                                 </div>
                             </div>
         }
-        console.error('startTimeHour:', startTimeHours, 'startTimeMinutes:', startTimeMinutes);
-        console.error('finishTimeHour:', finishTimeHours, 'startTimeMinutes:', finishTimeMinutes);
+        // console.error('startTimeHour:', startTimeHours, 'startTimeMinutes:', startTimeMinutes);
+        // console.error('finishTimeHour:', finishTimeHours, 'startTimeMinutes:', finishTimeMinutes);
         if(startTimeHours < 10) {
             startTimeHours = '0' + startTimeHours;
         }
@@ -35,7 +39,7 @@ class Task extends React.Component {
         if(startTimeMinutes == 0) startTimeMinutes = '0' + startTimeMinutes;
         if(finishTimeMinutes === 0) finishTimeMinutes = '0' + finishTimeMinutes;
         return (
-            <div className="task container">
+            <div className="task container" onClick={() => this.props.displayTaskProperties()}>
                 <div className="row">
                     <div className="col-md-2 taskTime">
                         <div className="taskStartTime">
@@ -71,11 +75,20 @@ class Task extends React.Component {
                     </div>
                 </div>
             </div>
-            
-                
-            
         );
     }
 }
 
-export default Task;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({
+            displayTaskProperties
+        }, 
+        dispatch
+    );
+}
+
+Task.propTypes = {
+    displayTaskProperties: PropTypes.func.isRequired
+}
+
+export default connect(null, mapDispatchToProps)(Task);

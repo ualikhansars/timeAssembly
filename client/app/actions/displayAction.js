@@ -19,15 +19,9 @@ export const displaySettings = () => {
     }
 }
 
-// display nothing then reset addTask 
-export const displayNothing = () => {
-    return dispatch => {
-        dispatch({
-            type: 'DISPLAY_NOTHING'
-        });
-        return dispatch({
-                type: 'RESET_ADD_TASK'
-        });
+export const displayTaskProperties = () => {
+    return {
+         type: 'DISPLAY_TASK_PROPERTIES'
     }
 } 
 

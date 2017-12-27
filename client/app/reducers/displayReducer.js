@@ -2,8 +2,9 @@
 // to true or false depending on what element in sidebar has been clicked
 
 const initialState = {
-    displaySlots: false,
+    displaySlots: true,
     displaySettings: false,
+    displayTaskProperties: false,
     showUpdateTaskForm: false
 }
 
@@ -13,28 +14,31 @@ const displayReducer = (state=initialState, action) => {
            return Object.assign({}, state, {
                 displaySlots: true,
                 displaySettings: false,
+                displayTaskProperties: false,
                 showUpdateTaskForm: false
            });
         case 'DISPLAY_SETTINGS':
             return Object.assign({}, state, {
                 displaySlots: false,
                 displaySettings: true,
+                displayTaskProperties: false,
                 showUpdateTaskForm: false
            });
+        case 'DISPLAY_TASK_PROPERTIES':
+           return Object.assign({}, state, {
+               displaySlots: false,
+               displaySettings: false,
+               displayTaskProperties: true,
+               showUpdateTaskForm: false
+          });
         case 'SHOW_UPDATE_TASK_FORM':
             console.log('SHOW_UPDATE_TASK_FORM');
             return Object.assign({}, state, {
                 displaySlots: false,
                 displaySettings: false,
+                displayTaskProperties: false,
                 showUpdateTaskForm: true
             });
-        case 'DISPLAY_NOTHING':
-            console.log('HIDE_UPDATE_TASK_FORM');
-            return Object.assign({}, state, {
-                displaySlots: false,
-                displaySettings: false,
-                showUpdateTaskForm: false
-            });   
     }
     return state;
 }

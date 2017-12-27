@@ -77066,15 +77066,9 @@ var displaySettings = exports.displaySettings = function displaySettings() {
     };
 };
 
-// display nothing then reset addTask 
-var displayNothing = exports.displayNothing = function displayNothing() {
-    return function (dispatch) {
-        dispatch({
-            type: 'DISPLAY_NOTHING'
-        });
-        return dispatch({
-            type: 'RESET_ADD_TASK'
-        });
+var displayTaskProperties = exports.displayTaskProperties = function displayTaskProperties() {
+    return {
+        type: 'DISPLAY_TASK_PROPERTIES'
     };
 };
 
@@ -77330,6 +77324,16 @@ var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _redux = __webpack_require__(37);
+
+var _reactRedux = __webpack_require__(29);
+
+var _propTypes = __webpack_require__(11);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _displayAction = __webpack_require__(589);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -77352,7 +77356,7 @@ var Task = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            console.error('property', this.props.property);
+            //console.error('property', this.props.property);
             var _props$property = this.props.property,
                 title = _props$property.title,
                 category = _props$property.category,
@@ -77383,8 +77387,8 @@ var Task = function (_React$Component) {
                     )
                 );
             }
-            console.error('startTimeHour:', startTimeHours, 'startTimeMinutes:', startTimeMinutes);
-            console.error('finishTimeHour:', finishTimeHours, 'startTimeMinutes:', finishTimeMinutes);
+            // console.error('startTimeHour:', startTimeHours, 'startTimeMinutes:', startTimeMinutes);
+            // console.error('finishTimeHour:', finishTimeHours, 'startTimeMinutes:', finishTimeMinutes);
             if (startTimeHours < 10) {
                 startTimeHours = '0' + startTimeHours;
             }
@@ -77395,7 +77399,9 @@ var Task = function (_React$Component) {
             if (finishTimeMinutes === 0) finishTimeMinutes = '0' + finishTimeMinutes;
             return _react2.default.createElement(
                 'div',
-                { className: 'task container' },
+                { className: 'task container', onClick: function onClick() {
+                        return _this2.props.displayTaskProperties();
+                    } },
                 _react2.default.createElement(
                     'div',
                     { className: 'row' },
@@ -77486,7 +77492,17 @@ var Task = function (_React$Component) {
     return Task;
 }(_react2.default.Component);
 
-exports.default = Task;
+function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({
+        displayTaskProperties: _displayAction.displayTaskProperties
+    }, dispatch);
+}
+
+Task.propTypes = {
+    displayTaskProperties: _propTypes2.default.func.isRequired
+};
+
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Task);
 
 /***/ }),
 /* 593 */
@@ -78594,6 +78610,8 @@ var _UpdateTaskForm = __webpack_require__(614);
 
 var _UpdateTaskForm2 = _interopRequireDefault(_UpdateTaskForm);
 
+var _displayAction = __webpack_require__(589);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -78617,6 +78635,7 @@ var Dynamic = function (_React$Component) {
             var _props$display = this.props.display,
                 displaySlots = _props$display.displaySlots,
                 displaySettings = _props$display.displaySettings,
+                displayTaskProperties = _props$display.displayTaskProperties,
                 showUpdateTaskForm = _props$display.showUpdateTaskForm;
             var currentDate = this.props.daysInfo.currentDate;
             var temporarySlots = this.props.slotInfo.temporarySlots;
@@ -78624,12 +78643,16 @@ var Dynamic = function (_React$Component) {
 
             if (displaySlots) {
                 return _react2.default.createElement(_Slots2.default, { temporarySlots: temporarySlots, currentDate: currentDate, removeSlotsAfterDueDate: this.removeSlotsAfterDueDate });
-            }
-            if (displaySettings) {
+            } else if (displaySettings) {
                 return _react2.default.createElement(_Preferences2.default, null);
-            }
-            if (showUpdateTaskForm) {
+            } else if (showUpdateTaskForm) {
                 return _react2.default.createElement(_UpdateTaskForm2.default, null);
+            } else if (displayTaskProperties) {
+                return _react2.default.createElement(
+                    'h1',
+                    null,
+                    'Display Task Properties'
+                );
             } else {
                 return _react2.default.createElement(_Slots2.default, { temporarySlots: temporarySlots, currentDate: currentDate, removeSlotsAfterDueDate: this.removeSlotsAfterDueDate });
             }
@@ -82362,8 +82385,9 @@ Object.defineProperty(exports, "__esModule", {
 // to true or false depending on what element in sidebar has been clicked
 
 var initialState = {
-    displaySlots: false,
+    displaySlots: true,
     displaySettings: false,
+    displayTaskProperties: false,
     showUpdateTaskForm: false
 };
 
@@ -82376,12 +82400,21 @@ var displayReducer = function displayReducer() {
             return Object.assign({}, state, {
                 displaySlots: true,
                 displaySettings: false,
+                displayTaskProperties: false,
                 showUpdateTaskForm: false
             });
         case 'DISPLAY_SETTINGS':
             return Object.assign({}, state, {
                 displaySlots: false,
                 displaySettings: true,
+                displayTaskProperties: false,
+                showUpdateTaskForm: false
+            });
+        case 'DISPLAY_TASK_PROPERTIES':
+            return Object.assign({}, state, {
+                displaySlots: false,
+                displaySettings: false,
+                displayTaskProperties: true,
                 showUpdateTaskForm: false
             });
         case 'SHOW_UPDATE_TASK_FORM':
@@ -82389,14 +82422,8 @@ var displayReducer = function displayReducer() {
             return Object.assign({}, state, {
                 displaySlots: false,
                 displaySettings: false,
+                displayTaskProperties: false,
                 showUpdateTaskForm: true
-            });
-        case 'DISPLAY_NOTHING':
-            console.log('HIDE_UPDATE_TASK_FORM');
-            return Object.assign({}, state, {
-                displaySlots: false,
-                displaySettings: false,
-                showUpdateTaskForm: false
             });
     }
     return state;
