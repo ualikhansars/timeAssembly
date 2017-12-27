@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Slots from './slots/Slots';
 import Preferences from './preferences/Preferences';
 import UpdateTaskForm from './forms/UpdateTaskForm';
+import SelectedTask from './tasks/SelectedTask';
 import { displayTaskProperties } from '../../actions/displayAction';
 
 
@@ -38,7 +39,7 @@ class Dynamic extends React.Component {
         }
         else if(displayTaskProperties) {
             return (
-               <h1>Display Task Properties</h1>
+               <SelectedTask/>
             );
         }
         else {
