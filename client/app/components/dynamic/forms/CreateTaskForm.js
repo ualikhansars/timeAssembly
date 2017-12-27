@@ -99,8 +99,12 @@ class CreateTaskForm extends React.Component {
 
     isDescriptionValidated() {
         let description = this.state.description;
-        if(description.length > 180) {
-            return false;
+        if(description) {
+            if(description.length > 180) {
+                return false;
+            } else {
+                return true;
+            }
         } else {
             return true;
         }

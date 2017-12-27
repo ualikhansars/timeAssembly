@@ -77366,6 +77366,23 @@ var Task = function (_React$Component) {
                 slot = _props$property.slot,
                 id = _props$property.id;
 
+            var showDescription = void 0;
+            if (description) {
+                showDescription = _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-12' },
+                        _react2.default.createElement(
+                            'span',
+                            null,
+                            'Description: ',
+                            description
+                        )
+                    )
+                );
+            }
             console.error('startTimeHour:', startTimeHours, 'startTimeMinutes:', startTimeMinutes);
             console.error('finishTimeHour:', finishTimeHours, 'startTimeMinutes:', finishTimeMinutes);
             if (startTimeHours < 10) {
@@ -77430,20 +77447,7 @@ var Task = function (_React$Component) {
                                 )
                             )
                         ),
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'row' },
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'col-md-12' },
-                                _react2.default.createElement(
-                                    'span',
-                                    null,
-                                    'Description: ',
-                                    description
-                                )
-                            )
-                        ),
+                        showDescription,
                         _react2.default.createElement(
                             'div',
                             { className: 'row' },
@@ -78761,7 +78765,7 @@ var CreateSlotForm = function (_React$Component) {
                 });
             } else if (this.state.temporary && !this.state.dueDate) {
                 this.setState({
-                    errors: 'Please, add dueDate for temporary task'
+                    errors: 'Please, select dueDate for temporary task'
                 });
             } else {
                 this.props.createSlot(updatedSlot);
@@ -79033,8 +79037,12 @@ var CreateTaskForm = function (_React$Component) {
         key: 'isDescriptionValidated',
         value: function isDescriptionValidated() {
             var description = this.state.description;
-            if (description.length > 180) {
-                return false;
+            if (description) {
+                if (description.length > 180) {
+                    return false;
+                } else {
+                    return true;
+                }
             } else {
                 return true;
             }

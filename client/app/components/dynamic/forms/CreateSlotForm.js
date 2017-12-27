@@ -67,7 +67,7 @@ class CreateSlotForm extends React.Component {
         }
         else if(this.state.temporary && !this.state.dueDate) {
             this.setState({
-                errors: 'Please, add dueDate for temporary task'
+                errors: 'Please, select dueDate for temporary task'
             });
         } 
         else {

@@ -16,6 +16,14 @@ class Task extends React.Component {
             slot,
             id
         } = this.props.property;
+        let showDescription;
+        if(description) {
+            showDescription = <div className="row">
+                                <div className="col-md-12">
+                                    <span>Description: {description}</span>
+                                </div>
+                            </div>
+        }
         console.error('startTimeHour:', startTimeHours, 'startTimeMinutes:', startTimeMinutes);
         console.error('finishTimeHour:', finishTimeHours, 'startTimeMinutes:', finishTimeMinutes);
         if(startTimeHours < 10) {
@@ -48,11 +56,7 @@ class Task extends React.Component {
                                 <span>Category: {category}</span>
                                 </div>
                             </div>
-                        <div className="row">
-                            <div className="col-md-12">
-                                <span>Description: {description}</span>
-                            </div>
-                        </div>
+                        {showDescription}
                         <div className="row">
                             <div className="col-md-12">
                                 <span>Duration: {duration} mins</span>
