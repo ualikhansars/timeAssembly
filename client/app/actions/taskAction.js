@@ -105,6 +105,23 @@ export const createTask = (task) => {
     }
 }
 
+export const selectTask = (id) => {
+    return dispatch => {
+        return axios.get(`/api/task/${id}`)
+            .then(res => {
+                dispatch({
+                    type: 'SELECT_TASK',
+                    selectedTask: res.data.resource 
+                });
+            })
+            .then(() => {
+                dispatch({
+                    type: 'DISPLAY_TASK_PROPERTIES',
+                });
+            })
+    }   
+}
+
 // when update task button in Task Component has been clicked this function
 // will be fired, it load task by id from database and 
 // write it into task state,

@@ -2,7 +2,7 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {displayTaskProperties} from '../../actions/displayAction';
+import {selectTask} from '../../actions/taskAction';
 
 class Task extends React.Component {
     render() {
@@ -39,7 +39,7 @@ class Task extends React.Component {
         if(startTimeMinutes == 0) startTimeMinutes = '0' + startTimeMinutes;
         if(finishTimeMinutes === 0) finishTimeMinutes = '0' + finishTimeMinutes;
         return (
-            <div className="task container" onClick={() => this.props.displayTaskProperties()}>
+            <div className="task container" onClick={() => this.props.selectTask(id)}>
                 <div className="row">
                     <div className="col-md-2 taskTime">
                         <div className="taskStartTime">
@@ -81,14 +81,14 @@ class Task extends React.Component {
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-            displayTaskProperties
+            selectTask
         }, 
         dispatch
     );
 }
 
 Task.propTypes = {
-    displayTaskProperties: PropTypes.func.isRequired
+    selectTask: PropTypes.func.isRequired
 }
 
 export default connect(null, mapDispatchToProps)(Task);

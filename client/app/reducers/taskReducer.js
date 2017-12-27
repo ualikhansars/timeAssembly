@@ -6,6 +6,7 @@ const initialState = {
         errors: null
     },
     task: {},
+    currentlySelectedTask: {},
     taskRequest: {
         loading: false,
         loaded: false,
@@ -82,6 +83,11 @@ const taskInfo = (state=initialState, action) => {
                 },
                 task: null,       
             });   
+        case 'SELECT_TASK':
+            console.log('SELECT TASK');
+            return Object.assign({}, state, {
+                    currentlySelectedTask: action.selectedTask
+            });
         case 'SHOW_CREATE_TASK_FORM':
             console.log('SHOW_CREATE_TASK_FORM');
             return Object.assign({}, state, {

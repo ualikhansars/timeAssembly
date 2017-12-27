@@ -28503,7 +28503,7 @@ exports.sha512 = __webpack_require__(445)
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.removeTask = exports.updateTask = exports.onClickUpdateTask = exports.createTask = exports.createTaskSuccess = exports.hideTaskForms = exports.addTask = exports.fetchTasksByDay = undefined;
+exports.removeTask = exports.updateTask = exports.onClickUpdateTask = exports.selectTask = exports.createTask = exports.createTaskSuccess = exports.hideTaskForms = exports.addTask = exports.fetchTasksByDay = undefined;
 
 var _axios = __webpack_require__(85);
 
@@ -28598,6 +28598,21 @@ var createTask = exports.createTask = function createTask(task) {
             });
         }).catch(function (error) {
             console.log(error);
+        });
+    };
+};
+
+var selectTask = exports.selectTask = function selectTask(id) {
+    return function (dispatch) {
+        return _axios2.default.get('/api/task/' + id).then(function (res) {
+            dispatch({
+                type: 'SELECT_TASK',
+                selectedTask: res.data.resource
+            });
+        }).then(function () {
+            dispatch({
+                type: 'DISPLAY_TASK_PROPERTIES'
+            });
         });
     };
 };
@@ -77045,6 +77060,14 @@ exports.createContext = Script.createContext = function (context) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.displaySettings = exports.displaySlots = undefined;
+
+var _axios = __webpack_require__(85);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 // fire this function after sidebar element slots were clicked
 // then reset AddTask
 var displaySlots = exports.displaySlots = function displaySlots() {
@@ -77063,12 +77086,6 @@ var displaySlots = exports.displaySlots = function displaySlots() {
 var displaySettings = exports.displaySettings = function displaySettings() {
     return {
         type: 'DISPLAY_SETTINGS'
-    };
-};
-
-var displayTaskProperties = exports.displayTaskProperties = function displayTaskProperties() {
-    return {
-        type: 'DISPLAY_TASK_PROPERTIES'
     };
 };
 
@@ -77332,7 +77349,7 @@ var _propTypes = __webpack_require__(11);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _displayAction = __webpack_require__(589);
+var _taskAction = __webpack_require__(156);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -77400,7 +77417,7 @@ var Task = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'task container', onClick: function onClick() {
-                        return _this2.props.displayTaskProperties();
+                        return _this2.props.selectTask(id);
                     } },
                 _react2.default.createElement(
                     'div',
@@ -77494,12 +77511,12 @@ var Task = function (_React$Component) {
 
 function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)({
-        displayTaskProperties: _displayAction.displayTaskProperties
+        selectTask: _taskAction.selectTask
     }, dispatch);
 }
 
 Task.propTypes = {
-    displayTaskProperties: _propTypes2.default.func.isRequired
+    selectTask: _propTypes2.default.func.isRequired
 };
 
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Task);
@@ -82755,6 +82772,7 @@ var initialState = {
         errors: null
     },
     task: {},
+    currentlySelectedTask: {},
     taskRequest: {
         loading: false,
         loaded: false,
@@ -82833,6 +82851,11 @@ var taskInfo = function taskInfo() {
                     errors: action.taskErrors
                 },
                 task: null
+            });
+        case 'SELECT_TASK':
+            console.log('SELECT TASK');
+            return Object.assign({}, state, {
+                currentlySelectedTask: action.selectedTask
             });
         case 'SHOW_CREATE_TASK_FORM':
             console.log('SHOW_CREATE_TASK_FORM');

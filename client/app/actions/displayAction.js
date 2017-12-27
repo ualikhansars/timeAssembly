@@ -1,3 +1,6 @@
+import axios from 'axios';
+
+
 // fire this function after sidebar element slots were clicked
 // then reset AddTask
 export const displaySlots = () => {
@@ -18,10 +21,4 @@ export const displaySettings = () => {
          type: 'DISPLAY_SETTINGS'
     }
 }
-
-export const displayTaskProperties = () => {
-    return {
-         type: 'DISPLAY_TASK_PROPERTIES'
-    }
-} 
 
