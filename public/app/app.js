@@ -78631,15 +78631,7 @@ var Dynamic = function (_React$Component) {
             if (showUpdateTaskForm) {
                 return _react2.default.createElement(_UpdateTaskForm2.default, null);
             } else {
-                return _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(
-                        'h2',
-                        null,
-                        'Nothing to show'
-                    )
-                );
+                return _react2.default.createElement(_Slots2.default, { temporarySlots: temporarySlots, currentDate: currentDate, removeSlotsAfterDueDate: this.removeSlotsAfterDueDate });
             }
         }
     }]);

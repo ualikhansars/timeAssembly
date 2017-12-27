@@ -32,9 +32,7 @@ class Dynamic extends React.Component {
         }
         else {
              return(
-                <div>
-                    <h2>Nothing to show</h2>
-                </div>
+                <Slots temporarySlots={temporarySlots} currentDate={currentDate} removeSlotsAfterDueDate={this.removeSlotsAfterDueDate}/>
             );
         } 
     }
