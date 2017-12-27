@@ -78703,8 +78703,9 @@ var CreateSlotForm = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (CreateSlotForm.__proto__ || Object.getPrototypeOf(CreateSlotForm)).call(this, props));
 
         _this.state = {
-            title: 'Lessons',
-            category: 'Study',
+            errors: '',
+            title: '',
+            category: '',
             total: 1,
             free: 1,
             temporary: false,
@@ -78742,7 +78743,29 @@ var CreateSlotForm = function (_React$Component) {
             var updatedSlot = Object.assign({}, this.state, {
                 free: total
             });
-            this.props.createSlot(updatedSlot);
+            if (!this.state.title) {
+                this.setState({
+                    errors: 'Title cannot be blank'
+                });
+            } else if (!this.state.category) {
+                this.setState({
+                    errors: 'Category cannot be blank'
+                });
+            } else if (this.state.total <= 0) {
+                this.setState({
+                    errors: 'Total should be more than 0'
+                });
+            } else if (this.state.total > 70) {
+                this.setState({
+                    errors: 'Total cannot be more than 70'
+                });
+            } else if (this.state.temporary && !this.state.dueDate) {
+                this.setState({
+                    errors: 'Please, add dueDate for temporary task'
+                });
+            } else {
+                this.props.createSlot(updatedSlot);
+            }
         }
     }, {
         key: 'render',
@@ -78757,7 +78780,7 @@ var CreateSlotForm = function (_React$Component) {
                 _react2.default.createElement(
                     'label',
                     { htmlFor: 'total', className: 'col-md-12' },
-                    'Total'
+                    'Total:'
                 ),
                 _react2.default.createElement('input', { value: this.state.total, onChange: this.onChange.bind(this), type: 'number', className: 'form-control col-md-12', id: 'total', name: 'total', placeholder: 'Enter week frequency' })
             );
@@ -78831,6 +78854,15 @@ var CreateSlotForm = function (_React$Component) {
                     _react2.default.createElement('input', _defineProperty({ value: this.state.temporary, onChange: this.onCheckboxChange.bind(this), type: 'checkbox', className: 'col-md-1', id: 'temporary', name: 'temporary' }, 'value', 'temporary'))
                 ),
                 dueDate,
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row errors' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-12' },
+                        this.state.errors
+                    )
+                ),
                 _react2.default.createElement(
                     'div',
                     { className: 'row buttons' },

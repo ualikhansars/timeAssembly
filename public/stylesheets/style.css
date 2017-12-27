@@ -326,3 +326,8 @@ div.createSlot .total {
 div.createSlot .buttons {
   margin-top: 50px;
 }
+
+div.createSlot .errors {
+  color: red;
+  font-size: 16px;
+}

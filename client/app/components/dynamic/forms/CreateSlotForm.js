@@ -8,14 +8,15 @@ class CreateSlotForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: 'Lessons',
-            category: 'Study',
+            errors: '',
+            title: '',
+            category: '',
             total: 1,
             free: 1,
             temporary: false,
             dueDate: '',
             userId: this.props.userInfo.user.id
-        }
+        } 
     }
 
     onChange(event) {
@@ -44,13 +45,41 @@ class CreateSlotForm extends React.Component {
         let updatedSlot = Object.assign({}, this.state, {
             free: total
         });
-        this.props.createSlot(updatedSlot);
+        if(!this.state.title) {
+            this.setState({
+                errors: 'Title cannot be blank'
+            });
+        }
+        else if(!this.state.category) {
+            this.setState({
+                errors: 'Category cannot be blank'
+            });
+        }
+        else if(this.state.total <= 0) {
+            this.setState({
+                errors: 'Total should be more than 0'
+            });
+        } 
+        else if(this.state.total > 70) {
+            this.setState({
+                errors: 'Total cannot be more than 70'
+            });
+        }
+        else if(this.state.temporary && !this.state.dueDate) {
+            this.setState({
+                errors: 'Please, add dueDate for temporary task'
+            });
+        } 
+        else {
+            this.props.createSlot(updatedSlot);
+        }
+        
     }
     render() {
         let currentDate = getCurrentDate();
         let dueDate = null;
         let total = <div className="form-group row total">
-                        <label htmlFor="total" className="col-md-12">Total</label>
+                        <label htmlFor="total" className="col-md-12">Total:</label>
                         <input value={this.state.total} onChange={this.onChange.bind(this)} type="number" className="form-control col-md-12" id="total" name="total" placeholder="Enter week frequency" />
                     </div>
         // show dueDate if temporary is chosen
@@ -84,6 +113,11 @@ class CreateSlotForm extends React.Component {
                         <input value={this.state.temporary} onChange={this.onCheckboxChange.bind(this)} type="checkbox" className="col-md-1" id="temporary" name="temporary" value="temporary" />
                     </div>
                     {dueDate}
+                    <div className="row errors">
+                        <div className="col-md-12">
+                            {this.state.errors}
+                        </div>
+                    </div>
                     <div className="row buttons">
                         <div className="col-md-4">
                             <button onClick={this.onSubmit.bind(this)} className="btn btn-success">Create</button>
