@@ -3,9 +3,10 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-
-import {displayNothing} from '../../../actions/displayAction';
-import {updateTask} from '../../../actions/taskAction';
+import {displaySlots} from '../../../actions/displayAction';
+import {
+    updateTask
+} from '../../../actions/taskAction';
 
 class UpdateTaskForm extends React.Component {
     constructor(props) {
@@ -108,7 +109,7 @@ class UpdateTaskForm extends React.Component {
                             <button onClick={this.onSubmit.bind(this)} className="btn btn-success">Update</button>
                         </div>
                         <div className="col-md-4">
-                            <button onClick={() => this.props.displayNothing()} className="btn btn-danger">Cancel</button>
+                            <button onClick={() => this.props.displaySlots()} className="btn btn-danger">Cancel</button>
                         </div>
                     </div>
              </div>   
@@ -124,7 +125,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-            displayNothing,
+            displaySlots,
             updateTask
         }, 
         dispatch
@@ -132,8 +133,8 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 UpdateTaskForm.propTypes = {
+    displaySlots: PropTypes.func.isRequired,
     taskInfo: PropTypes.object.isRequired,
-    displayNothing: PropTypes.func.isRequired,
     updatedTask: PropTypes.func.isRequired
 }
 

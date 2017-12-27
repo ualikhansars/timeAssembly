@@ -79715,7 +79715,7 @@ var UpdateTaskForm = function (_React$Component) {
                         _react2.default.createElement(
                             'button',
                             { onClick: function onClick() {
-                                    return _this2.props.displayNothing();
+                                    return _this2.props.displaySlots();
                                 }, className: 'btn btn-danger' },
                             'Cancel'
                         )
@@ -79736,14 +79736,14 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)({
-        displayNothing: _displayAction.displayNothing,
+        displaySlots: _displayAction.displaySlots,
         updateTask: _taskAction.updateTask
     }, dispatch);
 };
 
 UpdateTaskForm.propTypes = {
+    displaySlots: _propTypes2.default.func.isRequired,
     taskInfo: _propTypes2.default.object.isRequired,
-    displayNothing: _propTypes2.default.func.isRequired,
     updatedTask: _propTypes2.default.func.isRequired
 };
 
