@@ -4,7 +4,10 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {selectTask} from '../../actions/taskAction';
 
-import {getTimeDependsOnTimeFormat} from '../../utils/timeCalc';
+import {
+    convertDurationToHours,
+    getTimeDependsOnTimeFormat
+} from '../../utils/timeCalc';
 
 class Task extends React.Component {
     render() {
@@ -41,8 +44,7 @@ class Task extends React.Component {
         let {meridien, timeFormat} = this.props.preferences;
         let startTime = getTimeDependsOnTimeFormat(startTimeHours, startTimeMinutes, timeFormat, meridien);
         let finishTime = getTimeDependsOnTimeFormat(finishTimeHours, finishTimeMinutes, timeFormat, meridien);
-        if(startTimeMinutes == 0) startTimeMinutes = '0' + startTimeMinutes;
-        if(finishTimeMinutes === 0) finishTimeMinutes = '0' + finishTimeMinutes;
+        let durationInHours = convertDurationToHours(duration);
         return (
             <div className="task container">
                 <div className="row">
@@ -68,7 +70,7 @@ class Task extends React.Component {
                         {showDescription}
                         <div className="row">
                             <div className="col-md-12">
-                                <span>Duration: {duration} mins</span>
+                                <span>Duration: {durationInHours}</span>
                             </div>
                         </div>
                         <div className="row">

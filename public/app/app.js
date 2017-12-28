@@ -77445,8 +77445,7 @@ var Task = function (_React$Component) {
 
             var startTime = (0, _timeCalc.getTimeDependsOnTimeFormat)(startTimeHours, startTimeMinutes, timeFormat, meridien);
             var finishTime = (0, _timeCalc.getTimeDependsOnTimeFormat)(finishTimeHours, finishTimeMinutes, timeFormat, meridien);
-            if (startTimeMinutes == 0) startTimeMinutes = '0' + startTimeMinutes;
-            if (finishTimeMinutes === 0) finishTimeMinutes = '0' + finishTimeMinutes;
+            var durationInHours = (0, _timeCalc.convertDurationToHours)(duration);
             return _react2.default.createElement(
                 'div',
                 { className: 'task container' },
@@ -77508,8 +77507,7 @@ var Task = function (_React$Component) {
                                     'span',
                                     null,
                                     'Duration: ',
-                                    duration,
-                                    ' mins'
+                                    durationInHours
                                 )
                             )
                         ),
