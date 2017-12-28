@@ -3,7 +3,10 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {getTimeDependsOnTimeFormat} from '../../../utils/timeCalc';
+import {
+    convertDurationToHours,
+    getTimeDependsOnTimeFormat
+} from '../../../utils/timeCalc';
 
 class SelectedTask extends React.Component {
     render() {
@@ -26,6 +29,7 @@ class SelectedTask extends React.Component {
                                     </div>
                                 </div>
         }
+        let durationInHours = convertDurationToHours(duration);
         let {meridien, timeFormat} = this.props.preferences;
         let startTime = getTimeDependsOnTimeFormat(startTimeHours, startTimeMinutes, timeFormat, meridien);
         let finishTime = getTimeDependsOnTimeFormat(finishTimeHours, finishTimeMinutes, timeFormat, meridien);
@@ -59,7 +63,7 @@ class SelectedTask extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <p>Duration: {duration} minutes</p>
+                        <p>Duration: {durationInHours}</p>
                     </div>
                 </div>
                 {description}

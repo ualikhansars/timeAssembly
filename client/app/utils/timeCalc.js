@@ -134,3 +134,18 @@ export const calcPossibleHoursAndMins = (duration, chosenHours, chosenMins) => {
         possibleMins
     }
 }
+
+export const convertDurationToHours = (initialDuration) => {
+    if(initialDuration < 60) {
+        return `${initialDuration} minutes`;
+    } else {
+        let hours, minutes;
+        hours = Math.floor(initialDuration / 60);
+        minutes = Math.floor(initialDuration % 60);
+        if(hours === 1) {
+            return `${hours} hour and ${minutes} minutes`;
+        } else {
+            return `${hours} hours and ${minutes} minutes`;
+        }
+    }
+}

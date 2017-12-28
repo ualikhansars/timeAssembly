@@ -30695,6 +30695,22 @@ var calcPossibleHoursAndMins = exports.calcPossibleHoursAndMins = function calcP
     };
 };
 
+var convertDurationToHours = exports.convertDurationToHours = function convertDurationToHours(initialDuration) {
+    if (initialDuration < 60) {
+        return initialDuration + ' minutes';
+    } else {
+        var hours = void 0,
+            minutes = void 0;
+        hours = Math.floor(initialDuration / 60);
+        minutes = Math.floor(initialDuration % 60);
+        if (hours === 1) {
+            return hours + ' hour and ' + minutes + ' minutes';
+        } else {
+            return hours + ' hours and ' + minutes + ' minutes';
+        }
+    }
+};
+
 /***/ }),
 /* 181 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -81065,6 +81081,7 @@ var SelectedTask = function (_React$Component) {
                     )
                 );
             }
+            var durationInHours = (0, _timeCalc.convertDurationToHours)(duration);
             var _props$preferences = this.props.preferences,
                 meridien = _props$preferences.meridien,
                 timeFormat = _props$preferences.timeFormat;
@@ -81155,8 +81172,7 @@ var SelectedTask = function (_React$Component) {
                             'p',
                             null,
                             'Duration: ',
-                            duration,
-                            ' minutes'
+                            durationInHours
                         )
                     )
                 ),
