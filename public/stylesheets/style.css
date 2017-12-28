@@ -53,10 +53,6 @@ div.week span:hover {
 }
 
 /* Days */
-.days {
-  
-}
-
 .day {
   margin: 0;
   padding: 0;
@@ -98,7 +94,6 @@ div.task {
 
 div.task div.taskTime {
   position: relative;
-  text-align: center;
   background-color: #f6f1c6;
   border-right: 1px solid #000;
 }
