@@ -66,10 +66,6 @@ div.week span:hover {
   text-align: center;
 }
 
-.timetable {
-  
-}
-
 .timeInterval {
   border-bottom: 1px solid #000;
 }
@@ -148,6 +144,9 @@ div.task .removeTask:hover {
 }
 
 /* Slot Container */
+.slotContainer {
+  overflow: hidden;
+}
 .slotContainer .slotContainerTitle {
   text-align: center;
 }
@@ -271,6 +270,10 @@ div.preferences .preferencesName {
 }
 
 /* Create Task form */
+div.createTask {
+  overflow: hidden;
+  overflow-wrap: break-word;
+}
 div.createTask .titleContainer {
  text-align: center;
 }
@@ -343,6 +346,10 @@ div.createSlot .errors {
 }
 
 /* Selected Task */
+div.selectedTask {
+  overflow: hidden;
+  overflow-wrap: break-word;
+}
 div.selectedTask p {
   font-size: 22px;
 }
