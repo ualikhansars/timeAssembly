@@ -139,13 +139,18 @@ export const convertDurationToHours = (initialDuration) => {
     if(initialDuration < 60) {
         return `${initialDuration} minutes`;
     } else {
-        let hours, minutes;
+        let hours, minutes, hourSpelling;
         hours = Math.floor(initialDuration / 60);
         minutes = Math.floor(initialDuration % 60);
         if(hours === 1) {
-            return `${hours} hour and ${minutes} minutes`;
+            hourSpelling = 'hour';
         } else {
-            return `${hours} hours and ${minutes} minutes`;
+            hourSpelling = 'hours';
+        }
+        if(minutes === 0) {
+            return `${hours} ${hourSpelling}`;
+        } else {
+            return `${hours} ${hourSpelling} and ${minutes} minutes`;
         }
     }
 }

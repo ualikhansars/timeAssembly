@@ -30700,13 +30700,19 @@ var convertDurationToHours = exports.convertDurationToHours = function convertDu
         return initialDuration + ' minutes';
     } else {
         var hours = void 0,
-            minutes = void 0;
+            minutes = void 0,
+            hourSpelling = void 0;
         hours = Math.floor(initialDuration / 60);
         minutes = Math.floor(initialDuration % 60);
         if (hours === 1) {
-            return hours + ' hour and ' + minutes + ' minutes';
+            hourSpelling = 'hour';
         } else {
-            return hours + ' hours and ' + minutes + ' minutes';
+            hourSpelling = 'hours';
+        }
+        if (minutes === 0) {
+            return hours + ' ' + hourSpelling;
+        } else {
+            return hours + ' ' + hourSpelling + ' and ' + minutes + ' minutes';
         }
     }
 };
