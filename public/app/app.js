@@ -78784,9 +78784,17 @@ var CreateSlotForm = function (_React$Component) {
                 this.setState({
                     errors: 'Title cannot be blank'
                 });
+            } else if (this.state.title.length > 120) {
+                this.setState({
+                    errors: 'Title cannot be more than 120 characters long'
+                });
             } else if (!this.state.category) {
                 this.setState({
                     errors: 'Category cannot be blank'
+                });
+            } else if (this.state.category.length > 120) {
+                this.setState({
+                    errors: 'Category cannot be more than 120 characters long'
                 });
             } else if (this.state.total <= 0) {
                 this.setState({
