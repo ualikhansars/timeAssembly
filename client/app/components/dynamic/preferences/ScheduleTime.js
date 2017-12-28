@@ -3,7 +3,10 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {getScheduleTime} from '../../../utils/timeCalc';
+import {
+    convertScheduleTimeBaseOnTimeFormat,
+    getScheduleTime
+} from '../../../utils/timeCalc';
 
 
 // import actions
@@ -43,18 +46,16 @@ class ScheduleTime extends React.Component {
 
     render() {
         let {startDisplayHour, finishDisplayHour} = this.props.preferences;
-
+        let {meridien, timeFormat} = this.props.preferences;
         // display startHour select from 0 to finishHour
-        let startHour = getScheduleTime(0, finishDisplayHour).map((hour, i) => {
-            let stringHour = String(hour + ':00');
-            if(hour <= 9) '0' + stringHour;
+        let startHour = getScheduleTime(0, finishDisplayHour - 1).map((hour, i) => {
+            let stringHour = convertScheduleTimeBaseOnTimeFormat(hour, timeFormat);
             return <option value={hour} key={i}>{stringHour}</option> 
         });
 
         // display finishHour select from startHour to 24
-        let finishHour = getScheduleTime(startDisplayHour).map((hour, i) => {
-            let stringHour = String(hour + ':00');
-            if(hour <= 9) '0' + stringHour;
+        let finishHour = getScheduleTime(startDisplayHour + 1).map((hour, i) => {
+            let stringHour = convertScheduleTimeBaseOnTimeFormat(hour, timeFormat);
             return <option value={hour} key={i}>{stringHour}</option> 
         });
         

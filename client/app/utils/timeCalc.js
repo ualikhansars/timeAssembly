@@ -93,7 +93,6 @@ export const getTimeDependsOnTimeFormat = (hour, min, timeFormat, meridien) => {
             else if(hour === '24' && min === '00') displayTime = '12:' + min + ' a.m'; 
             else {
                 let displayHour = get12HoursFrom24Hours(hour);
-                console.log('displayHour', displayHour);
                 if(displayHour < 10) {
                     displayTime = '0' + displayHour + ':' + min + ' ' + meridien;
                 } else {
@@ -151,6 +150,36 @@ export const convertDurationToHours = (initialDuration) => {
             return `${hours} ${hourSpelling}`;
         } else {
             return `${hours} ${hourSpelling} and ${minutes} minutes`;
+        }
+    }
+}
+
+export const convertScheduleTimeBaseOnTimeFormat = (hour, timeFormat) => {
+    if(timeFormat === 24) {
+        let displayTime;
+        if(hour < 10) {
+            displayTime = '0' + hour + ':00' ;
+        } else {
+            displayTime = hour + ':00';
+        }
+        return displayTime;
+    } else {
+        if(hour === 0 || hour === 24) {
+            return `12:00 a.m`;
+        }
+        else if(hour === 12) return `12:00 p.m`;
+        else if(hour >= 1 && hour <= 11) {
+            return '0' + hour + ':00 a.m';
+        }
+        else if(hour >= 13 && hour <= 23) {
+                let displayTime; 
+                let displayHour = get12HoursFrom24Hours(hour);
+                if(displayHour < 10) {
+                    displayTime = '0' + displayHour + ':00 p.m';
+                } else {
+                    displayTime = displayHour + ':00 p.m';
+                }
+                return displayTime;
         }
     }
 }
