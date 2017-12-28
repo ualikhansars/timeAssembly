@@ -3,6 +3,8 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
+import {getTimeDependsOnTimeFormat} from '../../../utils/timeCalc';
+
 class SelectedTask extends React.Component {
     render() {
         let {
@@ -24,13 +26,9 @@ class SelectedTask extends React.Component {
                                     </div>
                                 </div>
         }
-        let startMin, finishMin;
-        if(startTimeMinutes == 0) {
-            startMin = '00';
-        }
-        if(finishTimeMinutes == 0) {
-            finishMin = '00';
-        }
+        let {meridien, timeFormat} = this.props.preferences;
+        let startTime = getTimeDependsOnTimeFormat(startTimeHours, startTimeMinutes, timeFormat, meridien);
+        let finishTime = getTimeDependsOnTimeFormat(finishTimeHours, finishTimeMinutes, timeFormat, meridien);
         
         return (
             <div className="container selectedTask">
@@ -51,12 +49,12 @@ class SelectedTask extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <p>Start Time: {startTimeHours}:{startMin}</p>
+                        <p>Start Time: {startTime}</p>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <p>Finish Time: {finishTimeHours}:{finishMin}</p>
+                        <p>Finish Time: {finishTime}</p>
                     </div>
                 </div>
                 <div className="row">
@@ -72,7 +70,8 @@ class SelectedTask extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        selectedTask: state.taskInfo.currentlySelectedTask
+        selectedTask: state.taskInfo.currentlySelectedTask,
+        preferences: state.preferences
     };
 }
 

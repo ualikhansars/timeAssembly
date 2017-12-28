@@ -81015,6 +81015,8 @@ var _propTypes = __webpack_require__(11);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _timeCalc = __webpack_require__(180);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -81063,14 +81065,12 @@ var SelectedTask = function (_React$Component) {
                     )
                 );
             }
-            var startMin = void 0,
-                finishMin = void 0;
-            if (startTimeMinutes == 0) {
-                startMin = '00';
-            }
-            if (finishTimeMinutes == 0) {
-                finishMin = '00';
-            }
+            var _props$preferences = this.props.preferences,
+                meridien = _props$preferences.meridien,
+                timeFormat = _props$preferences.timeFormat;
+
+            var startTime = (0, _timeCalc.getTimeDependsOnTimeFormat)(startTimeHours, startTimeMinutes, timeFormat, meridien);
+            var finishTime = (0, _timeCalc.getTimeDependsOnTimeFormat)(finishTimeHours, finishTimeMinutes, timeFormat, meridien);
 
             return _react2.default.createElement(
                 'div',
@@ -81127,9 +81127,7 @@ var SelectedTask = function (_React$Component) {
                             'p',
                             null,
                             'Start Time: ',
-                            startTimeHours,
-                            ':',
-                            startMin
+                            startTime
                         )
                     )
                 ),
@@ -81143,9 +81141,7 @@ var SelectedTask = function (_React$Component) {
                             'p',
                             null,
                             'Finish Time: ',
-                            finishTimeHours,
-                            ':',
-                            finishMin
+                            finishTime
                         )
                     )
                 ),
@@ -81174,7 +81170,8 @@ var SelectedTask = function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
     return {
-        selectedTask: state.taskInfo.currentlySelectedTask
+        selectedTask: state.taskInfo.currentlySelectedTask,
+        preferences: state.preferences
     };
 };
 
