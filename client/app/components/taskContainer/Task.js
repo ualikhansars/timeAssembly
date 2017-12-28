@@ -39,7 +39,7 @@ class Task extends React.Component {
         if(startTimeMinutes == 0) startTimeMinutes = '0' + startTimeMinutes;
         if(finishTimeMinutes === 0) finishTimeMinutes = '0' + finishTimeMinutes;
         return (
-            <div className="task container" onClick={() => this.props.selectTask(id)}>
+            <div className="task container">
                 <div className="row">
                     <div className="col-md-2 taskTime">
                         <div className="taskStartTime">
@@ -69,7 +69,8 @@ class Task extends React.Component {
                         <div className="row">
                             <div className="col-md-12">
                                 <img src="/img/edit.png" onClick={() => this.props.onClickUpdate(id)} className="editTask"/>
-                                <img src="/img/trushBin.png" onClick={() => this.props.removeTask(id, slot)} className="removeTask" />
+                                <img src="/img/list.png" onClick={() => this.props.selectTask(id)} className="listTask" />
+                                <img src="/img/trushBin.png" onClick={() => this.props.removeTask(id, slot)} className="removeTask" />        
                             </div>
                         </div>
                     </div>

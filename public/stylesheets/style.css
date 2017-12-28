@@ -128,9 +128,19 @@ div.task .editTask:hover {
   transform: scale(1.1);
 }
 
+div.task .listTask {
+  margin-top: 6px;
+  margin-bottom: 3px;
+}
+
+div.task .listTask:hover {
+  transform: scale(1.1);
+}
+
 div.task .removeTask {
   margin-top: 6px;
   margin-bottom: 3px;
+  float:right;
 }
 
 div.task .removeTask:hover {
