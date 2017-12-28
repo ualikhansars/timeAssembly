@@ -30642,6 +30642,9 @@ var get24HoursFrom12Hours = exports.get24HoursFrom12Hours = function get24HoursF
 // and return time in proper format
 var getTimeDependsOnTimeFormat = exports.getTimeDependsOnTimeFormat = function getTimeDependsOnTimeFormat(hour, min, timeFormat, meridien) {
     var displayTime = void 0;
+    if (min == 0) {
+        min = '00';
+    }
     if (timeFormat === 12) {
         if (meridien === 'a.m') {
             if (hour === '00' && min === '00') displayTime = '12:' + min + ' ' + meridien;else if (hour === '12' && min === '00') {
@@ -77351,6 +77354,8 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _taskAction = __webpack_require__(134);
 
+var _timeCalc = __webpack_require__(180);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -77412,6 +77417,12 @@ var Task = function (_React$Component) {
             if (finishTimeHours < 10) {
                 finishTimeHours = '0' + finishTimeHours;
             }
+            var _props$preferences = this.props.preferences,
+                meridien = _props$preferences.meridien,
+                timeFormat = _props$preferences.timeFormat;
+
+            var startTime = (0, _timeCalc.getTimeDependsOnTimeFormat)(startTimeHours, startTimeMinutes, timeFormat, meridien);
+            var finishTime = (0, _timeCalc.getTimeDependsOnTimeFormat)(finishTimeHours, finishTimeMinutes, timeFormat, meridien);
             if (startTimeMinutes == 0) startTimeMinutes = '0' + startTimeMinutes;
             if (finishTimeMinutes === 0) finishTimeMinutes = '0' + finishTimeMinutes;
             return _react2.default.createElement(
@@ -77426,16 +77437,12 @@ var Task = function (_React$Component) {
                         _react2.default.createElement(
                             'div',
                             { className: 'taskStartTime' },
-                            startTimeHours,
-                            ':',
-                            startTimeMinutes
+                            startTime
                         ),
                         _react2.default.createElement(
                             'div',
                             { className: 'taskFinishTime' },
-                            finishTimeHours,
-                            ':',
-                            finishTimeMinutes
+                            finishTime
                         )
                     ),
                     _react2.default.createElement(
@@ -77510,17 +77517,23 @@ var Task = function (_React$Component) {
     return Task;
 }(_react2.default.Component);
 
-function mapDispatchToProps(dispatch) {
+var mapStateToProps = function mapStateToProps(state) {
+    return {
+        preferences: state.preferences
+    };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)({
         selectTask: _taskAction.selectTask
     }, dispatch);
-}
+};
 
 Task.propTypes = {
     selectTask: _propTypes2.default.func.isRequired
 };
 
-exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Task);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Task);
 
 /***/ }),
 /* 593 */

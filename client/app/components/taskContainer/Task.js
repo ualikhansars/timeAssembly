@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {selectTask} from '../../actions/taskAction';
 
+import {getTimeDependsOnTimeFormat} from '../../utils/timeCalc';
+
 class Task extends React.Component {
     render() {
         //console.error('property', this.props.property);
@@ -36,6 +38,9 @@ class Task extends React.Component {
         if(finishTimeHours < 10) {
             finishTimeHours = '0' + finishTimeHours;
         }
+        let {meridien, timeFormat} = this.props.preferences;
+        let startTime = getTimeDependsOnTimeFormat(startTimeHours, startTimeMinutes, timeFormat, meridien);
+        let finishTime = getTimeDependsOnTimeFormat(finishTimeHours, finishTimeMinutes, timeFormat, meridien);
         if(startTimeMinutes == 0) startTimeMinutes = '0' + startTimeMinutes;
         if(finishTimeMinutes === 0) finishTimeMinutes = '0' + finishTimeMinutes;
         return (
@@ -43,10 +48,10 @@ class Task extends React.Component {
                 <div className="row">
                     <div className="col-md-2 taskTime">
                         <div className="taskStartTime">
-                            {startTimeHours}:{startTimeMinutes}
+                            {startTime}
                         </div>
                         <div className="taskFinishTime">
-                            {finishTimeHours}:{finishTimeMinutes}
+                            {finishTime}
                         </div>
                     </div>
                     <div className="col-md-10 taskContent">
@@ -80,7 +85,13 @@ class Task extends React.Component {
     }
 }
 
-function mapDispatchToProps(dispatch) {
+const mapStateToProps = (state) => {
+    return {
+        preferences: state.preferences
+    };
+}
+
+const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
             selectTask
         }, 
@@ -92,4 +103,4 @@ Task.propTypes = {
     selectTask: PropTypes.func.isRequired
 }
 
-export default connect(null, mapDispatchToProps)(Task);
+export default connect(mapStateToProps, mapDispatchToProps)(Task);

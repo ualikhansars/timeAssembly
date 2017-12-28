@@ -75,6 +75,9 @@ export const get24HoursFrom12Hours = (hour) => {
 // and return time in proper format
 export const getTimeDependsOnTimeFormat = (hour, min, timeFormat, meridien) => {
     let displayTime;
+    if(min == 0) {
+        min = '00';
+    }
     if(timeFormat === 12) {
         if(meridien === 'a.m') {
             if(hour === '00' && min === '00') displayTime = '12:' + min + ' ' + meridien;
