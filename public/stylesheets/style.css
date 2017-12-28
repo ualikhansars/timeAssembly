@@ -341,3 +341,11 @@ div.createSlot .errors {
   color: red;
   font-size: 16px;
 }
+
+/* Selected Task */
+div.selectedTask p {
+  font-size: 22px;
+}
+div.selectedTask .titleContainer {
+  text-align: center;
+}

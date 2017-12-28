@@ -81025,6 +81025,32 @@ var SelectedTask = function (_React$Component) {
                 startTimeMinutes = _props$selectedTask.startTimeMinutes,
                 title = _props$selectedTask.title;
 
+            var descriptionContent = null;
+            if (description) {
+                descriptionContent = _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-12' },
+                        _react2.default.createElement(
+                            'p',
+                            null,
+                            'Description: ',
+                            description
+                        )
+                    )
+                );
+            }
+            var startMin = void 0,
+                finishMin = void 0;
+            if (startTimeMinutes == 0) {
+                startMin = '00';
+            }
+            if (finishTimeMinutes == 0) {
+                finishMin = '00';
+            }
+
             return _react2.default.createElement(
                 'div',
                 { className: 'container selectedTask' },
@@ -81033,7 +81059,7 @@ var SelectedTask = function (_React$Component) {
                     { className: 'row' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-12' },
+                        { className: 'col-md-12 titleContainer' },
                         _react2.default.createElement(
                             'h1',
                             null,
@@ -81079,24 +81105,10 @@ var SelectedTask = function (_React$Component) {
                         _react2.default.createElement(
                             'p',
                             null,
-                            'Description: ',
-                            description
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'row' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-md-12' },
-                        _react2.default.createElement(
-                            'p',
-                            null,
-                            'StartTime: ',
+                            'Start Time: ',
                             startTimeHours,
                             ':',
-                            startTimeMinutes
+                            startMin
                         )
                     )
                 ),
@@ -81112,7 +81124,7 @@ var SelectedTask = function (_React$Component) {
                             'Finish Time: ',
                             finishTimeHours,
                             ':',
-                            finishTimeMinutes
+                            finishMin
                         )
                     )
                 ),
@@ -81130,7 +81142,8 @@ var SelectedTask = function (_React$Component) {
                             ' minutes'
                         )
                     )
-                )
+                ),
+                description
             );
         }
     }]);

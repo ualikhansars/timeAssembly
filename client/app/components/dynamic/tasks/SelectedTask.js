@@ -16,10 +16,26 @@ class SelectedTask extends React.Component {
             startTimeMinutes,
             title
         } = this.props.selectedTask;
+        let descriptionContent = null;
+        if(description) {
+            descriptionContent = <div className="row">
+                                    <div className="col-md-12">
+                                        <p>Description: {description}</p>
+                                    </div>
+                                </div>
+        }
+        let startMin, finishMin;
+        if(startTimeMinutes == 0) {
+            startMin = '00';
+        }
+        if(finishTimeMinutes == 0) {
+            finishMin = '00';
+        }
+        
         return (
             <div className="container selectedTask">
                 <div className="row">
-                    <div className="col-md-12">
+                    <div className="col-md-12 titleContainer">
                         <h1>Title: {title}</h1>
                     </div>
                 </div>
@@ -35,17 +51,12 @@ class SelectedTask extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <p>Description: {description}</p>
+                        <p>Start Time: {startTimeHours}:{startMin}</p>
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <p>StartTime: {startTimeHours}:{startTimeMinutes}</p>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-12">
-                        <p>Finish Time: {finishTimeHours}:{finishTimeMinutes}</p>
+                        <p>Finish Time: {finishTimeHours}:{finishMin}</p>
                     </div>
                 </div>
                 <div className="row">
@@ -53,6 +64,7 @@ class SelectedTask extends React.Component {
                         <p>Duration: {duration} minutes</p>
                     </div>
                 </div>
+                {description}
             </div>
         )
     }
