@@ -2,11 +2,13 @@ import React from 'react';
 
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import { totalmem } from 'os';
 
 class UpdateSlotForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            initialTotal: this.props.slotInfo.slot.total,
             title: this.props.slotInfo.slot.title,
             category: this.props.slotInfo.slot.category,
             total: this.props.slotInfo.slot.total,
@@ -15,6 +17,24 @@ class UpdateSlotForm extends React.Component {
             dueDate: this.props.slotInfo.slot.dueDate,
             userId: this.props.slotInfo.slot.userId,
             _id: this.props.slotInfo.slot._id
+        }
+    }
+
+    incrementTotal() {
+        if(this.state.total < 40) {
+            let updatedTotal = this.state.total + 1;
+            this.setState({
+               total: updatedTotal
+            });
+        }
+    }
+
+    decrementTotal() {
+        if(this.state.total > this.state.initialTotal) {
+            let updatedTotal = this.state.total - 1;
+            this.setState({
+               total: updatedTotal
+            });
         }
     }
 
@@ -52,16 +72,9 @@ class UpdateSlotForm extends React.Component {
                         <input value={this.state.category} onChange={this.onChange.bind(this)} type="text" className="form-control col-md-12" id="category" name="category" placeholder="Important" />
                     </div>
                     <div className="form-group row">
-                        <label htmlFor="total" className="col-md-12">Total</label>
-                        <input value={this.state.total} onChange={this.onChange.bind(this)} type="number" className="form-control col-md-12" id="total" name="total" placeholder="Enter week frequency" />
-                    </div>
-                    <div className="form-group row">
-                        <label htmlFor="temporary" className="col-md-3">Temporary</label>
-                        <input value={this.state.temporary} onChange={this.onCheckboxChange.bind(this)} type="checkbox" className="col-md-3" id="temporary" name="temporary" value="temporary" />
-                    </div>
-                    <div className="form-group row">
-                        <label htmlFor="dueDate" className="col-md-12">Due Date</label>
-                        <input value={this.state.dueDate} onChange={this.onChange.bind(this)} type="date" className="form-control col-md-12" id="dueDate" name="dueDate" placeholder="By what date this task has to be finished" />
+                        <span htmlFor="total" className="col-md-12">Total: {this.state.total}</span>
+                        <img src="/img/add.png" onClick={() => this.incrementTotal()} />
+                        <img src="/img/minus.png" onClick={() => this.decrementTotal()} />        
                     </div>
                     <div className="row">
                         <div className="col-md-4">

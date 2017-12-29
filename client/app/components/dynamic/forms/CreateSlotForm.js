@@ -70,9 +70,9 @@ class CreateSlotForm extends React.Component {
                 errors: 'Total should be more than 0'
             });
         } 
-        else if(this.state.total > 70) {
+        else if(this.state.total > 40) {
             this.setState({
-                errors: 'Total cannot be more than 70'
+                errors: 'Total cannot be more than 40'
             });
         }
         else if(this.state.temporary && !this.state.dueDate) {

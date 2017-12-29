@@ -78859,9 +78859,9 @@ var CreateSlotForm = function (_React$Component) {
                 this.setState({
                     errors: 'Total should be more than 0'
                 });
-            } else if (this.state.total > 70) {
+            } else if (this.state.total > 40) {
                 this.setState({
-                    errors: 'Total cannot be more than 70'
+                    errors: 'Total cannot be more than 40'
                 });
             } else if (this.state.temporary && !this.state.dueDate) {
                 this.setState({
@@ -79444,6 +79444,8 @@ var _propTypes = __webpack_require__(11);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _os = __webpack_require__(673);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -79463,6 +79465,7 @@ var UpdateSlotForm = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (UpdateSlotForm.__proto__ || Object.getPrototypeOf(UpdateSlotForm)).call(this, props));
 
         _this.state = {
+            initialTotal: _this.props.slotInfo.slot.total,
             title: _this.props.slotInfo.slot.title,
             category: _this.props.slotInfo.slot.category,
             total: _this.props.slotInfo.slot.total,
@@ -79476,6 +79479,26 @@ var UpdateSlotForm = function (_React$Component) {
     }
 
     _createClass(UpdateSlotForm, [{
+        key: 'incrementTotal',
+        value: function incrementTotal() {
+            if (this.state.total < 40) {
+                var updatedTotal = this.state.total + 1;
+                this.setState({
+                    total: updatedTotal
+                });
+            }
+        }
+    }, {
+        key: 'decrementTotal',
+        value: function decrementTotal() {
+            if (this.state.total > this.state.initialTotal) {
+                var updatedTotal = this.state.total - 1;
+                this.setState({
+                    total: updatedTotal
+                });
+            }
+        }
+    }, {
         key: 'onChange',
         value: function onChange(event) {
             this.setState(_defineProperty({}, event.target.id, event.target.value));
@@ -79535,31 +79558,17 @@ var UpdateSlotForm = function (_React$Component) {
                     'div',
                     { className: 'form-group row' },
                     _react2.default.createElement(
-                        'label',
+                        'span',
                         { htmlFor: 'total', className: 'col-md-12' },
-                        'Total'
+                        'Total: ',
+                        this.state.total
                     ),
-                    _react2.default.createElement('input', { value: this.state.total, onChange: this.onChange.bind(this), type: 'number', className: 'form-control col-md-12', id: 'total', name: 'total', placeholder: 'Enter week frequency' })
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-group row' },
-                    _react2.default.createElement(
-                        'label',
-                        { htmlFor: 'temporary', className: 'col-md-3' },
-                        'Temporary'
-                    ),
-                    _react2.default.createElement('input', _defineProperty({ value: this.state.temporary, onChange: this.onCheckboxChange.bind(this), type: 'checkbox', className: 'col-md-3', id: 'temporary', name: 'temporary' }, 'value', 'temporary'))
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-group row' },
-                    _react2.default.createElement(
-                        'label',
-                        { htmlFor: 'dueDate', className: 'col-md-12' },
-                        'Due Date'
-                    ),
-                    _react2.default.createElement('input', { value: this.state.dueDate, onChange: this.onChange.bind(this), type: 'date', className: 'form-control col-md-12', id: 'dueDate', name: 'dueDate', placeholder: 'By what date this task has to be finished' })
+                    _react2.default.createElement('img', { src: '/img/add.png', onClick: function onClick() {
+                            return _this2.incrementTotal();
+                        } }),
+                    _react2.default.createElement('img', { src: '/img/minus.png', onClick: function onClick() {
+                            return _this2.decrementTotal();
+                        } })
                 ),
                 _react2.default.createElement(
                     'div',
@@ -84541,6 +84550,57 @@ function symbolObservablePonyfill(root) {
 
 	return result;
 };
+
+/***/ }),
+/* 673 */
+/***/ (function(module, exports) {
+
+exports.endianness = function () { return 'LE' };
+
+exports.hostname = function () {
+    if (typeof location !== 'undefined') {
+        return location.hostname
+    }
+    else return '';
+};
+
+exports.loadavg = function () { return [] };
+
+exports.uptime = function () { return 0 };
+
+exports.freemem = function () {
+    return Number.MAX_VALUE;
+};
+
+exports.totalmem = function () {
+    return Number.MAX_VALUE;
+};
+
+exports.cpus = function () { return [] };
+
+exports.type = function () { return 'Browser' };
+
+exports.release = function () {
+    if (typeof navigator !== 'undefined') {
+        return navigator.appVersion;
+    }
+    return '';
+};
+
+exports.networkInterfaces
+= exports.getNetworkInterfaces
+= function () { return {} };
+
+exports.arch = function () { return 'javascript' };
+
+exports.platform = function () { return 'browser' };
+
+exports.tmpdir = exports.tmpDir = function () {
+    return '/tmp';
+};
+
+exports.EOL = '\n';
+
 
 /***/ })
 /******/ ]);
