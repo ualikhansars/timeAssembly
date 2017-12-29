@@ -16,7 +16,8 @@ class UpdateSlotForm extends React.Component {
             temporary: this.props.slotInfo.slot.temporary,
             dueDate: this.props.slotInfo.slot.dueDate,
             userId: this.props.slotInfo.slot.userId,
-            _id: this.props.slotInfo.slot._id
+            _id: this.props.slotInfo.slot._id,
+            errors: ''
         }
     }
 
@@ -40,13 +41,8 @@ class UpdateSlotForm extends React.Component {
 
     onChange(event) {
         this.setState({
-                [event.target.id]: event.target.value
-        });
-    }
-
-    onCheckboxChange(event) {
-        this.setState({
-            temporary: !this.state.temporary
+                [event.target.id]: event.target.value,
+                errors: ''
         });
     }
 
@@ -57,7 +53,29 @@ class UpdateSlotForm extends React.Component {
         let updatedSlot = Object.assign({}, this.state, {
             free: total
         });
-        this.props.updateSlot(updatedSlot);
+        if(!this.state.title) {
+            this.setState({
+                errors: 'Title cannot be blank'
+            });
+        }
+        else if(this.state.title.length > 120) {
+            this.setState({
+                errors: 'Title cannot be more than 120 characters long'
+            });
+        }
+        else if(!this.state.category) {
+            this.setState({
+                errors: 'Category cannot be blank'
+            });
+        }
+        else if(this.state.category.length > 120) {
+            this.setState({
+                errors: 'Category cannot be more than 120 characters long'
+            });
+        } 
+        else {
+            this.props.updateSlot(updatedSlot);
+        }
     }
     render() {
         return (
@@ -84,6 +102,11 @@ class UpdateSlotForm extends React.Component {
                                     <img src="/img/minus.png" onClick={() => this.decrementTotal()} className="minusBtn" />        
                                 </div>
                                 <div className="col-md-2"></div>
+                    </div>
+                    <div className="row errors">
+                        <div className="col-md-12">
+                            <span>{this.state.errors}</span>
+                        </div>
                     </div>
                     <div className="row buttons">
                         <div className="col-md-4">

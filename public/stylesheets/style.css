@@ -381,3 +381,8 @@ div.updateSlot .minusBtn {
 div.updateSlot .buttons {
   margin-top: 26px;
 }
+
+div.updateSlot .errors {
+  font-size: 28px;
+  color: red;
+}
