@@ -66,7 +66,7 @@ class SelectedTask extends React.Component {
                         <p>Duration: {durationInHours}</p>
                     </div>
                 </div>
-                {description}
+                {descriptionContent}
             </div>
         )
     }

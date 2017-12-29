@@ -7,6 +7,14 @@ import {displaySlots} from '../../../actions/displayAction';
 import {
     updateTask
 } from '../../../actions/taskAction';
+import {
+    getTasksStartsAfterStartTime,
+    getDueTime
+ } from '../../../utils/taskCalc';
+ import {
+    calcPossibleHoursAndMins,
+    getDurationInMins
+} from '../../../utils/timeCalc';
 
 class UpdateTaskForm extends React.Component {
     constructor(props) {
@@ -16,18 +24,22 @@ class UpdateTaskForm extends React.Component {
         this.description = this.props.taskInfo.task.description;
         this.duration = this.props.taskInfo.task.duration;
         this.startTimeHours = this.props.taskInfo.task.startTimeHours;
-        this.finishTimeHours = this.props.taskInfo.task.startTimeMinutes;
-        this.finishTimeMinutes = this.props.taskInfo.task.finishHours;
-        this.finishTimeHours = this.props.taskInfo.task.finishTimeMinutes;
+        this.startTimeMinutes = this.props.taskInfo.task.startTimeMinutes;
+        this.finishTimeHours = this.props.taskInfo.task.finishTimeHours;
+        this.finishTimeMinutes = this.props.taskInfo.task.finishTimeMinutes;
         this.day = this.props.taskInfo.task.day;
         this.userId = this.props.taskInfo.task.userId;
         this.slot = this.props.taskInfo.task.slot;
-        this.id = this.props.taskInfo.task._id;       
+        this.id = this.props.taskInfo.task._id;
+        this.durationHours = Math.floor(this.props.taskInfo.task.duration / 60); 
+        this.durationMins = this.props.taskInfo.task.duration % 60;        
         this.state = {
             title: this.title,
             category: this.category,
             description: this.description,
             duration: this.duration,
+            durationHours: this.durationHours,
+            durationMins: this.durationMins,
             startTimeHours: this.startTimeHours,
             startTimeMinutes: this.startTimeMinutes,
             finishTimeHours: this.finishTimeHours,
@@ -43,6 +55,7 @@ class UpdateTaskForm extends React.Component {
         this.setState({
                 [event.target.id]: event.target.value
         });
+        console.error('this.state', this.state);
     }
 
     onSubmit(e) {
@@ -53,8 +66,6 @@ class UpdateTaskForm extends React.Component {
         let startTimeMinutes = Number(this.state.startTimeMinutes);
         let finishHours = startTimeHours;
         let finishMinutes = startTimeMinutes;
-        console.log('FinishTimeCount', finishHours, finishMinutes);
-        console.log('duration', duration);
         if(duration < 0) {
             duration = 0;
         }
@@ -86,6 +97,38 @@ class UpdateTaskForm extends React.Component {
         this.props.updateTask(updatedTask);
     }
     render() {
+        console.error('id', this.state._id);
+        console.error('userId', this.state.userId);
+        console.error('slot', this.state.slot);
+        console.error('duration', this.state.duration);
+        let {tasks} = this.props.taskInfo;
+        let startTimeHours = this.state.startTimeHours;
+        let startTimeMinutes = this.state.startTimeMinutes;
+        console.log('startTimeHours:', startTimeHours, 'startTimeMinutes', startTimeMinutes);
+        console.log('tasks:', tasks);
+        let tasksStartsAfterStartTime = getTasksStartsAfterStartTime(startTimeHours, startTimeMinutes, tasks);
+        console.error('taskStartsAfterStartTime', tasksStartsAfterStartTime);
+        // get min tasks that starts after start time
+        // to calculate possible duration
+        let {dueHours, dueMins} = getDueTime(tasksStartsAfterStartTime);
+        let possibleDurationInMins = getDurationInMins(startTimeHours, startTimeMinutes, dueHours, dueMins);
+        console.error('durationHours', this.state.durationHours, 'durationMins', this.state.durationMins);
+        let {possibleHours, possibleMins} = calcPossibleHoursAndMins(possibleDurationInMins, this.state.durationHours, this.state.durationMins);
+        
+        let hours = [];
+        let minutes = [];
+        for(let hour = 0; hour <= possibleHours; ++hour) {
+            let stringHour = 'hours';
+            if(hour == 1) stringHour = 'hour';
+            hours.push(
+                <option value={hour} key={hour}>{hour} {stringHour}</option> 
+            ); 
+        }
+        for(let min = 0; min <= possibleMins; min += 15) {
+            minutes.push(
+                <option value={min} key={min}>{min} minutes</option> 
+            );
+        }
         return (
              <div className="tasks-form">
                      <h2>Update Task: {this.state.title}</h2>
@@ -97,13 +140,21 @@ class UpdateTaskForm extends React.Component {
                         <input value={this.state.description} onChange={this.onChange.bind(this)} type="text" className="form-control col-md-12" id="description" name="description" placeholder="What exactly to do" />
                     </div>
                     <div className="form-group row">
-                        <label htmlFor="duration" className="col-md-12">Duration</label>
-                        <input value={this.state.duration} onChange={this.onChange.bind(this)} type="text" className="form-control col-md-12" id="duration" name="duration" placeholder="Duration of this task in minutes" />
+                    <label htmlFor="duration" className="col-md-12 duration">Duration:</label>
+                    <div className="col-md-5">
+                        <span className="hours">Hours:</span>
+                        <select value={this.state.durationHours} onChange={this.onChange.bind(this)} id="durationHours" name="durationHours">
+                            {hours}
+                        </select>
                     </div>
-                    <div className="form-group row">
-                        <input type="number" onChange={this.onChange.bind(this)} className="form-control col-sm-5" id="startTimeHours" name="startTimeHours" placeholder="Hours" />:
-                        <input type="number" onChange={this.onChange.bind(this)} className="form-control col-sm-5" id="startTimeMinutes" name="startTimeMinutes" placeholder="Minutes" />
+                    
+                    <div className="col-md-5 offset-md-1">
+                        <span className="minutes">Minutes:</span>
+                        <select value={this.state.durationMins} onChange={this.onChange.bind(this)} id="durationMins" name="durationMins">
+                            {minutes}
+                        </select>
                     </div>
+                </div>
                     <div className="row">
                         <div className="col-md-4">
                             <button onClick={this.onSubmit.bind(this)} className="btn btn-success">Update</button>
@@ -135,7 +186,7 @@ const mapDispatchToProps = (dispatch) => {
 UpdateTaskForm.propTypes = {
     displaySlots: PropTypes.func.isRequired,
     taskInfo: PropTypes.object.isRequired,
-    updatedTask: PropTypes.func.isRequired
+    updateTask: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpdateTaskForm);

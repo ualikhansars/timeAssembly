@@ -79686,6 +79686,10 @@ var _displayAction = __webpack_require__(461);
 
 var _taskAction = __webpack_require__(134);
 
+var _taskCalc = __webpack_require__(640);
+
+var _timeCalc = __webpack_require__(135);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -79709,18 +79713,22 @@ var UpdateTaskForm = function (_React$Component) {
         _this.description = _this.props.taskInfo.task.description;
         _this.duration = _this.props.taskInfo.task.duration;
         _this.startTimeHours = _this.props.taskInfo.task.startTimeHours;
-        _this.finishTimeHours = _this.props.taskInfo.task.startTimeMinutes;
-        _this.finishTimeMinutes = _this.props.taskInfo.task.finishHours;
-        _this.finishTimeHours = _this.props.taskInfo.task.finishTimeMinutes;
+        _this.startTimeMinutes = _this.props.taskInfo.task.startTimeMinutes;
+        _this.finishTimeHours = _this.props.taskInfo.task.finishTimeHours;
+        _this.finishTimeMinutes = _this.props.taskInfo.task.finishTimeMinutes;
         _this.day = _this.props.taskInfo.task.day;
         _this.userId = _this.props.taskInfo.task.userId;
         _this.slot = _this.props.taskInfo.task.slot;
         _this.id = _this.props.taskInfo.task._id;
+        _this.durationHours = Math.floor(_this.props.taskInfo.task.duration / 60);
+        _this.durationMins = _this.props.taskInfo.task.duration % 60;
         _this.state = {
             title: _this.title,
             category: _this.category,
             description: _this.description,
             duration: _this.duration,
+            durationHours: _this.durationHours,
+            durationMins: _this.durationMins,
             startTimeHours: _this.startTimeHours,
             startTimeMinutes: _this.startTimeMinutes,
             finishTimeHours: _this.finishTimeHours,
@@ -79737,6 +79745,7 @@ var UpdateTaskForm = function (_React$Component) {
         key: 'onChange',
         value: function onChange(event) {
             this.setState(_defineProperty({}, event.target.id, event.target.value));
+            console.error('this.state', this.state);
         }
     }, {
         key: 'onSubmit',
@@ -79749,8 +79758,6 @@ var UpdateTaskForm = function (_React$Component) {
             var startTimeMinutes = Number(this.state.startTimeMinutes);
             var finishHours = startTimeHours;
             var finishMinutes = startTimeMinutes;
-            console.log('FinishTimeCount', finishHours, finishMinutes);
-            console.log('duration', duration);
             if (duration < 0) {
                 duration = 0;
             }
@@ -79789,6 +79796,53 @@ var UpdateTaskForm = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            console.error('id', this.state._id);
+            console.error('userId', this.state.userId);
+            console.error('slot', this.state.slot);
+            console.error('duration', this.state.duration);
+            var tasks = this.props.taskInfo.tasks;
+
+            var startTimeHours = this.state.startTimeHours;
+            var startTimeMinutes = this.state.startTimeMinutes;
+            console.log('startTimeHours:', startTimeHours, 'startTimeMinutes', startTimeMinutes);
+            console.log('tasks:', tasks);
+            var tasksStartsAfterStartTime = (0, _taskCalc.getTasksStartsAfterStartTime)(startTimeHours, startTimeMinutes, tasks);
+            console.error('taskStartsAfterStartTime', tasksStartsAfterStartTime);
+            // get min tasks that starts after start time
+            // to calculate possible duration
+
+            var _getDueTime = (0, _taskCalc.getDueTime)(tasksStartsAfterStartTime),
+                dueHours = _getDueTime.dueHours,
+                dueMins = _getDueTime.dueMins;
+
+            var possibleDurationInMins = (0, _timeCalc.getDurationInMins)(startTimeHours, startTimeMinutes, dueHours, dueMins);
+            console.error('durationHours', this.state.durationHours, 'durationMins', this.state.durationMins);
+
+            var _calcPossibleHoursAnd = (0, _timeCalc.calcPossibleHoursAndMins)(possibleDurationInMins, this.state.durationHours, this.state.durationMins),
+                possibleHours = _calcPossibleHoursAnd.possibleHours,
+                possibleMins = _calcPossibleHoursAnd.possibleMins;
+
+            var hours = [];
+            var minutes = [];
+            for (var hour = 0; hour <= possibleHours; ++hour) {
+                var stringHour = 'hours';
+                if (hour == 1) stringHour = 'hour';
+                hours.push(_react2.default.createElement(
+                    'option',
+                    { value: hour, key: hour },
+                    hour,
+                    ' ',
+                    stringHour
+                ));
+            }
+            for (var min = 0; min <= possibleMins; min += 15) {
+                minutes.push(_react2.default.createElement(
+                    'option',
+                    { value: min, key: min },
+                    min,
+                    ' minutes'
+                ));
+            }
             return _react2.default.createElement(
                 'div',
                 { className: 'tasks-form' },
@@ -79823,17 +79877,37 @@ var UpdateTaskForm = function (_React$Component) {
                     { className: 'form-group row' },
                     _react2.default.createElement(
                         'label',
-                        { htmlFor: 'duration', className: 'col-md-12' },
-                        'Duration'
+                        { htmlFor: 'duration', className: 'col-md-12 duration' },
+                        'Duration:'
                     ),
-                    _react2.default.createElement('input', { value: this.state.duration, onChange: this.onChange.bind(this), type: 'text', className: 'form-control col-md-12', id: 'duration', name: 'duration', placeholder: 'Duration of this task in minutes' })
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'form-group row' },
-                    _react2.default.createElement('input', { type: 'number', onChange: this.onChange.bind(this), className: 'form-control col-sm-5', id: 'startTimeHours', name: 'startTimeHours', placeholder: 'Hours' }),
-                    ':',
-                    _react2.default.createElement('input', { type: 'number', onChange: this.onChange.bind(this), className: 'form-control col-sm-5', id: 'startTimeMinutes', name: 'startTimeMinutes', placeholder: 'Minutes' })
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-5' },
+                        _react2.default.createElement(
+                            'span',
+                            { className: 'hours' },
+                            'Hours:'
+                        ),
+                        _react2.default.createElement(
+                            'select',
+                            { value: this.state.durationHours, onChange: this.onChange.bind(this), id: 'durationHours', name: 'durationHours' },
+                            hours
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-5 offset-md-1' },
+                        _react2.default.createElement(
+                            'span',
+                            { className: 'minutes' },
+                            'Minutes:'
+                        ),
+                        _react2.default.createElement(
+                            'select',
+                            { value: this.state.durationMins, onChange: this.onChange.bind(this), id: 'durationMins', name: 'durationMins' },
+                            minutes
+                        )
+                    )
                 ),
                 _react2.default.createElement(
                     'div',
@@ -79882,7 +79956,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 UpdateTaskForm.propTypes = {
     displaySlots: _propTypes2.default.func.isRequired,
     taskInfo: _propTypes2.default.object.isRequired,
-    updatedTask: _propTypes2.default.func.isRequired
+    updateTask: _propTypes2.default.func.isRequired
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(UpdateTaskForm);
@@ -81259,7 +81333,7 @@ var SelectedTask = function (_React$Component) {
                         )
                     )
                 ),
-                description
+                descriptionContent
             );
         }
     }]);
