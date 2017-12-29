@@ -79528,18 +79528,26 @@ var UpdateSlotForm = function (_React$Component) {
 
             return _react2.default.createElement(
                 'div',
-                { className: 'slots-form' },
+                { className: 'slots-form updateSlot' },
                 _react2.default.createElement(
-                    'h1',
-                    null,
-                    'Update Slot'
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-12 updateSlotTitleContainer' },
+                        _react2.default.createElement(
+                            'h1',
+                            null,
+                            'Update Slot'
+                        )
+                    )
                 ),
                 _react2.default.createElement(
                     'div',
                     { className: 'form-group row' },
                     _react2.default.createElement(
                         'label',
-                        { htmlFor: 'title', className: 'col-md-12' },
+                        { htmlFor: 'title', className: 'col-md-12 slotTitle' },
                         'Title'
                     ),
                     _react2.default.createElement('input', { value: this.state.title, onChange: this.onChange.bind(this), type: 'text', className: 'form-control col-md-12', id: 'title', name: 'title', placeholder: 'Study' })
@@ -79549,30 +79557,39 @@ var UpdateSlotForm = function (_React$Component) {
                     { className: 'form-group row' },
                     _react2.default.createElement(
                         'label',
-                        { htmlFor: 'category', className: 'col-md-12' },
+                        { htmlFor: 'category', className: 'col-md-12 slotCategory' },
                         'Category'
                     ),
                     _react2.default.createElement('input', { value: this.state.category, onChange: this.onChange.bind(this), type: 'text', className: 'form-control col-md-12', id: 'category', name: 'category', placeholder: 'Important' })
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'form-group row' },
+                    { className: 'row' },
                     _react2.default.createElement(
-                        'span',
-                        { htmlFor: 'total', className: 'col-md-12' },
-                        'Total: ',
-                        this.state.total
+                        'div',
+                        { className: 'col-md-4' },
+                        _react2.default.createElement(
+                            'span',
+                            { htmlFor: 'total', className: 'slotTotal' },
+                            'Total: ',
+                            this.state.total
+                        )
                     ),
-                    _react2.default.createElement('img', { src: '/img/add.png', onClick: function onClick() {
-                            return _this2.incrementTotal();
-                        } }),
-                    _react2.default.createElement('img', { src: '/img/minus.png', onClick: function onClick() {
-                            return _this2.decrementTotal();
-                        } })
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-4' },
+                        _react2.default.createElement('img', { src: '/img/add.png', onClick: function onClick() {
+                                return _this2.incrementTotal();
+                            }, className: 'addBtn' }),
+                        _react2.default.createElement('img', { src: '/img/minus.png', onClick: function onClick() {
+                                return _this2.decrementTotal();
+                            }, className: 'minusBtn' })
+                    ),
+                    _react2.default.createElement('div', { className: 'col-md-2' })
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'row' },
+                    { className: 'row buttons' },
                     _react2.default.createElement(
                         'div',
                         { className: 'col-md-4' },

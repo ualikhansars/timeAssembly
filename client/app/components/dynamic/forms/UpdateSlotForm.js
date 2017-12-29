@@ -61,22 +61,31 @@ class UpdateSlotForm extends React.Component {
     }
     render() {
         return (
-             <div className="slots-form">
-                    <h1>Update Slot</h1>
+             <div className="slots-form updateSlot">
+                    <div className="row">
+                        <div className="col-md-12 updateSlotTitleContainer">
+                            <h1>Update Slot</h1>
+                        </div>
+                    </div>
                     <div className="form-group row">
-                        <label htmlFor="title" className="col-md-12">Title</label>
+                        <label htmlFor="title" className="col-md-12 slotTitle">Title</label>
                         <input value={this.state.title} onChange={this.onChange.bind(this)} type="text" className="form-control col-md-12" id="title" name="title" placeholder="Study" />
                     </div>
                     <div className="form-group row">
-                        <label htmlFor="category" className="col-md-12">Category</label>
+                        <label htmlFor="category" className="col-md-12 slotCategory">Category</label>
                         <input value={this.state.category} onChange={this.onChange.bind(this)} type="text" className="form-control col-md-12" id="category" name="category" placeholder="Important" />
                     </div>
-                    <div className="form-group row">
-                        <span htmlFor="total" className="col-md-12">Total: {this.state.total}</span>
-                        <img src="/img/add.png" onClick={() => this.incrementTotal()} />
-                        <img src="/img/minus.png" onClick={() => this.decrementTotal()} />        
-                    </div>
                     <div className="row">
+                                <div className="col-md-4">
+                                    <span htmlFor="total" className="slotTotal">Total: {this.state.total}</span>
+                                </div>
+                                <div className="col-md-4">
+                                    <img src="/img/add.png" onClick={() => this.incrementTotal()} className="addBtn" />
+                                    <img src="/img/minus.png" onClick={() => this.decrementTotal()} className="minusBtn" />        
+                                </div>
+                                <div className="col-md-2"></div>
+                    </div>
+                    <div className="row buttons">
                         <div className="col-md-4">
                             <button onClick={this.onSubmit.bind(this)} className="btn btn-success">Update</button>
                         </div>

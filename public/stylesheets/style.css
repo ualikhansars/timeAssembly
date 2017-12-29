@@ -351,3 +351,33 @@ div.selectedTask p {
 div.selectedTask .titleContainer {
   text-align: center;
 }
+
+/* UpdateSlot */
+div.updateSlot div.updateSlotTitleContainer {
+  text-align: center;
+}
+
+div.updateSlot .slotTitle {
+  font-size: 32px;
+}
+
+div.updateSlot .slotCategory {
+  font-size: 32px;
+}
+
+div.updateSlot .slotTotal {
+  font-size: 32px;
+}
+
+div.updateSlot .addBtn {
+  margin-right: 9px;
+  margin-bottom: 12px;
+}
+
+div.updateSlot .minusBtn {
+  margin-bottom: 12px;
+}
+
+div.updateSlot .buttons {
+  margin-top: 26px;
+}
