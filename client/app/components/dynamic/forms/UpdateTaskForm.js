@@ -71,7 +71,6 @@ class UpdateTaskForm extends React.Component {
             finishTimeHours: finishHour,
             finishTimeMinutes: finishMin
         });
-        console.error('this.state:', this.state);
     }
 
     onChangeDurationMinutes(event) {
@@ -87,7 +86,7 @@ class UpdateTaskForm extends React.Component {
             finishTimeHours: finishHour,
             finishTimeMinutes: finishMin
         });
-        console.error('this.state:', this.state);
+        //console.error('this.state:', this.state);
     }
 
 

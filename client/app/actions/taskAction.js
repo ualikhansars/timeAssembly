@@ -178,7 +178,7 @@ export const updateTask = (task) => {
             })
             .then(() => {
                 dispatch({
-                    type: 'DISPLAY_NOTHING',
+                    type: 'DISPLAY_SLOTS',
                 });
             })
             .catch(error => {

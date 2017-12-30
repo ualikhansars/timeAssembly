@@ -25995,7 +25995,7 @@ var updateTask = exports.updateTask = function updateTask(task) {
             });
         }).then(function () {
             dispatch({
-                type: 'DISPLAY_NOTHING'
+                type: 'DISPLAY_SLOTS'
             });
         }).catch(function (error) {
             throw error;
@@ -79837,7 +79837,6 @@ var UpdateTaskForm = function (_React$Component) {
                 finishTimeHours: finishHour,
                 finishTimeMinutes: finishMin
             });
-            console.error('this.state:', this.state);
         }
     }, {
         key: 'onChangeDurationMinutes',
@@ -79858,7 +79857,7 @@ var UpdateTaskForm = function (_React$Component) {
                 finishTimeHours: finishHour,
                 finishTimeMinutes: finishMin
             });
-            console.error('this.state:', this.state);
+            //console.error('this.state:', this.state);
         }
     }, {
         key: 'onSubmit',
