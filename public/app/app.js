@@ -79831,7 +79831,6 @@ var UpdateTaskForm = function (_React$Component) {
                 finishHour = _getFinishTimeBasedOn.finishHour,
                 finishMin = _getFinishTimeBasedOn.finishMin;
 
-            console.error('finishHour', finishHour, 'finishMin', finishMin);
             this.setState({
                 durationHours: event.target.value,
                 duration: updatedDuration,
@@ -79865,41 +79864,6 @@ var UpdateTaskForm = function (_React$Component) {
         key: 'onSubmit',
         value: function onSubmit(e) {
             e.preventDefault();
-            // let duration = Number(this.state.duration);
-            // let finishTimeHours, finishTimeMinutes;
-            // let startTimeHours = Number(this.state.startTimeHours);
-            // let startTimeMinutes = Number(this.state.startTimeMinutes);
-            // let finishHours = startTimeHours;
-            // let finishMinutes = startTimeMinutes;
-            // if(duration < 0) {
-            //     duration = 0;
-            // }
-            // if(duration < 60) {
-            //     let addition = startTimeMinutes + duration; // 80 or 30
-            //     if(addition === 60) {
-            //         finishHours++;
-            //         finishMinutes = 0;
-            //     }
-            //     if(addition < 60) { // 30
-            //         finishMinutes = startTimeMinutes + duration;
-            //     }  
-            //     if(addition > 60) { // 80
-            //        let balance = startTimeMinutes - duration;
-            //        finishHours++;
-            //        finishMinutes = balance;
-            //     }
-            // } else { // duration > 60
-            //     let parameter = Math.floor(duration / 60); // 200 / 60 === 3
-            //     let balance = duration % 60;
-            //     finishHours = startTimeHours + parameter;
-            //     finishMinutes = startTimeMinutes + balance;
-            // }
-
-            // let updatedTask = Object.assign({}, this.state, {
-            //     finishTimeHours: finishHours,
-            //     finishTimeMinutes: finishMinutes,
-            // });
-            //console.log('updatedTask', updatedTask);
             var updatedTask = Object.assign({}, this.state);
             this.props.updateTask(updatedTask);
         }
@@ -79908,18 +79872,11 @@ var UpdateTaskForm = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            console.error('id', this.state._id);
-            console.error('userId', this.state.userId);
-            console.error('slot', this.state.slot);
-            console.error('duration', this.state.duration);
             var tasks = this.props.taskInfo.tasks;
 
             var startTimeHours = this.state.startTimeHours;
             var startTimeMinutes = this.state.startTimeMinutes;
-            console.log('startTimeHours:', startTimeHours, 'startTimeMinutes', startTimeMinutes);
-            console.log('tasks:', tasks);
             var tasksStartsAfterStartTime = (0, _taskCalc.getTasksStartsAfterStartTime)(startTimeHours, startTimeMinutes, tasks);
-            console.error('taskStartsAfterStartTime', tasksStartsAfterStartTime);
             // get min tasks that starts after start time
             // to calculate possible duration
 
@@ -79928,7 +79885,7 @@ var UpdateTaskForm = function (_React$Component) {
                 dueMins = _getDueTime.dueMins;
 
             var possibleDurationInMins = (0, _timeCalc.getDurationInMins)(startTimeHours, startTimeMinutes, dueHours, dueMins);
-            console.error('durationHours', this.state.durationHours, 'durationMins', this.state.durationMins);
+            //console.error('durationHours', this.state.durationHours, 'durationMins', this.state.durationMins);
 
             var _calcPossibleHoursAnd = (0, _timeCalc.calcPossibleHoursAndMins)(possibleDurationInMins, this.state.durationHours, this.state.durationMins),
                 possibleHours = _calcPossibleHoursAnd.possibleHours,
