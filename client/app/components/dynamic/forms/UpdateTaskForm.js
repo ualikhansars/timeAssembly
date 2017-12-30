@@ -13,7 +13,8 @@ import {
  } from '../../../utils/taskCalc';
  import {
     calcPossibleHoursAndMins,
-    getDurationInMins
+    getDurationInMins,
+    getFinishTimeBasedOnDuration
 } from '../../../utils/timeCalc';
 
 class UpdateTaskForm extends React.Component {
@@ -51,49 +52,84 @@ class UpdateTaskForm extends React.Component {
         }
     }
 
-    onChange(event) {
+    onChangeDescription(event) {
         this.setState({
-                [event.target.id]: event.target.value
+            description: event.target.value
         });
-        console.error('this.state', this.state);
     }
+
+    onChangeDurationHours(event) {
+        let startHour = this.state.startTimeHours;
+        let startMin = this.state.startTimeMinutes;
+        let durationHours = Number(event.target.value);
+        let durationMins = Number(this.state.durationMins);
+        let updatedDuration = (durationHours * 60) + durationMins;
+        let {finishHour, finishMin} = getFinishTimeBasedOnDuration(startHour, startMin, updatedDuration);
+        console.error('finishHour', finishHour, 'finishMin', finishMin);
+        this.setState({
+            durationHours: event.target.value,
+            duration: updatedDuration,
+            finishTimeHours: finishHour,
+            finishTimeMinutes: finishMin
+        });
+        console.error('this.state:', this.state);
+    }
+
+    onChangeDurationMinutes(event) {
+        let startHour = this.state.startTimeHours;
+        let startMin = this.state.startTimeMinutes;
+        let durationHours = Number(this.state.durationHours);
+        let durationMins = Number(event.target.value);
+        let updatedDuration = (durationHours * 60) + durationMins;
+        let {finishHour, finishMin} = getFinishTimeBasedOnDuration(startHour, startMin, updatedDuration);
+        this.setState({
+            durationMins: event.target.value,
+            duration: updatedDuration,
+            finishTimeHours: finishHour,
+            finishTimeMinutes: finishMin
+        });
+        console.error('this.state:', this.state);
+    }
+
 
     onSubmit(e) {
         e.preventDefault();
-        let duration = Number(this.state.duration);
-        let finishTimeHours, finishTimeMinutes;
-        let startTimeHours = Number(this.state.startTimeHours);
-        let startTimeMinutes = Number(this.state.startTimeMinutes);
-        let finishHours = startTimeHours;
-        let finishMinutes = startTimeMinutes;
-        if(duration < 0) {
-            duration = 0;
-        }
-        if(duration < 60) {
-            let addition = startTimeMinutes + duration; // 80 or 30
-            if(addition === 60) {
-                finishHours++;
-                finishMinutes = 0;
-            }
-            if(addition < 60) { // 30
-                finishMinutes = startTimeMinutes + duration;
-            }  
-            if(addition > 60) { // 80
-               let balance = startTimeMinutes - duration;
-               finishHours++;
-               finishMinutes = balance;
-            }
-        } else { // duration > 60
-            let parameter = Math.floor(duration / 60); // 200 / 60 === 3
-            let balance = duration % 60;
-            finishHours = startTimeHours + parameter;
-            finishMinutes = startTimeMinutes + balance;
-        }
-        let updatedTask = Object.assign({}, this.state, {
-            finishTimeHours: finishHours,
-            finishTimeMinutes: finishMinutes,
-        });
-        console.log('updatedTask', updatedTask);
+        // let duration = Number(this.state.duration);
+        // let finishTimeHours, finishTimeMinutes;
+        // let startTimeHours = Number(this.state.startTimeHours);
+        // let startTimeMinutes = Number(this.state.startTimeMinutes);
+        // let finishHours = startTimeHours;
+        // let finishMinutes = startTimeMinutes;
+        // if(duration < 0) {
+        //     duration = 0;
+        // }
+        // if(duration < 60) {
+        //     let addition = startTimeMinutes + duration; // 80 or 30
+        //     if(addition === 60) {
+        //         finishHours++;
+        //         finishMinutes = 0;
+        //     }
+        //     if(addition < 60) { // 30
+        //         finishMinutes = startTimeMinutes + duration;
+        //     }  
+        //     if(addition > 60) { // 80
+        //        let balance = startTimeMinutes - duration;
+        //        finishHours++;
+        //        finishMinutes = balance;
+        //     }
+        // } else { // duration > 60
+        //     let parameter = Math.floor(duration / 60); // 200 / 60 === 3
+        //     let balance = duration % 60;
+        //     finishHours = startTimeHours + parameter;
+        //     finishMinutes = startTimeMinutes + balance;
+        // }
+        
+        // let updatedTask = Object.assign({}, this.state, {
+        //     finishTimeHours: finishHours,
+        //     finishTimeMinutes: finishMinutes,
+        // });
+        //console.log('updatedTask', updatedTask);
+        let updatedTask = Object.assign({}, this.state);
         this.props.updateTask(updatedTask);
     }
     render() {
@@ -137,20 +173,20 @@ class UpdateTaskForm extends React.Component {
                     </div>
                     <div className="form-group row">
                         <label htmlFor="description" className="col-md-12">Description</label>
-                        <input value={this.state.description} onChange={this.onChange.bind(this)} type="text" className="form-control col-md-12" id="description" name="description" placeholder="What exactly to do" />
+                        <input value={this.state.description} onChange={this.onChangeDescription.bind(this)} type="text" className="form-control col-md-12" id="description" name="description" placeholder="What exactly to do" />
                     </div>
                     <div className="form-group row">
                     <label htmlFor="duration" className="col-md-12 duration">Duration:</label>
                     <div className="col-md-5">
                         <span className="hours">Hours:</span>
-                        <select value={this.state.durationHours} onChange={this.onChange.bind(this)} id="durationHours" name="durationHours">
+                        <select value={this.state.durationHours} onChange={this.onChangeDurationHours.bind(this)} id="durationHours" name="durationHours">
                             {hours}
                         </select>
                     </div>
                     
                     <div className="col-md-5 offset-md-1">
                         <span className="minutes">Minutes:</span>
-                        <select value={this.state.durationMins} onChange={this.onChange.bind(this)} id="durationMins" name="durationMins">
+                        <select value={this.state.durationMins} onChange={this.onChangeDurationMinutes.bind(this)} id="durationMins" name="durationMins">
                             {minutes}
                         </select>
                     </div>

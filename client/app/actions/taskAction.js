@@ -166,9 +166,9 @@ export const onClickUpdateTask = (id) => {
 // update task in the database
 export const updateTask = (task) => {
     console.log('UPDATE TASK = ', task);
-    console.log('UPDATE TASK ID = ', task.id);
+    console.log('UPDATE TASK ID = ', task._id);
     return dispatch => {
-        return axios.put(`/api/task/${task.id}`, task)
+        return axios.put(`/api/task/${task._id}`, task)
             .then(res => {
                 console.log('UPDATE TASK RESPONCE', res);
                 dispatch({

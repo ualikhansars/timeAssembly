@@ -183,3 +183,22 @@ export const convertScheduleTimeBaseOnTimeFormat = (hour, timeFormat) => {
         }
     }
 }
+
+export const getFinishTimeBasedOnDuration = (startHour, startMin, duration) => {
+    let finishHour, finishMin;
+    finishHour = Number(startHour);
+    finishMin = Number(startMin);
+    let updatedDuration = Number(duration);
+    let durationHours = Math.floor(updatedDuration / 60);
+    let durationMins = updatedDuration % 60;
+    finishHour += durationHours;
+    finishMin += durationMins;
+    if(durationMins >= 60) {
+        finishHour += 1;
+        finishMin = finishMin - 60;
+    } 
+    return {
+        finishHour,
+        finishMin
+    }
+}
