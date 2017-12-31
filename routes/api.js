@@ -188,6 +188,64 @@ router.put('/:resource/byUserId/:userId', function(req, res, next) {
   });
 });
 
+// increment free slot attribute
+router.put('/:resource/:id/incFree', function(req, res, next) {
+  var resource = req.params.resource;
+  var id = req.params.id;
+  var controller = controllers[resource];
+
+  if(controller == null) {
+    res.json({
+      confirmation: 'failed',
+      message: 'Invalid resource request ' + resource
+    })
+    return;
+  }
+
+  controller.incFree(id, req.body, function(err, result) {
+    if(err) {
+      res.json({
+        confirmation: 'error',
+        message: err
+      });
+      return;
+    }
+    res.json({
+      confirmation: 'success',
+      result: result
+    });
+  });
+});
+
+// descrement free slot attribute
+router.put('/:resource/:id/decrFree', function(req, res, next) {
+  var resource = req.params.resource;
+  var id = req.params.id;
+  var controller = controllers[resource];
+
+  if(controller == null) {
+    res.json({
+      confirmation: 'failed',
+      message: 'Invalid resource request ' + resource
+    })
+    return;
+  }
+
+  controller.decrFree(id, req.body, function(err, result) {
+    if(err) {
+      res.json({
+        confirmation: 'error',
+        message: err
+      });
+      return;
+    }
+    res.json({
+      confirmation: 'success',
+      result: result
+    });
+  });
+});
+
 // remove
 router.delete('/:resource/:id', function(req, res, next) {
   var resource = req.params.resource;
@@ -254,56 +312,7 @@ router.put('/task', function(req, res, next) {
   })
 });
 
-// decrement free slot attribute
- router.put('/slot/:id/decrFree', function(req, res, next) {
-  var id = req.params.id;
-  Slot.findByIdAndUpdate(id, {$inc: {free: -1}},{new: true}, function(err, result) {
-    if(err) {
-      res.json({
-        confirmation: 'error',
-        message: err
-      });
-      return;
-    }
-    res.json({
-      confirmation: 'success',
-      result: result  
-    });
-  })
-});
-// increment free slot attribute
- router.put('/slot/:id/incFree', function(req, res, next) {
-  var id = req.params.id;
-  Slot.findByIdAndUpdate(id, {$inc: {free: 1}},{new: true}, function(err, result) {
-    if(err) {
-      res.json({
-        confirmation: 'error',
-        message: err
-      });
-      return;
-    }
-    res.json({
-      confirmation: 'success',
-      result: result  
-    });
-  })
-});
 
-// get slots by user id
-// router.get('/slot/:userId', function(req, res, next) {
-//   Slot.find({userId: userId}, function(err, result) {
-//     if(err) {
-//       res.json({
-//         confirmation: 'error',
-//         message: err
-//       });
-//       return;
-//     }
-//     res.json({
-//       confirmation: 'success',
-//       resource: result  
-//     });
-//   })
-// });
+
 
 module.exports = router;

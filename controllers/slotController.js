@@ -17,6 +17,22 @@ module.exports = {
             callback(null, slot);
         });
     },
+    decrFree: function(id, params, callback) {
+        Slot.findByIdAndUpdate(id, {$inc: {free: -1}}, {new: true}, function(err, result) {
+            if(err) {
+                callback(err, null);
+            }
+            callback(null, result);
+        });
+    },
+    incFree: function(id, params, callback) {
+        Slot.findByIdAndUpdate(id, {$inc: {free: 1}}, {new: true}, function(err, result) {
+            if(err) {
+                callback(err, null);
+            }
+            callback(null, result);
+        });
+    },
     create: function(params, callback) {
         // logic to save into database
         Slot.create(params, function(err, slot) {
