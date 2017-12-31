@@ -246,6 +246,34 @@ router.put('/:resource/:id/decrFree', function(req, res, next) {
   });
 });
 
+// update tasks while updating slot
+router.put('/task', function(req, res, next) {
+  var resource = req.params.resource;
+  var controller = controllers[resource];
+
+  if(controller == null) {
+    res.json({
+      confirmation: 'failed',
+      message: 'Invalid resource request ' + resource
+    })
+    return;
+  }
+
+  controller.updateTaskWhenSlotUpdated(req.body, function(err, result) {
+    if(err) {
+      res.json({
+        confirmation: 'error',
+        message: err
+      });
+      return;
+    }
+    res.json({
+      confirmation: 'success',
+      result: result
+    });
+  });
+});
+
 // remove
 router.delete('/:resource/:id', function(req, res, next) {
   var resource = req.params.resource;
@@ -303,25 +331,8 @@ router.delete('/task', function(req, res, next) {
   });
 }); 
 
-// update tasks while updating slot
-router.put('/task', function(req, res, next) {
-  Task.update(req.query, 
-              {$set: {title: req.body.title, category: req.body.category}}, 
-              {multi: true}, 
-    function(err, result) {
-    if(err) {
-      res.json({
-        confirmation: 'error',
-        message: err
-      });
-      return;
-    }
-    res.json({
-      confirmation: 'success',
-      result: result  
-    });
-  })
-});
+
+
 
 
 

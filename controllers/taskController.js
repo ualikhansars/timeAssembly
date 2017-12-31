@@ -41,6 +41,18 @@ module.exports = {
             callback(null, task);
         });
     },
+    updateTaskWhenSlotUpdated: function(params, callback) {
+        Task.update(req.query, 
+            {$set: {title: req.body.title, category: req.body.category}}, 
+            {multi: true},
+            function(err, task) {
+                if(err) {
+                    callback(err, null);
+                    return;
+                }
+                callback(null, task);
+            })
+    },
 
     remove:  function(id, callback) {
         Task.findByIdAndRemove(id, function(err, task) {
@@ -51,6 +63,7 @@ module.exports = {
             callback(null, null);
         });
     },
+
     removeBySlotId: function(params, callback) {
         Task.remove(params, function(err, task) {
             if(err) {
