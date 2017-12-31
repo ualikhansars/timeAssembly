@@ -50,5 +50,14 @@ module.exports = {
             }
             callback(null, null);
         });
+    },
+    removeBySlotId: function(params, callback) {
+        Task.remove(params, function(err, task) {
+            if(err) {
+                callback(err, null);
+                return;
+            }
+            callback(null, null);
+        });
     }
 }

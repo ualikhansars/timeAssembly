@@ -277,7 +277,18 @@ router.delete('/:resource/:id', function(req, res, next) {
 
 // remove tasks by slot id
 router.delete('/task', function(req, res, next) {
-  Task.remove(req.query, function(err) {
+  var resource = req.params.resource;
+  var controller = controllers[resource];
+
+  if(controller == null) {
+    res.json({
+      confirmation: 'failed',
+      message: 'Invalid resource request ' + resource
+    })
+    return;
+  }
+
+  controller.removeBySlotId(req.query, function(err, result) {
     if(err) {
       res.json({
         confirmation: 'error',
@@ -287,9 +298,9 @@ router.delete('/task', function(req, res, next) {
     }
     res.json({
       confirmation: 'success',
-      resource: 'task successfully deleted' 
+      resource: resource + ' successfully deleted' 
     });
-  })
+  });
 }); 
 
 // update tasks while updating slot
