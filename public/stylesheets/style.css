@@ -171,7 +171,7 @@ div.task .removeTask:hover {
 
 .slotContainer .slot .slotProperty {
   font-size: 16px;
-  margin-bottom: 5px;
+  margin-top: 8px;
 } 
 
 /* Icons */
@@ -199,6 +199,12 @@ div.task .removeTask:hover {
 }
 
 /* add button */
+.slotContainer .addButton {
+  margin-right: 5px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
 .slotContainer .addButton .slotArrow {
   margin-right: 5px;
 } 

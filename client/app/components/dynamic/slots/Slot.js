@@ -29,7 +29,7 @@ class Slot extends React.Component {
         // show dueDate if Task is temporary
         if(temporary) {
             date =  <div className="row">
-                            <div className="col-md-12">
+                            <div className="col-md-12 slotProperty slotDate">
                                 <span>Due Date: {dueDate}</span>
                             </div>
                         </div>

@@ -80740,7 +80740,7 @@ var Slot = function (_React$Component) {
                     { className: "row" },
                     _react2.default.createElement(
                         "div",
-                        { className: "col-md-12" },
+                        { className: "col-md-12 slotProperty slotDate" },
                         _react2.default.createElement(
                             "span",
                             null,
