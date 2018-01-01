@@ -27,8 +27,6 @@ router.get('/:resource', function(req, res, next) {
       });
       return;
     }
-    console.log('resource', resource);
-    console.log('req.query', req.query);
     res.json({
       confirmation: 'success',
       resource: results
@@ -247,7 +245,7 @@ router.put('/:resource/:id/decrFree', function(req, res, next) {
 });
 
 // update tasks while updating slot
-router.put('/task', function(req, res, next) {
+router.put('/:resource/withSlot', function(req, res, next) {
   var resource = req.params.resource;
   var controller = controllers[resource];
 
@@ -304,9 +302,10 @@ router.delete('/:resource/:id', function(req, res, next) {
 });
 
 // remove tasks by slot id
-router.delete('/task', function(req, res, next) {
+router.delete('/:resource/bySlotId/:id', function(req, res, next) {
   var resource = req.params.resource;
   var controller = controllers[resource];
+  var slotId = req.params.id;
 
   if(controller == null) {
     res.json({
@@ -316,7 +315,7 @@ router.delete('/task', function(req, res, next) {
     return;
   }
 
-  controller.removeBySlotId(req.query, function(err, result) {
+  controller.removeBySlotId(slotId, function(err, result) {
     if(err) {
       res.json({
         confirmation: 'error',
@@ -330,11 +329,5 @@ router.delete('/task', function(req, res, next) {
     });
   });
 }); 
-
-
-
-
-
-
 
 module.exports = router;

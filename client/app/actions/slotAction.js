@@ -88,15 +88,11 @@ export const removeSlot = (id) => {
                     deletedSlotId: id
                 });
             })
-            // .then(removeTaskBySlotId(id))
             .then(
-                axios.delete('/api/task', {
-                params: {
-                    slot: id
-                }
-            })
+                axios.delete(`/api/task/bySlotId/${id}`)
             .then(res => {
                     console.log('TASKS_BY_SLOT_ID_DELETED_SUCCESS', res);
+                    console.log('TASKS_BY_SLOT_ID_DELETED_SUCCESS id', id);
                     dispatch({
                         type: 'TASKS_BY_SLOT_ID_DELETED_SUCCESS',
                         deletedSlotIdInTask: id
@@ -159,7 +155,7 @@ export const updateSlot = (slot) => {
             })
             // then update related tasks by slot id
             .then(
-                axios.put(`/api/task?slot=${slot._id}`, slot)
+                axios.put(`/api/task/withSlot/?slot=${slot._id}`, slot)
             .then(res => {
                     console.log('TASKS_BY_SLOT_ID_UPDATED_SUCCESS', res);
                     dispatch({

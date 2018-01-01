@@ -77261,14 +77261,9 @@ var removeSlot = exports.removeSlot = function removeSlot(id) {
                 type: 'SLOT_DELETED_SUCCESS',
                 deletedSlotId: id
             });
-        })
-        // .then(removeTaskBySlotId(id))
-        .then(_axios2.default.delete('/api/task', {
-            params: {
-                slot: id
-            }
-        }).then(function (res) {
+        }).then(_axios2.default.delete('/api/task/bySlotId/' + id).then(function (res) {
             console.log('TASKS_BY_SLOT_ID_DELETED_SUCCESS', res);
+            console.log('TASKS_BY_SLOT_ID_DELETED_SUCCESS id', id);
             dispatch({
                 type: 'TASKS_BY_SLOT_ID_DELETED_SUCCESS',
                 deletedSlotIdInTask: id
@@ -77321,7 +77316,7 @@ var updateSlot = exports.updateSlot = function updateSlot(slot) {
             });
         })
         // then update related tasks by slot id
-        .then(_axios2.default.put('/api/task?slot=' + slot._id, slot).then(function (res) {
+        .then(_axios2.default.put('/api/task/withSlot/?slot=' + slot._id, slot).then(function (res) {
             console.log('TASKS_BY_SLOT_ID_UPDATED_SUCCESS', res);
             dispatch({
                 type: 'TASKS_BY_SLOT_ID_UPDATED_SUCCESS',

@@ -64,8 +64,8 @@ module.exports = {
         });
     },
 
-    removeBySlotId: function(params, callback) {
-        Task.remove(params, function(err, task) {
+    removeBySlotId: function(slotId, callback) {
+        Task.remove({slot: slotId}, function(err, task) {
             if(err) {
                 callback(err, null);
                 return;
