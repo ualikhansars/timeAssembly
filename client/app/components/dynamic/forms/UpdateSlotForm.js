@@ -23,18 +23,28 @@ class UpdateSlotForm extends React.Component {
 
     incrementTotal() {
         if(this.state.total < 40) {
+            let free = this.state.free;
+            let total = this.state.total;
+            let difference = total - free;
             let updatedTotal = this.state.total + 1;
+            let updatedFree = updatedTotal - difference;
             this.setState({
-               total: updatedTotal
+                free: updatedFree,
+                total: updatedTotal
             });
         }
     }
 
     decrementTotal() {
         if(this.state.total > this.state.initialTotal) {
+            let free = this.state.free;
+            let total = this.state.total;
+            let difference = total - free;
             let updatedTotal = this.state.total - 1;
+            let updatedFree = updatedTotal - difference;
             this.setState({
-               total: updatedTotal
+                free: updatedFree,
+                total: updatedTotal
             });
         }
     }
@@ -50,8 +60,11 @@ class UpdateSlotForm extends React.Component {
         e.preventDefault();
         // make free attribute equals to total
         let total = this.state.total;
+        let free = this.state.free;
+        let difference = total - free;
+        let updatedFree = total - difference;
         let updatedSlot = Object.assign({}, this.state, {
-            free: total
+            free: updatedFree
         });
         if(!this.state.title) {
             this.setState({

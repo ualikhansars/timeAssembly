@@ -79550,8 +79550,13 @@ var UpdateSlotForm = function (_React$Component) {
         key: 'incrementTotal',
         value: function incrementTotal() {
             if (this.state.total < 40) {
+                var free = this.state.free;
+                var total = this.state.total;
+                var difference = total - free;
                 var updatedTotal = this.state.total + 1;
+                var updatedFree = updatedTotal - difference;
                 this.setState({
+                    free: updatedFree,
                     total: updatedTotal
                 });
             }
@@ -79560,8 +79565,13 @@ var UpdateSlotForm = function (_React$Component) {
         key: 'decrementTotal',
         value: function decrementTotal() {
             if (this.state.total > this.state.initialTotal) {
+                var free = this.state.free;
+                var total = this.state.total;
+                var difference = total - free;
                 var updatedTotal = this.state.total - 1;
+                var updatedFree = updatedTotal - difference;
                 this.setState({
+                    free: updatedFree,
                     total: updatedTotal
                 });
             }
@@ -79579,8 +79589,11 @@ var UpdateSlotForm = function (_React$Component) {
             e.preventDefault();
             // make free attribute equals to total
             var total = this.state.total;
+            var free = this.state.free;
+            var difference = total - free;
+            var updatedFree = total - difference;
             var updatedSlot = Object.assign({}, this.state, {
-                free: total
+                free: updatedFree
             });
             if (!this.state.title) {
                 this.setState({

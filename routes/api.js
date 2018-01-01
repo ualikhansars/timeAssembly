@@ -249,12 +249,6 @@ router.put('/:resource/withSlot/:id', function(req, res, next) {
   var resource = req.params.resource;
   var controller = controllers[resource];
   var id = req.params.id;
-  console.log('slotId', req.params.id);
-
-  console.log('resource', resource);
-  console.log('controller', controller);
-  console.log('req.query', req.query);
-  console.log('req.body', req.body);
 
   if(controller == null) {
     res.json({
