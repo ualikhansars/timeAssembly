@@ -245,9 +245,16 @@ router.put('/:resource/:id/decrFree', function(req, res, next) {
 });
 
 // update tasks while updating slot
-router.put('/:resource/withSlot', function(req, res, next) {
+router.put('/:resource/withSlot/:id', function(req, res, next) {
   var resource = req.params.resource;
   var controller = controllers[resource];
+  var id = req.params.id;
+  console.log('slotId', req.params.id);
+
+  console.log('resource', resource);
+  console.log('controller', controller);
+  console.log('req.query', req.query);
+  console.log('req.body', req.body);
 
   if(controller == null) {
     res.json({
@@ -257,7 +264,8 @@ router.put('/:resource/withSlot', function(req, res, next) {
     return;
   }
 
-  controller.updateTaskWhenSlotUpdated(req.body, function(err, result) {
+  controller.updateTaskWhenSlotUpdated(id, req.body, function(err, result) {
+    console.log('updateTask controller');
     if(err) {
       res.json({
         confirmation: 'error',

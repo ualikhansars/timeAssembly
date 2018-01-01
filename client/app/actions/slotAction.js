@@ -155,7 +155,7 @@ export const updateSlot = (slot) => {
             })
             // then update related tasks by slot id
             .then(
-                axios.put(`/api/task/withSlot/?slot=${slot._id}`, slot)
+                axios.put(`/api/task/withSlot/${slot._id}`, slot)
             .then(res => {
                     console.log('TASKS_BY_SLOT_ID_UPDATED_SUCCESS', res);
                     dispatch({

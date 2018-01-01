@@ -41,9 +41,10 @@ module.exports = {
             callback(null, task);
         });
     },
-    updateTaskWhenSlotUpdated: function(params, callback) {
-        Task.update(req.query, 
-            {$set: {title: req.body.title, category: req.body.category}}, 
+
+    updateTaskWhenSlotUpdated: function(id, params, callback) {
+        Task.update({slot: id},
+            {$set: {title: params.title, category: params.category}}, 
             {multi: true},
             function(err, task) {
                 if(err) {
