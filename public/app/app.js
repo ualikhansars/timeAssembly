@@ -82225,6 +82225,17 @@ var TimeInterval = function (_React$Component) {
                 min = _props.min,
                 meridien = _props.meridien;
             var timeFormat = this.props.preferences.timeFormat;
+
+            var twelveHoursFormat = false;
+            var displayTimeClassName = 'time';
+            var addTaskClassName = 'addTask';
+            if (timeFormat === 12) {
+                displayTimeClassName += ' col-md-3';
+                addTaskClassName += ' col-md-9';
+            } else {
+                displayTimeClassName += ' col-md-2';
+                addTaskClassName += ' col-md-10';
+            }
             var _props$taskInfo = this.props.taskInfo,
                 startTimeHours = _props$taskInfo.startTimeHours,
                 startTimeMinutes = _props$taskInfo.startTimeMinutes;
@@ -82247,12 +82258,12 @@ var TimeInterval = function (_React$Component) {
                         }, className: 'row timeInterval' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-2 time', style: time },
+                        { className: displayTimeClassName, style: time },
                         displayTime
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-10 addTask', style: addTask },
+                        { className: addTaskClassName, style: addTask },
                         _react2.default.createElement('div', { className: 'taskInput' })
                     )
                 )

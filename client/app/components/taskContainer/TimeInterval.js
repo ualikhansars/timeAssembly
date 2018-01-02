@@ -14,6 +14,16 @@ class TimeInterval extends React.Component {
     render() {
         let {hour, min, meridien} = this.props;
         let {timeFormat} = this.props.preferences;
+        let twelveHoursFormat = false;
+        let displayTimeClassName = 'time';
+        let addTaskClassName = 'addTask';
+        if(timeFormat === 12) {
+            displayTimeClassName += ' col-md-3';
+            addTaskClassName += ' col-md-9';
+        } else {
+            displayTimeClassName += ' col-md-2';
+            addTaskClassName += ' col-md-10';
+        }
         let {startTimeHours, startTimeMinutes} = this.props.taskInfo;
         let displayTime = getTimeDependsOnTimeFormat(hour, min, timeFormat, meridien);
         let time, addTask;
@@ -25,12 +35,12 @@ class TimeInterval extends React.Component {
         return (
             <div className="container">
                 <div onClick={() => this.props.onClickTime(hour, min)} className="row timeInterval">
-                    <div className="col-md-2 time" style={time}>
+                    <div className={displayTimeClassName} style={time}>
                             {displayTime}
                     </div>
-                    <div className="col-md-10 addTask" style={addTask}>
+                    <div className={addTaskClassName} style={addTask}>
                         <div className="taskInput">
-                    
+                     
                         </div>
                     </div>
                 </div>
