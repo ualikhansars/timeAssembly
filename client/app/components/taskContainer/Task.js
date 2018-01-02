@@ -42,13 +42,22 @@ class Task extends React.Component {
             finishTimeHours = '0' + finishTimeHours;
         }
         let {meridien, timeFormat} = this.props.preferences;
+        let taskContentClassName = 'taskContent';
+        let taskTimeClassName = 'taskTime';
+        if(timeFormat === 12) {
+            taskContentClassName += ' col-md-9';
+            taskTimeClassName += ' col-md-3';
+        } else {
+            taskContentClassName += ' col-md-10';
+            taskTimeClassName += ' col-md-2';
+        }
         let startTime = getTimeDependsOnTimeFormat(startTimeHours, startTimeMinutes, timeFormat, meridien);
         let finishTime = getTimeDependsOnTimeFormat(finishTimeHours, finishTimeMinutes, timeFormat, meridien);
         let durationInHours = convertDurationToHours(duration);
         return (
             <div className="task container">
                 <div className="row">
-                    <div className="col-md-2 taskTime">
+                    <div className={taskTimeClassName}>
                         <div className="taskStartTime">
                             {startTime}
                         </div>
@@ -56,7 +65,7 @@ class Task extends React.Component {
                             {finishTime}
                         </div>
                     </div>
-                    <div className="col-md-10 taskContent">
+                    <div className={taskContentClassName}>
                         <div className="row">
                             <div className="col-md-4 offset-md-4">
                                 <span className="taskTitle">{title}</span>

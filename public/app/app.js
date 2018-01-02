@@ -77484,6 +77484,15 @@ var Task = function (_React$Component) {
                 meridien = _props$preferences.meridien,
                 timeFormat = _props$preferences.timeFormat;
 
+            var taskContentClassName = 'taskContent';
+            var taskTimeClassName = 'taskTime';
+            if (timeFormat === 12) {
+                taskContentClassName += ' col-md-9';
+                taskTimeClassName += ' col-md-3';
+            } else {
+                taskContentClassName += ' col-md-10';
+                taskTimeClassName += ' col-md-2';
+            }
             var startTime = (0, _timeCalc.getTimeDependsOnTimeFormat)(startTimeHours, startTimeMinutes, timeFormat, meridien);
             var finishTime = (0, _timeCalc.getTimeDependsOnTimeFormat)(finishTimeHours, finishTimeMinutes, timeFormat, meridien);
             var durationInHours = (0, _timeCalc.convertDurationToHours)(duration);
@@ -77495,7 +77504,7 @@ var Task = function (_React$Component) {
                     { className: 'row' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-2 taskTime' },
+                        { className: taskTimeClassName },
                         _react2.default.createElement(
                             'div',
                             { className: 'taskStartTime' },
@@ -77509,7 +77518,7 @@ var Task = function (_React$Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-10 taskContent' },
+                        { className: taskContentClassName },
                         _react2.default.createElement(
                             'div',
                             { className: 'row' },
