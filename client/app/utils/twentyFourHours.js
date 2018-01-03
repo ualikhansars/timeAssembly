@@ -61,3 +61,12 @@ export const addTimeInterval = (timetable, hour, min, index, timeInterval, merid
     }
     return updatedTimetable;
 }
+
+export const calculateMin = (finishMin) => {
+    let min;
+    if(finishMin === 0) min = 45;
+    if(finishMin === 15) min = 0;
+    if(finishMin === 30) min = 15;
+    if(finishMin === 45) min = 30;
+    return min;
+}

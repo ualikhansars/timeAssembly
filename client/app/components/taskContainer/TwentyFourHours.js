@@ -18,12 +18,12 @@ import {
 import {tasksSelectionSort} from '../../utils/sort';
 import {
     addTimeInterval,
-    addPropertyToTask
+    addPropertyToTask,
+    calculateMin
 } from '../../utils/twentyFourHours';
 
 class TwentyFourHours extends React.Component {
   
-
     render() {
         const {tasks} = this.props.taskInfo;
         const {loading, loaded, errors} = this.props.taskInfo.tasksRequest;
@@ -38,7 +38,7 @@ class TwentyFourHours extends React.Component {
         if(errors) {
             return(
                 <div className="container-fluid">
-                    <div>Errors</div>
+                    <div>Error:</div>
                     <div>{errors}</div>
                 </div>
             );
@@ -127,12 +127,9 @@ class TwentyFourHours extends React.Component {
                                 taskFinishMin = finishMin;
                                 console.log('task finish time', taskFinishHour + ':' + taskFinishMin);
                                 // go to 15 minutes back to display finish time
-                                if(finishMin === 0) min = 45;
-                                if(finishMin === 15) min = 0;
-                                if(finishMin === 30) min = 15;
-                                if(finishMin === 45) min = 30;
+                                min = calculateMin(finishMin);
                                 if(finishHour > hour) {
-                                    // if finishMin is equal to 0, then descrese hour
+                                    // if finishMin is equal to 0, then decrease hour
                                     if(finishMin === 0) finishHour--; 
                                     hour = finishHour;
                                     updatedTasks.splice(i, 1);
@@ -141,7 +138,6 @@ class TwentyFourHours extends React.Component {
                                 hour = finishHour;
                                 updatedTasks.splice(i, 1); // delete added task from updated tasks
                                 break;
-                                // continue;
                             } 
                         } // end tasks for loop
                         //console.error('taskAdded:', taskAdded, 'hour:', hour, 'min:', min);

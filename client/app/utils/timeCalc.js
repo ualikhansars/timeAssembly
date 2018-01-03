@@ -163,13 +163,17 @@ export const convertScheduleTimeBaseOnTimeFormat = (hour, timeFormat) => {
             displayTime = hour + ':00';
         }
         return displayTime;
-    } else {
+    } 
+    if(timeFormat === 12) {
         if(hour === 0 || hour === 24) {
             return `12:00 a.m`;
         }
         else if(hour === 12) return `12:00 p.m`;
-        else if(hour >= 1 && hour <= 11) {
+        else if(hour >= 1 && hour < 10) {
             return '0' + hour + ':00 a.m';
+        }
+        else if(hour === 10 || hour === 11) {
+            return hour + ':00 a.m';
         }
         else if(hour >= 13 && hour <= 23) {
                 let displayTime; 
@@ -180,7 +184,7 @@ export const convertScheduleTimeBaseOnTimeFormat = (hour, timeFormat) => {
                     displayTime = displayHour + ':00 p.m';
                 }
                 return displayTime;
-        }
+        } 
     }
 }
 

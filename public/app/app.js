@@ -22613,11 +22613,14 @@ var convertScheduleTimeBaseOnTimeFormat = exports.convertScheduleTimeBaseOnTimeF
             displayTime = hour + ':00';
         }
         return displayTime;
-    } else {
+    }
+    if (timeFormat === 12) {
         if (hour === 0 || hour === 24) {
             return '12:00 a.m';
-        } else if (hour === 12) return '12:00 p.m';else if (hour >= 1 && hour <= 11) {
+        } else if (hour === 12) return '12:00 p.m';else if (hour >= 1 && hour < 10) {
             return '0' + hour + ':00 a.m';
+        } else if (hour === 10 || hour === 11) {
+            return hour + ':00 a.m';
         } else if (hour >= 13 && hour <= 23) {
             var _displayTime = void 0;
             var displayHour = get12HoursFrom24Hours(hour);
@@ -82388,7 +82391,7 @@ var TwentyFourHours = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         null,
-                        'Errors'
+                        'Error:'
                     ),
                     _react2.default.createElement(
                         'div',
@@ -82485,12 +82488,9 @@ var TwentyFourHours = function (_React$Component) {
                                     taskFinishMin = finishMin;
                                     console.log('task finish time', taskFinishHour + ':' + taskFinishMin);
                                     // go to 15 minutes back to display finish time
-                                    if (finishMin === 0) _min = 45;
-                                    if (finishMin === 15) _min = 0;
-                                    if (finishMin === 30) _min = 15;
-                                    if (finishMin === 45) _min = 30;
+                                    _min = (0, _twentyFourHours.calculateMin)(finishMin);
                                     if (finishHour > hour) {
-                                        // if finishMin is equal to 0, then descrese hour
+                                        // if finishMin is equal to 0, then decrease hour
                                         if (finishMin === 0) finishHour--;
                                         hour = finishHour;
                                         updatedTasks.splice(i, 1);
@@ -82499,7 +82499,6 @@ var TwentyFourHours = function (_React$Component) {
                                     hour = finishHour;
                                     updatedTasks.splice(i, 1); // delete added task from updated tasks
                                     break;
-                                    // continue;
                                 }
                             } // end tasks for loop
                             //console.error('taskAdded:', taskAdded, 'hour:', hour, 'min:', min);
@@ -84705,7 +84704,7 @@ function symbolObservablePonyfill(root) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.addTimeInterval = exports.addPropertyToTask = exports.convertTimeToString = undefined;
+exports.calculateMin = exports.addTimeInterval = exports.addPropertyToTask = exports.convertTimeToString = undefined;
 
 var _react = __webpack_require__(9);
 
@@ -84780,6 +84779,15 @@ var addTimeInterval = exports.addTimeInterval = function addTimeInterval(timetab
         updatedTimetable.push(_react2.default.createElement(_TimeInterval2.default, { hour: _pushedHour2, min: _pushedMin2, meridien: meridien, key: index }));
     }
     return updatedTimetable;
+};
+
+var calculateMin = exports.calculateMin = function calculateMin(finishMin) {
+    var min = void 0;
+    if (finishMin === 0) min = 45;
+    if (finishMin === 15) min = 0;
+    if (finishMin === 30) min = 15;
+    if (finishMin === 45) min = 30;
+    return min;
 };
 
 /***/ })
