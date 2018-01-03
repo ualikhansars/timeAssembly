@@ -73,35 +73,43 @@ export const get24HoursFrom12Hours = (hour) => {
 
 // get hour, minutes, timeFormat and meridien
 // and return time in proper format
-export const getTimeDependsOnTimeFormat = (hour, min, timeFormat, meridien) => {
+export const getTimeDependsOnTimeFormat = (hour, min, timeFormat) => {
     let displayTime;
-    if(min == 0) {
-        min = '00';
-    }
+    
     if(timeFormat === 12) {
-        if(meridien === 'a.m') {
-            if(hour === '00' && min === '00') displayTime = '12:' + min + ' ' + meridien;
-            else if(hour === '12' && min === '00') {
-                displayTime = hour + ':' + min + ' p.m';
-            } 
-            else {
-                displayTime = hour + ':' + min + ' ' + meridien;
+        if(hour === 0 && min === 0 || hour === 24 && min === 0) {
+            displayTime = '12:00 a.m';
+        } 
+        else if(hour === 12 && min === 0) displayTime = '12:00 p.m';
+        else if(hour >= 0 && hour < 10) {
+            if(min == 0) {
+                min = '00';
             }
+            displayTime = hour + ':' + min + ' a.m';
         }
-        if(meridien === 'p.m') {
-            if(hour === '12' && min === '00') displayTime = hour + ':' + min + ' ' + meridien;
-            else if(hour === '24' && min === '00') displayTime = '12:' + min + ' a.m'; 
-            else {
-                let displayHour = get12HoursFrom24Hours(hour);
-                if(displayHour < 10) {
-                    displayTime = '0' + displayHour + ':' + min + ' ' + meridien;
-                } else {
-                    displayTime = displayHour + ':' + min + ' ' + meridien;
-                }
+        else if(hour >= 10 && hour <= 11) {
+            if(min == 0) {
+                min = '00';
             }
+            displayTime = hour + ':' + min + ' a.m';
         }
+        else if(hour >= 12) {
+            if(min == 0) {
+                min = '00';
+            }
+            let displayHour = get12HoursFrom24Hours(hour);
+            if(displayHour < 10) {
+                displayTime = '0' + displayHour + ':' + min + ' p.m';
+            } else {
+                displayTime = displayHour + ':' + min + ' p.m';
+            }
+            return displayTime;
+        } 
     }
     if(timeFormat === 24) {
+        if(min == 0) {
+            min = '00';
+        }
         displayTime = hour + ':' + min;
     }
     return displayTime;

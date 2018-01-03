@@ -22528,31 +22528,39 @@ var get24HoursFrom12Hours = exports.get24HoursFrom12Hours = function get24HoursF
 
 // get hour, minutes, timeFormat and meridien
 // and return time in proper format
-var getTimeDependsOnTimeFormat = exports.getTimeDependsOnTimeFormat = function getTimeDependsOnTimeFormat(hour, min, timeFormat, meridien) {
+var getTimeDependsOnTimeFormat = exports.getTimeDependsOnTimeFormat = function getTimeDependsOnTimeFormat(hour, min, timeFormat) {
     var displayTime = void 0;
-    if (min == 0) {
-        min = '00';
-    }
+
     if (timeFormat === 12) {
-        if (meridien === 'a.m') {
-            if (hour === '00' && min === '00') displayTime = '12:' + min + ' ' + meridien;else if (hour === '12' && min === '00') {
-                displayTime = hour + ':' + min + ' p.m';
+        if (hour === 0 && min === 0 || hour === 24 && min === 0) {
+            displayTime = '12:00 a.m';
+        } else if (hour === 12 && min === 0) displayTime = '12:00 p.m';else if (hour >= 0 && hour < 10) {
+            if (min == 0) {
+                min = '00';
+            }
+            displayTime = hour + ':' + min + ' a.m';
+        } else if (hour >= 10 && hour <= 11) {
+            if (min == 0) {
+                min = '00';
+            }
+            displayTime = hour + ':' + min + ' a.m';
+        } else if (hour >= 12) {
+            if (min == 0) {
+                min = '00';
+            }
+            var displayHour = get12HoursFrom24Hours(hour);
+            if (displayHour < 10) {
+                displayTime = '0' + displayHour + ':' + min + ' p.m';
             } else {
-                displayTime = hour + ':' + min + ' ' + meridien;
+                displayTime = displayHour + ':' + min + ' p.m';
             }
-        }
-        if (meridien === 'p.m') {
-            if (hour === '12' && min === '00') displayTime = hour + ':' + min + ' ' + meridien;else if (hour === '24' && min === '00') displayTime = '12:' + min + ' a.m';else {
-                var displayHour = get12HoursFrom24Hours(hour);
-                if (displayHour < 10) {
-                    displayTime = '0' + displayHour + ':' + min + ' ' + meridien;
-                } else {
-                    displayTime = displayHour + ':' + min + ' ' + meridien;
-                }
-            }
+            return displayTime;
         }
     }
     if (timeFormat === 24) {
+        if (min == 0) {
+            min = '00';
+        }
         displayTime = hour + ':' + min;
     }
     return displayTime;
