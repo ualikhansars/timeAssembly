@@ -53,20 +53,23 @@ class Day extends React.Component {
         // when data loaded
         // display every tasks
         if(loaded) {
-            if(timeFormat === 24) {
-                display =
-                    <div>
-                        <TwentyFourHours dayInfo={this.props.day} tasks={tasks}/>
-                    </div>  
+            display = 
+                <div>
+                    <TwentyFourHours dayInfo={this.props.day} tasks={tasks}/>
+                </div>
+            // if(timeFormat === 24) {
+            //     display =
+            //         <div>
+            //             <TwentyFourHours dayInfo={this.props.day} tasks={tasks}/>
+            //         </div>  
                     
-            }
-            if(timeFormat === 12) {
-                display = 
-                    <div>
-                        <TwentyFourHours tasks={tasks}/>
-                        <Meridien/>
-                    </div>  
-            }
+            // }
+            // if(timeFormat === 12) {
+            //     display = 
+            //         <div>
+            //             <TwentyFourHours tasks={tasks}/>
+            //         </div>  
+            // }
         }
       
         return (
