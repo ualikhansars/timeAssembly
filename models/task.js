@@ -6,6 +6,7 @@ var taskSchema = mongoose.Schema({
     title: {type: String, required: true},
     category: {type: String},
     description: {type: String},
+    temporary: {type: Boolean, default: false},
     duration: {
         type: Number,
         get: v => Math.round(v),

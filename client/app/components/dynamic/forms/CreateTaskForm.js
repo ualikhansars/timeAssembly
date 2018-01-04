@@ -23,6 +23,7 @@ class CreateTaskForm extends React.Component {
         this.title = this.props.slotInfo.slot.title;
         this.category = this.props.slotInfo.slot.category;
         this.slot = this.props.slotInfo.slot._id;  
+        this.temporary = this.props.slotInfo.slot.temporary; 
         this.day =  this.props.daysInfo.chosenDay;
         this.startTimeHours = this.props.taskInfo.startTimeHours;
         this.startTimeMinutes = this.props.taskInfo.startTimeMinutes;     
@@ -32,6 +33,7 @@ class CreateTaskForm extends React.Component {
             task: {
                 title: this.title,
                 category: this.category,
+                temporary: this.temporary,
                 description: this.description,
                 duration: 30,
                 startTimeHours: this.startTimeHours,

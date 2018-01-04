@@ -106,7 +106,8 @@ class UpdateTaskForm extends React.Component {
         let possibleDurationInMins = getDurationInMins(startTimeHours, startTimeMinutes, dueHours, dueMins);
         //console.error('durationHours', this.state.durationHours, 'durationMins', this.state.durationMins);
         let {possibleHours, possibleMins} = calcPossibleHoursAndMins(possibleDurationInMins, this.state.durationHours, this.state.durationMins);
-        
+        let isTemporary = this.props.taskInfo.task.temporary;
+        console.error('temporary', isTemporary);
         let hours = [];
         let minutes = [];
         for(let hour = 0; hour <= possibleHours; ++hour) {

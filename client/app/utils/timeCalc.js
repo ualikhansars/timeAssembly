@@ -77,10 +77,10 @@ export const getTimeDependsOnTimeFormat = (hour, min, timeFormat) => {
     let displayTime;
     
     if(timeFormat === 12) {
-        if(hour === 0 && min === 0 || hour === 24 && min === 0) {
+        if(hour == 0 && min == 0 || hour == 24 && min == 0) {
             displayTime = '12:00 a.m';
         } 
-        else if(hour === 12 && min === 0) displayTime = '12:00 p.m';
+        else if(hour == 12 && min == 0) displayTime = '12:00 p.m';
         else if(hour >= 0 && hour < 10) {
             if(min == 0) {
                 min = '00';
