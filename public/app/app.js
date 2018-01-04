@@ -79642,6 +79642,36 @@ var UpdateSlotForm = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            var temporary = this.state.temporary;
+            console.error('temporary', temporary);
+            var changeTotal = null;
+            if (!temporary) {
+                changeTotal = _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-4' },
+                        _react2.default.createElement(
+                            'span',
+                            { htmlFor: 'total', className: 'slotTotal' },
+                            'Total: ',
+                            this.state.total
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-4' },
+                        _react2.default.createElement('img', { src: '/img/add.png', onClick: function onClick() {
+                                return _this2.incrementTotal();
+                            }, className: 'addBtn' }),
+                        _react2.default.createElement('img', { src: '/img/minus.png', onClick: function onClick() {
+                                return _this2.decrementTotal();
+                            }, className: 'minusBtn' })
+                    ),
+                    _react2.default.createElement('div', { className: 'col-md-2' })
+                );
+            }
             return _react2.default.createElement(
                 'div',
                 { className: 'slots-form updateSlot' },
@@ -79678,31 +79708,7 @@ var UpdateSlotForm = function (_React$Component) {
                     ),
                     _react2.default.createElement('input', { value: this.state.category, onChange: this.onChange.bind(this), type: 'text', className: 'form-control col-md-12', id: 'category', name: 'category', placeholder: 'Important' })
                 ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'row' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-md-4' },
-                        _react2.default.createElement(
-                            'span',
-                            { htmlFor: 'total', className: 'slotTotal' },
-                            'Total: ',
-                            this.state.total
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-md-4' },
-                        _react2.default.createElement('img', { src: '/img/add.png', onClick: function onClick() {
-                                return _this2.incrementTotal();
-                            }, className: 'addBtn' }),
-                        _react2.default.createElement('img', { src: '/img/minus.png', onClick: function onClick() {
-                                return _this2.decrementTotal();
-                            }, className: 'minusBtn' })
-                    ),
-                    _react2.default.createElement('div', { className: 'col-md-2' })
-                ),
+                changeTotal,
                 _react2.default.createElement(
                     'div',
                     { className: 'row errors' },

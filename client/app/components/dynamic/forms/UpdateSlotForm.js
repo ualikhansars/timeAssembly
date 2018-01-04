@@ -91,6 +91,21 @@ class UpdateSlotForm extends React.Component {
         }
     }
     render() {
+        let temporary = this.state.temporary;
+        console.error('temporary', temporary);
+        let changeTotal = null;
+        if(!temporary) {
+            changeTotal =   <div className="row">
+                                <div className="col-md-4">
+                                    <span htmlFor="total" className="slotTotal">Total: {this.state.total}</span>
+                                </div>
+                                <div className="col-md-4">
+                                    <img src="/img/add.png" onClick={() => this.incrementTotal()} className="addBtn" />
+                                    <img src="/img/minus.png" onClick={() => this.decrementTotal()} className="minusBtn" />        
+                                </div>
+                                <div className="col-md-2"></div>
+                            </div>
+        }
         return (
              <div className="slots-form updateSlot">
                     <div className="row">
@@ -106,16 +121,7 @@ class UpdateSlotForm extends React.Component {
                         <label htmlFor="category" className="col-md-12 slotCategory">Category</label>
                         <input value={this.state.category} onChange={this.onChange.bind(this)} type="text" className="form-control col-md-12" id="category" name="category" placeholder="Important" />
                     </div>
-                    <div className="row">
-                                <div className="col-md-4">
-                                    <span htmlFor="total" className="slotTotal">Total: {this.state.total}</span>
-                                </div>
-                                <div className="col-md-4">
-                                    <img src="/img/add.png" onClick={() => this.incrementTotal()} className="addBtn" />
-                                    <img src="/img/minus.png" onClick={() => this.decrementTotal()} className="minusBtn" />        
-                                </div>
-                                <div className="col-md-2"></div>
-                    </div>
+                    {changeTotal}
                     <div className="row errors">
                         <div className="col-md-12">
                             <span>{this.state.errors}</span>
