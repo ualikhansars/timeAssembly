@@ -78657,9 +78657,19 @@ var _reduxThunk = __webpack_require__(668);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
+var _settings = __webpack_require__(675);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = (0, _redux.createStore)(_reducers2.default, (0, _redux.applyMiddleware)(_reduxThunk2.default, _reduxLogger2.default));
+var store = void 0;
+
+if (_settings.development) {
+  store = (0, _redux.createStore)(_reducers2.default, (0, _redux.applyMiddleware)(_reduxThunk2.default, _reduxLogger2.default));
+} else {
+  store = (0, _redux.createStore)(_reducers2.default, (0, _redux.applyMiddleware)(_reduxThunk2.default));
+}
+
+exports.default = store;
 
 /***/ }),
 /* 606 */,
@@ -84807,6 +84817,15 @@ function symbolObservablePonyfill(root) {
 
 	return result;
 };
+
+/***/ }),
+/* 675 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "development", function() { return development; });
+let development = false;
 
 /***/ })
 /******/ ]);
