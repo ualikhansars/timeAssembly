@@ -77247,19 +77247,15 @@ var fetchTemporarySlots = exports.fetchTemporarySlots = function fetchTemporaryS
                 userId: id
             }
         }).then(function (res) {
-            if (id) {
-                var data = res.data.resource;
-                dispatch({
-                    type: 'FETCH_TEMPORARY_SLOTS_SUCCESS',
-                    temporarySlots: data
-                });
-            } else {
-                dispatch({
-                    type: 'FETCH_TEMPORARY_SLOTS_FAIL'
-                });
-            }
+            var data = res.data.resource;
+            dispatch({
+                type: 'FETCH_TEMPORARY_SLOTS_SUCCESS',
+                temporarySlots: data
+            });
         }).catch(function (error) {
-            console.log(error);
+            dispatch({
+                type: 'FETCH_TEMPORARY_SLOTS_FAIL'
+            });
         });
     };
 };

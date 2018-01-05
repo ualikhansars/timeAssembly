@@ -7,7 +7,7 @@ import Slots from './slots/Slots';
 import Preferences from './preferences/Preferences';
 import UpdateTaskForm from './forms/UpdateTaskForm';
 import SelectedTask from './tasks/SelectedTask';
-import { displayTaskProperties } from '../../actions/displayAction';
+import {displayTaskProperties} from '../../actions/displayAction';
 
 
 class Dynamic extends React.Component {

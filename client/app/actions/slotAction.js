@@ -60,20 +60,16 @@ export const fetchTemporarySlots = (id) => {
             }
         })
             .then(res => {
-                if(id) {
                     let data = res.data.resource;
                     dispatch({
                         type: 'FETCH_TEMPORARY_SLOTS_SUCCESS',
                         temporarySlots: data
                     });
-                } else {
-                    dispatch({
-                        type: 'FETCH_TEMPORARY_SLOTS_FAIL',
-                    });
-                }
             })
             .catch(error => {
-                console.log(error)
+                dispatch({
+                    type: 'FETCH_TEMPORARY_SLOTS_FAIL',
+                });
             });
     }
 }
