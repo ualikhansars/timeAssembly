@@ -63,43 +63,8 @@ class TwentyFourHours extends React.Component {
             let taskMin;
             let taskFinishHour = 0;
             let taskFinishMin = 0;
-            let startTime, finishTime;
-
-            // logic if 12 o'clock hours was chosen
-            if(timeFormat === 12) {
-                // if(meridien === 'a.m') {
-                //     if(startDisplayHour < 12) {
-                //         startTime = startDisplayHour;
-                //     } else {
-                //         startTime = 0;
-                //     }
-                //     if(finishDisplayHour <= 12) {
-                //         finishTime = finishDisplayHour;
-                //     } else {
-                //         finishTime = 12;
-                //     }
-                // }
-                // if(meridien === 'p.m') {
-                //     if(startDisplayHour >= 12) {
-                //         startTime = startDisplayHour;
-                //     } else {
-                //         startTime = 12;
-                //     }
-                //     if(startDisplayHour > 12) {
-                //         finishTime = finishDisplayHour;
-                //     } else {
-                //         finishTime = 24;
-                //     }
-                // }
-                startTime = startDisplayHour;
-                finishTime = finishDisplayHour;
-            } 
-            // 24 o'clock hours was chosen
-            if(timeFormat === 24) {
-                startTime = startDisplayHour;
-                finishTime = finishDisplayHour;
-            }
-
+            let startTime = startDisplayHour; 
+            let finishTime = finishDisplayHour;
             
             for(hour = startTime; hour <= finishTime; ++hour) { // every hour
                 for(let min = 0; min < 60; min += 15) { // every 15 minutes

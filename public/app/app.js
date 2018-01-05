@@ -26033,6 +26033,10 @@ var removeTask = exports.removeTask = function removeTask(id, slotId) {
             dispatch({
                 type: 'RESET_ADD_TASK'
             });
+        }).then(function () {
+            dispatch({
+                type: 'DISPLAY_SLOTS'
+            });
         }).catch(function (error) {
             throw error;
         });
@@ -82444,43 +82448,8 @@ var TwentyFourHours = function (_React$Component) {
                 var taskMin = void 0;
                 var taskFinishHour = 0;
                 var taskFinishMin = 0;
-                var startTime = void 0,
-                    finishTime = void 0;
-
-                // logic if 12 o'clock hours was chosen
-                if (timeFormat === 12) {
-                    // if(meridien === 'a.m') {
-                    //     if(startDisplayHour < 12) {
-                    //         startTime = startDisplayHour;
-                    //     } else {
-                    //         startTime = 0;
-                    //     }
-                    //     if(finishDisplayHour <= 12) {
-                    //         finishTime = finishDisplayHour;
-                    //     } else {
-                    //         finishTime = 12;
-                    //     }
-                    // }
-                    // if(meridien === 'p.m') {
-                    //     if(startDisplayHour >= 12) {
-                    //         startTime = startDisplayHour;
-                    //     } else {
-                    //         startTime = 12;
-                    //     }
-                    //     if(startDisplayHour > 12) {
-                    //         finishTime = finishDisplayHour;
-                    //     } else {
-                    //         finishTime = 24;
-                    //     }
-                    // }
-                    startTime = startDisplayHour;
-                    finishTime = finishDisplayHour;
-                }
-                // 24 o'clock hours was chosen
-                if (timeFormat === 24) {
-                    startTime = startDisplayHour;
-                    finishTime = finishDisplayHour;
-                }
+                var startTime = startDisplayHour;
+                var finishTime = finishDisplayHour;
 
                 for (hour = startTime; hour <= finishTime; ++hour) {
                     // every hour

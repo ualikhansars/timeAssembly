@@ -213,6 +213,11 @@ export const removeTask = (id, slotId) => {
                     type: 'RESET_ADD_TASK'
                 });
             })
+            .then(() => {
+                dispatch({
+                    type: 'DISPLAY_SLOTS',
+                });
+            })
             .catch(error => {
                 throw error;
             });
