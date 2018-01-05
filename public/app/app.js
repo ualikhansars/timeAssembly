@@ -78877,6 +78877,8 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _getCurrentDate = __webpack_require__(594);
 
+var _logDev = __webpack_require__(677);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -78911,7 +78913,6 @@ var CreateSlotForm = function (_React$Component) {
     _createClass(CreateSlotForm, [{
         key: 'onChange',
         value: function onChange(event) {
-            console.log(this.state);
             this.setState(_defineProperty({}, event.target.id, event.target.value));
         }
     }, {
@@ -84790,7 +84791,32 @@ function symbolObservablePonyfill(root) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "development", function() { return development; });
-let development = false;
+let development = true;
+
+/***/ }),
+/* 676 */,
+/* 677 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_settings__ = __webpack_require__(675);
+
+
+const logDev = {
+    default: (text) => {
+        if(__WEBPACK_IMPORTED_MODULE_0__config_settings__["development"]) {
+            console.log(text);
+        }
+    },
+    red: (text) => {
+        if(__WEBPACK_IMPORTED_MODULE_0__config_settings__["development"]) {
+            console.error(text);
+        }
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["logDev"] = logDev;
+
 
 /***/ })
 /******/ ]);

@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {getCurrentDate} from '../../../utils/getCurrentDate';
+import {logDev} from '../../../../../utils/logDev';
 
 class CreateSlotForm extends React.Component {
     constructor(props) {
@@ -20,7 +21,6 @@ class CreateSlotForm extends React.Component {
     }
 
     onChange(event) {
-        console.log(this.state);
         this.setState({
                 [event.target.id]: event.target.value
         });
