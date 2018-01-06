@@ -59117,11 +59117,15 @@ var _axios = __webpack_require__(58);
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _logDev = __webpack_require__(676);
+
+var _util = __webpack_require__(85);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function setAuthToken(token) {
     if (token) {
-        console.log('set auth token');
+        _logDev.logDev.default('set auth token');
         _axios2.default.defaults.headers.common['Authorization'] = 'Bearer ' + token; // set header to every request
     } else {
         delete _axios2.default.defaults.headers.common['Authorization']; // delete auth header
@@ -76336,7 +76340,15 @@ exports.createContext = Script.createContext = function (context) {
 
 /***/ }),
 /* 589 */,
-/* 590 */,
+/* 590 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "development", function() { return development; });
+let development = false;
+
+/***/ }),
 /* 591 */,
 /* 592 */,
 /* 593 */,
@@ -76483,6 +76495,8 @@ var _setAuthToken2 = _interopRequireDefault(_setAuthToken);
 
 var _setCookie = __webpack_require__(649);
 
+var _logDev = __webpack_require__(676);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -76518,7 +76532,7 @@ var LoginForm = function (_React$Component) {
             e.preventDefault();
             var userData = Object.assign({}, this.state);
             _axios2.default.post('/users/login', userData).then(function (res) {
-                console.log('res', res);
+                _logDev.logDev.default('res', res);
                 var updatedErrors = Object.assign([], _this2.state.errors);
                 if (res.data.confirmation === 'validation error') {
                     updatedErrors = res.data.errors;
@@ -76543,7 +76557,7 @@ var LoginForm = function (_React$Component) {
         key: 'onChange',
         value: function onChange(e) {
             this.setState(_defineProperty({}, e.target.name, e.target.value));
-            console.log('state', this.state);
+            _logDev.logDev.default('state', this.state);
         }
     }, {
         key: 'render',
@@ -76714,6 +76728,56 @@ Object.defineProperty(exports, "__esModule", {
 var setCookie = exports.setCookie = function setCookie(value) {
     document.cookie = "jwtToken=" + value;
 };
+
+/***/ }),
+/* 650 */,
+/* 651 */,
+/* 652 */,
+/* 653 */,
+/* 654 */,
+/* 655 */,
+/* 656 */,
+/* 657 */,
+/* 658 */,
+/* 659 */,
+/* 660 */,
+/* 661 */,
+/* 662 */,
+/* 663 */,
+/* 664 */,
+/* 665 */,
+/* 666 */,
+/* 667 */,
+/* 668 */,
+/* 669 */,
+/* 670 */,
+/* 671 */,
+/* 672 */,
+/* 673 */,
+/* 674 */,
+/* 675 */,
+/* 676 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_settings__ = __webpack_require__(590);
+
+
+const logDev = {
+    default: (text) => {
+        if(__WEBPACK_IMPORTED_MODULE_0__config_settings__["development"]) {
+            console.log(text);
+        }
+    },
+    red: (text) => {
+        if(__WEBPACK_IMPORTED_MODULE_0__config_settings__["development"]) {
+            console.error(text);
+        }
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["logDev"] = logDev;
+
 
 /***/ })
 /******/ ]);

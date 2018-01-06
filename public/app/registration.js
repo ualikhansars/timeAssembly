@@ -24419,7 +24419,15 @@ var EmailConfirmation = function (_React$Component) {
 exports.default = EmailConfirmation;
 
 /***/ }),
-/* 590 */,
+/* 590 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "development", function() { return development; });
+let development = false;
+
+/***/ }),
 /* 591 */,
 /* 592 */,
 /* 593 */,
@@ -24560,6 +24568,8 @@ var _EmailConfirmation = __webpack_require__(589);
 
 var _EmailConfirmation2 = _interopRequireDefault(_EmailConfirmation);
 
+var _logDev = __webpack_require__(676);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -24641,7 +24651,7 @@ var SignUpForm = function (_React$Component) {
                 if (res.data.confirmation === 'success') {
                     _this3.props.history.push('/signin');
                 }
-                console.log('state', _this3.state);
+                _logDev.logDev.default('state', _this3.state);
             });
         }
     }, {
@@ -24818,6 +24828,58 @@ var RegistrationApp = function (_React$Component) {
 }(_react2.default.Component);
 
 (0, _reactDom.render)(_react2.default.createElement(RegistrationApp, null), document.getElementById("registration"));
+
+/***/ }),
+/* 648 */,
+/* 649 */,
+/* 650 */,
+/* 651 */,
+/* 652 */,
+/* 653 */,
+/* 654 */,
+/* 655 */,
+/* 656 */,
+/* 657 */,
+/* 658 */,
+/* 659 */,
+/* 660 */,
+/* 661 */,
+/* 662 */,
+/* 663 */,
+/* 664 */,
+/* 665 */,
+/* 666 */,
+/* 667 */,
+/* 668 */,
+/* 669 */,
+/* 670 */,
+/* 671 */,
+/* 672 */,
+/* 673 */,
+/* 674 */,
+/* 675 */,
+/* 676 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_settings__ = __webpack_require__(590);
+
+
+const logDev = {
+    default: (text) => {
+        if(__WEBPACK_IMPORTED_MODULE_0__config_settings__["development"]) {
+            console.log(text);
+        }
+    },
+    red: (text) => {
+        if(__WEBPACK_IMPORTED_MODULE_0__config_settings__["development"]) {
+            console.error(text);
+        }
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["logDev"] = logDev;
+
 
 /***/ })
 /******/ ]);

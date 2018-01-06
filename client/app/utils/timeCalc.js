@@ -133,9 +133,6 @@ export const calcPossibleHoursAndMins = (duration, chosenHours, chosenMins) => {
         possibleMins = 0;
     }
     let possibleHours = Math.floor((duration - chosenMins) / 60);
-    console.log('duration', duration);
-    console.log('possibleMinsDuration', possibleMinsDuration)
-    console.log('possibleMins', possibleMins);
     return {
         possibleHours,
         possibleMins

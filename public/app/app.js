@@ -22581,9 +22581,6 @@ var calcPossibleHoursAndMins = exports.calcPossibleHoursAndMins = function calcP
         possibleMins = 0;
     }
     var possibleHours = Math.floor((duration - chosenMins) / 60);
-    console.log('duration', duration);
-    console.log('possibleMinsDuration', possibleMinsDuration);
-    console.log('possibleMins', possibleMins);
     return {
         possibleHours: possibleHours,
         possibleMins: possibleMins
@@ -59794,11 +59791,15 @@ var _axios = __webpack_require__(58);
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _logDev = __webpack_require__(676);
+
+var _util = __webpack_require__(85);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function setAuthToken(token) {
     if (token) {
-        console.log('set auth token');
+        _logDev.logDev.default('set auth token');
         _axios2.default.defaults.headers.common['Authorization'] = 'Bearer ' + token; // set header to every request
     } else {
         delete _axios2.default.defaults.headers.common['Authorization']; // delete auth header
@@ -77170,7 +77171,7 @@ exports.createContext = Script.createContext = function (context) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "development", function() { return development; });
-let development = true;
+let development = false;
 
 /***/ }),
 /* 591 */
@@ -82351,6 +82352,8 @@ var _sort = __webpack_require__(641);
 
 var _twentyFourHours = __webpack_require__(642);
 
+var _logDev = __webpack_require__(676);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -82441,7 +82444,7 @@ var TwentyFourHours = function (_React$Component) {
                                 // if 12 o'clock hours was chosen and task starts before 12 and finishes after 12
                                 // it should be displayed after noon
                                 if (hour === updatedTasks[i].startTimeHours && _min === updatedTasks[i].startTimeMinutes || updatedTasks[i].startTimeHours < 12 && updatedTasks[i].finishTimeHours > startTime) {
-                                    console.error('updatedTask', updatedTasks[i]);
+                                    _logDev.logDev.red('updatedTask', updatedTasks[i]);
                                     property = (0, _twentyFourHours.addPropertyToTask)(updatedTasks[i]);
                                     timetable.push(_react2.default.createElement(_Task2.default, { onClickUpdate: this.props.onClickUpdateTask, property: property, removeTask: this.props.removeTask, key: index }));
                                     index++;
@@ -82454,7 +82457,7 @@ var TwentyFourHours = function (_React$Component) {
 
                                     taskFinishHour = finishHour; // save finish Time of particular task
                                     taskFinishMin = finishMin;
-                                    console.log('task finish time', taskFinishHour + ':' + taskFinishMin);
+                                    _logDev.logDev.default('task finish time', taskFinishHour + ':' + taskFinishMin);
                                     // go to 15 minutes back to display finish time
                                     _min = (0, _twentyFourHours.calculateMin)(finishMin);
                                     if (finishHour > hour) {
@@ -82483,12 +82486,8 @@ var TwentyFourHours = function (_React$Component) {
                             }
                             // if finishHour less than current hour
                             // that means task was added
-                            //console.error('taskFinishHour:', taskFinishHour, 'taskFinishMin:', taskFinishMin);
-                            //if(taskFinishHour !== hour || (taskFinishHour === hour && taskFinishMin >= min)) { 
-                            //console.error('no more tasks remained hour:', hour, 'min:', min, 'tashAdded:', taskAdded);
                             timetable = (0, _twentyFourHours.addTimeInterval)(timetable, hour, _min, index, timeInterval, meridien);
                             index++;
-                            //}
                         }
                         taskAdded = false; // reset taskAdded to false
                     } // end of min foor loop

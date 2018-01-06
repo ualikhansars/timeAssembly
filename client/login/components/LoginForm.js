@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import {PropTypes} from 'prop-types';
 import setAuthToken from '../../utils/setAuthToken';
 import {setCookie} from '../../utils/setCookie';
+import {logDev} from '../../../utils/logDev';
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -22,7 +23,7 @@ class LoginForm extends React.Component {
         let userData = Object.assign({}, this.state);
         axios.post('/users/login', userData)
         .then(res => {
-            console.log('res', res);
+            logDev.default('res', res);
             let updatedErrors = Object.assign([], this.state.errors);
             if(res.data.confirmation === 'validation error') {
                 updatedErrors = res.data.errors;
@@ -46,7 +47,7 @@ class LoginForm extends React.Component {
 
     onChange(e) {
         this.setState({[e.target.name]: e.target.value});
-        console.log('state', this.state);
+        logDev.default('state', this.state);
     }
 
     render() {

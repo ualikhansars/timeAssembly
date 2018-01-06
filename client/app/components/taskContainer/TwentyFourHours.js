@@ -21,6 +21,7 @@ import {
     addPropertyToTask,
     calculateMin
 } from '../../utils/twentyFourHours';
+import {logDev} from '../../../../utils/logDev';
 
 class TwentyFourHours extends React.Component {
   
@@ -79,7 +80,7 @@ class TwentyFourHours extends React.Component {
                             // if 12 o'clock hours was chosen and task starts before 12 and finishes after 12
                             // it should be displayed after noon
                             if(hour === updatedTasks[i].startTimeHours && min === updatedTasks[i].startTimeMinutes || updatedTasks[i].startTimeHours < 12 && updatedTasks[i].finishTimeHours > startTime) {
-                                console.error('updatedTask', updatedTasks[i]);
+                                logDev.red('updatedTask', updatedTasks[i]);
                                 property = addPropertyToTask(updatedTasks[i]);
                                 timetable.push(
                                     <Task onClickUpdate={this.props.onClickUpdateTask} property={property} removeTask={this.props.removeTask} key={index}/>
@@ -90,7 +91,7 @@ class TwentyFourHours extends React.Component {
                                 let {finishHour, finishMin} = calcFinishTime(property.startTimeHours, property.startTimeMinutes, property.duration);
                                 taskFinishHour = finishHour; // save finish Time of particular task
                                 taskFinishMin = finishMin;
-                                console.log('task finish time', taskFinishHour + ':' + taskFinishMin);
+                                logDev.default('task finish time', taskFinishHour + ':' + taskFinishMin);
                                 // go to 15 minutes back to display finish time
                                 min = calculateMin(finishMin);
                                 if(finishHour > hour) {
@@ -118,13 +119,8 @@ class TwentyFourHours extends React.Component {
                             }
                             // if finishHour less than current hour
                             // that means task was added
-                            //console.error('taskFinishHour:', taskFinishHour, 'taskFinishMin:', taskFinishMin);
-                            //if(taskFinishHour !== hour || (taskFinishHour === hour && taskFinishMin >= min)) { 
-                                 //console.error('no more tasks remained hour:', hour, 'min:', min, 'tashAdded:', taskAdded);
-                                 timetable = addTimeInterval(timetable, hour, min, index, timeInterval, meridien);
-                                 index++;
-                            //}
-                            
+                            timetable = addTimeInterval(timetable, hour, min, index, timeInterval, meridien);
+                            index++;
                     }
                     taskAdded = false; // reset taskAdded to false
                 } // end of min foor loop

@@ -3,6 +3,8 @@ import axios from 'axios';
 import classnames from 'classnames';
 import EmailConfirmation from './EmailConfirmation';
 
+import {logDev} from '../../../utils/logDev';
+
 class SignUpForm extends React.Component {
     constructor(props) {
         super(props);
@@ -68,7 +70,7 @@ class SignUpForm extends React.Component {
             if(res.data.confirmation === 'success') {
                 this.props.history.push('/signin');
             }
-            console.log('state', this.state);
+            logDev.default('state', this.state);
         });
     }
 
