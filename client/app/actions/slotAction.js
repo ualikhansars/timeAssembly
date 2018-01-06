@@ -33,7 +33,6 @@ export function fetchSlots(id) {
             }
         })
             .then(res => {    
-                console.error('fetch slots response', res);
                 if(id) {
                     dispatch({
                         type: 'LOAD_SLOTS_OK',
@@ -78,7 +77,6 @@ export const removeSlot = (id) => {
     return dispatch => {
         return axios.delete(`/api/slot/${id}`)
             .then(res => {
-                console.log('removeSlotActionResponse', res);
                 dispatch({
                     type: 'SLOT_DELETED_SUCCESS',
                     deletedSlotId: id
@@ -87,8 +85,6 @@ export const removeSlot = (id) => {
             .then(
                 axios.delete(`/api/task/bySlotId/${id}`)
             .then(res => {
-                    console.log('TASKS_BY_SLOT_ID_DELETED_SUCCESS', res);
-                    console.log('TASKS_BY_SLOT_ID_DELETED_SUCCESS id', id);
                     dispatch({
                         type: 'TASKS_BY_SLOT_ID_DELETED_SUCCESS',
                         deletedSlotIdInTask: id
@@ -139,11 +135,9 @@ export const onClickUpdateSlot = (id) => {
 }
 
 export const updateSlot = (slot) => {
-    console.log('UPDATE SLOT = ', slot);
     return dispatch => {
         return axios.put(`/api/slot/${slot._id}`, slot)
             .then(res => {
-                console.log('UPDATE SLOT RESPONCE', res);
                 dispatch({
                     type: 'UPDATE_SLOT_SUCCESS',
                     slot
@@ -153,7 +147,6 @@ export const updateSlot = (slot) => {
             .then(
                 axios.put(`/api/task/withSlot/${slot._id}`, slot)
             .then(res => {
-                    console.log('TASKS_BY_SLOT_ID_UPDATED_SUCCESS', res);
                     dispatch({
                         type: 'TASKS_BY_SLOT_ID_UPDATED_SUCCESS',
                         updatedSlot: slot
@@ -187,7 +180,7 @@ export const createSlot = (slot) => {
                 });
             })
             .catch(error => {
-                console.log(error)
+                throw error;
             });
     }
 }

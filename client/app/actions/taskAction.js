@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export const fetchTasksByDay = (userId, day) => {
-    console.log('fetchTasksByDay userId:', userId);
     return dispatch => {
         dispatch({
             type: 'LOAD_TASKS_REQUESTED'
@@ -17,8 +16,6 @@ export const fetchTasksByDay = (userId, day) => {
                     type: 'LOAD_TASKS_OK',
                     tasks: result.data.resource
                 });
-                 
-                
             })
             .catch(result => {
                 dispatch({
@@ -75,7 +72,6 @@ export const createTaskSuccess = (task) => {
 
 // creates task by API post request
 export const createTask = (task) => {
-    console.log('CREATE TASK ACTION', task);
     let id = task.slot;
     return dispatch => {
         return axios.post('/api/task', task)
@@ -87,7 +83,6 @@ export const createTask = (task) => {
                 axios.put(`/api/slot/${id}/decrFree`)
             .then(res => {
                     let slot = res.data.result;
-                    console.log('DECREMENT_SLOT_FREE', res);
                     dispatch({
                         type: 'DECREMENT_SLOT_FREE',
                         updatedSlot: slot
@@ -100,7 +95,7 @@ export const createTask = (task) => {
                 });
             })
             .catch(error => {
-                console.log(error)
+                throw error;
             });
     }
 }
@@ -135,8 +130,6 @@ export const onClickUpdateTask = (id) => {
         });
         return axios.get(`/api/task/${id}`)
             .then(res => {
-                console.log('onClickUpdateTask RESPONSE', res);
-                 console.log('onClickUpdateTask ID', id);
                 dispatch({
                     type: 'LOAD_TASK_OK',
                     task: res.data.resource 
@@ -165,12 +158,9 @@ export const onClickUpdateTask = (id) => {
 // has been clicked, it makes put API request to
 // update task in the database
 export const updateTask = (task) => {
-    console.log('UPDATE TASK = ', task);
-    console.log('UPDATE TASK ID = ', task._id);
     return dispatch => {
         return axios.put(`/api/task/${task._id}`, task)
             .then(res => {
-                console.log('UPDATE TASK RESPONCE', res);
                 dispatch({
                     type: 'UPDATE_TASK_SUCCESS',
                     task
@@ -191,7 +181,6 @@ export const removeTask = (id, slotId) => {
     return dispatch => {
         return axios.delete(`/api/task/${id}`)
             .then(res => {
-                console.log('removeTaskActionResponse', res);
                 dispatch({
                     type: 'TASK_DELETED_SUCCESS',
                     deletedTaskId: id
@@ -201,7 +190,6 @@ export const removeTask = (id, slotId) => {
                 axios.put(`/api/slot/${slotId}/incFree`)
             .then(res => {
                     let slot = res.data.result;
-                    console.log('INCREMENT_SLOT_FREE', res);
                     dispatch({
                         type: 'INCREMENT_SLOT_FREE',
                         updatedSlot: slot

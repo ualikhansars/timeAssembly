@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {getCurrentDate} from '../../../utils/getCurrentDate';
-import {logDev} from '../../../../../utils/logDev';
 
 class CreateSlotForm extends React.Component {
     constructor(props) {

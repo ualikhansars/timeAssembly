@@ -68,7 +68,7 @@ export const changeTimeFormat = (timeFormat, userId) => {
                 }
             })
             .catch(error => {
-                console.log(error)
+                throw error;
             });
         }
     }
@@ -140,7 +140,6 @@ export const changeStartDisplayHour = (startDisplayHour, userId) => {
     return dispatch => {
         return axios.put(`/api/scheduleTime/byUserId/${userId}`, {startHour: startDisplayHour})
             .then(res => {
-                console.log('changeStartDisplayHour', res);
                 dispatch(changeStartDisplayHourSuccess(startDisplayHour));
             })
             .catch(error => {
@@ -161,7 +160,6 @@ export const changeFinishDisplayHour = (finishDisplayHour, userId) => {
     return dispatch => {
         return axios.put(`/api/scheduleTime/byUserId/${userId}`, {finishHour: finishDisplayHour})
             .then(res => {
-                console.log('changeFinishDisplayHour', res);
                 dispatch(changeFinishDisplayHourSuccess(finishDisplayHour));
             })
             .catch(error => {

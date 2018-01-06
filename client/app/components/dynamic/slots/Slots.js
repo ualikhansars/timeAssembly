@@ -26,6 +26,7 @@ class Slots extends React.Component {
                 }
             }
         }
+
     render() {
         const {displayCreateSlotForm, displayUpdateSlotForm} = this.props.slotInfo;
         const {displayCreateTaskForm} = this.props.taskInfo;
@@ -65,7 +66,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-            // fetch slots from database
             showSlotForm,
             hideSlotForm,
             createSlot,

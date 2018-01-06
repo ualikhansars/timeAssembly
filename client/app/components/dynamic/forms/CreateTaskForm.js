@@ -15,6 +15,7 @@ import {
    getDueTime
 } from '../../../utils/taskCalc';
 import {twentyFourHours, mins} from '../../../utils/vars';
+import {logDev} from '../../../../../utils/logDev';
 
 class CreateTaskForm extends React.Component {
     constructor(props) {
@@ -57,7 +58,7 @@ class CreateTaskForm extends React.Component {
             this.onCheckValidation();
         }
         );  
-        console.log('state:', this.state);
+        logDev.red('state:', this.state);
     }
 
 
@@ -137,7 +138,8 @@ class CreateTaskForm extends React.Component {
             durationMins = Number(this.state.durationMins);
         }
         duration = calcMins(durationHours, durationMins);
-        console.log('duration', duration);
+        logDev.red('CreateTaskForm');
+        logDev.default('duration', duration);
         // process startTime
         let startTimeHours = Number(this.state.task.startTimeHours);
         let startTimeMinutes = this.state.task.startTimeMinutes; // do not convert to number
@@ -148,7 +150,7 @@ class CreateTaskForm extends React.Component {
             startTimeMinutes = Number(this.state.task.startTimeMinutes);
         }
         let {finishHour, finishMin} = calcFinishTime(startTimeHours, startTimeMinutes, duration);
-        console.error('finishHour:', finishHour + ':' + finishMin);
+        logDev.red('finishHour:', finishHour + ':' + finishMin);
         // if hour is less than 24, then save task
         if(this.isFinishHourValidated()) {
             if(!this.isDurationValidated()) {
@@ -164,7 +166,6 @@ class CreateTaskForm extends React.Component {
                 });
                 this.props.createTask(updatedTask);
             }
-            //console.log('task', updatedTask);
         } else {
             this.setState({
                 errors: 'Due time for task cannot be more than 24 hours'
@@ -175,7 +176,7 @@ class CreateTaskForm extends React.Component {
     
     render() {
         let {startTimeHours, startTimeMinutes, tasks} = this.props.taskInfo;
-        console.log('tasks', tasks);
+        logDev.default('tasks', tasks);
         let {meridien, timeFormat} = this.props.preferences;
         // to display time in proper format
         let displayTime = getTimeDependsOnTimeFormat(startTimeHours, startTimeMinutes, timeFormat, meridien);

@@ -92,7 +92,6 @@ class UpdateSlotForm extends React.Component {
     }
     render() {
         let temporary = this.state.temporary;
-        console.error('temporary', temporary);
         let changeTotal = null;
         if(!temporary) {
             changeTotal =   <div className="row">
