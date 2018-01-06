@@ -57,19 +57,6 @@ class Day extends React.Component {
                 <div>
                     <TwentyFourHours dayInfo={this.props.day} tasks={tasks}/>
                 </div>
-            // if(timeFormat === 24) {
-            //     display =
-            //         <div>
-            //             <TwentyFourHours dayInfo={this.props.day} tasks={tasks}/>
-            //         </div>  
-                    
-            // }
-            // if(timeFormat === 12) {
-            //     display = 
-            //         <div>
-            //             <TwentyFourHours tasks={tasks}/>
-            //         </div>  
-            // }
         }
       
         return (

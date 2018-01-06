@@ -33,8 +33,7 @@ class Task extends React.Component {
                                 </div>
                             </div>
         }
-        // console.error('startTimeHour:', startTimeHours, 'startTimeMinutes:', startTimeMinutes);
-        // console.error('finishTimeHour:', finishTimeHours, 'startTimeMinutes:', finishTimeMinutes);
+        
         if(startTimeHours < 10) {
             startTimeHours = '0' + startTimeHours;
         }
@@ -54,6 +53,7 @@ class Task extends React.Component {
         let startTime = getTimeDependsOnTimeFormat(startTimeHours, startTimeMinutes, timeFormat, meridien);
         let finishTime = getTimeDependsOnTimeFormat(finishTimeHours, finishTimeMinutes, timeFormat, meridien);
         let durationInHours = convertDurationToHours(duration);
+        
         return (
             <div className="task container">
                 <div className="row">

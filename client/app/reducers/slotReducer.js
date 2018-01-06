@@ -1,3 +1,5 @@
+import {logDev} from '../../../utils/logDev';
+
 const initialState = {
     slots: [],
     slotsRequest: {
@@ -88,7 +90,6 @@ const SlotInfo = (state = initialState, action) => {
                 temporarySlots: action.temporarySlots
             });
         case 'FETCH_TEMPORARY_SLOTS_FAIL':
-            console.error('cannot fetch temporary slots, incorrect userID');
             return state;
         case 'FETCH_SLOT_BY_ID':
             return Object.assign({}, state, {
@@ -105,20 +106,19 @@ const SlotInfo = (state = initialState, action) => {
                 displayUpdateSlotForm: false,
             });
         case 'SHOW_UPDATE_SLOT_FORM':
-            console.log('SHOW_UPDATE_SLOT_FORM');
             return Object.assign({}, state, {
                 displayCreateSlotForm: false,
                 displayUpdateSlotForm: true,
             });
         case 'UPDATE_SLOT_SUCCESS':
-            console.log('UPDATE_SLOT');
+            logDev.default('UPDATE_SLOT');
             return Object.assign({}, state, {
                 displayCreateSlotForm: false,
                 displayUpdateSlotForm: false
             });
         case 'DECREMENT_SLOT_FREE':
-            console.log('DECREMENT_SLOT_FREE');
-            console.log('free',  action.updatedSlot.free);
+            logDev.default('DECREMENT_SLOT_FREE');
+            logDev.default('free',  action.updatedSlot.free);
             let freeTasks =  action.updatedSlot.free;
             let slotsBeforeDecrFree = Object.assign([], state.slots);
             if(freeTasks > 0) {
@@ -132,7 +132,7 @@ const SlotInfo = (state = initialState, action) => {
                 slots: slotsBeforeDecrFree
             }); 
         case 'INCREMENT_SLOT_FREE':
-            console.log('INCREMENT_SLOT_FREE');
+            logDev.default('INCREMENT_SLOT_FREE');
             let slotsBeforeIncFree = Object.assign([], state.slots);
             for(let i = 0; i < slotsBeforeIncFree.length; ++i) {
                 if(slotsBeforeIncFree[i]._id == action.updatedSlot._id) {

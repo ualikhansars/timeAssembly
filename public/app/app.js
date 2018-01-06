@@ -77473,8 +77473,7 @@ var Task = function (_React$Component) {
                     )
                 );
             }
-            // console.error('startTimeHour:', startTimeHours, 'startTimeMinutes:', startTimeMinutes);
-            // console.error('finishTimeHour:', finishTimeHours, 'startTimeMinutes:', finishTimeMinutes);
+
             if (startTimeHours < 10) {
                 startTimeHours = '0' + startTimeHours;
             }
@@ -77497,6 +77496,7 @@ var Task = function (_React$Component) {
             var startTime = (0, _timeCalc.getTimeDependsOnTimeFormat)(startTimeHours, startTimeMinutes, timeFormat, meridien);
             var finishTime = (0, _timeCalc.getTimeDependsOnTimeFormat)(finishTimeHours, finishTimeMinutes, timeFormat, meridien);
             var durationInHours = (0, _timeCalc.convertDurationToHours)(duration);
+
             return _react2.default.createElement(
                 'div',
                 { className: 'task container' },
@@ -81830,19 +81830,6 @@ var Day = function (_React$Component) {
                     null,
                     _react2.default.createElement(_TwentyFourHours2.default, { dayInfo: this.props.day, tasks: tasks })
                 );
-                // if(timeFormat === 24) {
-                //     display =
-                //         <div>
-                //             <TwentyFourHours dayInfo={this.props.day} tasks={tasks}/>
-                //         </div>  
-
-                // }
-                // if(timeFormat === 12) {
-                //     display = 
-                //         <div>
-                //             <TwentyFourHours tasks={tasks}/>
-                //         </div>  
-                // }
             }
 
             return _react2.default.createElement(
@@ -82965,6 +82952,9 @@ exports.default = preferencesInfo;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _logDev = __webpack_require__(676);
+
 var initialState = {
     slots: [],
     slotsRequest: {
@@ -83058,7 +83048,6 @@ var SlotInfo = function SlotInfo() {
                 temporarySlots: action.temporarySlots
             });
         case 'FETCH_TEMPORARY_SLOTS_FAIL':
-            console.error('cannot fetch temporary slots, incorrect userID');
             return state;
         case 'FETCH_SLOT_BY_ID':
             return Object.assign({}, state, {
@@ -83075,20 +83064,19 @@ var SlotInfo = function SlotInfo() {
                 displayUpdateSlotForm: false
             });
         case 'SHOW_UPDATE_SLOT_FORM':
-            console.log('SHOW_UPDATE_SLOT_FORM');
             return Object.assign({}, state, {
                 displayCreateSlotForm: false,
                 displayUpdateSlotForm: true
             });
         case 'UPDATE_SLOT_SUCCESS':
-            console.log('UPDATE_SLOT');
+            _logDev.logDev.default('UPDATE_SLOT');
             return Object.assign({}, state, {
                 displayCreateSlotForm: false,
                 displayUpdateSlotForm: false
             });
         case 'DECREMENT_SLOT_FREE':
-            console.log('DECREMENT_SLOT_FREE');
-            console.log('free', action.updatedSlot.free);
+            _logDev.logDev.default('DECREMENT_SLOT_FREE');
+            _logDev.logDev.default('free', action.updatedSlot.free);
             var freeTasks = action.updatedSlot.free;
             var slotsBeforeDecrFree = Object.assign([], state.slots);
             if (freeTasks > 0) {
@@ -83102,7 +83090,7 @@ var SlotInfo = function SlotInfo() {
                 slots: slotsBeforeDecrFree
             });
         case 'INCREMENT_SLOT_FREE':
-            console.log('INCREMENT_SLOT_FREE');
+            _logDev.logDev.default('INCREMENT_SLOT_FREE');
             var slotsBeforeIncFree = Object.assign([], state.slots);
             for (var _i = 0; _i < slotsBeforeIncFree.length; ++_i) {
                 if (slotsBeforeIncFree[_i]._id == action.updatedSlot._id) {
@@ -83153,6 +83141,9 @@ exports.default = SlotInfo;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _logDev = __webpack_require__(676);
+
 var initialState = {
     tasks: [],
     tasksRequest: {
@@ -83232,7 +83223,7 @@ var taskInfo = function taskInfo() {
             });
         case 'LOAD_TASK_FAIL':
             // if api/slot/id get request failed
-            console.log('TASK ERRORS', action.taskErrors);
+            _logDev.logDev.default('TASK ERRORS', action.taskErrors);
             return Object.assign({}, state, {
                 taskRequest: {
                     loading: false,
@@ -83242,17 +83233,17 @@ var taskInfo = function taskInfo() {
                 task: null
             });
         case 'SELECT_TASK':
-            console.log('SELECT TASK');
+            _logDev.logDev.default('SELECT TASK');
             return Object.assign({}, state, {
                 currentlySelectedTask: action.selectedTask
             });
         case 'SHOW_CREATE_TASK_FORM':
-            console.log('SHOW_CREATE_TASK_FORM');
+            _logDev.logDev.default('SHOW_CREATE_TASK_FORM');
             return Object.assign({}, state, {
                 displayCreateTaskForm: true
             });
         case 'HIDE_TASK_FORMS':
-            console.log('HIDE_TASK_FORMS');
+            _logDev.logDev.default('HIDE_TASK_FORMS');
             return Object.assign({}, state, {
                 displayCreateTaskForm: false,
                 displayUpdateTaskForm: false
@@ -83260,29 +83251,29 @@ var taskInfo = function taskInfo() {
         case 'CREATE_TASK_SUCCESS':
             // push new task into task array
             var updatedTasks = Object.assign([], state.tasks);
-            console.log('BEFORE PUSHING TASK', action.task);
+            _logDev.logDev.default('BEFORE PUSHING TASK', action.task);
             updatedTasks.push(action.task);
             return Object.assign({}, state, {
                 displayCreateTaskForm: false,
                 tasks: updatedTasks
             });
         case 'UPDATE_TASK_SUCCESS':
-            console.log('UPDATE_TASK');
+            _logDev.logDev.default('UPDATE_TASK');
             var tasksBeforeUpdate = Object.assign([], state.tasks);
-            console.log('tasksBeforeUpdate', tasksBeforeUpdate);
+            _logDev.logDev.default('tasksBeforeUpdate', tasksBeforeUpdate);
             for (var i = 0; i < tasksBeforeUpdate.length; ++i) {
                 if (tasksBeforeUpdate[i]._id === action.task._id) {
                     tasksBeforeUpdate.splice(i, 1, action.task);
                 }
             }
-            console.log('tasksAfterUpdate', tasksBeforeUpdate);
+            _logDev.logDev.default('tasksAfterUpdate', tasksBeforeUpdate);
             return Object.assign({}, state, {
                 displayCreateTaskForm: false,
                 displayUpdateTaskForm: false,
                 tasks: tasksBeforeUpdate
             });
         case 'TASKS_BY_SLOT_ID_UPDATED_SUCCESS':
-            console.log('TASKS_BY_SLOT_ID_UPDATED_SUCCESS');
+            _logDev.logDev.default('TASKS_BY_SLOT_ID_UPDATED_SUCCESS');
             var tasksBeforeSlotUpdate = Object.assign([], state.tasks);
             for (var _i = 0; _i < tasksBeforeSlotUpdate.length; ++_i) {
                 if (tasksBeforeSlotUpdate[_i].slot == action.updatedSlot._id) {
@@ -83294,7 +83285,7 @@ var taskInfo = function taskInfo() {
                 tasks: tasksBeforeSlotUpdate
             });
         case 'TASK_DELETED_SUCCESS':
-            console.log('REMOVE_TASK');
+            _logDev.logDev.default('REMOVE_TASK');
             var tasksBeforeDeletion = Object.assign([], state.tasks);
             var deletedTaskId = action.deletedTaskId;
             // if id == task.id then delete it from slots array 
@@ -83309,7 +83300,7 @@ var taskInfo = function taskInfo() {
                 tasks: tasksAfterDeletion
             });
         case 'TASKS_BY_SLOT_ID_DELETED_SUCCESS':
-            console.log('TASKS_BY_SLOT_ID_DELETED_SUCCESS');
+            _logDev.logDev.default('TASKS_BY_SLOT_ID_DELETED_SUCCESS');
             var tasksBeforeSlotDeletion = Object.assign([], state.tasks);
             var taskAfterSlotDeletion = tasksBeforeSlotDeletion.filter(function (task) {
                 if (task.slot != action.deletedSlotIdInTask) {
@@ -83321,14 +83312,14 @@ var taskInfo = function taskInfo() {
                 tasks: taskAfterSlotDeletion
             });
         case 'ON_CHOOSE_TIME':
-            console.log('ON_CHOOSE_TIME');
+            _logDev.logDev.default('ON_CHOOSE_TIME');
             return Object.assign({}, state, {
                 startTimeHours: action.startTimeHours,
                 startTimeMinutes: action.startTimeMinutes
             });
         // reset startTimeHours and startTimeMinutes to null 
         case 'RESET_ADD_TASK':
-            console.log('RESET_ADD_TASK');
+            _logDev.logDev.default('RESET_ADD_TASK');
             return Object.assign({}, state, {
                 startTimeHours: null,
                 startTimeMinutes: null
