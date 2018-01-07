@@ -18,7 +18,8 @@ class SignUpForm extends React.Component {
 
     onChange(e) {
         this.setState({
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
+            errors: []
         });
     }
 
@@ -94,7 +95,6 @@ class SignUpForm extends React.Component {
         return (
             <form onSubmit={this.onSubmit.bind(this)}>
             <h1>Registration</h1>
-            <h6><a href="/signin">Already have an account, Signin</a></h6>
             <div className={classnames("form-group", {"has-danger": emailErrorMsg})}>
                 <label className="form-control-label">Email</label>
                 <input 
@@ -136,6 +136,7 @@ class SignUpForm extends React.Component {
                     Sign Up
                 </button>
             </div>
+            <h6><a href="/signin">Already have an account, Signin</a></h6>
         </form> 
         )
         
