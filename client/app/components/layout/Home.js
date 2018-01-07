@@ -8,6 +8,7 @@ import Dynamic from '../dynamic/Dynamic';
 import Navbar from '../navigation/Navbar';
 import Sidebar from '../sidebar/Sidebar'; 
 import TaskContainer from '../taskContainer/TaskContainer'; 
+import Footer from '../footer/Footer';
 
 import setAuthToken from '../../../utils/setAuthToken';
 import {setCurrentUser} from '../../actions/userAction';
@@ -29,25 +30,26 @@ class Home extends React.Component {
 
     render() {
         return(
-            <div>
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-md-12">
-                            <Navbar/>
-                        </div>
+            <div className="container-fluid page-wrapper">
+                <div className="row">
+                    <div className="col-md-12">
+                        <Navbar/>
                     </div>
                 </div>
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-md-4 tasks">
-                            <TaskContainer/>
-                        </div>
-                        <div className="col-md-6 dynamic">
-                            <Dynamic/>
-                        </div>
-                        <div className="col-md-2 settings">
-                            <Sidebar/>
-                        </div>
+                <div className="row" id="main">
+                    <div className="col-md-4 tasks">
+                        <TaskContainer/>
+                    </div>
+                    <div className="col-md-6 dynamic">
+                        <Dynamic/>
+                    </div>
+                    <div className="col-md-2 settings">
+                        <Sidebar/>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-12">
+                        <Footer/>
                     </div>
                 </div>
             </div>
