@@ -80777,7 +80777,7 @@ var Slot = function (_React$Component) {
                     _react2.default.createElement(
                         "div",
                         { className: "col-md-12" },
-                        _react2.default.createElement("img", { src: "/img/arrow24.png", onClick: function onClick() {
+                        _react2.default.createElement("img", { src: "/img/arrow.png", onClick: function onClick() {
                                 return _this2.props.slotProperty.addTask(_this2.props.slotProperty.slotAttr.id);
                             }, className: "slotArrow" }),
                         _react2.default.createElement(
@@ -81560,7 +81560,7 @@ var Footer = function (_React$Component) {
                         { className: "col-md-2 line" },
                         _react2.default.createElement(
                             "a",
-                            { href: "#", className: "textLink" },
+                            { href: "/credits", className: "textLink" },
                             "Credits"
                         )
                     )

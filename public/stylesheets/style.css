@@ -8,7 +8,7 @@ html,body {
 div.footer {
   height: 60px;
   background-color: #ccc;
-  margin-top: 200px;
+  margin-top: 340px;
 }
 
 div.footer div.line {
@@ -426,5 +426,36 @@ div.updateSlot .buttons {
 div.updateSlot .errors {
   font-size: 28px;
   color: red;
+}
+
+/* Credits */
+div.credits .titleContainer {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+div.credits .row {
+  border-bottom: 2px solid #000;
+}
+
+div.credits .firstCol {
+  border-left: 2px solid #000;
+}
+
+div.credits .col {
+  padding-top: 15px;
+  text-align: center;
+  border-right: 2px solid #000;
+}
+
+div.credits .col p {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 22px;
+}
+
+div.credits .col a {
+  margin-top: 20px;
 }
 

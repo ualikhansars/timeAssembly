@@ -8,12 +8,16 @@ router.get('/', isAuthenticated, function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-/* GET home page. */
+router.get('/credits', function(req, res, next) {
+  res.render('credits', { title: 'Credits' });
+});
+
+
 router.get('/signin', function(req, res, next) {
   res.render('signin', { title: 'Signin' });
 });
 
-/* GET home page. */
+
 router.get('/signup', function(req, res, next) {
   res.render('signup', { title: 'Signup' });
 });

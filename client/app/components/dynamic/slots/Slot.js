@@ -18,7 +18,7 @@ class Slot extends React.Component {
         if(startTimeHours && startTimeMinutes && free > 0) {
             addButton = <div className="row addButton">
                             <div className="col-md-12">
-                                <img src="/img/arrow24.png" onClick={() => this.props.slotProperty.addTask(this.props.slotProperty.slotAttr.id)} className="slotArrow"/>
+                                <img src="/img/arrow.png" onClick={() => this.props.slotProperty.addTask(this.props.slotProperty.slotAttr.id)} className="slotArrow"/>
                                 <span className="slotProperty">
                                     Add to {chosenDay} at {displayTime}
                                 </span>

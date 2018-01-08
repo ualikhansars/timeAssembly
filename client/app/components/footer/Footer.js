@@ -18,7 +18,7 @@ class Footer extends React.Component {
                         </a>
                     </div>
                     <div className="col-md-2 line">
-                        <a href="#" className="textLink">Credits</a>
+                        <a href="/credits" className="textLink">Credits</a>
                     </div>
                 </div>
             </div>
