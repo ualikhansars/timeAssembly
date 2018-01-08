@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "/public/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 646);
+/******/ 	return __webpack_require__(__webpack_require__.s = 647);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -76405,7 +76405,7 @@ var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _LoginForm = __webpack_require__(645);
+var _LoginForm = __webpack_require__(646);
 
 var _LoginForm2 = _interopRequireDefault(_LoginForm);
 
@@ -76483,7 +76483,8 @@ exports.default = LoginPage;
 /* 642 */,
 /* 643 */,
 /* 644 */,
-/* 645 */
+/* 645 */,
+/* 646 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76517,7 +76518,7 @@ var _setAuthToken = __webpack_require__(451);
 
 var _setAuthToken2 = _interopRequireDefault(_setAuthToken);
 
-var _setCookie = __webpack_require__(650);
+var _setCookie = __webpack_require__(651);
 
 var _logDev = __webpack_require__(87);
 
@@ -76681,7 +76682,7 @@ var LoginForm = function (_React$Component) {
 exports.default = LoginForm;
 
 /***/ }),
-/* 646 */
+/* 647 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76737,10 +76738,10 @@ _reactDom2.default.render(_react2.default.createElement(
 ), document.getElementById("login"));
 
 /***/ }),
-/* 647 */,
 /* 648 */,
 /* 649 */,
-/* 650 */
+/* 650 */,
+/* 651 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
