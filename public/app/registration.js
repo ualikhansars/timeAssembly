@@ -24511,10 +24511,10 @@ var SignUpPage = function (_React$Component) {
         value: function render() {
             return _react2.default.createElement(
                 'div',
-                { className: 'row' },
+                { className: 'row signUpPage' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'col-md-4 offset-md-4' },
+                    { className: 'col-md-6 offset-md-3' },
                     _react2.default.createElement(_SignUpForm2.default, null)
                 )
             );
@@ -24676,7 +24676,7 @@ var SignUpForm = function (_React$Component) {
                     });
                 }
                 if (res.data.confirmation === 'success') {
-                    _this3.props.history.push('/signin');
+                    window.location = "http://localhost:3000";
                 }
                 _logDev.logDev.default('state', _this3.state);
             });
@@ -24702,93 +24702,145 @@ var SignUpForm = function (_React$Component) {
             if (passwordConfirmationErrors) passwordConfirmationErrorMsg = passwordConfirmationErrors.msg;
 
             return _react2.default.createElement(
-                'form',
-                { onSubmit: this.onSubmit.bind(this) },
-                _react2.default.createElement(
-                    'h1',
-                    null,
-                    'Registration'
-                ),
+                'div',
+                { className: 'container' },
                 _react2.default.createElement(
                     'div',
-                    { className: (0, _classnames2.default)("form-group", { "has-danger": emailErrorMsg }) },
+                    { className: 'row titleContainer' },
                     _react2.default.createElement(
-                        'label',
-                        { className: 'form-control-label' },
-                        'Email'
+                        'div',
+                        { className: 'col-md-12 ' },
+                        _react2.default.createElement(
+                            'span',
+                            { className: 'title' },
+                            'Create an account TimeAssembly'
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'form',
+                    { onSubmit: this.onSubmit.bind(this), className: 'signUpForm' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'row' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'col-md-10 offset-md-1' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: (0, _classnames2.default)("form-group", { "has-danger": emailErrorMsg }) },
+                                _react2.default.createElement(
+                                    'label',
+                                    { className: 'form-control-label emailLabel' },
+                                    'Email'
+                                ),
+                                _react2.default.createElement('input', {
+                                    value: this.state.email,
+                                    onChange: this.onChange.bind(this),
+                                    onBlur: this.checkEmailExist.bind(this),
+                                    type: 'text',
+                                    name: 'email',
+                                    className: (0, _classnames2.default)("form-control", { "form-control-danger": emailErrorMsg })
+                                }),
+                                emailErrorMsg && _react2.default.createElement(
+                                    'span',
+                                    { className: 'form-control-feedback' },
+                                    emailErrorMsg
+                                )
+                            )
+                        )
                     ),
-                    _react2.default.createElement('input', {
-                        value: this.state.email,
-                        onChange: this.onChange.bind(this),
-                        onBlur: this.checkEmailExist.bind(this),
-                        type: 'text',
-                        name: 'email',
-                        className: (0, _classnames2.default)("form-control", { "form-control-danger": emailErrorMsg })
-                    }),
-                    emailErrorMsg && _react2.default.createElement(
-                        'span',
-                        { className: 'form-control-feedback' },
-                        emailErrorMsg
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: (0, _classnames2.default)("form-group", { "has-danger": passwordErrorMsg }) },
                     _react2.default.createElement(
-                        'label',
-                        { className: 'form-control-label' },
-                        'Password'
+                        'div',
+                        { className: 'row' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'col-md-10 offset-md-1' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: (0, _classnames2.default)("form-group", { "has-danger": passwordErrorMsg }) },
+                                _react2.default.createElement(
+                                    'label',
+                                    { className: 'form-control-label' },
+                                    'Password'
+                                ),
+                                _react2.default.createElement('input', {
+                                    value: this.state.password,
+                                    onChange: this.onChange.bind(this),
+                                    type: 'password',
+                                    name: 'password',
+                                    className: (0, _classnames2.default)("form-control", { "form-control-danger": passwordErrorMsg })
+                                }),
+                                passwordErrorMsg && _react2.default.createElement(
+                                    'span',
+                                    { className: 'form-control-feedback' },
+                                    passwordErrorMsg
+                                )
+                            )
+                        )
                     ),
-                    _react2.default.createElement('input', {
-                        value: this.state.password,
-                        onChange: this.onChange.bind(this),
-                        type: 'password',
-                        name: 'password',
-                        className: (0, _classnames2.default)("form-control", { "form-control-danger": passwordErrorMsg })
-                    }),
-                    passwordErrorMsg && _react2.default.createElement(
-                        'span',
-                        { className: 'form-control-feedback' },
-                        passwordErrorMsg
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: (0, _classnames2.default)("form-group", { "has-danger": passwordConfirmationErrorMsg }) },
                     _react2.default.createElement(
-                        'label',
-                        { className: 'form-control-label' },
-                        'Password confirmation'
+                        'div',
+                        { className: 'row' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'col-md-10 offset-md-1' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: (0, _classnames2.default)("form-group", { "has-danger": passwordConfirmationErrorMsg }) },
+                                _react2.default.createElement(
+                                    'label',
+                                    { className: 'form-control-label' },
+                                    'Password confirmation'
+                                ),
+                                _react2.default.createElement('input', {
+                                    value: this.state.passwordConfirmation,
+                                    onChange: this.onChange.bind(this),
+                                    type: 'password',
+                                    name: 'passwordConfirmation',
+                                    className: (0, _classnames2.default)("form-control", { "form-control-danger": passwordConfirmationErrorMsg })
+                                }),
+                                passwordConfirmationErrorMsg && _react2.default.createElement(
+                                    'span',
+                                    { className: 'form-control-feedback' },
+                                    passwordConfirmationErrorMsg
+                                )
+                            )
+                        )
                     ),
-                    _react2.default.createElement('input', {
-                        value: this.state.passwordConfirmation,
-                        onChange: this.onChange.bind(this),
-                        type: 'password',
-                        name: 'passwordConfirmation',
-                        className: (0, _classnames2.default)("form-control", { "form-control-danger": passwordConfirmationErrorMsg })
-                    }),
-                    passwordConfirmationErrorMsg && _react2.default.createElement(
-                        'span',
-                        { className: 'form-control-feedback' },
-                        passwordConfirmationErrorMsg
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'row' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'col-md-10 offset-md-1' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'form-group' },
+                                _react2.default.createElement(
+                                    'button',
+                                    { className: 'btn btn-primary btn-lg btn-block' },
+                                    'Sign Up'
+                                )
+                            )
+                        )
                     )
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'form-group' },
+                    { className: 'row redirect' },
                     _react2.default.createElement(
-                        'button',
-                        { className: 'btn btn-primary btn-lg' },
-                        'Sign Up'
-                    )
-                ),
-                _react2.default.createElement(
-                    'h6',
-                    null,
-                    _react2.default.createElement(
-                        'a',
-                        { href: '/signin' },
-                        'Already have an account, Signin'
+                        'div',
+                        { className: 'col-md-12 redirectContainer' },
+                        _react2.default.createElement(
+                            'h6',
+                            null,
+                            _react2.default.createElement(
+                                'a',
+                                { href: '/signin' },
+                                'Already have an account, Signin'
+                            )
+                        )
                     )
                 )
             );

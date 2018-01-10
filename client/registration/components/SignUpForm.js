@@ -69,7 +69,7 @@ class SignUpForm extends React.Component {
                 });
             }
             if(res.data.confirmation === 'success') {
-                this.props.history.push('/signin');
+                window.location = "http://localhost:3000";
             }
             logDev.default('state', this.state);
         });
@@ -93,51 +93,86 @@ class SignUpForm extends React.Component {
     
        
         return (
-            <form onSubmit={this.onSubmit.bind(this)}>
-            <h1>Registration</h1>
-            <div className={classnames("form-group", {"has-danger": emailErrorMsg})}>
-                <label className="form-control-label">Email</label>
-                <input 
-                    value={this.state.email}
-                    onChange={this.onChange.bind(this)}
-                    onBlur={this.checkEmailExist.bind(this)}
-                    type="text"
-                    name="email"
-                    className={classnames("form-control", {"form-control-danger": emailErrorMsg})}
-                />
-                {emailErrorMsg && <span className="form-control-feedback">{emailErrorMsg}</span>}
-            </div>
+            <div className="container">
+                <div className="row titleContainer">
+                    <div className="col-md-12 ">
+                        <span className="title">
+                            Create an account TimeAssembly
+                        </span>
+                    </div>
+                </div>
+                <form onSubmit={this.onSubmit.bind(this)} className="signUpForm">
+                    <div className="row">
+                        <div className="col-md-10 offset-md-1">
+                            <div className={classnames("form-group", {"has-danger": emailErrorMsg})}>
+                                <label className="form-control-label emailLabel">Email</label>
+                                <input 
+                                    value={this.state.email}
+                                    onChange={this.onChange.bind(this)}
+                                    onBlur={this.checkEmailExist.bind(this)}
+                                    type="text"
+                                    name="email"
+                                    className={classnames("form-control", {"form-control-danger": emailErrorMsg})}
+                                />
+                                {emailErrorMsg && <span className="form-control-feedback">{emailErrorMsg}</span>}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div className="row">
+                        <div className="col-md-10 offset-md-1">
+                            <div className={classnames("form-group", {"has-danger": passwordErrorMsg})}>
+                                <label className="form-control-label">Password</label>
+                                <input 
+                                    value={this.state.password}
+                                    onChange={this.onChange.bind(this)}
+                                    type="password"
+                                    name="password"
+                                    className={classnames("form-control", {"form-control-danger": passwordErrorMsg})}
+                                />
+                                {passwordErrorMsg && <span className="form-control-feedback">{passwordErrorMsg}</span>}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div className="row">
+                        <div className="col-md-10 offset-md-1">
+                            <div className={classnames("form-group", {"has-danger": passwordConfirmationErrorMsg})}>
+                                <label className="form-control-label">Password confirmation</label>
+                                <input 
+                                    value={this.state.passwordConfirmation}
+                                    onChange={this.onChange.bind(this)}
+                                    type="password"
+                                    name="passwordConfirmation"
+                                    className={classnames("form-control", {"form-control-danger": passwordConfirmationErrorMsg})}
+                                />
+                                {passwordConfirmationErrorMsg && <span className="form-control-feedback">{passwordConfirmationErrorMsg}</span>}
+                            </div>
+                        </div>
+                    </div>
+                    
 
-            <div className={classnames("form-group", {"has-danger": passwordErrorMsg})}>
-                <label className="form-control-label">Password</label>
-                <input 
-                    value={this.state.password}
-                    onChange={this.onChange.bind(this)}
-                    type="password"
-                    name="password"
-                    className={classnames("form-control", {"form-control-danger": passwordErrorMsg})}
-                />
-                {passwordErrorMsg && <span className="form-control-feedback">{passwordErrorMsg}</span>}
+                    <div className="row">
+                        <div className="col-md-10 offset-md-1">
+                            <div className="form-group">
+                                <button className="btn btn-primary btn-lg btn-block">
+                                    Sign Up
+                                </button>
+                            </div>
+                        </div>
+                    </div> 
+                </form> 
+                <div className="row redirect">
+                    <div className="col-md-12 redirectContainer">
+                        <h6>
+                            <a href="/signin">
+                                Already have an account, Signin
+                            </a>
+                        </h6>
+                    </div>
+                </div>
             </div>
-
-            <div className={classnames("form-group", {"has-danger": passwordConfirmationErrorMsg})}>
-                <label className="form-control-label">Password confirmation</label>
-                <input 
-                    value={this.state.passwordConfirmation}
-                    onChange={this.onChange.bind(this)}
-                    type="password"
-                    name="passwordConfirmation"
-                    className={classnames("form-control", {"form-control-danger": passwordConfirmationErrorMsg})}
-                />
-                {passwordConfirmationErrorMsg && <span className="form-control-feedback">{passwordConfirmationErrorMsg}</span>}
-            </div>
-            <div className="form-group">
-                <button className="btn btn-primary btn-lg">
-                    Sign Up
-                </button>
-            </div>
-            <h6><a href="/signin">Already have an account, Signin</a></h6>
-        </form> 
+            
         )
         
     }

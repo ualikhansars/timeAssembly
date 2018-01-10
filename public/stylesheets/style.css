@@ -463,3 +463,50 @@ div.credits .col a {
   margin-top: 20px;
 }
 
+/* Sign Up Form */
+div.signUpPage {
+  margin-top: 60px;
+}
+
+div.signUpPage .titleContainer {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #154e14;
+}
+
+div.signUpPage form.signUpForm {
+  background-color: #ccc;
+  color: #154e14;
+}
+
+div.signUpPage .btn {
+ background-color: #154e14;
+}
+
+div.signUpPage .emailLabel {
+  margin-top: 10px;
+}
+
+div.signUpPage .btn:hover {
+  background-color: #268a24;
+ }
+
+div.signUpPage .redirect {
+  height: 60px;
+  margin: 0;
+  margin-top: 20px;
+  background-color: #ccc;
+  text-align: center;
+}
+
+div.signUpPage .redirect h6 {
+ margin-top: 20px;
+}
+
+div.signUpPage .redirect a {
+  color: #154e14;
+}
+
+
+

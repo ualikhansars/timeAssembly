@@ -4,8 +4,8 @@ import SignUpForm from './SignUpForm';
 class SignUpPage extends React.Component {
     render() {
         return (
-            <div className="row">
-                <div className="col-md-4 offset-md-4">
+            <div className="row signUpPage">
+                <div className="col-md-6 offset-md-3">
                     <SignUpForm/>
                 </div>
             </div>
