@@ -464,35 +464,35 @@ div.credits .col a {
 }
 
 /* Sign Up Form */
-div.signUpPage {
+div.signUpPage, div.loginPage {
   margin-top: 60px;
 }
 
-div.signUpPage .titleContainer {
+div.signUpPage .titleContainer, div.loginPage .titleContainer {
   text-align: center;
   font-size: 28px;
   margin-bottom: 20px;
   color: #154e14;
 }
 
-div.signUpPage form.signUpForm {
+div.signUpPage form.signUpForm, div.loginPage form.loginForm {
   background-color: #ccc;
   color: #154e14;
 }
 
-div.signUpPage .btn {
+div.signUpPage .btn, div.loginPage .btn {
  background-color: #154e14;
 }
 
-div.signUpPage .emailLabel {
+div.signUpPage .emailLabel, div.loginPage .emailLabel {
   margin-top: 10px;
 }
 
-div.signUpPage .btn:hover {
+div.signUpPage .btn:hover, div.loginPage .btn:hover {
   background-color: #268a24;
  }
 
-div.signUpPage .redirect {
+div.signUpPage .redirect, div.loginPage .redirect {
   height: 60px;
   margin: 0;
   margin-top: 20px;
@@ -500,11 +500,11 @@ div.signUpPage .redirect {
   text-align: center;
 }
 
-div.signUpPage .redirect h6 {
+div.signUpPage .redirect h6, div.loginPage .redirect h6 {
  margin-top: 20px;
 }
 
-div.signUpPage .redirect a {
+div.signUpPage .redirect a, div.loginPage .redirect a {
   color: #154e14;
 }
 

@@ -163,7 +163,7 @@ class SignUpForm extends React.Component {
                     </div> 
                 </form> 
                 <div className="row redirect">
-                    <div className="col-md-12 redirectContainer">
+                    <div className="col-md-12">
                         <h6>
                             <a href="/signin">
                                 Already have an account, Signin

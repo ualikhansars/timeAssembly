@@ -76434,7 +76434,7 @@ var LoginPage = function (_React$Component) {
                 { className: 'row' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'col-md-4 offset-md-4' },
+                    { className: 'col-md-4 offset-md-4 loginPage' },
                     _react2.default.createElement(_LoginForm2.default, null)
                 )
             );
@@ -76602,74 +76602,126 @@ var LoginForm = function (_React$Component) {
             if (emailErrors) emailErrorMsg = emailErrors.msg;
             if (passwordErrors) passwordErrorMsg = passwordErrors.msg;
             return _react2.default.createElement(
-                'form',
-                { onSubmit: this.onSubmit.bind(this) },
-                _react2.default.createElement(
-                    'h1',
-                    null,
-                    'Login'
-                ),
-                formError && _react2.default.createElement(
-                    'div',
-                    { className: 'alert alert-danger' },
-                    formError
-                ),
+                'div',
+                { className: 'container' },
                 _react2.default.createElement(
                     'div',
-                    { className: (0, _classnames2.default)("form-group", { "has-danger": emailErrorMsg }) },
+                    { className: 'row titleContainer' },
                     _react2.default.createElement(
-                        'label',
-                        { className: 'form-control-label' },
-                        'Email'
+                        'div',
+                        { className: 'col-md-12 ' },
+                        _react2.default.createElement(
+                            'span',
+                            { className: 'title' },
+                            'Sign In to TimeAssembly'
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-12' },
+                        formError && _react2.default.createElement(
+                            'div',
+                            { className: 'alert alert-danger' },
+                            formError
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'form',
+                    { onSubmit: this.onSubmit.bind(this), className: 'loginForm' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'row' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'col-md-10 offset-md-1' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: (0, _classnames2.default)("form-group", { "has-danger": emailErrorMsg }) },
+                                _react2.default.createElement(
+                                    'label',
+                                    { className: 'form-control-label emailLabel' },
+                                    'Email'
+                                ),
+                                _react2.default.createElement('input', {
+                                    type: 'text',
+                                    name: 'email',
+                                    className: (0, _classnames2.default)("form-control", { "form-control-danger": emailErrorMsg }),
+                                    onChange: this.onChange.bind(this)
+                                }),
+                                emailErrorMsg && _react2.default.createElement(
+                                    'span',
+                                    { className: 'form-control-feedback' },
+                                    emailErrorMsg
+                                )
+                            )
+                        )
                     ),
-                    _react2.default.createElement('input', {
-                        type: 'text',
-                        name: 'email',
-                        className: (0, _classnames2.default)("form-control", { "form-control-danger": emailErrorMsg }),
-                        onChange: this.onChange.bind(this)
-                    }),
-                    emailErrorMsg && _react2.default.createElement(
-                        'span',
-                        { className: 'form-control-feedback' },
-                        emailErrorMsg
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: (0, _classnames2.default)("form-group", { "has-danger": passwordErrorMsg }) },
                     _react2.default.createElement(
-                        'label',
-                        { className: 'form-control-label' },
-                        'Password'
+                        'div',
+                        { className: 'row' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'col-md-10 offset-md-1' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: (0, _classnames2.default)("form-group", { "has-danger": passwordErrorMsg }) },
+                                _react2.default.createElement(
+                                    'label',
+                                    { className: 'form-control-label' },
+                                    'Password'
+                                ),
+                                _react2.default.createElement('input', {
+                                    type: 'password',
+                                    name: 'password',
+                                    className: (0, _classnames2.default)("form-control", { "form-control-danger": passwordErrorMsg }),
+                                    onChange: this.onChange.bind(this)
+                                }),
+                                passwordErrorMsg && _react2.default.createElement(
+                                    'span',
+                                    { className: 'form-control-feedback' },
+                                    passwordErrorMsg
+                                )
+                            )
+                        )
                     ),
-                    _react2.default.createElement('input', {
-                        type: 'password',
-                        name: 'password',
-                        className: (0, _classnames2.default)("form-control", { "form-control-danger": passwordErrorMsg }),
-                        onChange: this.onChange.bind(this)
-                    }),
-                    passwordErrorMsg && _react2.default.createElement(
-                        'span',
-                        { className: 'form-control-feedback' },
-                        passwordErrorMsg
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'row' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'col-md-10 offset-md-1' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'form-group' },
+                                _react2.default.createElement(
+                                    'button',
+                                    { className: 'btn btn-primary btn-lg btn-block' },
+                                    'Sign In'
+                                )
+                            )
+                        )
                     )
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'form-group' },
+                    { className: 'row redirect' },
                     _react2.default.createElement(
-                        'button',
-                        { className: 'btn btn-primary btn-lg' },
-                        'Login'
-                    )
-                ),
-                _react2.default.createElement(
-                    'h6',
-                    null,
-                    _react2.default.createElement(
-                        'a',
-                        { href: '/signup' },
-                        'Don\'t have an account, Register'
+                        'div',
+                        { className: 'col-md-10 offset-md-1' },
+                        _react2.default.createElement(
+                            'h6',
+                            null,
+                            _react2.default.createElement(
+                                'a',
+                                { href: '/signup' },
+                                'Don\'t have an account, Register'
+                            )
+                        )
                     )
                 )
             );

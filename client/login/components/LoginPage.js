@@ -5,7 +5,7 @@ class LoginPage extends React.Component {
     render() {
         return (
             <div className="row">
-                <div className="col-md-4 offset-md-4">
+                <div className="col-md-4 offset-md-4 loginPage">
                    <LoginForm/>
                 </div>
             </div>

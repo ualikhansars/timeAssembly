@@ -24831,7 +24831,7 @@ var SignUpForm = function (_React$Component) {
                     { className: 'row redirect' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-md-12 redirectContainer' },
+                        { className: 'col-md-12' },
                         _react2.default.createElement(
                             'h6',
                             null,

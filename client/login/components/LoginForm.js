@@ -66,37 +66,75 @@ class LoginForm extends React.Component {
         if(passwordErrors) passwordErrorMsg = passwordErrors.msg;
         return(
             
-            <form onSubmit={this.onSubmit.bind(this)}>
-                <h1>Login</h1>
-                {formError && <div className="alert alert-danger">{formError}</div>}
-                <div className={classnames("form-group", {"has-danger": emailErrorMsg})}>
-                    <label className="form-control-label">Email</label>
-                    <input 
-                        type="text"
-                        name="email"
-                        className={classnames("form-control", {"form-control-danger": emailErrorMsg})}
-                        onChange={this.onChange.bind(this)}
-                    />
-                    {emailErrorMsg && <span className="form-control-feedback">{emailErrorMsg}</span>}
+            <div className="container">
+                <div className="row titleContainer">
+                    <div className="col-md-12 ">
+                        <span className="title">
+                            Sign In to TimeAssembly
+                        </span>
+                    </div>
                 </div>
+                <div className="row">
+                        <div className="col-md-12">
+                            {formError && <div className="alert alert-danger">{formError}</div>}
+                        </div>
+                    </div>
+                <form onSubmit={this.onSubmit.bind(this)} className="loginForm" >
+                    
+                    
+                    
+                    <div className="row">
+                        <div className="col-md-10 offset-md-1">
+                            <div className={classnames("form-group", {"has-danger": emailErrorMsg})}>
+                                <label className="form-control-label emailLabel">Email</label>
+                                <input 
+                                    type="text"
+                                    name="email"
+                                    className={classnames("form-control", {"form-control-danger": emailErrorMsg})}
+                                    onChange={this.onChange.bind(this)}
+                                />
+                                {emailErrorMsg && <span className="form-control-feedback">{emailErrorMsg}</span>}
+                            </div>
+                        </div>
+                    </div>
+                    
 
-                <div className={classnames("form-group", {"has-danger": passwordErrorMsg})}>
-                    <label className="form-control-label">Password</label>
-                    <input 
-                        type="password"
-                        name="password"
-                        className={classnames("form-control", {"form-control-danger": passwordErrorMsg})}
-                        onChange={this.onChange.bind(this)}
-                    />
-                    {passwordErrorMsg && <span className="form-control-feedback">{passwordErrorMsg}</span>}
+                    <div className="row">
+                        <div className="col-md-10 offset-md-1">
+                            <div className={classnames("form-group", {"has-danger": passwordErrorMsg})}>
+                                <label className="form-control-label">Password</label>
+                                <input 
+                                    type="password"
+                                    name="password"
+                                    className={classnames("form-control", {"form-control-danger": passwordErrorMsg})}
+                                    onChange={this.onChange.bind(this)}
+                                />
+                                {passwordErrorMsg && <span className="form-control-feedback">{passwordErrorMsg}</span>}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div className="row">
+                        <div className="col-md-10 offset-md-1">
+                            <div className="form-group">
+                                <button className="btn btn-primary btn-lg btn-block">
+                                    Sign In
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div className="row redirect">
+                    <div className="col-md-10 offset-md-1">
+                        <h6>
+                            <a href="/signup">
+                                Don't have an account, Register
+                            </a>
+                        </h6>
+                    </div>
                 </div>
-                <div className="form-group">
-                <button className="btn btn-primary btn-lg">
-                    Login
-                </button>
-                </div>
-                <h6><a href="/signup">Don't have an account, Register</a></h6>
-            </form>
+            </div>
+            
         );
     }
 }
