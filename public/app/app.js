@@ -81677,30 +81677,12 @@ var Navbar = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'a',
-                    { href: '#', className: 'navbar-brand' },
-                    'Timetable'
+                    { href: '#', className: 'logo' },
+                    'TimeAssembly'
                 ),
                 _react2.default.createElement(
                     'div',
                     { className: 'collapse navbar-collapse', id: 'navbarNav' },
-                    _react2.default.createElement(
-                        'ul',
-                        { className: 'navbar-nav' },
-                        _react2.default.createElement(
-                            'li',
-                            { className: 'nav-item' },
-                            _react2.default.createElement(
-                                'a',
-                                { className: 'nav-link', href: '#' },
-                                'Get Started',
-                                _react2.default.createElement(
-                                    'span',
-                                    { className: 'sr-only' },
-                                    '(current)'
-                                )
-                            )
-                        )
-                    ),
                     isAuthenticated ? userLinks : guestLinks
                 )
             );

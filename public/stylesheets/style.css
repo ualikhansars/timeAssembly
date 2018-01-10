@@ -46,11 +46,15 @@ div.footer a.textLink:hover {
   margin: 2px;
 }
 
-.navbar a.navbar-brand {
+
+.navbar a.logo {
+  font-size: 22px;
+  display: inline;
+  text-decoration: none;
   color: #cecece;
 }
 
-.navbar a.navbar-brand:hover {
+.navbar a.logo:hover {
   color: #fff;
 }
 
