@@ -177,9 +177,16 @@ export const updateTask = (task) => {
     }
 }
 
-export const removeTask = (id, slotId) => {
+export const removeTask = (task) => {
+    let id = task._id;
+    let slotId = task.slot;
+    let userId = task.userId;
     return dispatch => {
-        return axios.delete(`/api/task/${id}`)
+        return axios.delete(`/api/task/${id}`, {
+            params: {
+                userId: userId
+            }
+        })
             .then(res => {
                 dispatch({
                     type: 'TASK_DELETED_SUCCESS',

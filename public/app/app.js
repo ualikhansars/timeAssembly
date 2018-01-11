@@ -26027,9 +26027,16 @@ var updateTask = exports.updateTask = function updateTask(task) {
     };
 };
 
-var removeTask = exports.removeTask = function removeTask(id, slotId) {
+var removeTask = exports.removeTask = function removeTask(task) {
+    var id = task._id;
+    var slotId = task.slot;
+    var userId = task.userId;
     return function (dispatch) {
-        return _axios2.default.delete('/api/task/' + id).then(function (res) {
+        return _axios2.default.delete('/api/task/' + id, {
+            params: {
+                userId: userId
+            }
+        }).then(function (res) {
             dispatch({
                 type: 'TASK_DELETED_SUCCESS',
                 deletedTaskId: id
@@ -77488,6 +77495,7 @@ var Task = function (_React$Component) {
                 id = _props$property.id;
 
             var showDescription = void 0;
+            var task = this.props.task;
             if (description) {
                 showDescription = _react2.default.createElement(
                     'div',
@@ -77606,7 +77614,7 @@ var Task = function (_React$Component) {
                                         return _this2.props.selectTask(id);
                                     }, className: 'listTask' }),
                                 _react2.default.createElement('img', { src: '/img/trushBin.png', onClick: function onClick() {
-                                        return _this2.props.removeTask(id, slot);
+                                        return _this2.props.removeTask(task);
                                     }, className: 'removeTask' })
                             )
                         )
@@ -82546,6 +82554,7 @@ var TwentyFourHours = function (_React$Component) {
                         //if(timeFormat === 12 && meridien === 'a.m' && hour === 12 && min !== 0) break; // time is more than 12:00 for 12 hours format
                         if (updatedTasks.length > 0) {
                             for (var i = 0; i < updatedTasks.length; ++i) {
+                                var currentTask = updatedTasks[i];
                                 // check if task' startTime equal to iteration hour and minites
                                 // then add Task with same startHour instead of time Component
                                 // if 12 o'clock hours was chosen and task starts before 12 and finishes after 12
@@ -82553,7 +82562,7 @@ var TwentyFourHours = function (_React$Component) {
                                 if (hour === updatedTasks[i].startTimeHours && _min === updatedTasks[i].startTimeMinutes || updatedTasks[i].startTimeHours < 12 && updatedTasks[i].finishTimeHours > startTime) {
                                     _logDev.logDev.red('updatedTask', updatedTasks[i]);
                                     property = (0, _twentyFourHours.addPropertyToTask)(updatedTasks[i]);
-                                    timetable.push(_react2.default.createElement(_Task2.default, { onClickUpdate: this.props.onClickUpdateTask, property: property, removeTask: this.props.removeTask, key: index }));
+                                    timetable.push(_react2.default.createElement(_Task2.default, { onClickUpdate: this.props.onClickUpdateTask, property: property, removeTask: this.props.removeTask, task: currentTask, key: index }));
                                     index++;
                                     taskAdded = true;
                                     //taskMin = min; // save task startTime

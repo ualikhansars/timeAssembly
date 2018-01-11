@@ -75,6 +75,7 @@ class TwentyFourHours extends React.Component {
                     //if(timeFormat === 12 && meridien === 'a.m' && hour === 12 && min !== 0) break; // time is more than 12:00 for 12 hours format
                     if(updatedTasks.length > 0) {
                         for(let i = 0; i < updatedTasks.length; ++i) { 
+                            let currentTask = updatedTasks[i]; 
                             // check if task' startTime equal to iteration hour and minites
                             // then add Task with same startHour instead of time Component
                             // if 12 o'clock hours was chosen and task starts before 12 and finishes after 12
@@ -83,7 +84,7 @@ class TwentyFourHours extends React.Component {
                                 logDev.red('updatedTask', updatedTasks[i]);
                                 property = addPropertyToTask(updatedTasks[i]);
                                 timetable.push(
-                                    <Task onClickUpdate={this.props.onClickUpdateTask} property={property} removeTask={this.props.removeTask} key={index}/>
+                                    <Task onClickUpdate={this.props.onClickUpdateTask} property={property} removeTask={this.props.removeTask} task={currentTask} key={index}/>
                                 );
                                 index++;
                                 taskAdded = true; 

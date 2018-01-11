@@ -26,6 +26,7 @@ class Task extends React.Component {
             id
         } = this.props.property;
         let showDescription;
+        let task = this.props.task;
         if(description) {
             showDescription = <div className="row">
                                 <div className="col-md-12">
@@ -86,7 +87,7 @@ class Task extends React.Component {
                             <div className="col-md-12">
                                 <img src="/img/edit.png" onClick={() => this.props.onClickUpdate(id)} className="editTask"/>
                                 <img src="/img/list.png" onClick={() => this.props.selectTask(id)} className="listTask" />
-                                <img src="/img/trushBin.png" onClick={() => this.props.removeTask(id, slot)} className="removeTask" />        
+                                <img src="/img/trushBin.png" onClick={() => this.props.removeTask(task)} className="removeTask" />        
                             </div>
                         </div>
                     </div>
