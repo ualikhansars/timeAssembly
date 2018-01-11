@@ -1,7 +1,7 @@
 var jwt = require('jsonwebtoken');
 var jwtConfig = require('../config/jwtConfig');
 
-// prevent update task and slot by different user
+// prevent update task and slot by other users
 export const updateByCurrentUser = (req, res, next) => {
     let token;
     if(req.cookies.jwtToken) {
@@ -12,12 +12,17 @@ export const updateByCurrentUser = (req, res, next) => {
             if(err) {
                 throw err;
             } 
+            let resource = req.params.resource;
             let userId = decoded.id;
             let taskUser = req.body.userId;
-            if(userId === taskUser) {
-                next();
+            if(resource === 'task' || resource === 'slot') {
+                if(userId === taskUser) {
+                    next();
+                } else {
+                    throw err;
+                }
             } else {
-                throw err;
+                 throw err; // cannot update user via application
             }
         });
     } else {
@@ -25,7 +30,7 @@ export const updateByCurrentUser = (req, res, next) => {
     }
 }
 
-// prevent remove task and slot by different user
+// prevent remove task and slot by other users
 export const deleteByCurrentUser = (req, res, next) => {
     let token;
     if(req.cookies.jwtToken) {
@@ -36,12 +41,17 @@ export const deleteByCurrentUser = (req, res, next) => {
             if(err) {
                 throw err;
             } 
+            let resource = req.params.resource;
             let userId = decoded.id;
             let taskUser = req.query.userId;
-            if(userId === taskUser) {
-                next();
+            if(resource === 'task' || resource === 'slot') {
+                if(userId === taskUser) {
+                    next();
+                } else {
+                    throw err;
+                }
             } else {
-                throw err;
+                 throw err; // cannot delete user via application
             }
         });
     } else {
