@@ -90,7 +90,7 @@ class SlotContainer extends React.Component {
                     }
                     return (
                         <div key={i}>
-                            <Slot slotProperty={slotProperty}/>
+                            <Slot slotProperty={slotProperty} slot={slot}/>
                         </div>
                     );
             });

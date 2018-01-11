@@ -73,9 +73,15 @@ export const fetchTemporarySlots = (id) => {
     }
 }
 
-export const removeSlot = (id) => {
+export const removeSlot = (slot) => {
+    let id = slot._id;
+    let userId = slot.userId;
     return dispatch => {
-        return axios.delete(`/api/slot/${id}`)
+        return axios.delete(`/api/slot/${id}`, {
+           params: {
+                userId: userId
+           } 
+        })
             .then(res => {
                 dispatch({
                     type: 'SLOT_DELETED_SUCCESS',

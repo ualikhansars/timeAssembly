@@ -77285,9 +77285,15 @@ var fetchTemporarySlots = exports.fetchTemporarySlots = function fetchTemporaryS
     };
 };
 
-var removeSlot = exports.removeSlot = function removeSlot(id) {
+var removeSlot = exports.removeSlot = function removeSlot(slot) {
+    var id = slot._id;
+    var userId = slot.userId;
     return function (dispatch) {
-        return _axios2.default.delete('/api/slot/' + id).then(function (res) {
+        return _axios2.default.delete('/api/slot/' + id, {
+            params: {
+                userId: userId
+            }
+        }).then(function (res) {
             dispatch({
                 type: 'SLOT_DELETED_SUCCESS',
                 deletedSlotId: id
@@ -80767,8 +80773,9 @@ var Slot = function (_React$Component) {
                 free = _props$slotProperty$s.free,
                 temporary = _props$slotProperty$s.temporary,
                 dueDate = _props$slotProperty$s.dueDate;
-            // if time is chosen and there are free tasks, then show the add button
 
+            var slot = this.props.slot;
+            // if time is chosen and there are free tasks, then show the add button
             if (startTimeHours && startTimeMinutes && free > 0) {
                 addButton = _react2.default.createElement(
                     "div",
@@ -80878,7 +80885,7 @@ var Slot = function (_React$Component) {
                                 return _this2.props.slotProperty.fetchSlot(id);
                             }, className: "editSlot" }),
                         _react2.default.createElement("img", { src: "/img/trushBin.png", onClick: function onClick() {
-                                return _this2.props.slotProperty.removeSlot(id);
+                                return _this2.props.slotProperty.removeSlot(slot);
                             }, className: "removeSlot" })
                     )
                 )
@@ -81038,7 +81045,7 @@ var SlotContainer = function (_React$Component) {
                     return _react2.default.createElement(
                         'div',
                         { key: i },
-                        _react2.default.createElement(_Slot2.default, { slotProperty: slotProperty })
+                        _react2.default.createElement(_Slot2.default, { slotProperty: slotProperty, slot: slot })
                     );
                 });
             }

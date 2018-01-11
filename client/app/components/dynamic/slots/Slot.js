@@ -14,6 +14,7 @@ class Slot extends React.Component {
             temporary,
             dueDate,
         } = this.props.slotProperty.slotAttr;
+        let slot = this.props.slot;
         // if time is chosen and there are free tasks, then show the add button
         if(startTimeHours && startTimeMinutes && free > 0) {
             addButton = <div className="row addButton">
@@ -61,7 +62,7 @@ class Slot extends React.Component {
                     </div>
                     <div className="col-md-6 slotButtons">
                         <img src="/img/edit.png" onClick={() => this.props.slotProperty.fetchSlot(id)} className="editSlot" />
-                        <img src="/img/trushBin.png" onClick={() => this.props.slotProperty.removeSlot(id)} className="removeSlot" />
+                        <img src="/img/trushBin.png" onClick={() => this.props.slotProperty.removeSlot(slot)} className="removeSlot" />
                     </div>
                 </div>
             </div>
