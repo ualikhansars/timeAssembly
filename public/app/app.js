@@ -83224,7 +83224,7 @@ var SlotInfo = function SlotInfo() {
                 slots: updatedSlots
             });
         case 'SLOT_DELETED_SUCCESS':
-            console.log('REMOVE_SLOT');
+            _logDev.logDev.default('REMOVE_SLOT');
             var slotsBeforeDeletion = Object.assign([], state.slots);
             var deletedSlotId = action.deletedSlotId;
             // if id == slot.id then delete it from slots array 

@@ -151,7 +151,7 @@ const SlotInfo = (state = initialState, action) => {
                 slots: updatedSlots
             });
         case 'SLOT_DELETED_SUCCESS':
-            console.log('REMOVE_SLOT');
+            logDev.default('REMOVE_SLOT');
             let slotsBeforeDeletion = Object.assign([], state.slots); 
             let deletedSlotId = action.deletedSlotId;
             // if id == slot.id then delete it from slots array 

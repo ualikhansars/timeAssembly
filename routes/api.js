@@ -7,6 +7,7 @@ var Slot = require('../models/slot');
 var User = require('../models/user');
 
 import {
+  deleteByCurrentUser,
   updateByCurrentUser
 } from '../middlewares/currentUser';
 
@@ -279,7 +280,7 @@ router.put('/:resource/withSlot/:id', function(req, res, next) {
 });
 
 // remove
-router.delete('/:resource/:id', function(req, res, next) {
+router.delete('/:resource/:id', deleteByCurrentUser, function(req, res, next) {
   var resource = req.params.resource;
   var id = req.params.id;
   var controller = controllers[resource];

@@ -24,3 +24,27 @@ export const updateByCurrentUser = (req, res, next) => {
         throw err;
     }
 }
+
+// prevent remove task and slot by different user
+export const deleteByCurrentUser = (req, res, next) => {
+    let token;
+    if(req.cookies.jwtToken) {
+        token = req.cookies.jwtToken;
+    }
+    if(token) {
+        jwt.verify(token, jwtConfig.jwtSecret, function(err, decoded) {
+            if(err) {
+                throw err;
+            } 
+            let userId = decoded.id;
+            let taskUser = req.query.userId;
+            if(userId === taskUser) {
+                next();
+            } else {
+                throw err;
+            }
+        });
+    } else {
+        throw err;
+    }
+}
