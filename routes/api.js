@@ -6,7 +6,9 @@ var Task = require('../models/task');
 var Slot = require('../models/slot');
 var User = require('../models/user');
 
-import {isCurrentUser} from '../middlewares/currentUser';
+import {
+  updateByCurrentUser
+} from '../middlewares/currentUser';
 
 // find all
 router.get('/:resource', function(req, res, next) {
@@ -131,7 +133,7 @@ router.post('/:resource', function(req, res, next) {
 });
 
 // update
-router.put('/:resource/:id', function(req, res, next) {
+router.put('/:resource/:id', updateByCurrentUser, function(req, res, next) {
   var resource = req.params.resource;
   var id = req.params.id;
   var controller = controllers[resource];
@@ -160,7 +162,7 @@ router.put('/:resource/:id', function(req, res, next) {
 });
 
 // update by userId
-router.put('/:resource/byUserId/:userId', isCurrentUser, function(req, res, next) {
+router.put('/:resource/byUserId/:userId', function(req, res, next) {
   var resource = req.params.resource;
   var userId = req.params.userId;
   var controller = controllers[resource];

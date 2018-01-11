@@ -1,7 +1,8 @@
 var jwt = require('jsonwebtoken');
 var jwtConfig = require('../config/jwtConfig');
 
-export const isCurrentUser = (req, res, next) => {
+// prevent update task and slot by different user
+export const updateByCurrentUser = (req, res, next) => {
     let token;
     if(req.cookies.jwtToken) {
         token = req.cookies.jwtToken;
@@ -13,11 +14,10 @@ export const isCurrentUser = (req, res, next) => {
             } 
             let userId = decoded.id;
             let taskUser = req.body.userId;
-            console.log('req.body', req.body);
             if(userId === taskUser) {
-                
+                next();
             } else {
-                
+                throw err;
             }
         });
     } else {
