@@ -78727,7 +78727,6 @@ const isAuthenticated = (req, res, next) => {
     } else {
         res.redirect('/signin');
     }
-
 }
 /* harmony export (immutable) */ __webpack_exports__["isAuthenticated"] = isAuthenticated;
 
