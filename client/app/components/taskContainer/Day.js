@@ -34,11 +34,11 @@ class Day extends React.Component {
         let display;
         let resource = null;
         // when data is loading
-        if(loading) {
-            return(
-                <div>loading</div>
-            );
-        }
+        // if(loading) {
+        //     return(
+        //         <div>loading</div>
+        //     );
+        // }
 
         // if errors occurs
         if(errors) {

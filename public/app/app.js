@@ -81913,13 +81913,11 @@ var Day = function (_React$Component) {
             var display = void 0;
             var resource = null;
             // when data is loading
-            if (loading) {
-                return _react2.default.createElement(
-                    'div',
-                    null,
-                    'loading'
-                );
-            }
+            // if(loading) {
+            //     return(
+            //         <div>loading</div>
+            //     );
+            // }
 
             // if errors occurs
             if (errors) {
@@ -82497,13 +82495,11 @@ var TwentyFourHours = function (_React$Component) {
                 errors = _props$taskInfo$tasks.errors;
 
             var timetable = [];
-            if (loading) {
-                return _react2.default.createElement(
-                    'div',
-                    null,
-                    'loading'
-                );
-            }
+            // if(loading) {
+            //     return(
+            //         <div>loading</div>
+            //     );
+            // }
 
             // if errors occurs
             if (errors) {

@@ -8,7 +8,7 @@ html,body {
 div.footer {
   height: 60px;
   background-color: #ccc;
-  margin-top: 340px;
+  margin-top: 380px;
 }
 
 div.footer div.line {
@@ -99,6 +99,17 @@ div.week span:hover {
 
 .day h4.dayname {
   text-align: center;
+}
+
+/* timetable */
+@keyframes timetable {
+  0%   {top: -5px;}
+  100% {top: 0px}
+}
+
+.timetable {
+  animation-name: timetable;
+  animation-duration: 0.4s;
 }
 
 .timeInterval {

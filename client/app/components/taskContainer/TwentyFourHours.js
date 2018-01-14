@@ -29,11 +29,11 @@ class TwentyFourHours extends React.Component {
         const {tasks} = this.props.taskInfo;
         const {loading, loaded, errors} = this.props.taskInfo.tasksRequest;
         let timetable = [];
-        if(loading) {
-            return(
-                <div>loading</div>
-            );
-        }
+        // if(loading) {
+        //     return(
+        //         <div>loading</div>
+        //     );
+        // }
 
         // if errors occurs
         if(errors) {
