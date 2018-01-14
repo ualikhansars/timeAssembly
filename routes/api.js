@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var controllers = require('../controllers');
 var userValidation = require('../utils/userValidation');
+var jwt = require('jsonwebtoken');
+var jwtConfig = require('../config/jwtConfig');
+
 var Task = require('../models/task');
 var Slot = require('../models/slot');
 var User = require('../models/user');
@@ -15,29 +18,67 @@ import {
 router.get('/:resource', function(req, res, next) {
   var resource = req.params.resource;
   var controller = controllers[resource];
-
-  if(controller == null) {
+  let token;
+  if(req.cookies.jwtToken) {
+      token = req.cookies.jwtToken;
+  }
+  if(token) {
+    if(token) {
+      jwt.verify(token, jwtConfig.jwtSecret, function(err, decoded) {
+        let userId = decoded.id;
+        let requestId = req.query.userId;
+        if(err) {
+          res.json({
+            confirmation: 'failed',
+            message: 'authorization error'
+          });
+          return;
+        } 
+        if(controller == null) {
+          res.json({
+            confirmation: 'failed',
+            message: 'Invalid resource request ' + resource
+          })
+          return;
+        }
+        if(userId === requestId) {
+          controller.find(req.query, function(err, results){
+            if(err) {
+              res.json({
+                confirmation: 'failed',
+                message: err
+              });
+              return;
+            }
+            res.json({
+              confirmation: 'success',
+              resource: results
+            });
+            return;
+          })
+        } else {
+          res.json({
+            confirmation: 'failed',
+            message: 'access denied'
+          });
+          return;
+        }
+      });
+  } else {
     res.json({
       confirmation: 'failed',
-      message: 'Invalid resource request ' + resource
-    })
-    return;
-  }
-
-  controller.find(req.query, function(err, results){
-    if(err) {
-      res.json({
-        confirmation: 'failed',
-        message: err
-      });
-      return;
-    }
-    res.json({
-      confirmation: 'success',
-      resource: results
+      message: 'access denied'
     });
     return;
-  })
+  }
+  } else {
+    res.json({
+      confirmation: 'failed',
+      message: 'authorization error'
+    });
+    return;
+  }
+  
 });
 
 

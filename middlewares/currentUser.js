@@ -1,3 +1,6 @@
+import { error } from 'util';
+import { request } from 'https';
+
 var jwt = require('jsonwebtoken');
 var jwtConfig = require('../config/jwtConfig');
 
@@ -10,7 +13,7 @@ export const updateByCurrentUser = (req, res, next) => {
     if(token) {
         jwt.verify(token, jwtConfig.jwtSecret, function(err, decoded) {
             if(err) {
-                throw err;
+                throw error;
             } 
             let resource = req.params.resource;
             let userId = decoded.id;
@@ -19,14 +22,14 @@ export const updateByCurrentUser = (req, res, next) => {
                 if(userId === taskUser) {
                     next();
                 } else {
-                    throw err;
+                    throw error;
                 }
             } else {
-                 throw err; // cannot update user via application
+                 throw error; // cannot update user via application
             }
         });
     } else {
-        throw err;
+        throw error;
     }
 }
 
@@ -39,7 +42,7 @@ export const deleteByCurrentUser = (req, res, next) => {
     if(token) {
         jwt.verify(token, jwtConfig.jwtSecret, function(err, decoded) {
             if(err) {
-                throw err;
+                throw error;
             } 
             let resource = req.params.resource;
             let userId = decoded.id;
@@ -48,13 +51,14 @@ export const deleteByCurrentUser = (req, res, next) => {
                 if(userId === taskUser) {
                     next();
                 } else {
-                    throw err;
+                    throw error;
                 }
             } else {
-                 throw err; // cannot delete user via application
+                 throw error; // cannot delete user via application
             }
         });
     } else {
-        throw err;
+        throw error;
     }
 }
+

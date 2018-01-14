@@ -79336,6 +79336,7 @@ var CreateTaskForm = function (_React$Component) {
                         errors: 'Please, assign duration time for your task'
                     });
                 } else {
+                    console.log('description', this.state.description);
                     var updatedTask = Object.assign({}, this.state.task, {
                         finishTimeHours: finishHour,
                         finishTimeMinutes: finishMin,

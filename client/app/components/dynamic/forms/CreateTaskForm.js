@@ -158,6 +158,7 @@ class CreateTaskForm extends React.Component {
                     errors: 'Please, assign duration time for your task'
                 });
             } else {
+                console.log('description', this.state.description);
                 let updatedTask = Object.assign({}, this.state.task, {
                     finishTimeHours: finishHour,
                     finishTimeMinutes: finishMin,
