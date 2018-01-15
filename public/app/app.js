@@ -22593,6 +22593,8 @@ var getTimeDependsOnTimeFormat = exports.getTimeDependsOnTimeFormat = function g
 // get start and finish time and calculate
 // duration in minutes
 var getDurationInMins = exports.getDurationInMins = function getDurationInMins(startHour, startMin, finishHour, finishMin) {
+    console.error('startHour', startHour, 'startMin', startMin);
+    console.error('finishHour', finishHour, 'finishMin', finishMin);
     var hour = finishHour - startHour;
     var mins = finishMin - startMin;
     return hour * 60 + mins;
@@ -28956,7 +28958,7 @@ exports.sha512 = __webpack_require__(447)
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "development", function() { return development; });
-let development = true;
+let development = false;
 
 /***/ }),
 /* 160 */
@@ -77710,9 +77712,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 // get tasks that starts after startTime
 var getTasksStartsAfterStartTime = exports.getTasksStartsAfterStartTime = function getTasksStartsAfterStartTime(startTimeHours, startTimeMinutes, tasks) {
+	startTimeHours = Number(startTimeHours);
+	startTimeMinutes = Number(startTimeMinutes);
 	var tasksStartsAfterStartTime = [];
 	for (var i = 0; i < tasks.length; ++i) {
-		if (tasks[i].startTimeHours === startTimeHours) {
+		if (tasks[i].startTimeHours === startTimeHours && tasks[i].startTimeMinutes > startTimeMinutes) {
 			if (tasks[i].startTimeMinutes > startTimeMinutes) {
 				tasksStartsAfterStartTime.push(tasks[i]);
 			}
@@ -79215,13 +79219,19 @@ var CreateTaskForm = function (_React$Component) {
                 userId: _this.userId,
                 slot: _this.slot
             },
-            durationHours: 1,
-            durationMins: 0
+            durationHours: 0,
+            durationMins: 0,
+            possibleDurationInMins: 0
         };
         return _this;
     }
 
     _createClass(CreateTaskForm, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.calcInitialPossibleDuration();
+        }
+    }, {
         key: 'onChange',
         value: function onChange(event) {
             this.setState(_defineProperty({}, event.target.id, event.target.value), function () {
@@ -79298,6 +79308,28 @@ var CreateTaskForm = function (_React$Component) {
             }
         }
     }, {
+        key: 'calcInitialPossibleDuration',
+        value: function calcInitialPossibleDuration() {
+            var _props$taskInfo = this.props.taskInfo,
+                startTimeHours = _props$taskInfo.startTimeHours,
+                startTimeMinutes = _props$taskInfo.startTimeMinutes,
+                tasks = _props$taskInfo.tasks;
+
+            var tasksStartsAfterStartTime = (0, _taskCalc.getTasksStartsAfterStartTime)(startTimeHours, startTimeMinutes, tasks);
+
+            var _getDueTime = (0, _taskCalc.getDueTime)(tasksStartsAfterStartTime),
+                dueHours = _getDueTime.dueHours,
+                dueMins = _getDueTime.dueMins;
+
+            var possibleDurationInMins = (0, _timeCalc.getDurationInMins)(startTimeHours, startTimeMinutes, dueHours, dueMins);
+            var durationHours = 1;
+            if (possibleDurationInMins < 60) durationHours = 0;
+            this.setState({
+                durationHours: durationHours,
+                possibleDurationInMins: possibleDurationInMins
+            });
+        }
+    }, {
         key: 'onSubmit',
         value: function onSubmit(e) {
             e.preventDefault();
@@ -79356,10 +79388,10 @@ var CreateTaskForm = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            var _props$taskInfo = this.props.taskInfo,
-                startTimeHours = _props$taskInfo.startTimeHours,
-                startTimeMinutes = _props$taskInfo.startTimeMinutes,
-                tasks = _props$taskInfo.tasks;
+            var _props$taskInfo2 = this.props.taskInfo,
+                startTimeHours = _props$taskInfo2.startTimeHours,
+                startTimeMinutes = _props$taskInfo2.startTimeMinutes,
+                tasks = _props$taskInfo2.tasks;
 
             _logDev.logDev.default('tasks', tasks);
             var _props$preferences = this.props.preferences,
@@ -79369,15 +79401,9 @@ var CreateTaskForm = function (_React$Component) {
 
             var displayTime = (0, _timeCalc.getTimeDependsOnTimeFormat)(startTimeHours, startTimeMinutes, timeFormat, meridien);
 
-            var tasksStartsAfterStartTime = (0, _taskCalc.getTasksStartsAfterStartTime)(startTimeHours, startTimeMinutes, tasks);
             // get min tasks that starts after start time
             // to calculate possible duration
-
-            var _getDueTime = (0, _taskCalc.getDueTime)(tasksStartsAfterStartTime),
-                dueHours = _getDueTime.dueHours,
-                dueMins = _getDueTime.dueMins;
-
-            var possibleDurationInMins = (0, _timeCalc.getDurationInMins)(startTimeHours, startTimeMinutes, dueHours, dueMins);
+            var possibleDurationInMins = this.state.possibleDurationInMins;
 
             var _calcPossibleHoursAnd = (0, _timeCalc.calcPossibleHoursAndMins)(possibleDurationInMins, this.state.durationHours, this.state.durationMins),
                 possibleHours = _calcPossibleHoursAnd.possibleHours,

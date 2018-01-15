@@ -45,9 +45,14 @@ class CreateTaskForm extends React.Component {
                 userId: this.userId,
                 slot: this.slot
             },
-            durationHours: 1,
+            durationHours: 0,
             durationMins: 0,        
+            possibleDurationInMins: 0
         }
+    }
+
+    componentDidMount() {
+        this.calcInitialPossibleDuration();
     }
 
     onChange(event) {
@@ -125,6 +130,19 @@ class CreateTaskForm extends React.Component {
         }
     }
 
+    calcInitialPossibleDuration() {
+        let {startTimeHours, startTimeMinutes, tasks} = this.props.taskInfo;
+        let tasksStartsAfterStartTime = getTasksStartsAfterStartTime(startTimeHours, startTimeMinutes, tasks);
+        let {dueHours, dueMins} = getDueTime(tasksStartsAfterStartTime);
+        let possibleDurationInMins = getDurationInMins(startTimeHours, startTimeMinutes, dueHours, dueMins);
+        let durationHours = 1;
+        if(possibleDurationInMins < 60) durationHours = 0; 
+        this.setState({
+            durationHours: durationHours,
+            possibleDurationInMins: possibleDurationInMins
+        });
+    }
+
     onSubmit(e) {
         e.preventDefault();
         // process duration
@@ -182,11 +200,9 @@ class CreateTaskForm extends React.Component {
         // to display time in proper format
         let displayTime = getTimeDependsOnTimeFormat(startTimeHours, startTimeMinutes, timeFormat, meridien);
 
-        let tasksStartsAfterStartTime = getTasksStartsAfterStartTime(startTimeHours, startTimeMinutes, tasks);
         // get min tasks that starts after start time
         // to calculate possible duration
-        let {dueHours, dueMins} = getDueTime(tasksStartsAfterStartTime);
-        let possibleDurationInMins = getDurationInMins(startTimeHours, startTimeMinutes, dueHours, dueMins);
+        let possibleDurationInMins = this.state.possibleDurationInMins;
         let {possibleHours, possibleMins} = calcPossibleHoursAndMins(possibleDurationInMins, this.state.durationHours, this.state.durationMins);
         
         let hours = [];

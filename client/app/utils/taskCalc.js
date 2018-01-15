@@ -1,8 +1,10 @@
 // get tasks that starts after startTime
 export let getTasksStartsAfterStartTime = (startTimeHours, startTimeMinutes, tasks) => {
+	startTimeHours = Number(startTimeHours);
+	startTimeMinutes = Number(startTimeMinutes);
 	let tasksStartsAfterStartTime = [];
 	for(let i = 0; i < tasks.length; ++i) {
-		if(tasks[i].startTimeHours === startTimeHours) {
+		if(tasks[i].startTimeHours === startTimeHours && tasks[i].startTimeMinutes > startTimeMinutes) {
 			if(tasks[i].startTimeMinutes > startTimeMinutes) {
 				tasksStartsAfterStartTime.push(tasks[i]);
 			}

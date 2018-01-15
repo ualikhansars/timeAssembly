@@ -118,6 +118,8 @@ export const getTimeDependsOnTimeFormat = (hour, min, timeFormat) => {
 // get start and finish time and calculate
 // duration in minutes
 export const getDurationInMins = (startHour, startMin, finishHour, finishMin) => {
+    console.error('startHour', startHour, 'startMin', startMin);
+    console.error('finishHour', finishHour, 'finishMin', finishMin);
     let hour = finishHour - startHour;
     let mins = finishMin - startMin;
     return (hour * 60) + mins;
