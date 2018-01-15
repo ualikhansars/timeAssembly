@@ -33,11 +33,13 @@ class UpdateTaskForm extends React.Component {
         this.slot = this.props.taskInfo.task.slot;
         this.id = this.props.taskInfo.task._id;
         this.durationHours = Math.floor(this.props.taskInfo.task.duration / 60); 
-        this.durationMins = this.props.taskInfo.task.duration % 60;        
+        this.durationMins = this.props.taskInfo.task.duration % 60; 
+        this.updatedDescription = '';
+        if(this.description) this.updatedDescription = this.description;       
         this.state = {
             title: this.title,
             category: this.category,
-            description: this.description,
+            description: this.updatedDescription,
             duration: this.duration,
             durationHours: this.durationHours,
             durationMins: this.durationMins,
@@ -95,6 +97,7 @@ class UpdateTaskForm extends React.Component {
         let updatedTask = Object.assign({}, this.state);
         this.props.updateTask(updatedTask);
     }
+    
     render() {
         let {tasks} = this.props.taskInfo;
         let startTimeHours = this.state.startTimeHours;

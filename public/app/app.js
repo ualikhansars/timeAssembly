@@ -79872,10 +79872,12 @@ var UpdateTaskForm = function (_React$Component) {
         _this.id = _this.props.taskInfo.task._id;
         _this.durationHours = Math.floor(_this.props.taskInfo.task.duration / 60);
         _this.durationMins = _this.props.taskInfo.task.duration % 60;
+        _this.updatedDescription = '';
+        if (_this.description) _this.updatedDescription = _this.description;
         _this.state = {
             title: _this.title,
             category: _this.category,
-            description: _this.description,
+            description: _this.updatedDescription,
             duration: _this.duration,
             durationHours: _this.durationHours,
             durationMins: _this.durationMins,
