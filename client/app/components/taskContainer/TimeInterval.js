@@ -12,7 +12,7 @@ import {getTimeDependsOnTimeFormat} from '../../utils/timeCalc';
 class TimeInterval extends React.Component {
 
     render() {
-        let {hour, min, meridien} = this.props;
+        let {hour, min} = this.props;
         let {timeFormat} = this.props.preferences;
         let twelveHoursFormat = false;
         let displayTimeClassName = 'time';
@@ -25,7 +25,7 @@ class TimeInterval extends React.Component {
             addTaskClassName += ' col-md-10';
         }
         let {startTimeHours, startTimeMinutes} = this.props.taskInfo;
-        let displayTime = getTimeDependsOnTimeFormat(hour, min, timeFormat, meridien);
+        let displayTime = getTimeDependsOnTimeFormat(hour, min, timeFormat);
         let time, addTask;
         if(startTimeHours == hour && startTimeMinutes == min) {
             time = styles.timeInterval.time;

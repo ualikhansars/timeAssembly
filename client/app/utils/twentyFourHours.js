@@ -35,13 +35,13 @@ export const addPropertyToTask = (task) => {
     }
 }
 
-export const addTimeInterval = (timetable, hour, min, index, timeInterval, meridien) => {
+export const addTimeInterval = (timetable, hour, min, index, timeInterval) => {
     let updatedTimetable = Object.assign([], timetable);
     if(timeInterval === 30) {
         if(min === 0 || min === 30 || min === 60) {
             let {pushedMin, pushedHour} = convertTimeToString(hour, min);
             updatedTimetable.push(
-                <TimeInterval hour={pushedHour} min={pushedMin} meridien={meridien} key={index}/>
+                <TimeInterval hour={pushedHour} min={pushedMin} key={index}/>
             );
         }
     }
@@ -49,14 +49,14 @@ export const addTimeInterval = (timetable, hour, min, index, timeInterval, merid
         if(min === 0 || min === 60) {
            let {pushedMin, pushedHour} = convertTimeToString(hour, min);
             updatedTimetable.push(
-                <TimeInterval hour={pushedHour} min={pushedMin} meridien={meridien} key={index}/>
+                <TimeInterval hour={pushedHour} min={pushedMin} key={index}/>
             );
         }
     }
     if(timeInterval === 15) {
         let {pushedMin, pushedHour} = convertTimeToString(hour, min);
         updatedTimetable.push(
-            <TimeInterval hour={pushedHour} min={pushedMin} meridien={meridien} key={index}/>
+            <TimeInterval hour={pushedHour} min={pushedMin} key={index}/>
         );
     }
     return updatedTimetable;

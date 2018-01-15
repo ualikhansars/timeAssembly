@@ -56,7 +56,6 @@ class TwentyFourHours extends React.Component {
             let property = {}
             let {
                 timeFormat,
-                meridien,
                 timeInterval,
                 startDisplayHour,
                 finishDisplayHour
@@ -78,10 +77,7 @@ class TwentyFourHours extends React.Component {
                             let currentTask = updatedTasks[i]; 
                             // check if task' startTime equal to iteration hour and minites
                             // then add Task with same startHour instead of time Component
-                            // if 12 o'clock hours was chosen and task starts before 12 and finishes after 12
-                            // it should be displayed after noon
-                            if(hour === updatedTasks[i].startTimeHours && min === updatedTasks[i].startTimeMinutes || updatedTasks[i].startTimeHours < 12 && updatedTasks[i].finishTimeHours > startTime) {
-                                logDev.red('updatedTask', updatedTasks[i]);
+                            if(hour === currentTask.startTimeHours && min === currentTask.startTimeMinutes) {
                                 property = addPropertyToTask(updatedTasks[i]);
                                 timetable.push(
                                     <Task onClickUpdate={this.props.onClickUpdateTask} property={property} removeTask={this.props.removeTask} task={currentTask} key={index}/>
@@ -92,7 +88,7 @@ class TwentyFourHours extends React.Component {
                                 let {finishHour, finishMin} = calcFinishTime(property.startTimeHours, property.startTimeMinutes, property.duration);
                                 taskFinishHour = finishHour; // save finish Time of particular task
                                 taskFinishMin = finishMin;
-                                logDev.default('task finish time', taskFinishHour + ':' + taskFinishMin);
+                                logDev.default('task finish time ' + taskFinishHour + ':' + taskFinishMin);
                                 // go to 15 minutes back to display finish time
                                 min = calculateMin(finishMin);
                                 if(finishHour > hour) {
@@ -110,7 +106,7 @@ class TwentyFourHours extends React.Component {
                         //console.error('taskAdded:', taskAdded, 'hour:', hour, 'min:', min);
                         if(!taskAdded) {
                             //console.error('task not added hour:', hour, 'min:', min, 'taskAdded:', taskAdded);
-                            timetable = addTimeInterval(timetable, hour, min, index, timeInterval, meridien);
+                            timetable = addTimeInterval(timetable, hour, min, index, timeInterval);
                             index++;
                         }
                     } else { // no more tasks remained
@@ -118,9 +114,12 @@ class TwentyFourHours extends React.Component {
                             if(taskFinishHour === 24 && taskFinishMin === 0) { 
                                 break;
                             }
+                            logDev.red('add task interval');
+                            
+                    
                             // if finishHour less than current hour
                             // that means task was added
-                            timetable = addTimeInterval(timetable, hour, min, index, timeInterval, meridien);
+                            timetable = addTimeInterval(timetable, hour, min, index, timeInterval);
                             index++;
                     }
                     taskAdded = false; // reset taskAdded to false

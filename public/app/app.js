@@ -28956,7 +28956,7 @@ exports.sha512 = __webpack_require__(447)
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "development", function() { return development; });
-let development = false;
+let development = true;
 
 /***/ }),
 /* 160 */
@@ -82355,8 +82355,7 @@ var TimeInterval = function (_React$Component) {
 
             var _props = this.props,
                 hour = _props.hour,
-                min = _props.min,
-                meridien = _props.meridien;
+                min = _props.min;
             var timeFormat = this.props.preferences.timeFormat;
 
             var twelveHoursFormat = false;
@@ -82373,7 +82372,7 @@ var TimeInterval = function (_React$Component) {
                 startTimeHours = _props$taskInfo.startTimeHours,
                 startTimeMinutes = _props$taskInfo.startTimeMinutes;
 
-            var displayTime = (0, _timeCalc.getTimeDependsOnTimeFormat)(hour, min, timeFormat, meridien);
+            var displayTime = (0, _timeCalc.getTimeDependsOnTimeFormat)(hour, min, timeFormat);
             var time = void 0,
                 addTask = void 0;
             if (startTimeHours == hour && startTimeMinutes == min) {
@@ -82530,7 +82529,6 @@ var TwentyFourHours = function (_React$Component) {
                 var property = {};
                 var _props$preferences = this.props.preferences,
                     timeFormat = _props$preferences.timeFormat,
-                    meridien = _props$preferences.meridien,
                     timeInterval = _props$preferences.timeInterval,
                     startDisplayHour = _props$preferences.startDisplayHour,
                     finishDisplayHour = _props$preferences.finishDisplayHour;
@@ -82554,10 +82552,7 @@ var TwentyFourHours = function (_React$Component) {
                                 var currentTask = updatedTasks[i];
                                 // check if task' startTime equal to iteration hour and minites
                                 // then add Task with same startHour instead of time Component
-                                // if 12 o'clock hours was chosen and task starts before 12 and finishes after 12
-                                // it should be displayed after noon
-                                if (hour === updatedTasks[i].startTimeHours && _min === updatedTasks[i].startTimeMinutes || updatedTasks[i].startTimeHours < 12 && updatedTasks[i].finishTimeHours > startTime) {
-                                    _logDev.logDev.red('updatedTask', updatedTasks[i]);
+                                if (hour === currentTask.startTimeHours && _min === currentTask.startTimeMinutes) {
                                     property = (0, _twentyFourHours.addPropertyToTask)(updatedTasks[i]);
                                     timetable.push(_react2.default.createElement(_Task2.default, { onClickUpdate: this.props.onClickUpdateTask, property: property, removeTask: this.props.removeTask, task: currentTask, key: index }));
                                     index++;
@@ -82570,7 +82565,7 @@ var TwentyFourHours = function (_React$Component) {
 
                                     taskFinishHour = finishHour; // save finish Time of particular task
                                     taskFinishMin = finishMin;
-                                    _logDev.logDev.default('task finish time', taskFinishHour + ':' + taskFinishMin);
+                                    _logDev.logDev.default('task finish time ' + taskFinishHour + ':' + taskFinishMin);
                                     // go to 15 minutes back to display finish time
                                     _min = (0, _twentyFourHours.calculateMin)(finishMin);
                                     if (finishHour > hour) {
@@ -82588,7 +82583,7 @@ var TwentyFourHours = function (_React$Component) {
                             //console.error('taskAdded:', taskAdded, 'hour:', hour, 'min:', min);
                             if (!taskAdded) {
                                 //console.error('task not added hour:', hour, 'min:', min, 'taskAdded:', taskAdded);
-                                timetable = (0, _twentyFourHours.addTimeInterval)(timetable, hour, _min, index, timeInterval, meridien);
+                                timetable = (0, _twentyFourHours.addTimeInterval)(timetable, hour, _min, index, timeInterval);
                                 index++;
                             }
                         } else {
@@ -82597,9 +82592,11 @@ var TwentyFourHours = function (_React$Component) {
                             if (taskFinishHour === 24 && taskFinishMin === 0) {
                                 break;
                             }
+                            _logDev.logDev.red('add task interval');
+
                             // if finishHour less than current hour
                             // that means task was added
-                            timetable = (0, _twentyFourHours.addTimeInterval)(timetable, hour, _min, index, timeInterval, meridien);
+                            timetable = (0, _twentyFourHours.addTimeInterval)(timetable, hour, _min, index, timeInterval);
                             index++;
                         }
                         taskAdded = false; // reset taskAdded to false
@@ -83574,7 +83571,7 @@ var addPropertyToTask = exports.addPropertyToTask = function addPropertyToTask(t
     };
 };
 
-var addTimeInterval = exports.addTimeInterval = function addTimeInterval(timetable, hour, min, index, timeInterval, meridien) {
+var addTimeInterval = exports.addTimeInterval = function addTimeInterval(timetable, hour, min, index, timeInterval) {
     var updatedTimetable = Object.assign([], timetable);
     if (timeInterval === 30) {
         if (min === 0 || min === 30 || min === 60) {
@@ -83582,7 +83579,7 @@ var addTimeInterval = exports.addTimeInterval = function addTimeInterval(timetab
                 pushedMin = _convertTimeToString.pushedMin,
                 pushedHour = _convertTimeToString.pushedHour;
 
-            updatedTimetable.push(_react2.default.createElement(_TimeInterval2.default, { hour: pushedHour, min: pushedMin, meridien: meridien, key: index }));
+            updatedTimetable.push(_react2.default.createElement(_TimeInterval2.default, { hour: pushedHour, min: pushedMin, key: index }));
         }
     }
     if (timeInterval === 60) {
@@ -83591,7 +83588,7 @@ var addTimeInterval = exports.addTimeInterval = function addTimeInterval(timetab
                 _pushedMin = _convertTimeToString2.pushedMin,
                 _pushedHour = _convertTimeToString2.pushedHour;
 
-            updatedTimetable.push(_react2.default.createElement(_TimeInterval2.default, { hour: _pushedHour, min: _pushedMin, meridien: meridien, key: index }));
+            updatedTimetable.push(_react2.default.createElement(_TimeInterval2.default, { hour: _pushedHour, min: _pushedMin, key: index }));
         }
     }
     if (timeInterval === 15) {
@@ -83599,7 +83596,7 @@ var addTimeInterval = exports.addTimeInterval = function addTimeInterval(timetab
             _pushedMin2 = _convertTimeToString3.pushedMin,
             _pushedHour2 = _convertTimeToString3.pushedHour;
 
-        updatedTimetable.push(_react2.default.createElement(_TimeInterval2.default, { hour: _pushedHour2, min: _pushedMin2, meridien: meridien, key: index }));
+        updatedTimetable.push(_react2.default.createElement(_TimeInterval2.default, { hour: _pushedHour2, min: _pushedMin2, key: index }));
     }
     return updatedTimetable;
 };
