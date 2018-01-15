@@ -140,7 +140,11 @@ class CreateTaskForm extends React.Component {
         this.setState({
             durationHours: durationHours,
             possibleDurationInMins: possibleDurationInMins
-        });
+        },
+        function() {
+            this.onCheckValidation();
+        }
+        );  
     }
 
     onSubmit(e) {

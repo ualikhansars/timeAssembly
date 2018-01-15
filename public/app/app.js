@@ -22593,8 +22593,6 @@ var getTimeDependsOnTimeFormat = exports.getTimeDependsOnTimeFormat = function g
 // get start and finish time and calculate
 // duration in minutes
 var getDurationInMins = exports.getDurationInMins = function getDurationInMins(startHour, startMin, finishHour, finishMin) {
-    console.error('startHour', startHour, 'startMin', startMin);
-    console.error('finishHour', finishHour, 'finishMin', finishMin);
     var hour = finishHour - startHour;
     var mins = finishMin - startMin;
     return hour * 60 + mins;
@@ -79327,6 +79325,8 @@ var CreateTaskForm = function (_React$Component) {
             this.setState({
                 durationHours: durationHours,
                 possibleDurationInMins: possibleDurationInMins
+            }, function () {
+                this.onCheckValidation();
             });
         }
     }, {
