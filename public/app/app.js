@@ -28906,7 +28906,7 @@ exports.sha512 = __webpack_require__(452)
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "development", function() { return development; });
-let development = false;
+let development = true;
 
 /***/ }),
 /* 160 */
@@ -79414,6 +79414,8 @@ var _SelectedTask2 = _interopRequireDefault(_SelectedTask);
 
 var _displayAction = __webpack_require__(468);
 
+var _slotAction = __webpack_require__(599);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -79432,6 +79434,22 @@ var Dynamic = function (_React$Component) {
     }
 
     _createClass(Dynamic, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var userId = this.props.userInfo.user.id;
+            this.props.fetchTemporarySlots(userId);
+            this.props.fetchSlots(userId);
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            if (this.props.userInfo.user.id !== nextProps.userInfo.user.id) {
+                var userId = nextProps.userInfo.user.id;
+                this.props.fetchTemporarySlots(userId);
+                this.props.fetchSlots(userId);
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _props$display = this.props.display,
@@ -79439,12 +79457,10 @@ var Dynamic = function (_React$Component) {
                 displaySettings = _props$display.displaySettings,
                 displayTaskProperties = _props$display.displayTaskProperties,
                 showUpdateTaskForm = _props$display.showUpdateTaskForm;
-            var currentDate = this.props.daysInfo.currentDate;
-            var temporarySlots = this.props.slotInfo.temporarySlots;
 
 
             if (displaySlots) {
-                return _react2.default.createElement(_Slots2.default, { temporarySlots: temporarySlots, currentDate: currentDate, removeSlotsAfterDueDate: this.removeSlotsAfterDueDate });
+                return _react2.default.createElement(_Slots2.default, null);
             } else if (displaySettings) {
                 return _react2.default.createElement(_Preferences2.default, null);
             } else if (showUpdateTaskForm) {
@@ -79452,7 +79468,7 @@ var Dynamic = function (_React$Component) {
             } else if (displayTaskProperties) {
                 return _react2.default.createElement(_SelectedTask2.default, null);
             } else {
-                return _react2.default.createElement(_Slots2.default, { temporarySlots: temporarySlots, currentDate: currentDate, removeSlotsAfterDueDate: this.removeSlotsAfterDueDate });
+                return _react2.default.createElement(_Slots2.default, null);
             }
         }
     }]);
@@ -79464,17 +79480,28 @@ var mapStateToProps = function mapStateToProps(state) {
     return {
         display: state.display,
         daysInfo: state.daysInfo,
-        slotInfo: state.slotInfo
+        slotInfo: state.slotInfo,
+        userInfo: state.userInfo
     };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({
+        // fetch slots from database
+        fetchTemporarySlots: _slotAction.fetchTemporarySlots,
+        fetchSlots: _slotAction.fetchSlots
+    }, dispatch);
 };
 
 Dynamic.propTypes = {
     display: _propTypes2.default.object.isRequired,
     daysInfo: _propTypes2.default.object.isRequired,
-    slotInfo: _propTypes2.default.object.isRequired
+    slotInfo: _propTypes2.default.object.isRequired,
+    fetchTemporarySlots: _propTypes2.default.func.isRequired,
+    fetchSlots: _propTypes2.default.func.isRequired
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(Dynamic);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Dynamic);
 
 /***/ }),
 /* 622 */
@@ -79607,6 +79634,7 @@ var CreateSlotForm = function (_React$Component) {
         key: 'handleChange',
         value: function handleChange(date) {
             console.error('date', date);
+            console.error('d', date._d);
             this.setState({
                 dueDate: date
             });
@@ -81618,22 +81646,6 @@ var SlotContainer = function (_React$Component) {
     }
 
     _createClass(SlotContainer, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            var userId = this.props.userInfo.user.id;
-            this.props.fetchTemporarySlots(userId);
-            this.props.fetchSlots(userId);
-        }
-    }, {
-        key: 'componentWillReceiveProps',
-        value: function componentWillReceiveProps(nextProps) {
-            if (this.props.userInfo.user.id !== nextProps.userInfo.user.id) {
-                var userId = nextProps.userInfo.user.id;
-                this.props.fetchTemporarySlots(userId);
-                this.props.fetchSlots(userId);
-            }
-        }
-    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
@@ -81794,15 +81806,13 @@ SlotContainer.propTypes = {
     daysInfo: _propTypes2.default.object.isRequired,
     taskInfo: _propTypes2.default.object.isRequired,
     preferences: _propTypes2.default.object.isRequired,
-    fetchSlots: _propTypes2.default.func.isRequired,
     addTask: _propTypes2.default.func.isRequired,
     showCreateSlotForm: _propTypes2.default.func,
     hideSlotForm: _propTypes2.default.func.isRequired,
     removeSlot: _propTypes2.default.func.isRequired,
     showUpdateSlotForm: _propTypes2.default.func,
     createSlot: _propTypes2.default.func.isRequired,
-    onClickUpdateSlot: _propTypes2.default.func.isRequired,
-    userInfo: _propTypes2.default.object.isRequired
+    onClickUpdateSlot: _propTypes2.default.func.isRequired
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SlotContainer);
@@ -81872,7 +81882,20 @@ var Slots = function (_React$Component) {
     _createClass(Slots, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            this.removeSlotsAfterDueDate(this.props.temporarySlots, this.props.currentDate);
+            var currentDate = this.props.daysInfo.currentDate;
+            var temporarySlots = this.props.slotInfo.temporarySlots;
+
+            this.removeSlotsAfterDueDate(temporarySlots, currentDate);
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            if (nextProps.slotInfo.temporarySlots) {
+                var currentDate = this.props.daysInfo.currentDate;
+                var temporarySlots = nextProps.slotInfo.temporarySlots;
+
+                this.removeSlotsAfterDueDate(temporarySlots, currentDate);
+            }
         }
 
         // delete slot after due Date
@@ -81888,6 +81911,8 @@ var Slots = function (_React$Component) {
                 for (var _iterator = slots[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                     var slot = _step.value;
 
+                    console.log('currentDay', currentDate);
+                    console.log('dueDate', slot.dueDate);
                     if (currentDate > slot.dueDate) {
                         this.props.removeSlot(slot._id);
                     }

@@ -18,21 +18,7 @@ import {getTimeDependsOnTimeFormat} from '../../../utils/timeCalc';
 import Slot from './Slot';
 
 class SlotContainer extends React.Component {
-        
-    componentDidMount() {
-        let userId = this.props.userInfo.user.id;
-        this.props.fetchTemporarySlots(userId);
-        this.props.fetchSlots(userId);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if(this.props.userInfo.user.id !== nextProps.userInfo.user.id) {
-            let userId = nextProps.userInfo.user.id
-            this.props.fetchTemporarySlots(userId);
-            this.props.fetchSlots(userId);
-        }
-    }
-
+    
     render() {
         const {slots} = this.props.slotInfo;
         const {loading, loaded, errors} = this.props.slotInfo.slotsRequest;
@@ -150,7 +136,6 @@ SlotContainer.propTypes = {
     daysInfo: PropTypes.object.isRequired,
     taskInfo: PropTypes.object.isRequired,
     preferences: PropTypes.object.isRequired,
-    fetchSlots: PropTypes.func.isRequired,
     addTask: PropTypes.func.isRequired,
     showCreateSlotForm: PropTypes.func,
     hideSlotForm: PropTypes.func.isRequired,
@@ -158,7 +143,6 @@ SlotContainer.propTypes = {
     showUpdateSlotForm: PropTypes.func,
     createSlot: PropTypes.func.isRequired,
     onClickUpdateSlot: PropTypes.func.isRequired,
-    userInfo: PropTypes.object.isRequired
 }
 
 

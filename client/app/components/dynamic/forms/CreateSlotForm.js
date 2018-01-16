@@ -93,6 +93,7 @@ class CreateSlotForm extends React.Component {
     
     handleChange(date) {
         console.error('date', date);
+        console.error('d', date._d);
         this.setState({
           dueDate: date
         });

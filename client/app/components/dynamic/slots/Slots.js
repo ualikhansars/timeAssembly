@@ -15,12 +15,24 @@ import {removeSlot} from '../../../actions/slotAction';
 class Slots extends React.Component {
 
         componentDidMount() {
-            this.removeSlotsAfterDueDate(this.props.temporarySlots, this.props.currentDate);
+            let {currentDate} = this.props.daysInfo;
+            let {temporarySlots} = this.props.slotInfo;
+            this.removeSlotsAfterDueDate(temporarySlots, currentDate);
+        }
+
+        componentWillReceiveProps(nextProps) {
+            if(nextProps.slotInfo.temporarySlots) {
+                let {currentDate} = this.props.daysInfo;
+                let {temporarySlots} = nextProps.slotInfo;
+                this.removeSlotsAfterDueDate(temporarySlots, currentDate);
+            }
         }
 
         // delete slot after due Date
         removeSlotsAfterDueDate(slots, currentDate) {
             for(let slot of slots) {
+                console.log('currentDay', currentDate);
+                console.log('dueDate', slot.dueDate);
                 if(currentDate > slot.dueDate) {
                     this.props.removeSlot(slot._id);
                 }

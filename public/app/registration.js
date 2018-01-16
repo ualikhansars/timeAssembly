@@ -10938,7 +10938,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "development", function() { return development; });
-let development = false;
+let development = true;
 
 /***/ }),
 /* 160 */,
