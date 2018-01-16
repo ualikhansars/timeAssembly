@@ -1,9 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 
 import {getCurrentDate} from '../../../utils/getCurrentDate';
 
+import 'react-datepicker/dist/react-datepicker.css';
+// CSS Modules, react-datepicker-cssmodules.css
+//import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 class CreateSlotForm extends React.Component {
     constructor(props) {
         super(props);
@@ -14,7 +19,7 @@ class CreateSlotForm extends React.Component {
             total: 1,
             free: 1,
             temporary: false,
-            dueDate: '',
+            dueDate: moment(),
             userId: this.props.userInfo.user.id
         } 
     }
@@ -34,7 +39,7 @@ class CreateSlotForm extends React.Component {
             this.setState({
                 total: 1
             });
-        }
+        } 
     }
 
     onSubmit(e) {
@@ -84,6 +89,15 @@ class CreateSlotForm extends React.Component {
         }
         
     }
+
+    
+    handleChange(date) {
+        console.error('date', date);
+        this.setState({
+          dueDate: date
+        });
+      }
+
     render() {
         let currentDate = getCurrentDate();
         let dueDate = null;
@@ -93,10 +107,29 @@ class CreateSlotForm extends React.Component {
                     </div>
         // show dueDate if temporary is chosen
         if(this.state.temporary) {
-            dueDate = <div className="form-group row dueDate">
-                        <label htmlFor="dueDate" className="col-md-12">Due Date</label>
-                        <input value={this.state.dueDate} onChange={this.onChange.bind(this)} type="date" className="form-control col-md-12" id="dueDate" name="dueDate" min={currentDate}/>
-                    </div>
+
+            dueDate = <div className="form-group row">
+                            <div className="col-md-12">
+                                <p>Due Date:</p>
+                            </div>
+                            <div className="col-dm-12">
+                                <DatePicker
+                                    inline
+                                    selected={this.state.dueDate}
+                                    onChange={this.handleChange.bind(this)}
+                                    minDate={moment()}
+                                    maxDate={moment().add(365, "days")}
+                                    monthsShown={2}
+                                />
+                            </div>
+                            
+                        </div>
+           
+
+            // dueDate = <div className="form-group row dueDate">
+            //             <label htmlFor="dueDate" className="col-md-12">Due Date</label>
+            //             <input value={this.state.dueDate} onChange={this.onChange.bind(this)} type="date" className="form-control col-md-12" id="dueDate" name="dueDate" min={currentDate}/>
+            //         </div>
             total = <div className="form-group row total">
                         <span className="col-md-12">Total: 1</span>
                     </div>
