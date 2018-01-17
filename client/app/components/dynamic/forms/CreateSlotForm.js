@@ -9,6 +9,7 @@ import {getCurrentDate} from '../../../utils/getCurrentDate';
 import 'react-datepicker/dist/react-datepicker.css';
 // CSS Modules, react-datepicker-cssmodules.css
 //import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+
 class CreateSlotForm extends React.Component {
     constructor(props) {
         super(props);
@@ -40,6 +41,12 @@ class CreateSlotForm extends React.Component {
                 total: 1
             });
         } 
+    }
+
+    handleChange(date) {
+        this.setState({
+          dueDate: date
+        });
     }
 
     onSubmit(e) {
@@ -90,14 +97,6 @@ class CreateSlotForm extends React.Component {
         
     }
 
-    
-    handleChange(date) {
-        console.error('date', date);
-        console.error('d', date._d);
-        this.setState({
-          dueDate: date
-        });
-      }
 
     render() {
         let currentDate = getCurrentDate();

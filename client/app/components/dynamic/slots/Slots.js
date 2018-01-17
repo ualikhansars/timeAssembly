@@ -11,33 +11,24 @@ import {connect} from 'react-redux';
 import {showSlotForm, hideSlotForm, createSlot, updateSlot} from '../../../actions/slotAction';
 import {hideTaskForms, createTask} from '../../../actions/taskAction';
 import {removeSlot} from '../../../actions/slotAction';
+import {removeSlotsAfterDueDate} from '../../../utils/slotUtils';
 
 class Slots extends React.Component {
 
-        componentDidMount() {
+    componentDidMount() {
+        let {currentDate} = this.props.daysInfo;
+        let {temporarySlots} = this.props.slotInfo;
+        removeSlotsAfterDueDate(temporarySlots, currentDate);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.slotInfo.temporarySlots) {
             let {currentDate} = this.props.daysInfo;
-            let {temporarySlots} = this.props.slotInfo;
-            this.removeSlotsAfterDueDate(temporarySlots, currentDate);
+            let {temporarySlots} = nextProps.slotInfo;
+            removeSlotsAfterDueDate(temporarySlots, currentDate);
         }
-
-        componentWillReceiveProps(nextProps) {
-            if(nextProps.slotInfo.temporarySlots) {
-                let {currentDate} = this.props.daysInfo;
-                let {temporarySlots} = nextProps.slotInfo;
-                this.removeSlotsAfterDueDate(temporarySlots, currentDate);
-            }
-        }
-
-        // delete slot after due Date
-        removeSlotsAfterDueDate(slots, currentDate) {
-            for(let slot of slots) {
-                console.log('currentDay', currentDate);
-                console.log('dueDate', slot.dueDate);
-                if(currentDate > slot.dueDate) {
-                    this.props.removeSlot(slot._id);
-                }
-            }
-        }
+    }
+    
 
     render() {
         const {displayCreateSlotForm, displayUpdateSlotForm} = this.props.slotInfo;

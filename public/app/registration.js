@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "/public/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 657);
+/******/ 	return __webpack_require__(__webpack_require__.s = 658);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -10938,7 +10938,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "development", function() { return development; });
-let development = true;
+let development = false;
 
 /***/ }),
 /* 160 */,
@@ -24087,7 +24087,8 @@ module.exports = traverseAllChildren;
 /* 595 */,
 /* 596 */,
 /* 597 */,
-/* 598 */
+/* 598 */,
+/* 599 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24146,7 +24147,6 @@ var EmailConfirmation = function (_React$Component) {
 exports.default = EmailConfirmation;
 
 /***/ }),
-/* 599 */,
 /* 600 */,
 /* 601 */,
 /* 602 */,
@@ -24180,7 +24180,7 @@ var _react = __webpack_require__(8);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _SignUpForm = __webpack_require__(656);
+var _SignUpForm = __webpack_require__(657);
 
 var _SignUpForm2 = _interopRequireDefault(_SignUpForm);
 
@@ -24260,7 +24260,8 @@ exports.default = SignUpPage;
 /* 653 */,
 /* 654 */,
 /* 655 */,
-/* 656 */
+/* 656 */,
+/* 657 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24284,7 +24285,7 @@ var _classnames = __webpack_require__(194);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _EmailConfirmation = __webpack_require__(598);
+var _EmailConfirmation = __webpack_require__(599);
 
 var _EmailConfirmation2 = _interopRequireDefault(_EmailConfirmation);
 
@@ -24548,7 +24549,7 @@ var SignUpForm = function (_React$Component) {
 exports.default = SignUpForm;
 
 /***/ }),
-/* 657 */
+/* 658 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24566,7 +24567,7 @@ var _SignUpPage = __webpack_require__(617);
 
 var _SignUpPage2 = _interopRequireDefault(_SignUpPage);
 
-var _EmailConfirmation = __webpack_require__(598);
+var _EmailConfirmation = __webpack_require__(599);
 
 var _EmailConfirmation2 = _interopRequireDefault(_EmailConfirmation);
 
