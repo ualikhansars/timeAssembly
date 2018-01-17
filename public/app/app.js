@@ -83853,9 +83853,16 @@ var SlotInfo = function SlotInfo() {
             });
         case 'UPDATE_SLOT_SUCCESS':
             _logDev.logDev.default('UPDATE_SLOT');
+            var slotsBeforeUpdate = Object.assign([], state.slots);
+            for (var i = 0; i < slotsBeforeUpdate.length; ++i) {
+                if (slotsBeforeUpdate[i]._id === action.slot._id) {
+                    slotsBeforeUpdate.splice(i, 1, action.slot);
+                }
+            }
             return Object.assign({}, state, {
                 displayCreateSlotForm: false,
-                displayUpdateSlotForm: false
+                displayUpdateSlotForm: false,
+                slots: slotsBeforeUpdate
             });
         case 'DECREMENT_SLOT_FREE':
             _logDev.logDev.default('DECREMENT_SLOT_FREE');
@@ -83863,9 +83870,9 @@ var SlotInfo = function SlotInfo() {
             var freeTasks = action.updatedSlot.free;
             var slotsBeforeDecrFree = Object.assign([], state.slots);
             if (freeTasks > 0) {
-                for (var i = 0; i < slotsBeforeDecrFree.length; ++i) {
-                    if (slotsBeforeDecrFree[i]._id == action.updatedSlot._id) {
-                        slotsBeforeDecrFree[i].free -= 1;
+                for (var _i = 0; _i < slotsBeforeDecrFree.length; ++_i) {
+                    if (slotsBeforeDecrFree[_i]._id == action.updatedSlot._id) {
+                        slotsBeforeDecrFree[_i].free -= 1;
                     }
                 }
             }
@@ -83875,9 +83882,9 @@ var SlotInfo = function SlotInfo() {
         case 'INCREMENT_SLOT_FREE':
             _logDev.logDev.default('INCREMENT_SLOT_FREE');
             var slotsBeforeIncFree = Object.assign([], state.slots);
-            for (var _i = 0; _i < slotsBeforeIncFree.length; ++_i) {
-                if (slotsBeforeIncFree[_i]._id == action.updatedSlot._id) {
-                    slotsBeforeIncFree[_i].free += 1;
+            for (var _i2 = 0; _i2 < slotsBeforeIncFree.length; ++_i2) {
+                if (slotsBeforeIncFree[_i2]._id == action.updatedSlot._id) {
+                    slotsBeforeIncFree[_i2].free += 1;
                 }
             }
             return Object.assign({}, state, {

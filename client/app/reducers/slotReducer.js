@@ -112,9 +112,16 @@ const SlotInfo = (state = initialState, action) => {
             });
         case 'UPDATE_SLOT_SUCCESS':
             logDev.default('UPDATE_SLOT');
+            let slotsBeforeUpdate = Object.assign([], state.slots);
+            for(let i = 0; i < slotsBeforeUpdate.length; ++i) {
+                if(slotsBeforeUpdate[i]._id === action.slot._id) {
+                    slotsBeforeUpdate.splice(i, 1, action.slot);
+                }
+            }
             return Object.assign({}, state, {
                 displayCreateSlotForm: false,
-                displayUpdateSlotForm: false
+                displayUpdateSlotForm: false,
+                slots: slotsBeforeUpdate
             });
         case 'DECREMENT_SLOT_FREE':
             logDev.default('DECREMENT_SLOT_FREE');
