@@ -115,12 +115,17 @@ class CreateSlotForm extends React.Component {
                             <div className="col-dm-12">
                                 <DatePicker
                                     inline
+                                    dateFormat="YYYY/MM/DD"
                                     selected={this.state.dueDate}
                                     onChange={this.handleChange.bind(this)}
                                     minDate={moment()}
                                     maxDate={moment().add(365, "days")}
                                     monthsShown={2}
-                                />
+                                >
+                                <div style={{color: 'red', textAlign: 'center', marginBottom: '2px'}}>
+                                   Task will be removed after this date
+                                </div>
+                                </DatePicker>
                             </div>
                             
                         </div>

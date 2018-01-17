@@ -274,6 +274,7 @@ div.task .removeTask:hover {
 /* Sidebar */
 .settings {
   border-left: 1px solid #000;
+  min-height: 300px;
 }
 .sidebar {
   font-size: 22px;

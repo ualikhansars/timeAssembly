@@ -79673,14 +79673,23 @@ var CreateSlotForm = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'col-dm-12' },
-                        _react2.default.createElement(_reactDatepicker2.default, {
-                            inline: true,
-                            selected: this.state.dueDate,
-                            onChange: this.handleChange.bind(this),
-                            minDate: (0, _moment2.default)(),
-                            maxDate: (0, _moment2.default)().add(365, "days"),
-                            monthsShown: 2
-                        })
+                        _react2.default.createElement(
+                            _reactDatepicker2.default,
+                            {
+                                inline: true,
+                                dateFormat: 'YYYY/MM/DD',
+                                selected: this.state.dueDate,
+                                onChange: this.handleChange.bind(this),
+                                minDate: (0, _moment2.default)(),
+                                maxDate: (0, _moment2.default)().add(365, "days"),
+                                monthsShown: 2
+                            },
+                            _react2.default.createElement(
+                                'div',
+                                { style: { color: 'red', textAlign: 'center', marginBottom: '2px' } },
+                                'Task will be removed after this date'
+                            )
+                        )
                     )
                 );
 
