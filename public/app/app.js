@@ -81429,6 +81429,8 @@ var _react = __webpack_require__(8);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _slotUtils = __webpack_require__(651);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -81447,7 +81449,7 @@ var Slot = function (_React$Component) {
     }
 
     _createClass(Slot, [{
-        key: "render",
+        key: 'render',
         value: function render() {
             var _this2 = this;
 
@@ -81469,23 +81471,30 @@ var Slot = function (_React$Component) {
                 dueDate = _props$slotProperty$s.dueDate;
 
             var slot = this.props.slot;
+
+            var _convertDateFormat = (0, _slotUtils.convertDateFormat)(dueDate),
+                month = _convertDateFormat.month,
+                day = _convertDateFormat.day,
+                ending = _convertDateFormat.ending;
             // if time is chosen and there are free tasks, then show the add button
+
+
             if (startTimeHours && startTimeMinutes && free > 0) {
                 addButton = _react2.default.createElement(
-                    "div",
-                    { className: "row addButton" },
+                    'div',
+                    { className: 'row addButton' },
                     _react2.default.createElement(
-                        "div",
-                        { className: "col-md-12" },
-                        _react2.default.createElement("img", { src: "/img/arrow.png", onClick: function onClick() {
+                        'div',
+                        { className: 'col-md-12' },
+                        _react2.default.createElement('img', { src: '/img/arrow.png', onClick: function onClick() {
                                 return _this2.props.slotProperty.addTask(_this2.props.slotProperty.slotAttr.id);
-                            }, className: "slotArrow" }),
+                            }, className: 'slotArrow' }),
                         _react2.default.createElement(
-                            "span",
-                            { className: "slotProperty" },
-                            "Add to ",
+                            'span',
+                            { className: 'slotProperty' },
+                            'Add to ',
                             chosenDay,
-                            " at ",
+                            ' at ',
                             displayTime
                         )
                     )
@@ -81495,92 +81504,99 @@ var Slot = function (_React$Component) {
             // show dueDate if Task is temporary
             if (temporary) {
                 date = _react2.default.createElement(
-                    "div",
-                    { className: "row" },
+                    'div',
+                    { className: 'row' },
                     _react2.default.createElement(
-                        "div",
-                        { className: "col-md-12 slotProperty slotDate" },
+                        'div',
+                        { className: 'col-md-12 slotProperty slotDate' },
                         _react2.default.createElement(
-                            "span",
+                            'span',
                             null,
-                            "Due Date: ",
-                            dueDate
+                            'Due Date: ',
+                            month,
+                            ' ',
+                            day,
+                            _react2.default.createElement(
+                                'sup',
+                                null,
+                                ending
+                            )
                         )
                     )
                 );
             }
             return _react2.default.createElement(
-                "div",
-                { className: "container-fluid slot" },
+                'div',
+                { className: 'container-fluid slot' },
                 _react2.default.createElement(
-                    "div",
-                    { className: "row" },
+                    'div',
+                    { className: 'row' },
                     _react2.default.createElement(
-                        "div",
-                        { className: "col-md-4 offset-md-4 slotTitleContainer" },
+                        'div',
+                        { className: 'col-md-4 offset-md-4 slotTitleContainer' },
                         _react2.default.createElement(
-                            "span",
-                            { className: "slotTitle" },
+                            'span',
+                            { className: 'slotTitle' },
                             title
                         )
                     )
                 ),
                 _react2.default.createElement(
-                    "div",
-                    { className: "row" },
+                    'div',
+                    { className: 'row' },
                     _react2.default.createElement(
-                        "div",
-                        { className: "col-md-12" },
+                        'div',
+                        { className: 'col-md-12' },
                         _react2.default.createElement(
-                            "span",
-                            { className: "slotProperty slotCategory" },
-                            "Category: ",
+                            'span',
+                            { className: 'slotProperty slotCategory' },
+                            'Category: ',
                             category
                         )
                     )
                 ),
                 _react2.default.createElement(
-                    "div",
-                    { className: "row" },
+                    'div',
+                    { className: 'row' },
                     _react2.default.createElement(
-                        "div",
-                        { className: "col-md-6" },
+                        'div',
+                        { className: 'col-md-6' },
                         _react2.default.createElement(
-                            "span",
-                            { className: "slotProperty slotTotal" },
-                            "Total: ",
+                            'span',
+                            { className: 'slotProperty slotTotal' },
+                            'Total: ',
                             total
                         )
                     ),
                     _react2.default.createElement(
-                        "div",
-                        { className: "col-md-6" },
+                        'div',
+                        { className: 'col-md-6' },
                         _react2.default.createElement(
-                            "span",
-                            { className: "slotProperty slotFree" },
-                            "Free: ",
+                            'span',
+                            { className: 'slotProperty slotFree' },
+                            'Free: ',
                             free
                         )
                     )
                 ),
                 _react2.default.createElement(
-                    "div",
-                    { className: "row" },
+                    'div',
+                    { className: 'row' },
                     _react2.default.createElement(
-                        "div",
-                        { className: "col-md-6 addContainer" },
+                        'div',
+                        { className: 'col-md-6 addContainer' },
                         date,
                         addButton
                     ),
                     _react2.default.createElement(
-                        "div",
-                        { className: "col-md-6 slotButtons" },
-                        _react2.default.createElement("img", { src: "/img/edit.png", onClick: function onClick() {
+                        'div',
+                        { className: 'col-md-6 slotButtons' },
+                        _react2.default.createElement('img', { src: '/img/edit.png', onClick: function onClick() {
                                 return _this2.props.slotProperty.fetchSlot(id);
-                            }, className: "editSlot" }),
-                        _react2.default.createElement("img", { src: "/img/trushBin.png", onClick: function onClick() {
+                            }, className: 'editSlot' }),
+                        _react2.default.createElement('img', { src: '/img/trushBin.png', onClick: function onClick() {
                                 return _this2.props.slotProperty.removeSlot(slot);
-                            }, className: "removeSlot" })
+                            }, className: 'removeSlot' })
                     )
                 )
             );
@@ -84135,6 +84151,8 @@ exports.default = userInfo;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
 var removeSlotsAfterDueDate = exports.removeSlotsAfterDueDate = function removeSlotsAfterDueDate(slots, currentDate) {
     var _iteratorNormalCompletion = true;
     var _didIteratorError = false;
@@ -84167,6 +84185,20 @@ var removeSlotsAfterDueDate = exports.removeSlotsAfterDueDate = function removeS
 
 var processDate = exports.processDate = function processDate(dateString) {
     return dateString.substring(0, 10);
+};
+
+var convertDateFormat = exports.convertDateFormat = function convertDateFormat(date) {
+    var processedDate = processDate(date);
+    var monthNumber = Number(processedDate.substring(5, 7)) - 1;
+    var month = months[monthNumber];
+    var day = Number(processedDate.substring(8, 10));
+    var ending = 'th';
+    if (day === 1 || day === 21 || day === 31) ending = 'st';else if (day === 2 || day === 22) ending = 'nd';else if (day === 3 || day === 23) ending = 'rd';
+    return {
+        month: month,
+        day: day,
+        ending: ending
+    };
 };
 
 /***/ }),

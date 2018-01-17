@@ -1,4 +1,5 @@
 import React from 'react';
+import {convertDateFormat} from '../../../utils/slotUtils';
 
 class Slot extends React.Component {
     render() {
@@ -15,6 +16,7 @@ class Slot extends React.Component {
             dueDate,
         } = this.props.slotProperty.slotAttr;
         let slot = this.props.slot;
+        let {month, day, ending} = convertDateFormat(dueDate)
         // if time is chosen and there are free tasks, then show the add button
         if(startTimeHours && startTimeMinutes && free > 0) {
             addButton = <div className="row addButton">
@@ -31,7 +33,9 @@ class Slot extends React.Component {
         if(temporary) {
             date =  <div className="row">
                             <div className="col-md-12 slotProperty slotDate">
-                                <span>Due Date: {dueDate}</span>
+                                <span>
+                                    Due Date: {month} {day}<sup>{ending}</sup>
+                                </span>
                             </div>
                         </div>
         }
