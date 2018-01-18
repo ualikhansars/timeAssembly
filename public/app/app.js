@@ -13318,7 +13318,7 @@ module.exports = invariant;
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_Provider__ = __webpack_require__(683);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__ = __webpack_require__(607);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_connectAdvanced__ = __webpack_require__(606);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__connect_connect__ = __webpack_require__(684);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "Provider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createProvider", function() { return __WEBPACK_IMPORTED_MODULE_0__components_Provider__["b"]; });
@@ -15031,12 +15031,12 @@ internals.concatSettings = function (target, source) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(612);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(611);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__combineReducers__ = __webpack_require__(696);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__ = __webpack_require__(695);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__applyMiddleware__ = __webpack_require__(694);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__compose__ = __webpack_require__(611);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_warning__ = __webpack_require__(613);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__compose__ = __webpack_require__(610);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__utils_warning__ = __webpack_require__(612);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "createStore", function() { return __WEBPACK_IMPORTED_MODULE_0__createStore__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "combineReducers", function() { return __WEBPACK_IMPORTED_MODULE_1__combineReducers__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "bindActionCreators", function() { return __WEBPACK_IMPORTED_MODULE_2__bindActionCreators__["a"]; });
@@ -61321,7 +61321,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getCurrentDayAndTime = exports.onClickTime = exports.onClickDayInTheWeek = undefined;
 
-var _getCurrentDate = __webpack_require__(703);
+var _getCurrentDate = __webpack_require__(613);
 
 var onClickDayInTheWeek = exports.onClickDayInTheWeek = function onClickDayInTheWeek(day) {
     return function (dispatch) {
@@ -77910,8 +77910,7 @@ exports.createContext = Script.createContext = function (context) {
 /* (ignored) */
 
 /***/ }),
-/* 599 */,
-/* 600 */
+/* 599 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77950,7 +77949,7 @@ var logout = exports.logout = function logout() {
 };
 
 /***/ }),
-/* 601 */
+/* 600 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78166,7 +78165,7 @@ Task.propTypes = {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Task);
 
 /***/ }),
-/* 602 */
+/* 601 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78190,7 +78189,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 603 */
+/* 602 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78250,7 +78249,7 @@ var convertDateFormat = exports.convertDateFormat = function convertDateFormat(d
 };
 
 /***/ }),
-/* 604 */
+/* 603 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78304,7 +78303,7 @@ var getDueTime = exports.getDueTime = function getDueTime(tasks) {
 };
 
 /***/ }),
-/* 605 */
+/* 604 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -78318,7 +78317,7 @@ var Symbol = __WEBPACK_IMPORTED_MODULE_0__root_js__["a" /* default */].Symbol;
 
 
 /***/ }),
-/* 606 */
+/* 605 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78387,7 +78386,7 @@ module.exports = warning;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 607 */
+/* 606 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -78399,7 +78398,7 @@ module.exports = warning;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_Subscription__ = __webpack_require__(690);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_PropTypes__ = __webpack_require__(609);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__utils_PropTypes__ = __webpack_require__(608);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -78692,14 +78691,14 @@ selectorFactory) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
 
 /***/ }),
-/* 608 */
+/* 607 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony export (immutable) */ __webpack_exports__["b"] = wrapMapToPropsConstant;
 /* unused harmony export getDependsOnOwnProps */
 /* harmony export (immutable) */ __webpack_exports__["a"] = wrapMapToPropsFunc;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_verifyPlainObject__ = __webpack_require__(610);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_verifyPlainObject__ = __webpack_require__(609);
 
 
 function wrapMapToPropsConstant(getConstant) {
@@ -78770,7 +78769,7 @@ function wrapMapToPropsFunc(mapToProps, methodName) {
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
 
 /***/ }),
-/* 609 */
+/* 608 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -78794,7 +78793,7 @@ var storeShape = __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.shape({
 });
 
 /***/ }),
-/* 610 */
+/* 609 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -78811,7 +78810,7 @@ function verifyPlainObject(value, displayName, methodName) {
 }
 
 /***/ }),
-/* 611 */
+/* 610 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -78850,7 +78849,7 @@ function compose() {
 }
 
 /***/ }),
-/* 612 */
+/* 611 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -79109,7 +79108,7 @@ var ActionTypes = {
 }
 
 /***/ }),
-/* 613 */
+/* 612 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -79135,6 +79134,33 @@ function warning(message) {
   } catch (e) {}
   /* eslint-enable no-empty */
 }
+
+/***/ }),
+/* 613 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+// return appropriate format for current date
+
+const getCurrentDate = () => {
+    let now = new Date();
+    let day = new String(now.getDate());
+    let month = new String(now.getMonth() + 1);
+    let year = new String(now.getFullYear());
+    let result = new String();
+
+    if(day.length < 2) {
+        day = '0' + day;
+    }
+    if(month.length < 2) {
+        month = '0' + month;
+    }
+
+    return result = year + '-' + month + '-' + day;
+}
+/* harmony export (immutable) */ __webpack_exports__["getCurrentDate"] = getCurrentDate;
+
 
 /***/ }),
 /* 614 */
@@ -79189,7 +79215,7 @@ var _setAuthToken = __webpack_require__(456);
 
 var _setAuthToken2 = _interopRequireDefault(_setAuthToken);
 
-var _userAction = __webpack_require__(600);
+var _userAction = __webpack_require__(599);
 
 var _authenticate = __webpack_require__(619);
 
@@ -79563,9 +79589,7 @@ var _moment = __webpack_require__(1);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _getCurrentDate = __webpack_require__(703);
-
-var _emailUserToken = __webpack_require__(705);
+var _getCurrentDate = __webpack_require__(613);
 
 __webpack_require__(697);
 
@@ -79674,7 +79698,6 @@ var CreateSlotForm = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
-            console.error('token', (0, _emailUserToken.generateEmailToken)());
             var currentDate = (0, _getCurrentDate.getCurrentDate)();
             var dueDate = null;
             var total = _react2.default.createElement(
@@ -79866,7 +79889,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _timeCalc = __webpack_require__(104);
 
-var _taskCalc = __webpack_require__(604);
+var _taskCalc = __webpack_require__(603);
 
 var _vars = __webpack_require__(653);
 
@@ -80562,7 +80585,7 @@ var _displayAction = __webpack_require__(468);
 
 var _taskAction = __webpack_require__(136);
 
-var _taskCalc = __webpack_require__(604);
+var _taskCalc = __webpack_require__(603);
 
 var _timeCalc = __webpack_require__(104);
 
@@ -81470,7 +81493,7 @@ var _react = __webpack_require__(8);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _slotUtils = __webpack_require__(603);
+var _slotUtils = __webpack_require__(602);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -81918,7 +81941,7 @@ var _slotAction = __webpack_require__(469);
 
 var _taskAction = __webpack_require__(136);
 
-var _slotUtils = __webpack_require__(603);
+var _slotUtils = __webpack_require__(602);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -82320,7 +82343,7 @@ var _propTypes = __webpack_require__(11);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _userAction = __webpack_require__(600);
+var _userAction = __webpack_require__(599);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -82562,7 +82585,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _taskAction = __webpack_require__(136);
 
-var _Task = __webpack_require__(601);
+var _Task = __webpack_require__(600);
 
 var _Task2 = _interopRequireDefault(_Task);
 
@@ -83029,7 +83052,7 @@ var _redux = __webpack_require__(32);
 
 var _reactRedux = __webpack_require__(26);
 
-var _styles = __webpack_require__(602);
+var _styles = __webpack_require__(601);
 
 var _styles2 = _interopRequireDefault(_styles);
 
@@ -83155,7 +83178,7 @@ var _redux = __webpack_require__(32);
 
 var _reactRedux = __webpack_require__(26);
 
-var _Task = __webpack_require__(601);
+var _Task = __webpack_require__(600);
 
 var _Task2 = _interopRequireDefault(_Task);
 
@@ -83394,7 +83417,7 @@ var _propTypes = __webpack_require__(11);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _styles = __webpack_require__(602);
+var _styles = __webpack_require__(601);
 
 var _styles2 = _interopRequireDefault(_styles);
 
@@ -84466,7 +84489,7 @@ function toComment(sourceMap) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(605);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(604);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getRawTag_js__ = __webpack_require__(665);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__objectToString_js__ = __webpack_require__(666);
 
@@ -84530,7 +84553,7 @@ var getPrototype = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__overArg_js
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(605);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Symbol_js__ = __webpack_require__(604);
 
 
 /** Used for built-in method references. */
@@ -89804,7 +89827,7 @@ DatePicker.propTypes = {
 
 if (process.env.NODE_ENV !== 'production') {
   var invariant = __webpack_require__(558);
-  var warning = __webpack_require__(606);
+  var warning = __webpack_require__(605);
   var ReactPropTypesSecret = __webpack_require__(559);
   var loggedTypeFailures = {};
 }
@@ -89936,7 +89959,7 @@ module.exports = function() {
 
 var emptyFunction = __webpack_require__(557);
 var invariant = __webpack_require__(558);
-var warning = __webpack_require__(606);
+var warning = __webpack_require__(605);
 var assign = __webpack_require__(7);
 
 var ReactPropTypesSecret = __webpack_require__(559);
@@ -91413,7 +91436,7 @@ exports.Arrow = _Arrow3.default;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__ = __webpack_require__(609);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_PropTypes__ = __webpack_require__(608);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__utils_warning__ = __webpack_require__(560);
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -91495,7 +91518,7 @@ function createProvider() {
 
 "use strict";
 /* unused harmony export createConnect */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_connectAdvanced__ = __webpack_require__(607);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_connectAdvanced__ = __webpack_require__(606);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_shallowEqual__ = __webpack_require__(691);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mapDispatchToProps__ = __webpack_require__(685);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mapStateToProps__ = __webpack_require__(686);
@@ -91614,7 +91637,7 @@ function createConnect() {
 /* unused harmony export whenMapDispatchToPropsIsMissing */
 /* unused harmony export whenMapDispatchToPropsIsObject */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wrapMapToProps__ = __webpack_require__(608);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__wrapMapToProps__ = __webpack_require__(607);
 
 
 
@@ -91643,7 +91666,7 @@ function whenMapDispatchToPropsIsObject(mapDispatchToProps) {
 "use strict";
 /* unused harmony export whenMapStateToPropsIsFunction */
 /* unused harmony export whenMapStateToPropsIsMissing */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__wrapMapToProps__ = __webpack_require__(608);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__wrapMapToProps__ = __webpack_require__(607);
 
 
 function whenMapStateToPropsIsFunction(mapStateToProps) {
@@ -91667,7 +91690,7 @@ function whenMapStateToPropsIsMissing(mapStateToProps) {
 /* unused harmony export wrapMergePropsFunc */
 /* unused harmony export whenMergePropsIsFunction */
 /* unused harmony export whenMergePropsIsOmitted */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_verifyPlainObject__ = __webpack_require__(610);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_verifyPlainObject__ = __webpack_require__(609);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
@@ -92032,7 +92055,7 @@ exports['default'] = thunk;
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = applyMiddleware;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__compose__ = __webpack_require__(611);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__compose__ = __webpack_require__(610);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
@@ -92142,9 +92165,9 @@ function bindActionCreators(actionCreators, dispatch) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony export (immutable) */ __webpack_exports__["a"] = combineReducers;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(612);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createStore__ = __webpack_require__(611);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_es_isPlainObject__ = __webpack_require__(542);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_warning__ = __webpack_require__(613);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_warning__ = __webpack_require__(612);
 
 
 
@@ -92846,78 +92869,6 @@ function symbolObservablePonyfill(root) {
 
 	return result;
 };
-
-/***/ }),
-/* 703 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-// return appropriate format for current date
-
-const getCurrentDate = () => {
-    let now = new Date();
-    let day = new String(now.getDate());
-    let month = new String(now.getMonth() + 1);
-    let year = new String(now.getFullYear());
-    let result = new String();
-
-    if(day.length < 2) {
-        day = '0' + day;
-    }
-    if(month.length < 2) {
-        month = '0' + month;
-    }
-
-    return result = year + '-' + month + '-' + day;
-}
-/* harmony export (immutable) */ __webpack_exports__["getCurrentDate"] = getCurrentDate;
-
-
-/***/ }),
-/* 704 */,
-/* 705 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_generateExpirationDate__ = __webpack_require__(706);
-const crypto = __webpack_require__(197);
-
-
-const generateEmailToken = () => {
-    let token = crypto.randomBytes(48).toString('hex');
-    return {
-        token: token,
-        expirationDate: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__utils_generateExpirationDate__["a" /* generateExpirationDate */])()
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["generateEmailToken"] = generateEmailToken;
-
-
-/***/ }),
-/* 706 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-const generateExpirationDate = () => {
-    var now = new Date();
-    now.setDate(now.getDate() + 3);
-    let day = new String(now.getDate());
-    let month = new String(now.getMonth() + 1);
-    let year = new String(now.getFullYear());
-
-    if(day.length < 2) {
-        day = '0' + day;
-    }
-    if(month.length < 2) {
-        month = '0' + month;
-    }
-    return year + '-' + month + '-' + day;   
-}
-/* harmony export (immutable) */ __webpack_exports__["a"] = generateExpirationDate;
-
-
 
 /***/ })
 /******/ ]);

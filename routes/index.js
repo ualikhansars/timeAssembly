@@ -17,7 +17,6 @@ router.get('/signin', function(req, res, next) {
   res.render('signin', { title: 'Signin' });
 });
 
-
 router.get('/signup', function(req, res, next) {
   res.render('signup', { title: 'Signup' });
 });

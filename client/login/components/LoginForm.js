@@ -39,8 +39,8 @@ class LoginForm extends React.Component {
             if(res.data.confirmation === 'success') {
                 const token = res.data.token;
                 localStorage.setItem('jwtToken', token);
-                window.location = "http://localhost:3000";
                 setCookie(token);
+                window.location = "http://localhost:3000";
             }
         });
     }

@@ -3,6 +3,10 @@ var bcrypt = require('bcrypt');
 var ScheduleTime = require('../models/scheduleTime');
 var TimeFormat = require('../models/timeFormat');
 var TimeInterval = require('../models/timeInterval');
+import EmailVerificationToken from '../models/emailVerificationToken';
+
+import {generateEmailToken} from '../config/emailUserToken';
+import {generateExpirationDate} from '../utils/generateExpirationDate';
 
 module.exports =  function validateUser(req, res) {
     // User.findOne({email: req.body.email}, function(err, user) {
@@ -53,6 +57,22 @@ module.exports =  function validateUser(req, res) {
             });
             return;
           }
+          // create EmailVerificationToken
+          let emailToken = generateEmailToken();
+          let expirationDate = generateExpirationDate();
+          EmailVerificationToken.create({
+            token: emailToken,
+            expirationDate: expirationDate,
+            userId: result._id
+          }, (err, emailVerificationToken) => {
+            if(err) {
+              res.json({
+                confirmation: 'failed',
+                message: err
+              });
+              return;
+            }
+          });
           // create user preferences
           // schedule time
           ScheduleTime.create({
@@ -90,7 +110,6 @@ module.exports =  function validateUser(req, res) {
               return;
             }
           });
-          console.log('create user: result:', result);
           res.json({
             confirmation: 'success',
             result: result

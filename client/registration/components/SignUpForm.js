@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import classnames from 'classnames';
-import EmailConfirmation from './EmailConfirmation';
 
 import {logDev} from '../../../utils/logDev';
 
