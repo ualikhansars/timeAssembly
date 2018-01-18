@@ -24164,7 +24164,8 @@ exports.default = EmailConfirmation;
 /* 614 */,
 /* 615 */,
 /* 616 */,
-/* 617 */
+/* 617 */,
+/* 618 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24222,7 +24223,6 @@ var SignUpPage = function (_React$Component) {
 exports.default = SignUpPage;
 
 /***/ }),
-/* 618 */,
 /* 619 */,
 /* 620 */,
 /* 621 */,
@@ -24563,7 +24563,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(98);
 
-var _SignUpPage = __webpack_require__(617);
+var _SignUpPage = __webpack_require__(618);
 
 var _SignUpPage2 = _interopRequireDefault(_SignUpPage);
 

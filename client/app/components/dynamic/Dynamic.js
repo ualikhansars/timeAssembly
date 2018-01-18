@@ -13,7 +13,6 @@ import {
     fetchSlots
 } from '../../actions/slotAction';
 
-
 class Dynamic extends React.Component {
 
     componentDidMount() {
