@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
 import {getCurrentDate} from '../../../../../utils/getCurrentDate';
+import {generateEmailToken} from '../../../../../config/emailUserToken';
 
 import 'react-datepicker/dist/react-datepicker.css';
 // CSS Modules, react-datepicker-cssmodules.css
@@ -99,6 +100,7 @@ class CreateSlotForm extends React.Component {
 
 
     render() {
+        console.error('token', generateEmailToken());       
         let currentDate = getCurrentDate();
         let dueDate = null;
         let total = <div className="form-group row total">

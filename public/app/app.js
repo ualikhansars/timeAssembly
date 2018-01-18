@@ -79565,6 +79565,8 @@ var _moment2 = _interopRequireDefault(_moment);
 
 var _getCurrentDate = __webpack_require__(703);
 
+var _emailUserToken = __webpack_require__(705);
+
 __webpack_require__(697);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -79672,6 +79674,7 @@ var CreateSlotForm = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            console.error('token', (0, _emailUserToken.generateEmailToken)());
             var currentDate = (0, _getCurrentDate.getCurrentDate)();
             var dueDate = null;
             var total = _react2.default.createElement(
@@ -92869,6 +92872,51 @@ const getCurrentDate = () => {
     return result = year + '-' + month + '-' + day;
 }
 /* harmony export (immutable) */ __webpack_exports__["getCurrentDate"] = getCurrentDate;
+
+
+/***/ }),
+/* 704 */,
+/* 705 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils_generateExpirationDate__ = __webpack_require__(706);
+const crypto = __webpack_require__(197);
+
+
+const generateEmailToken = () => {
+    let token = crypto.randomBytes(48).toString('hex');
+    return {
+        token: token,
+        expirationDate: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__utils_generateExpirationDate__["a" /* generateExpirationDate */])()
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["generateEmailToken"] = generateEmailToken;
+
+
+/***/ }),
+/* 706 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const generateExpirationDate = () => {
+    var now = new Date();
+    now.setDate(now.getDate() + 3);
+    let day = new String(now.getDate());
+    let month = new String(now.getMonth() + 1);
+    let year = new String(now.getFullYear());
+
+    if(day.length < 2) {
+        day = '0' + day;
+    }
+    if(month.length < 2) {
+        month = '0' + month;
+    }
+    return year + '-' + month + '-' + day;   
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = generateExpirationDate;
+
 
 
 /***/ })
