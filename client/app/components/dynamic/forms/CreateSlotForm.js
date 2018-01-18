@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
-import {getCurrentDate} from '../../../utils/getCurrentDate';
+import {getCurrentDate} from '../../../../../utils/getCurrentDate';
 
 import 'react-datepicker/dist/react-datepicker.css';
 // CSS Modules, react-datepicker-cssmodules.css

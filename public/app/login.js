@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "/public/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 656);
+/******/ 	return __webpack_require__(__webpack_require__.s = 655);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -76738,8 +76738,7 @@ exports.createContext = Script.createContext = function (context) {
 /* 613 */,
 /* 614 */,
 /* 615 */,
-/* 616 */,
-/* 617 */
+/* 616 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76755,7 +76754,7 @@ var _react = __webpack_require__(8);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _LoginForm = __webpack_require__(655);
+var _LoginForm = __webpack_require__(654);
 
 var _LoginForm2 = _interopRequireDefault(_LoginForm);
 
@@ -76797,6 +76796,7 @@ var LoginPage = function (_React$Component) {
 exports.default = LoginPage;
 
 /***/ }),
+/* 617 */,
 /* 618 */,
 /* 619 */,
 /* 620 */,
@@ -76833,8 +76833,7 @@ exports.default = LoginPage;
 /* 651 */,
 /* 652 */,
 /* 653 */,
-/* 654 */,
-/* 655 */
+/* 654 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76868,7 +76867,7 @@ var _setAuthToken = __webpack_require__(456);
 
 var _setAuthToken2 = _interopRequireDefault(_setAuthToken);
 
-var _setCookie = __webpack_require__(660);
+var _setCookie = __webpack_require__(659);
 
 var _logDev = __webpack_require__(87);
 
@@ -77084,7 +77083,7 @@ var LoginForm = function (_React$Component) {
 exports.default = LoginForm;
 
 /***/ }),
-/* 656 */
+/* 655 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77102,7 +77101,7 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _reactRouterDom = __webpack_require__(455);
 
-var _LoginPage = __webpack_require__(617);
+var _LoginPage = __webpack_require__(616);
 
 var _LoginPage2 = _interopRequireDefault(_LoginPage);
 
@@ -77140,10 +77139,10 @@ _reactDom2.default.render(_react2.default.createElement(
 ), document.getElementById("login"));
 
 /***/ }),
+/* 656 */,
 /* 657 */,
 /* 658 */,
-/* 659 */,
-/* 660 */
+/* 659 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

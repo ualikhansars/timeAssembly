@@ -12,8 +12,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/getUserEmail/:email', function(req, res, next) {
-  console.log('request', req);
-  console.log('email', req.params.email);
   User.findOne({email: req.params.email}, function(err, user) {
     if(err) {
       res.json({

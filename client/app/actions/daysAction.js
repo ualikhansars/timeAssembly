@@ -1,4 +1,4 @@
-import {getCurrentDate} from '../utils/getCurrentDate';
+import {getCurrentDate} from '../../../utils/getCurrentDate';
 
 export const onClickDayInTheWeek = (day) => {
     return dispatch => {
