@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --compilers js:babel-core/register",
     "start": "nodemon ./bin/www --exec babel-node --presets es2015,stage-2,react"
   },
   "dependencies": {
@@ -38,6 +38,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "chai": "^4.1.2",
     "css-loader": "^0.28.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",

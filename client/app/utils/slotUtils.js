@@ -1,8 +1,10 @@
+import {isDueDate} from '../../../utils/checkDate';
 let months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
 export const removeSlotsAfterDueDate = (slots, currentDate) => {
     for(let slot of slots) {
         let processedDate = processDate(slot.dueDate);
+        isDueDate(currentDate, processedDate);
         if(currentDate > slot.dueDate) {
             this.props.removeSlot(slot._id);
         }

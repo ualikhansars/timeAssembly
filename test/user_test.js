@@ -14,7 +14,6 @@ describe ('User test', function() {
    // find user by username
    it('Find user by username', function(done) {
     User.findOne({email: 'user1@gmail.com' }, (err, user) => {
-        console.log('user finded:', user);
         if(err) console.log(err);
         assert(user.email === 'user1@gmail.com' && user.password === '1111');
         done();

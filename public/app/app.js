@@ -78198,6 +78198,10 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.convertDateFormat = exports.processDate = exports.removeSlotsAfterDueDate = undefined;
+
+var _checkDate = __webpack_require__(703);
+
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 var removeSlotsAfterDueDate = exports.removeSlotsAfterDueDate = function removeSlotsAfterDueDate(slots, currentDate) {
@@ -78210,6 +78214,7 @@ var removeSlotsAfterDueDate = exports.removeSlotsAfterDueDate = function removeS
             var slot = _step.value;
 
             var processedDate = processDate(slot.dueDate);
+            (0, _checkDate.isDueDate)(currentDate, processedDate);
             if (currentDate > slot.dueDate) {
                 undefined.props.removeSlot(slot._id);
             }
@@ -92869,6 +92874,35 @@ function symbolObservablePonyfill(root) {
 
 	return result;
 };
+
+/***/ }),
+/* 703 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+const isDueDate = (currentDate, dueDate) => {
+    let currentDay = Number(currentDate.substring(8, 10));
+    let currentMonth = Number(currentDate.substring(5, 7));
+    let currentYear = Number(currentDate.substring(0, 4));
+    let dueDay = Number(dueDate.substring(8, 10));
+    let dueMonth = Number(dueDate.substring(5, 7));
+    let dueYear = Number(dueDate.substring(0, 4));
+    if(currentYear > dueYear) return true;
+    else if(currentYear < dueYear) return false;
+    if(currentYear === dueYear) {
+        if(currentMonth > dueMonth) return true;
+        else if(currentMonth < dueMonth) return false;
+        else if(currentMonth === dueMonth) {
+            if(currentDay > dueDay) return true;
+            else {
+                return false;
+            }
+        }
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["isDueDate"] = isDueDate;
+
 
 /***/ })
 /******/ ]);
