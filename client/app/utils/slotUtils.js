@@ -4,8 +4,7 @@ let months = ['January','February','March','April','May','June','July','August',
 export const removeSlotsAfterDueDate = (slots, currentDate) => {
     for(let slot of slots) {
         let processedDate = processDate(slot.dueDate);
-        isDueDate(currentDate, processedDate);
-        if(currentDate > slot.dueDate) {
+        if(isDueDate(currentDate, processedDate)) {
             this.props.removeSlot(slot._id);
         }
     }
