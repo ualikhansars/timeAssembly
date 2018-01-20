@@ -11,21 +11,36 @@ import {connect} from 'react-redux';
 import {showSlotForm, hideSlotForm, createSlot, updateSlot} from '../../../actions/slotAction';
 import {hideTaskForms, createTask} from '../../../actions/taskAction';
 import {removeSlot} from '../../../actions/slotAction';
-import {removeSlotsAfterDueDate} from '../../../utils/slotUtils';
+import {processDate} from '../../../utils/slotUtils';
+import {isDueDate} from '../../../../../utils/checkDate';
 
 class Slots extends React.Component {
 
     componentDidMount() {
         let {currentDate} = this.props.daysInfo;
         let {temporarySlots} = this.props.slotInfo;
-        removeSlotsAfterDueDate(temporarySlots, currentDate);
+        for(let slot of temporarySlots) {
+            let processedDate = processDate(slot.dueDate);
+            if(isDueDate(currentDate, processedDate)) {
+                this.props.removeSlot(slot);
+            }
+        }
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.slotInfo.temporarySlots) {
-            let {currentDate} = this.props.daysInfo;
-            let {temporarySlots} = nextProps.slotInfo;
-            removeSlotsAfterDueDate(temporarySlots, currentDate);
+        if(nextProps.slotInfo.temporarySlots && this.props.slotInfo.temporarySlots) {
+            let propsLength = this.props.slotInfo.temporarySlots.length;
+            let nextPropsLength = nextProps.slotInfo.temporarySlots.length;
+            if(propsLength !== nextPropsLength) {
+                let {currentDate} = this.props.daysInfo;
+                let {temporarySlots} = nextProps.slotInfo;
+                for(let slot of temporarySlots) {
+                    let processedDate = processDate(slot.dueDate);
+                    if(isDueDate(currentDate, processedDate)) {
+                        this.props.removeSlot(slot);
+                    }
+                }
+            }
         }
     }
     

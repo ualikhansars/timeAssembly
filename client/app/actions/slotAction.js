@@ -83,6 +83,7 @@ export const removeSlot = (slot) => {
            } 
         })
             .then(res => {
+                console.error('res', res);
                 dispatch({
                     type: 'SLOT_DELETED_SUCCESS',
                     deletedSlotId: id
