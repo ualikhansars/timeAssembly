@@ -79333,9 +79333,7 @@ exports.default = store;
 /* 618 */
 /***/ (function(module, exports) {
 
-module.exports = {
-    jwtSecret: 'e#a345#56Nb132u1l%jhfVtymbVvs$ijwxYsa'
-}
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/home/ualikhan/workspace/Node/timetable/config/jwtConfig.js'\n    at Error (native)");
 
 /***/ }),
 /* 619 */
