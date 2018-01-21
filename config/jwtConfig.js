@@ -1,3 +1,3 @@
 module.exports = {
-    jwtSecret: 'someSecretKeyForJasonWebToken'
+    jwtSecret: 'e#a345#56Nb132u1l%jhfVtymbVvs$ijwxYsa'
 }
