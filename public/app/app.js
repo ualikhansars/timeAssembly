@@ -79331,9 +79331,13 @@ exports.default = store;
 /* 616 */,
 /* 617 */,
 /* 618 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/home/ualikhan/workspace/Node/timetable/config/jwtConfig.js'\n    at Error (native)");
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+const jwtSecret = 're@hsaKhesP%4&nnmBBK#ul$874v6MbZ22Ie#y###vcXz5';
+/* harmony export (immutable) */ __webpack_exports__["jwtSecret"] = jwtSecret;
+
 
 /***/ }),
 /* 619 */
