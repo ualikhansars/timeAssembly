@@ -57,6 +57,9 @@ typings/
 # dotenv environment variables file
 .env
 
-#secret web token
+# secret web token
 config/jwtConfig.js
+
+# email account
+config/account.js
 

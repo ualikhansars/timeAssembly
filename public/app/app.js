@@ -18612,11 +18612,11 @@ var asn1 = exports;
 
 asn1.bignum = __webpack_require__(12);
 
-asn1.define = __webpack_require__(459).define;
+asn1.define = __webpack_require__(460).define;
 asn1.base = __webpack_require__(58);
 asn1.constants = __webpack_require__(162);
-asn1.decoders = __webpack_require__(463);
-asn1.encoders = __webpack_require__(465);
+asn1.decoders = __webpack_require__(464);
+asn1.encoders = __webpack_require__(466);
 
 
 /***/ }),
@@ -18625,10 +18625,10 @@ asn1.encoders = __webpack_require__(465);
 
 var base = exports;
 
-base.Reporter = __webpack_require__(461).Reporter;
+base.Reporter = __webpack_require__(462).Reporter;
 base.DecoderBuffer = __webpack_require__(161).DecoderBuffer;
 base.EncoderBuffer = __webpack_require__(161).EncoderBuffer;
-base.Node = __webpack_require__(460);
+base.Node = __webpack_require__(461);
 
 
 /***/ }),
@@ -28906,7 +28906,7 @@ exports.sha512 = __webpack_require__(452)
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "development", function() { return development; });
-let development = false;
+let development = true;
 
 /***/ }),
 /* 160 */
@@ -29080,7 +29080,7 @@ constants._reverse = function reverse(map) {
   return res;
 };
 
-constants.der = __webpack_require__(462);
+constants.der = __webpack_require__(463);
 
 
 /***/ }),
@@ -60218,6 +60218,192 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.createSlot = exports.createSlotSuccess = exports.updateSlot = exports.onClickUpdateSlot = exports.removeSlot = exports.fetchTemporarySlots = exports.hideSlotForm = exports.showCreateSlotForm = undefined;
+exports.fetchSlots = fetchSlots;
+
+var _axios = __webpack_require__(59);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _taskAction = __webpack_require__(136);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// when createSlot button in slotContainer component is clicked
+// this function is fired, it will show
+// createSlotForm
+var showCreateSlotForm = exports.showCreateSlotForm = function showCreateSlotForm() {
+    return function (dispatch) {
+        dispatch({
+            type: 'SHOW_CREATE_SLOT_FORM'
+        });
+        return dispatch({
+            type: 'RESET_ADD_TASK'
+        });
+    };
+};
+
+var hideSlotForm = exports.hideSlotForm = function hideSlotForm() {
+    return {
+        type: 'HIDE_SLOT_FORM'
+    };
+};
+
+function fetchSlots(id) {
+    return function (dispatch) {
+        dispatch({
+            type: 'LOAD_SLOTS_REQUESTED'
+        });
+        _axios2.default.get('/api/slot/', {
+            params: {
+                userId: id
+            }
+        }).then(function (res) {
+            if (id) {
+                dispatch({
+                    type: 'LOAD_SLOTS_OK',
+                    slots: res.data.resource
+                });
+            }
+        }).catch(function (result) {
+            dispatch({
+                type: 'LOAD_SLOTS_FAIL',
+                slotsErrors: result.message
+            });
+        });
+    };
+}
+
+// fetch only temporary tasks
+var fetchTemporarySlots = exports.fetchTemporarySlots = function fetchTemporarySlots(id) {
+    return function (dispatch) {
+        return _axios2.default.get('/api/slot', {
+            params: {
+                temporary: true,
+                userId: id
+            }
+        }).then(function (res) {
+            var data = res.data.resource;
+            dispatch({
+                type: 'FETCH_TEMPORARY_SLOTS_SUCCESS',
+                temporarySlots: data
+            });
+        }).catch(function (error) {
+            dispatch({
+                type: 'FETCH_TEMPORARY_SLOTS_FAIL'
+            });
+        });
+    };
+};
+
+var removeSlot = exports.removeSlot = function removeSlot(slot) {
+    var id = slot._id;
+    var userId = slot.userId;
+    return function (dispatch) {
+        return _axios2.default.delete('/api/slot/' + id, {
+            params: {
+                userId: userId
+            }
+        }).then(function (res) {
+            dispatch({
+                type: 'SLOT_DELETED_SUCCESS',
+                deletedSlotId: id
+            });
+        }).then(_axios2.default.delete('/api/task/bySlotId/' + id).then(function (res) {
+            dispatch({
+                type: 'TASKS_BY_SLOT_ID_DELETED_SUCCESS',
+                deletedSlotIdInTask: id
+            });
+        })).then(function () {
+            dispatch({
+                type: 'RESET_ADD_TASK'
+            });
+        }).catch(function (error) {
+            throw error;
+        });
+    };
+};
+
+var onClickUpdateSlot = exports.onClickUpdateSlot = function onClickUpdateSlot(id) {
+    return function (dispatch) {
+        dispatch({
+            type: 'LOAD_SLOT_REQUESTED'
+        });
+        return _axios2.default.get('/api/slot/' + id).then(function (res) {
+            dispatch({
+                type: 'LOAD_SLOT_OK',
+                slot: res.data.resource
+            });
+        }).then(function () {
+            dispatch({
+                type: 'SHOW_UPDATE_SLOT_FORM'
+            });
+        }).then(function () {
+            dispatch({
+                type: 'RESET_ADD_TASK'
+            });
+        }).catch(function (error) {
+            dispatch({
+                type: 'LOAD_SLOT_FAIL',
+                slotErrors: error
+            });
+        });
+    };
+};
+
+var updateSlot = exports.updateSlot = function updateSlot(slot) {
+    return function (dispatch) {
+        return _axios2.default.put('/api/slot/' + slot._id, slot).then(function (res) {
+            dispatch({
+                type: 'UPDATE_SLOT_SUCCESS',
+                slot: slot
+            });
+        })
+        // then update related tasks by slot id
+        .then(_axios2.default.put('/api/task/withSlot/' + slot._id, slot).then(function (res) {
+            dispatch({
+                type: 'TASKS_BY_SLOT_ID_UPDATED_SUCCESS',
+                updatedSlot: slot
+            });
+        })).catch(function (error) {
+            throw error;
+        });
+    };
+};
+
+// in case of successful post request
+var createSlotSuccess = exports.createSlotSuccess = function createSlotSuccess(slot) {
+    return {
+        type: 'CREATE_SLOT_SUCCESS',
+        slot: slot
+    };
+};
+
+var createSlot = exports.createSlot = function createSlot(slot) {
+    return function (dispatch) {
+        return _axios2.default.post('/api/slot', slot).then(function (res) {
+            var data = res.data.result;
+            dispatch(createSlotSuccess(data));
+        }).then(function () {
+            dispatch({
+                type: 'RESET_ADD_TASK'
+            });
+        }).catch(function (error) {
+            throw error;
+        });
+    };
+};
+
+/***/ }),
+/* 457 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 exports.default = setAuthToken;
 
 var _axios = __webpack_require__(59);
@@ -60240,7 +60426,7 @@ function setAuthToken(token) {
 }
 
 /***/ }),
-/* 457 */
+/* 458 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -60312,7 +60498,7 @@ module.exports = function hoistNonReactStatics(targetComponent, sourceComponent,
 
 
 /***/ }),
-/* 458 */
+/* 459 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
@@ -60326,7 +60512,7 @@ module.exports = {
 
 
 /***/ }),
-/* 459 */
+/* 460 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var asn1 = __webpack_require__(57);
@@ -60393,7 +60579,7 @@ Entity.prototype.encode = function encode(data, enc, /* internal */ reporter) {
 
 
 /***/ }),
-/* 460 */
+/* 461 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Reporter = __webpack_require__(58).Reporter;
@@ -61033,7 +61219,7 @@ Node.prototype._isPrintstr = function isPrintstr(str) {
 
 
 /***/ }),
-/* 461 */
+/* 462 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(6);
@@ -61160,7 +61346,7 @@ ReporterError.prototype.rethrow = function rethrow(msg) {
 
 
 /***/ }),
-/* 462 */
+/* 463 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var constants = __webpack_require__(162);
@@ -61208,17 +61394,17 @@ exports.tagByName = constants._reverse(exports.tag);
 
 
 /***/ }),
-/* 463 */
+/* 464 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var decoders = exports;
 
 decoders.der = __webpack_require__(163);
-decoders.pem = __webpack_require__(464);
+decoders.pem = __webpack_require__(465);
 
 
 /***/ }),
-/* 464 */
+/* 465 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(6);
@@ -61273,17 +61459,17 @@ PEMDecoder.prototype.decode = function decode(data, options) {
 
 
 /***/ }),
-/* 465 */
+/* 466 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var encoders = exports;
 
 encoders.der = __webpack_require__(164);
-encoders.pem = __webpack_require__(466);
+encoders.pem = __webpack_require__(467);
 
 
 /***/ }),
-/* 466 */
+/* 467 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var inherits = __webpack_require__(6);
@@ -61310,7 +61496,7 @@ PEMEncoder.prototype.encode = function encode(data, options) {
 
 
 /***/ }),
-/* 467 */
+/* 468 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61380,7 +61566,7 @@ var getCurrentDayAndTime = exports.getCurrentDayAndTime = function getCurrentDay
 };
 
 /***/ }),
-/* 468 */
+/* 469 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -61415,193 +61601,6 @@ var displaySlots = exports.displaySlots = function displaySlots() {
 var displaySettings = exports.displaySettings = function displaySettings() {
     return {
         type: 'DISPLAY_SETTINGS'
-    };
-};
-
-/***/ }),
-/* 469 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.createSlot = exports.createSlotSuccess = exports.updateSlot = exports.onClickUpdateSlot = exports.removeSlot = exports.fetchTemporarySlots = exports.hideSlotForm = exports.showCreateSlotForm = undefined;
-exports.fetchSlots = fetchSlots;
-
-var _axios = __webpack_require__(59);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _taskAction = __webpack_require__(136);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// when createSlot button in slotContainer component is clicked
-// this function is fired, it will show
-// createSlotForm
-var showCreateSlotForm = exports.showCreateSlotForm = function showCreateSlotForm() {
-    return function (dispatch) {
-        dispatch({
-            type: 'SHOW_CREATE_SLOT_FORM'
-        });
-        return dispatch({
-            type: 'RESET_ADD_TASK'
-        });
-    };
-};
-
-var hideSlotForm = exports.hideSlotForm = function hideSlotForm() {
-    return {
-        type: 'HIDE_SLOT_FORM'
-    };
-};
-
-function fetchSlots(id) {
-    return function (dispatch) {
-        dispatch({
-            type: 'LOAD_SLOTS_REQUESTED'
-        });
-        _axios2.default.get('/api/slot/', {
-            params: {
-                userId: id
-            }
-        }).then(function (res) {
-            if (id) {
-                dispatch({
-                    type: 'LOAD_SLOTS_OK',
-                    slots: res.data.resource
-                });
-            }
-        }).catch(function (result) {
-            dispatch({
-                type: 'LOAD_SLOTS_FAIL',
-                slotsErrors: result.message
-            });
-        });
-    };
-}
-
-// fetch only temporary tasks
-var fetchTemporarySlots = exports.fetchTemporarySlots = function fetchTemporarySlots(id) {
-    return function (dispatch) {
-        return _axios2.default.get('/api/slot', {
-            params: {
-                temporary: true,
-                userId: id
-            }
-        }).then(function (res) {
-            var data = res.data.resource;
-            dispatch({
-                type: 'FETCH_TEMPORARY_SLOTS_SUCCESS',
-                temporarySlots: data
-            });
-        }).catch(function (error) {
-            dispatch({
-                type: 'FETCH_TEMPORARY_SLOTS_FAIL'
-            });
-        });
-    };
-};
-
-var removeSlot = exports.removeSlot = function removeSlot(slot) {
-    var id = slot._id;
-    var userId = slot.userId;
-    return function (dispatch) {
-        return _axios2.default.delete('/api/slot/' + id, {
-            params: {
-                userId: userId
-            }
-        }).then(function (res) {
-            console.error('res', res);
-            dispatch({
-                type: 'SLOT_DELETED_SUCCESS',
-                deletedSlotId: id
-            });
-        }).then(_axios2.default.delete('/api/task/bySlotId/' + id).then(function (res) {
-            dispatch({
-                type: 'TASKS_BY_SLOT_ID_DELETED_SUCCESS',
-                deletedSlotIdInTask: id
-            });
-        })).then(function () {
-            dispatch({
-                type: 'RESET_ADD_TASK'
-            });
-        }).catch(function (error) {
-            throw error;
-        });
-    };
-};
-
-var onClickUpdateSlot = exports.onClickUpdateSlot = function onClickUpdateSlot(id) {
-    return function (dispatch) {
-        dispatch({
-            type: 'LOAD_SLOT_REQUESTED'
-        });
-        return _axios2.default.get('/api/slot/' + id).then(function (res) {
-            dispatch({
-                type: 'LOAD_SLOT_OK',
-                slot: res.data.resource
-            });
-        }).then(function () {
-            dispatch({
-                type: 'SHOW_UPDATE_SLOT_FORM'
-            });
-        }).then(function () {
-            dispatch({
-                type: 'RESET_ADD_TASK'
-            });
-        }).catch(function (error) {
-            dispatch({
-                type: 'LOAD_SLOT_FAIL',
-                slotErrors: error
-            });
-        });
-    };
-};
-
-var updateSlot = exports.updateSlot = function updateSlot(slot) {
-    return function (dispatch) {
-        return _axios2.default.put('/api/slot/' + slot._id, slot).then(function (res) {
-            dispatch({
-                type: 'UPDATE_SLOT_SUCCESS',
-                slot: slot
-            });
-        })
-        // then update related tasks by slot id
-        .then(_axios2.default.put('/api/task/withSlot/' + slot._id, slot).then(function (res) {
-            dispatch({
-                type: 'TASKS_BY_SLOT_ID_UPDATED_SUCCESS',
-                updatedSlot: slot
-            });
-        })).catch(function (error) {
-            throw error;
-        });
-    };
-};
-
-// in case of successful post request
-var createSlotSuccess = exports.createSlotSuccess = function createSlotSuccess(slot) {
-    return {
-        type: 'CREATE_SLOT_SUCCESS',
-        slot: slot
-    };
-};
-
-var createSlot = exports.createSlot = function createSlot(slot) {
-    return function (dispatch) {
-        return _axios2.default.post('/api/slot', slot).then(function (res) {
-            var data = res.data.result;
-            dispatch(createSlotSuccess(data));
-        }).then(function () {
-            dispatch({
-                type: 'RESET_ADD_TASK'
-            });
-        }).catch(function (error) {
-            throw error;
-        });
     };
 };
 
@@ -76211,7 +76210,7 @@ Switch.propTypes = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_hoist_non_react_statics__ = __webpack_require__(457);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_hoist_non_react_statics__ = __webpack_require__(458);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_hoist_non_react_statics___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_hoist_non_react_statics__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Route__ = __webpack_require__(434);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -77926,7 +77925,7 @@ var _axios = __webpack_require__(59);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _setAuthToken = __webpack_require__(456);
+var _setAuthToken = __webpack_require__(457);
 
 var _setAuthToken2 = _interopRequireDefault(_setAuthToken);
 
@@ -78201,7 +78200,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.convertDateFormat = exports.processDate = undefined;
 
-var _slotAction = __webpack_require__(469);
+var _slotAction = __webpack_require__(456);
 
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -78366,7 +78365,7 @@ module.exports = warning;
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony export (immutable) */ __webpack_exports__["a"] = connectAdvanced;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_hoist_non_react_statics__ = __webpack_require__(457);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_hoist_non_react_statics__ = __webpack_require__(458);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_hoist_non_react_statics___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_hoist_non_react_statics__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_invariant___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_invariant__);
@@ -79158,7 +79157,7 @@ var _redux = __webpack_require__(32);
 
 var _reactRedux = __webpack_require__(26);
 
-var _jsonwebtoken = __webpack_require__(458);
+var _jsonwebtoken = __webpack_require__(459);
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
@@ -79186,7 +79185,7 @@ var _Footer = __webpack_require__(634);
 
 var _Footer2 = _interopRequireDefault(_Footer);
 
-var _setAuthToken = __webpack_require__(456);
+var _setAuthToken = __webpack_require__(457);
 
 var _setAuthToken2 = _interopRequireDefault(_setAuthToken);
 
@@ -79344,7 +79343,7 @@ module.exports = {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-var jwt = __webpack_require__(458);
+var jwt = __webpack_require__(459);
 var jwtConfig = __webpack_require__(618);
 
 const isAuthenticated = (req, res, next) => {
@@ -79442,9 +79441,9 @@ var _SelectedTask = __webpack_require__(633);
 
 var _SelectedTask2 = _interopRequireDefault(_SelectedTask);
 
-var _displayAction = __webpack_require__(468);
+var _displayAction = __webpack_require__(469);
 
-var _slotAction = __webpack_require__(469);
+var _slotAction = __webpack_require__(456);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -80556,7 +80555,7 @@ var _propTypes = __webpack_require__(11);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _displayAction = __webpack_require__(468);
+var _displayAction = __webpack_require__(469);
 
 var _taskAction = __webpack_require__(136);
 
@@ -81674,7 +81673,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _taskAction = __webpack_require__(136);
 
-var _slotAction = __webpack_require__(469);
+var _slotAction = __webpack_require__(456);
 
 var _timeCalc = __webpack_require__(104);
 
@@ -81912,7 +81911,7 @@ var _redux = __webpack_require__(32);
 
 var _reactRedux = __webpack_require__(26);
 
-var _slotAction = __webpack_require__(469);
+var _slotAction = __webpack_require__(456);
 
 var _taskAction = __webpack_require__(136);
 
@@ -82511,7 +82510,7 @@ var _propTypes = __webpack_require__(11);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _displayAction = __webpack_require__(468);
+var _displayAction = __webpack_require__(469);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -82776,7 +82775,7 @@ var _Day = __webpack_require__(637);
 
 var _Day2 = _interopRequireDefault(_Day);
 
-var _daysAction = __webpack_require__(467);
+var _daysAction = __webpack_require__(468);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -82956,7 +82955,7 @@ var _Days = __webpack_require__(638);
 
 var _Days2 = _interopRequireDefault(_Days);
 
-var _daysAction = __webpack_require__(467);
+var _daysAction = __webpack_require__(468);
 
 var _preferencesAction = __webpack_require__(182);
 
@@ -83087,7 +83086,7 @@ var _styles = __webpack_require__(601);
 
 var _styles2 = _interopRequireDefault(_styles);
 
-var _daysAction = __webpack_require__(467);
+var _daysAction = __webpack_require__(468);
 
 var _timeCalc = __webpack_require__(104);
 
