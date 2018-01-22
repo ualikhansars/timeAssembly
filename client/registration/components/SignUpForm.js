@@ -68,7 +68,14 @@ class SignUpForm extends React.Component {
                 });
             }
             if(res.data.confirmation === 'success') {
-                axios.get('/send');
+                let userId = res.data.result._id;
+                let email = res.data.result.email;
+                axios.get('/send', {
+                    params: {
+                        userEmail: email,
+                        userId: userId
+                    }
+                })
             }
             logDev.default('state', this.state);
         });

@@ -5,10 +5,6 @@ var userValidation = require('../utils/userValidation');
 var jwt = require('jsonwebtoken');
 var jwtConfig = require('../config/jwtConfig');
 
-var Task = require('../models/task');
-var Slot = require('../models/slot');
-var User = require('../models/user');
-
 import {
   deleteByCurrentUser,
   updateByCurrentUser

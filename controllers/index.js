@@ -4,8 +4,10 @@ var userController = require('./userController');
 var scheduleTimeController = require('./scheduleTimeController');
 var timeFormatController = require('./timeFormatController');
 var timeIntervalController = require('./timeIntervalController');
+var emailVerificationController = require('./emailVerificationController');
 
 module.exports = {
+    emailVerificationToken: emailVerificationController,
     task: taskController,
     slot: slotController,
     user: userController,

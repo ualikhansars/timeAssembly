@@ -24309,7 +24309,14 @@ var SignUpForm = function (_React$Component) {
                     });
                 }
                 if (res.data.confirmation === 'success') {
-                    _axios2.default.get('/send');
+                    var userId = res.data.result._id;
+                    var email = res.data.result.email;
+                    _axios2.default.get('/send', {
+                        params: {
+                            userEmail: email,
+                            userId: userId
+                        }
+                    });
                 }
                 _logDev.logDev.default('state', _this3.state);
             });
