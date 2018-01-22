@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+import emailVerificationToken from '../models/emailVerificationToken';
 
 import {isAuthenticated} from '../middlewares/authenticate';
 
@@ -29,6 +30,9 @@ router.get('/logout', function(req, res, next) {
   res.redirect('/signin');
 });
 
+router.get('/send', function(req, res, next) {
+  res.render('send');
+});
 
 module.exports = router;
 

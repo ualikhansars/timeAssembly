@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import {PropTypes} from 'prop-types';
 import setAuthToken from '../../utils/setAuthToken';
 import {setCookie} from '../../utils/setCookie';
+import {url} from '../../../config/url';
 import {logDev} from '../../../utils/logDev';
 
 class LoginForm extends React.Component {
@@ -40,7 +41,8 @@ class LoginForm extends React.Component {
                 const token = res.data.token;
                 localStorage.setItem('jwtToken', token);
                 setCookie(token);
-                window.location = "http://localhost:3000";
+                //axios.get('/send');
+                window.location = `${url}`;
             }
         });
     }

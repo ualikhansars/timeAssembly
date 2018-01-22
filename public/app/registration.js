@@ -24309,7 +24309,7 @@ var SignUpForm = function (_React$Component) {
                     });
                 }
                 if (res.data.confirmation === 'success') {
-                    window.location = "http://localhost:3000";
+                    _axios2.default.get('/send');
                 }
                 _logDev.logDev.default('state', _this3.state);
             });

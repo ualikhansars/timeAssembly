@@ -76869,6 +76869,8 @@ var _setAuthToken2 = _interopRequireDefault(_setAuthToken);
 
 var _setCookie = __webpack_require__(659);
 
+var _url = __webpack_require__(704);
+
 var _logDev = __webpack_require__(87);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -76923,7 +76925,8 @@ var LoginForm = function (_React$Component) {
                     var token = res.data.token;
                     localStorage.setItem('jwtToken', token);
                     (0, _setCookie.setCookie)(token);
-                    window.location = "http://localhost:3000";
+                    //axios.get('/send');
+                    window.location = '' + _url.url;
                 }
             });
         }
@@ -77154,6 +77157,60 @@ Object.defineProperty(exports, "__esModule", {
 var setCookie = exports.setCookie = function setCookie(value) {
     document.cookie = "jwtToken=" + value;
 };
+
+/***/ }),
+/* 660 */,
+/* 661 */,
+/* 662 */,
+/* 663 */,
+/* 664 */,
+/* 665 */,
+/* 666 */,
+/* 667 */,
+/* 668 */,
+/* 669 */,
+/* 670 */,
+/* 671 */,
+/* 672 */,
+/* 673 */,
+/* 674 */,
+/* 675 */,
+/* 676 */,
+/* 677 */,
+/* 678 */,
+/* 679 */,
+/* 680 */,
+/* 681 */,
+/* 682 */,
+/* 683 */,
+/* 684 */,
+/* 685 */,
+/* 686 */,
+/* 687 */,
+/* 688 */,
+/* 689 */,
+/* 690 */,
+/* 691 */,
+/* 692 */,
+/* 693 */,
+/* 694 */,
+/* 695 */,
+/* 696 */,
+/* 697 */,
+/* 698 */,
+/* 699 */,
+/* 700 */,
+/* 701 */,
+/* 702 */,
+/* 703 */,
+/* 704 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+const url = 'http://localhost:3000';
+/* harmony export (immutable) */ __webpack_exports__["url"] = url;
+
 
 /***/ })
 /******/ ]);

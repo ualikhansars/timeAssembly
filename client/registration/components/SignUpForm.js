@@ -68,7 +68,7 @@ class SignUpForm extends React.Component {
                 });
             }
             if(res.data.confirmation === 'success') {
-                window.location = "http://localhost:3000";
+                axios.get('/send');
             }
             logDev.default('state', this.state);
         });

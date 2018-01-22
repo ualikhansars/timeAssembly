@@ -3,8 +3,8 @@ const nodemailer = require('nodemailer');
 import {
     user,
     password
-} from './account';
-import {url} from './url';
+} from '../config/account';
+import {url} from '../config/url';
 
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
