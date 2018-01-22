@@ -11,6 +11,8 @@ var mongoose = require('mongoose');
 var expressHbs = require('express-handlebars');
 var validator = require('express-validator');
 import {removeExpiredEmailTokens} from './utils/removeExpiredEmailTokens';
+process.env.NODE_ENV = 'development';
+
 
 // establish database connection
 var dbUrl = 'mongodb://localhost/timetable';
@@ -47,6 +49,7 @@ app.use('/users', users);
 app.use('/api', api);
 
 removeExpiredEmailTokens();
+console.log('env', process.env.NODE_ENV);
 
 
 // catch 404 and forward to error handler

@@ -6952,23 +6952,21 @@ module.exports = ReactPropTypesSecret;
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__config_settings__ = __webpack_require__(159);
-
-
-const logDev = {
+/* WEBPACK VAR INJECTION */(function(process) {const logDev = {
     default: (text) => {
-        if(__WEBPACK_IMPORTED_MODULE_0__config_settings__["development"]) {
+        if(process.env.NODE_ENV === 'development') {
             console.log(text);
         }
     },
     red: (text) => {
-        if(__WEBPACK_IMPORTED_MODULE_0__config_settings__["development"]) {
+        if(process.env.NODE_ENV === 'development') {
             console.error(text);
         }
     }
 }
 /* harmony export (immutable) */ __webpack_exports__["logDev"] = logDev;
 
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
 
 /***/ }),
 /* 88 */,
@@ -10932,15 +10930,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 /* 156 */,
 /* 157 */,
 /* 158 */,
-/* 159 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "development", function() { return development; });
-let development = true;
-
-/***/ }),
+/* 159 */,
 /* 160 */,
 /* 161 */,
 /* 162 */,

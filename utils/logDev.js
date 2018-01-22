@@ -1,13 +1,11 @@
-import {development} from '../config/settings';
-
 export const logDev = {
     default: (text) => {
-        if(development) {
+        if(process.env.NODE_ENV === 'development') {
             console.log(text);
         }
     },
     red: (text) => {
-        if(development) {
+        if(process.env.NODE_ENV === 'development') {
             console.error(text);
         }
     }
