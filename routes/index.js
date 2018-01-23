@@ -41,7 +41,8 @@ router.get('/send', function(req, res, next) {
   console.log('req.query', req.query);
   let userId = req.query.userId;
   let userEmail = req.query.userEmail;
-  EmailVerificationToken.find({userId: userId}, (err, emailToken) => {
+  console.log('userId', userId);
+  EmailVerificationToken.findOne({userId: userId}, (err, emailToken) => {
     if(err) throw error;
     let host = req.get('host');
     let protocol = req.protocol;
@@ -58,6 +59,7 @@ router.get('/send', function(req, res, next) {
       <br><a href="${link}">Click here to verify</a>" 
       <p>If you received this email by mistake, simply delete it.</p>` 
     };
+    res.redirect('/credits');
     // transporter.sendMail(mailOptions, (err, res) => {
     //   if(err) {
     //     throw error;
