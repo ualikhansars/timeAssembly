@@ -170,11 +170,6 @@ div.task div.taskTime div.taskFinishTime {
   bottom: 0;
 }
 
-/* div.task .taskContent {
-  margin: 0;
-  padding: 0;
-} */
-
 /* Task edit icon */
 div.task .editTask {
   margin-top: 6px;
@@ -287,7 +282,7 @@ div.task .removeTask:hover {
 /* Sidebar */
 .settings {
   border-left: 1px solid #000;
-  min-height: 300px;
+  min-height: 600px;
 }
 .sidebar {
   font-size: 22px;

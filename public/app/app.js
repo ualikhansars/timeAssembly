@@ -82312,7 +82312,7 @@ var Footer = function (_React$Component) {
                         ),
                         _react2.default.createElement(
                             "a",
-                            { href: "#", className: "textLink" },
+                            { href: "#", target: "_blank", className: "textLink" },
                             "Portfolio"
                         )
                     ),
@@ -82321,12 +82321,12 @@ var Footer = function (_React$Component) {
                         { className: "col-md-5 icons" },
                         _react2.default.createElement(
                             "a",
-                            { href: "https://github.com/ualikhansars", className: "gitHubIcon icon" },
+                            { href: "https://github.com/ualikhansars", target: "_blank", className: "gitHubIcon icon" },
                             _react2.default.createElement("img", { src: "/img/GitHub-Mark-32px.png" })
                         ),
                         _react2.default.createElement(
                             "a",
-                            { href: "https://www.linkedin.com/in/ualikhan-sarsenbayev-560740155/", className: "LinkInIcon icon" },
+                            { href: "https://www.linkedin.com/in/ualikhan-sarsenbayev-560740155/", target: "_blank", className: "LinkInIcon icon" },
                             _react2.default.createElement("img", { src: "/img/linkedin.png" })
                         )
                     ),
@@ -82335,7 +82335,7 @@ var Footer = function (_React$Component) {
                         { className: "col-md-2 line" },
                         _react2.default.createElement(
                             "a",
-                            { href: "/credits", className: "textLink" },
+                            { href: "/credits", target: "_blank", className: "textLink" },
                             "Credits"
                         )
                     )
