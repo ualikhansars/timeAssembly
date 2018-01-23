@@ -24155,7 +24155,16 @@ exports.default = SignUpPage;
 /***/ }),
 /* 617 */,
 /* 618 */,
-/* 619 */,
+/* 619 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+const url = 'http://localhost:3000';
+/* harmony export (immutable) */ __webpack_exports__["url"] = url;
+
+
+/***/ }),
 /* 620 */,
 /* 621 */,
 /* 622 */,
@@ -24216,6 +24225,8 @@ var _axios2 = _interopRequireDefault(_axios);
 var _classnames = __webpack_require__(193);
 
 var _classnames2 = _interopRequireDefault(_classnames);
+
+var _url = __webpack_require__(619);
 
 var _logDev = __webpack_require__(87);
 
@@ -24308,6 +24319,7 @@ var SignUpForm = function (_React$Component) {
                             userId: userId
                         }
                     });
+                    window.location.href = "/emailVerificationPage";
                 }
                 _logDev.logDev.default('state', _this3.state);
             });

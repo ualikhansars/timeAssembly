@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import classnames from 'classnames';
+import {url} from '../../../config/url';
 
 import {logDev} from '../../../utils/logDev';
 
@@ -75,7 +76,8 @@ class SignUpForm extends React.Component {
                         userEmail: email,
                         userId: userId
                     }
-                })
+                });
+                window.location.href = "/emailVerificationPage";
             }
             logDev.default('state', this.state);
         });

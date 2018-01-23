@@ -67,7 +67,10 @@ router.get('/sendEmailVerificationToken', function(req, res, next) {
     //   res.render('send');
     // })
   });
-  
+});
+
+router.get('/emailVerificationPage', (req, res, next) => {
+  res.render('emailVerificationPage', {});
 });
 
 router.get('/verifyEmail', (req, res, next) => {
