@@ -6,7 +6,7 @@ class Footer extends React.Component {
             <div className="container-fluid footer">
                 <div className="row">
                     <div className="col-md-5 line">
-                        <span className="author">2018 Ualikhan Sarsenbayev</span>
+                        <span className="author">&copy; 2018 Ualikhan Sarsenbayev</span>
                         <a href="#" target="_blank" className="textLink">Portfolio</a>
                     </div>
                     <div className="col-md-5 icons">

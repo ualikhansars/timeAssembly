@@ -82308,7 +82308,7 @@ var Footer = function (_React$Component) {
                         _react2.default.createElement(
                             "span",
                             { className: "author" },
-                            "2018 Ualikhan Sarsenbayev"
+                            "\xA9 2018 Ualikhan Sarsenbayev"
                         ),
                         _react2.default.createElement(
                             "a",
