@@ -24302,7 +24302,7 @@ var SignUpForm = function (_React$Component) {
                 if (res.data.confirmation === 'success') {
                     var userId = res.data.result._id;
                     var email = res.data.result.email;
-                    _axios2.default.get('/send', {
+                    _axios2.default.get('/sendEmailVerificationToken', {
                         params: {
                             userEmail: email,
                             userId: userId

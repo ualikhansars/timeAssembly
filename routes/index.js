@@ -37,7 +37,7 @@ router.get('/logout', function(req, res, next) {
   res.redirect('/signin');
 });
 
-router.get('/send', function(req, res, next) {
+router.get('/sendEmailVerificationToken', function(req, res, next) {
   console.log('req.query', req.query);
   let userId = req.query.userId;
   let userEmail = req.query.userEmail;
@@ -48,6 +48,7 @@ router.get('/send', function(req, res, next) {
     let protocol = req.protocol;
     let token = emailToken.token;
     let link = protocol + "://" + host + "/verify?emailToken=" + token;
+    console.log('link', link);
     let mailOptions = {
       from: user, // sender address
       to: userEmail, // list of receivers
@@ -59,7 +60,6 @@ router.get('/send', function(req, res, next) {
       <br><a href="${link}">Click here to verify</a>" 
       <p>If you received this email by mistake, simply delete it.</p>` 
     };
-    res.redirect('/credits');
     // transporter.sendMail(mailOptions, (err, res) => {
     //   if(err) {
     //     throw error;
