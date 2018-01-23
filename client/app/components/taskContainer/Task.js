@@ -46,7 +46,7 @@ class Task extends React.Component {
         let taskTimeClassName = 'taskTime';
         if(timeFormat === 12) {
             taskContentClassName += ' col-md-9';
-            taskTimeClassName += ' col-md-3';
+            taskTimeClassName += ' col-md-3 ';
         } else {
             taskContentClassName += ' col-md-10';
             taskTimeClassName += ' col-md-2';
