@@ -3,8 +3,10 @@ var router = express.Router();
 var jwt = require('jsonwebtoken');
 var jwtConfig = require('../config/jwtConfig');
 import {user} from '../config/account';
+import {url} from '../config/url';
 // import {transporter} from '../utils/sendMail';
 import EmailVerificationToken from '../models/emailVerificationToken';
+import User from '../models/user';
 
 import {isAuthenticated} from '../middlewares/authenticate';
 import { error } from 'util';
@@ -41,9 +43,10 @@ router.get('/send', function(req, res, next) {
   let userEmail = req.query.userEmail;
   EmailVerificationToken.find({userId: userId}, (err, emailToken) => {
     if(err) throw error;
-    let host=req.get('host');
+    let host = req.get('host');
+    let protocol = req.protocol;
     let token = emailToken.token;
-    let link="http://"+host+"/verify?emailToken="+token;
+    let link = protocol + "://" + host + "/verify?emailToken=" + token;
     let mailOptions = {
       from: user, // sender address
       to: userEmail, // list of receivers
@@ -52,7 +55,7 @@ router.get('/send', function(req, res, next) {
       html: `<p>Welcome new timeAssembly user</p><br> 
       <p>Please Confirm your email address</p>
       <p>Please Click on the link to verify your email.</p>
-      <br><a href="${url}">Click here to verify</a>" 
+      <br><a href="${link}">Click here to verify</a>" 
       <p>If you received this email by mistake, simply delete it.</p>` 
     };
     // transporter.sendMail(mailOptions, (err, res) => {
@@ -63,6 +66,31 @@ router.get('/send', function(req, res, next) {
     // })
   });
   
+});
+
+router.get('/verifyEmail', (req, res, next) => {
+  let protocol = req.protocol;
+  let host =  req.get('host');
+  console.log(req.protocol + ':/' + req.get('host'));
+  if((protocol + '://' + host) == url) {
+    console.log("Domain is matched. Information is from Authentic email");
+    // get Token By id
+    let tokenId = req.query.emailToken;
+    EmailVerificationToken.findById(tokenId, (err, token) => {
+      if(err) throw error;
+      // token found
+      let userId = token.userId;
+      // find user by token' userId
+      User.findByIdAndUpdate(userId, {active: true}, {new: true}, (err, user) => {
+        if(err) throw error;
+        // now user is active
+        // remove the token
+        EmailVerificationToken.findByIdAndRemove(tokenId, (err, token) => {
+          if(err) throw error;
+        });
+      });
+    });
+  } 
 });
 
 module.exports = router;
