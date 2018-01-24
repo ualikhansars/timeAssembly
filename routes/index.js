@@ -20,6 +20,13 @@ router.get('/credits', function(req, res, next) {
   res.render('credits', { title: 'Credits' });
 });
 
+router.get('/emailSend', function(req, res, next) {
+  res.render('emailSend', {});
+});
+
+router.get('/resetPassword', function(req, res, next) {
+  res.render('resetPassword', {});
+});
 
 router.get('/signin', function(req, res, next) {
   res.render('signin', { title: 'Signin' });

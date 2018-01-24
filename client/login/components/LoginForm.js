@@ -108,7 +108,7 @@ class LoginForm extends React.Component {
                                         Password
                                     </label>
                                     <small className="col-md-5">
-                                        <a href="#">
+                                        <a href="/emailSend">
                                             Forgot password?
                                         </a>
                                     </small>
