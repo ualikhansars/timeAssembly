@@ -16,6 +16,6 @@ import LoginPage from './components/LoginPage';
 
 ReactDOM.render((
      <BrowserRouter>
-       <LoginPage/>
+       <LoginApp/>
      </BrowserRouter>
 ), document.getElementById("login"))

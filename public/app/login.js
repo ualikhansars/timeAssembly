@@ -77083,7 +77083,7 @@ var LoginForm = function (_React$Component) {
                             _react2.default.createElement(
                                 'a',
                                 { href: '/signup' },
-                                'Don\'t have an account, Register'
+                                'Don\'t have an account. Register'
                             )
                         )
                     )
@@ -77150,7 +77150,7 @@ var LoginApp = function (_React$Component) {
 _reactDom2.default.render(_react2.default.createElement(
     _reactRouterDom.BrowserRouter,
     null,
-    _react2.default.createElement(_LoginPage2.default, null)
+    _react2.default.createElement(LoginApp, null)
 ), document.getElementById("login"));
 
 /***/ }),

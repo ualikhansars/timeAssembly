@@ -138,7 +138,7 @@ class LoginForm extends React.Component {
                     <div className="col-md-10 offset-md-1">
                         <h6>
                             <a href="/signup">
-                                Don't have an account, Register
+                                Don't have an account. Register
                             </a>
                         </h6>
                     </div>

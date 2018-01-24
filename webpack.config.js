@@ -8,7 +8,9 @@ module.exports = {
   entry: {
     app: SRC_DIR + '/app/app.js',
     registration: SRC_DIR + '/registration/index.js',
-    login: SRC_DIR + '/login/index.js'
+    login: SRC_DIR + '/login/index.js',
+    emailSend: SRC_DIR + '/emailSend/index.js',
+    resetPassword: SRC_DIR + '/resetPassword/index.js'
   },
   output: { 
       path: DIST_DIR + '/app/', 
