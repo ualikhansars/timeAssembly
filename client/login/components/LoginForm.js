@@ -41,7 +41,6 @@ class LoginForm extends React.Component {
                 const token = res.data.token;
                 localStorage.setItem('jwtToken', token);
                 setCookie(token);
-                //axios.get('/send');
                 window.location = `${url}`;
             }
         });
@@ -104,7 +103,16 @@ class LoginForm extends React.Component {
                     <div className="row">
                         <div className="col-md-10 offset-md-1">
                             <div className={classnames("form-group", {"has-danger": passwordErrorMsg})}>
-                                <label className="form-control-label">Password</label>
+                                <div className="row">
+                                    <label className="form-control-label col-md-7">
+                                        Password
+                                    </label>
+                                    <small className="col-md-5">
+                                        <a href="#">
+                                            Forgot password?
+                                        </a>
+                                    </small>
+                                </div>
                                 <input 
                                     type="password"
                                     name="password"

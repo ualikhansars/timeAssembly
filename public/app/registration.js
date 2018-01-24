@@ -23938,7 +23938,16 @@ module.exports = traverseAllChildren;
 /* 456 */,
 /* 457 */,
 /* 458 */,
-/* 459 */,
+/* 459 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+const url = 'http://localhost:3000';
+/* harmony export (immutable) */ __webpack_exports__["url"] = url;
+
+
+/***/ }),
 /* 460 */,
 /* 461 */,
 /* 462 */,
@@ -24095,7 +24104,8 @@ module.exports = traverseAllChildren;
 /* 613 */,
 /* 614 */,
 /* 615 */,
-/* 616 */
+/* 616 */,
+/* 617 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24153,18 +24163,8 @@ var SignUpPage = function (_React$Component) {
 exports.default = SignUpPage;
 
 /***/ }),
-/* 617 */,
 /* 618 */,
-/* 619 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-const url = 'http://localhost:3000';
-/* harmony export (immutable) */ __webpack_exports__["url"] = url;
-
-
-/***/ }),
+/* 619 */,
 /* 620 */,
 /* 621 */,
 /* 622 */,
@@ -24226,7 +24226,7 @@ var _classnames = __webpack_require__(193);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _url = __webpack_require__(619);
+var _url = __webpack_require__(459);
 
 var _logDev = __webpack_require__(87);
 
@@ -24510,7 +24510,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = __webpack_require__(98);
 
-var _SignUpPage = __webpack_require__(616);
+var _SignUpPage = __webpack_require__(617);
 
 var _SignUpPage2 = _interopRequireDefault(_SignUpPage);
 
