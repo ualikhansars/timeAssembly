@@ -13,7 +13,7 @@ import { error } from 'util';
 
 /* GET home page. */
 router.get('/', isAuthenticated, function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'TimeAssembly' });
 });
 
 router.get('/credits', function(req, res, next) {
@@ -21,19 +21,15 @@ router.get('/credits', function(req, res, next) {
 });
 
 router.get('/emailSend', function(req, res, next) {
-  res.render('emailSend', {});
+  res.render('emailSend', {title: 'enter email'});
 });
 
 router.get('/resetPassword', function(req, res, next) {
-  res.render('resetPassword', {});
+  res.render('resetPassword', {title: 'reset password'});
 });
 
 router.get('/signin', function(req, res, next) {
   res.render('signin', { title: 'Signin' });
-});
-
-router.get('/signup', function(req, res, next) {
-  res.render('signup', { title: 'Signup' });
 });
 
 router.get('/signup', function(req, res, next) {
