@@ -72462,13 +72462,39 @@ var EmailSendForm = function (_React$Component) {
     _createClass(EmailSendForm, [{
         key: 'onSubmit',
         value: function onSubmit(e) {
-            console.log('submit');
+            e.preventDefault();
+            this.setState({
+                errors: []
+            });
+            var email = this.state.email;
+            console.log('email', email);
         }
     }, {
         key: 'onChange',
         value: function onChange(e) {
             this.setState(_defineProperty({}, e.target.name, e.target.value));
-            logDev.default('state', this.state);
+            console.log('state', this.state);
+        }
+    }, {
+        key: 'checkEmailExist',
+        value: function checkEmailExist(e) {
+            var _this2 = this;
+
+            var field = e.target.name;
+            var val = e.target.value;
+            if (val !== '') {
+                _axios2.default.get('/users/getUserEmail/' + val).then(function (result) {
+                    if (result.data.confirmation === 'success') {
+                        if (result.data.user !== null) {
+                            var updatedErrors = _this2.state.errors;
+                            updatedErrors.push({ param: 'email', msg: 'Email not found' });
+                            _this2.setState({
+                                errors: updatedErrors
+                            });
+                        }
+                    }
+                });
+            }
         }
     }, {
         key: 'render',

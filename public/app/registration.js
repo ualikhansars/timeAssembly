@@ -24317,11 +24317,9 @@ var SignUpForm = function (_React$Component) {
                 if (res.data.confirmation === 'success') {
                     var userId = res.data.result._id;
                     var email = res.data.result.email;
-                    _axios2.default.get('/sendEmailVerificationToken', {
-                        params: {
-                            userEmail: email,
-                            userId: userId
-                        }
+                    _axios2.default.post('/sendEmailVerificationToken', {
+                        userEmail: email,
+                        userId: userId
                     });
                     window.location.href = "/emailVerificationPage";
                 }

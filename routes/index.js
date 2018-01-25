@@ -40,13 +40,13 @@ router.get('/logout', function(req, res, next) {
   res.redirect('/signin');
 });
 
-router.get('/sendEmailVerificationToken', function(req, res, next) {
-  console.log('req.query', req.query);
-  let userId = req.query.userId;
-  let userEmail = req.query.userEmail;
+router.post('/sendEmailVerificationToken', function(req, res, next) {
+  let userId = req.body.userId;
+  let userEmail = req.body.userEmail;
   console.log('userId', userId);
   EmailVerificationToken.findOne({userId: userId}, (err, emailToken) => {
     if(err) throw error;
+    console.log('emailToken', emailToken);
     let host = req.get('host');
     let protocol = req.protocol;
     let token = emailToken.token;

@@ -71,12 +71,11 @@ class SignUpForm extends React.Component {
             if(res.data.confirmation === 'success') {
                 let userId = res.data.result._id;
                 let email = res.data.result.email;
-                axios.get('/sendEmailVerificationToken', {
-                    params: {
+                axios.post('/sendEmailVerificationToken', {
                         userEmail: email,
                         userId: userId
                     }
-                });
+                );
                 window.location.href = "/emailVerificationPage";
             }
             logDev.default('state', this.state);

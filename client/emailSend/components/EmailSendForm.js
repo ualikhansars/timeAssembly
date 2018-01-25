@@ -16,12 +16,38 @@ class EmailSendForm extends React.Component {
     }
 
     onSubmit(e) {
-        console.log('submit');
+        e.preventDefault();
+        this.setState({
+            errors: []
+        });
+        let email = this.state.email;
+        console.log('email', email);
     }
 
     onChange(e) {
         this.setState({[e.target.name]: e.target.value});
-        logDev.default('state', this.state);
+        console.log('state', this.state);
+    }
+
+    checkEmailExist(e) {
+        const field = e.target.name;
+        const val = e.target.value;
+        if(val !== '') {
+            axios.get(`/users/getUserEmail/${val}`).
+            then(result => {
+                if(result.data.confirmation === 'success') {
+                    if(result.data.user !== null) {
+                        let updatedErrors = this.state.errors;
+                        updatedErrors.push(
+                            {param: 'email', msg: 'Email not found'}
+                        )
+                        this.setState({
+                            errors: updatedErrors
+                        });
+                    } 
+                }
+            });
+        }
     }
 
     render() {
