@@ -107,20 +107,7 @@ router.post('/emailSend', (req, res, next) => {
   console.log('req.body', req.body);
   req.checkBody('email', 'Enter correct email address').isEmail();
   req.checkBody('email', 'Email is required').notEmpty();
-
-  // let emailExist = false;
-
-  // User.findOne({email: req.body.email}, (err, user) => {
-  //   if(err) {
-  //     throw error;
-  //     console.log('user', user);
-  //     if(user) {
-  //       emailExist = true;
-  //     } 
-  //   }
-  // });
   
-
   req.getValidationResult()
   .then(response => {
     let errors = response.array();
@@ -133,6 +120,18 @@ router.post('/emailSend', (req, res, next) => {
       User.findOne({email: req.body.email}, (err, user) => {
         if(err) throw error;
         if(user) { // user is verified
+          // create resetPassword token
+          let resetToken = generateEmailToken();
+          let expirationDate = generateExpirationDate();
+          ResetPasswordToken.create({
+            token: resetToken,
+            expirationDate: expirationDate,
+            userId: user._id
+          }, (err, token) => {
+            if(err) throw error;
+            // token has been created
+            console.log('reset token', token);
+          });
           res.json({
             confirmation: 'success',
             result: 'email is verified'
