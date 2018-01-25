@@ -27,7 +27,7 @@ class Preferences extends React.Component {
                 <div className="row scheduleTime">
                     <ScheduleTime/>
                 </div>
-                <div className="row exitButton">
+                <div className="row exitButtonContainer">
                     <div className="col-md-12">
                         <button onClick={() => this.props.displaySlots()} className="btn btn-default btn-lg">
                             Exit

@@ -329,6 +329,12 @@ div.preferences .preferencesAttribute:hover {
   background-color: #f6f1c6;
 }
 
+div.preferences .exitButtonContainer {
+  margin-top: 40px;
+}
+
+
+
 div.preferences .preferencesName {
   font-size: 18px;
 }

@@ -80930,7 +80930,7 @@ var Preferences = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     'div',
-                    { className: 'row exitButton' },
+                    { className: 'row exitButtonContainer' },
                     _react2.default.createElement(
                         'div',
                         { className: 'col-md-12' },
