@@ -108,6 +108,19 @@ router.post('/emailSend', (req, res, next) => {
   req.checkBody('email', 'Enter correct email address').isEmail();
   req.checkBody('email', 'Email is required').notEmpty();
 
+  let emailExist = false;
+
+  User.findOne({email: req.body.email}, (err, user) => {
+    if(err) {
+      throw error;
+      console.log('user', user);
+      if(user) {
+        emailExist = true;
+      } 
+    }
+  });
+  
+
   req.getValidationResult()
   .then(response => {
     let errors = response.array();
@@ -117,8 +130,26 @@ router.post('/emailSend', (req, res, next) => {
         errors: errors
       });
     } else {
-      const {email} = req.body;
-      
+      User.findOne({email: req.body.email}, (err, user) => {
+        if(err) throw error;
+        if(user) {
+          res.json({
+            confirmation: 'success',
+            result: 'email is verified'
+          });
+        } else { // email not found
+          let error = {
+            param: 'email',
+            msg: 'Email not found', 
+            value: req.body.email
+          }
+          errors.push(error);
+          res.json({
+            confirmation: 'validation error',
+            errors: errors
+          });
+        } 
+      });
     }
   });
 

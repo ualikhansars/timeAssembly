@@ -24,6 +24,7 @@ class EmailSendForm extends React.Component {
         console.log('email', email);
         axios.post('/emailSend', {email: email})
         .then(res => {
+            console.error('response', res);
             let updatedErrors = Object.assign([], this.state.errors);
             if(res.data.confirmation === 'validation error') {
                 updatedErrors = res.data.errors;
@@ -31,9 +32,10 @@ class EmailSendForm extends React.Component {
                     errors: updatedErrors
                 });
             }
-            if(res.data.confirmation === 'success') {
-                window.location.href = "/credits";
-            }
+            
+            // else if(res.data.confirmation === 'success') {
+            //     window.location.href = "/credits";
+            // }
         });
     }
 
@@ -42,26 +44,21 @@ class EmailSendForm extends React.Component {
         console.log('state', this.state);
     }
 
-    checkEmailExist(e) {
-        const field = e.target.name;
-        const val = e.target.value;
-        if(val !== '') {
-            axios.get(`/users/getUserEmail/${val}`).
-            then(result => {
-                if(result.data.confirmation === 'success') {
-                    if(result.data.user !== null) {
-                        let updatedErrors = this.state.errors;
-                        updatedErrors.push(
-                            {param: 'email', msg: 'Email not found'}
-                        )
-                        this.setState({
-                            errors: updatedErrors
-                        });
-                    } 
+    isEmailExist(email) {
+        axios.get(`/users/getUserEmail/${email}`).
+        then(result => {
+            console.log('isEmailExist');
+            console.log('result', result);
+            if(result.data.confirmation === 'success') {
+                if(result.data.user) {
+                    return true;
+                } else {
+                    return false; 
                 }
-            });
-        }
+            }
+        });
     }
+
 
     render() {
         let errors = this.state.errors;

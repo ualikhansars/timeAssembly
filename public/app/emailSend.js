@@ -72471,6 +72471,7 @@ var EmailSendForm = function (_React$Component) {
             var email = this.state.email;
             console.log('email', email);
             _axios2.default.post('/emailSend', { email: email }).then(function (res) {
+                console.error('response', res);
                 var updatedErrors = Object.assign([], _this2.state.errors);
                 if (res.data.confirmation === 'validation error') {
                     updatedErrors = res.data.errors;
@@ -72478,9 +72479,10 @@ var EmailSendForm = function (_React$Component) {
                         errors: updatedErrors
                     });
                 }
-                if (res.data.confirmation === 'success') {
-                    window.location.href = "/credits";
-                }
+
+                // else if(res.data.confirmation === 'success') {
+                //     window.location.href = "/credits";
+                // }
             });
         }
     }, {
@@ -72490,25 +72492,19 @@ var EmailSendForm = function (_React$Component) {
             console.log('state', this.state);
         }
     }, {
-        key: 'checkEmailExist',
-        value: function checkEmailExist(e) {
-            var _this3 = this;
-
-            var field = e.target.name;
-            var val = e.target.value;
-            if (val !== '') {
-                _axios2.default.get('/users/getUserEmail/' + val).then(function (result) {
-                    if (result.data.confirmation === 'success') {
-                        if (result.data.user !== null) {
-                            var updatedErrors = _this3.state.errors;
-                            updatedErrors.push({ param: 'email', msg: 'Email not found' });
-                            _this3.setState({
-                                errors: updatedErrors
-                            });
-                        }
+        key: 'isEmailExist',
+        value: function isEmailExist(email) {
+            _axios2.default.get('/users/getUserEmail/' + email).then(function (result) {
+                console.log('isEmailExist');
+                console.log('result', result);
+                if (result.data.confirmation === 'success') {
+                    if (result.data.user) {
+                        return true;
+                    } else {
+                        return false;
                     }
-                });
-            }
+                }
+            });
         }
     }, {
         key: 'render',

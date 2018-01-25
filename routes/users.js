@@ -12,7 +12,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/getUserEmail/:email', function(req, res, next) {
-  User.findOne({email: req.params.email}, function(err, user) {
+  console.log('getUserEmail')
+  console.log('req.params', req.params);
+  let email = req.params.email;
+  console.log('email', email);
+  User.findOne({email: email}, function(err, user) {
     if(err) {
       res.json({
         confirmation: 'error',
@@ -20,16 +24,18 @@ router.get('/getUserEmail/:email', function(req, res, next) {
       });
       return;
     }
+    console.log('user', user);
     if(user !== null) {
-      user = user.email;
+      res.json({
+        confirmation: 'success',
+        user: user.email
+      });
+    } else {
+      res.json({
+        confirmation: 'success',
+        user: null
+      });
     }
-    res.json({
-      confirmation: 'success',
-      user: {
-        _id: user._id,
-        email: user.email
-      }
-    });
   });
 });
 
