@@ -10,4 +10,4 @@ var resetPasswordTokenSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('resetPasswordToken', resetPasswordTokenSchema);
+module.exports = mongoose.model('ResetPasswordToken', resetPasswordTokenSchema);

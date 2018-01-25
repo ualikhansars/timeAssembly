@@ -25,7 +25,10 @@ router.get('/getUserEmail/:email', function(req, res, next) {
     }
     res.json({
       confirmation: 'success',
-      user: user
+      user: {
+        _id: user._id,
+        email: user.email
+      }
     });
   });
 });

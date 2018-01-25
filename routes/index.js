@@ -6,10 +6,12 @@ import {user} from '../config/account';
 import {url} from '../config/url';
 // import {transporter} from '../utils/sendMail';
 import EmailVerificationToken from '../models/emailVerificationToken';
+import ResetPasswordToken from '../models/resetPasswordToken';
 import User from '../models/user';
 
 import {isAuthenticated} from '../middlewares/authenticate';
-import { error } from 'util';
+import {generateEmailToken} from '../utils/emailUserToken';
+import {generateExpirationDate} from '../utils/generateExpirationDate';
 
 /* GET home page. */
 router.get('/', isAuthenticated, function(req, res, next) {
@@ -99,6 +101,27 @@ router.get('/verifyEmail', (req, res, next) => {
       });
     });
   } 
+});
+
+router.post('/emailSend', (req, res, next) => {
+  console.log('req.body', req.body);
+  req.checkBody('email', 'Enter correct email address').isEmail();
+  req.checkBody('email', 'Email is required').notEmpty();
+
+  req.getValidationResult()
+  .then(response => {
+    let errors = response.array();
+    if(errors.length > 0) {
+      res.json({
+        confirmation: 'validation error',
+        errors: errors
+      });
+    } else {
+      const {email} = req.body;
+      
+    }
+  });
+
 });
 
 module.exports = router;

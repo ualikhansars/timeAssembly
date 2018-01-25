@@ -22,6 +22,19 @@ class EmailSendForm extends React.Component {
         });
         let email = this.state.email;
         console.log('email', email);
+        axios.post('/emailSend', {email: email})
+        .then(res => {
+            let updatedErrors = Object.assign([], this.state.errors);
+            if(res.data.confirmation === 'validation error') {
+                updatedErrors = res.data.errors;
+                this.setState({
+                    errors: updatedErrors
+                });
+            }
+            if(res.data.confirmation === 'success') {
+                window.location.href = "/credits";
+            }
+        });
     }
 
     onChange(e) {
