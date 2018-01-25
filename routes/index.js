@@ -108,17 +108,17 @@ router.post('/emailSend', (req, res, next) => {
   req.checkBody('email', 'Enter correct email address').isEmail();
   req.checkBody('email', 'Email is required').notEmpty();
 
-  let emailExist = false;
+  // let emailExist = false;
 
-  User.findOne({email: req.body.email}, (err, user) => {
-    if(err) {
-      throw error;
-      console.log('user', user);
-      if(user) {
-        emailExist = true;
-      } 
-    }
-  });
+  // User.findOne({email: req.body.email}, (err, user) => {
+  //   if(err) {
+  //     throw error;
+  //     console.log('user', user);
+  //     if(user) {
+  //       emailExist = true;
+  //     } 
+  //   }
+  // });
   
 
   req.getValidationResult()
@@ -132,7 +132,7 @@ router.post('/emailSend', (req, res, next) => {
     } else {
       User.findOne({email: req.body.email}, (err, user) => {
         if(err) throw error;
-        if(user) {
+        if(user) { // user is verified
           res.json({
             confirmation: 'success',
             result: 'email is verified'

@@ -72492,21 +72492,6 @@ var EmailSendForm = function (_React$Component) {
             console.log('state', this.state);
         }
     }, {
-        key: 'isEmailExist',
-        value: function isEmailExist(email) {
-            _axios2.default.get('/users/getUserEmail/' + email).then(function (result) {
-                console.log('isEmailExist');
-                console.log('result', result);
-                if (result.data.confirmation === 'success') {
-                    if (result.data.user) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-            });
-        }
-    }, {
         key: 'render',
         value: function render() {
             var errors = this.state.errors;

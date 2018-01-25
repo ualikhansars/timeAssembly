@@ -44,21 +44,6 @@ class EmailSendForm extends React.Component {
         console.log('state', this.state);
     }
 
-    isEmailExist(email) {
-        axios.get(`/users/getUserEmail/${email}`).
-        then(result => {
-            console.log('isEmailExist');
-            console.log('result', result);
-            if(result.data.confirmation === 'success') {
-                if(result.data.user) {
-                    return true;
-                } else {
-                    return false; 
-                }
-            }
-        });
-    }
-
 
     render() {
         let errors = this.state.errors;
