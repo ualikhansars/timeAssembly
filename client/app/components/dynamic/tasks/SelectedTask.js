@@ -93,4 +93,10 @@ const mapDispatchToProps = (dispatch) => {
     );
 }
 
+SelectedTask.propTypes = {
+    selectedTask: PropTypes.object.isRequired,
+    preferences: PropTypes.object.isRequired,
+    displaySlots: PropTypes.func
+}
+
 export default connect(mapStateToProps, mapDispatchToProps)(SelectedTask);

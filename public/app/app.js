@@ -80853,6 +80853,16 @@ var _react = __webpack_require__(10);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _redux = __webpack_require__(54);
+
+var _reactRedux = __webpack_require__(51);
+
+var _propTypes = __webpack_require__(16);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _displayAction = __webpack_require__(568);
+
 var _TimeDisplay = __webpack_require__(631);
 
 var _TimeDisplay2 = _interopRequireDefault(_TimeDisplay);
@@ -80885,6 +80895,8 @@ var Preferences = function (_React$Component) {
     _createClass(Preferences, [{
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             return _react2.default.createElement(
                 'div',
                 { className: 'container preferences' },
@@ -80915,6 +80927,21 @@ var Preferences = function (_React$Component) {
                     'div',
                     { className: 'row scheduleTime' },
                     _react2.default.createElement(_ScheduleTime2.default, null)
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row exitButton' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-12' },
+                        _react2.default.createElement(
+                            'button',
+                            { onClick: function onClick() {
+                                    return _this2.props.displaySlots();
+                                }, className: 'btn btn-default btn-lg' },
+                            'Exit'
+                        )
+                    )
                 )
             );
         }
@@ -80923,7 +80950,17 @@ var Preferences = function (_React$Component) {
     return Preferences;
 }(_react2.default.Component);
 
-exports.default = Preferences;
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({
+        displaySlots: _displayAction.displaySlots
+    }, dispatch);
+};
+
+Preferences.propTypes = {
+    displaySlots: _propTypes2.default.func
+};
+
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Preferences);
 
 /***/ }),
 /* 630 */
@@ -82282,6 +82319,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)({
         displaySlots: _displayAction.displaySlots
     }, dispatch);
+};
+
+SelectedTask.propTypes = {
+    selectedTask: _propTypes2.default.object.isRequired,
+    preferences: _propTypes2.default.object.isRequired,
+    displaySlots: _propTypes2.default.func
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SelectedTask);

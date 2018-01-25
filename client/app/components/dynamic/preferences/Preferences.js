@@ -1,4 +1,9 @@
 import React from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+
+import {displaySlots} from '../../../actions/displayAction';
 
 import TimeDisplay from './TimeDisplay';
 import TimeInterval from './TimeInterval';
@@ -22,9 +27,28 @@ class Preferences extends React.Component {
                 <div className="row scheduleTime">
                     <ScheduleTime/>
                 </div>
+                <div className="row exitButton">
+                    <div className="col-md-12">
+                        <button onClick={() => this.props.displaySlots()} className="btn btn-default btn-lg">
+                            Exit
+                        </button>
+                    </div>
+                </div>
             </div>
         );
     }
 }
 
-export default Preferences;
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+            displaySlots
+        }, 
+        dispatch
+    );
+}
+
+Preferences.propTypes = {
+    displaySlots: PropTypes.func
+}
+
+export default connect(null, mapDispatchToProps)(Preferences);
