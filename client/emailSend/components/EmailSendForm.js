@@ -33,9 +33,9 @@ class EmailSendForm extends React.Component {
                 });
             }
             
-            // else if(res.data.confirmation === 'success') {
-            //     window.location.href = "/credits";
-            // }
+            else if(res.data.confirmation === 'success') {
+                window.location.href = "/checkEmail";
+            }
         });
     }
 

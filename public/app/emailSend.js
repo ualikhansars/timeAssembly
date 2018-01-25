@@ -72478,11 +72478,9 @@ var EmailSendForm = function (_React$Component) {
                     _this2.setState({
                         errors: updatedErrors
                     });
+                } else if (res.data.confirmation === 'success') {
+                    window.location.href = "/checkEmail";
                 }
-
-                // else if(res.data.confirmation === 'success') {
-                //     window.location.href = "/credits";
-                // }
             });
         }
     }, {

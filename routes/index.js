@@ -18,6 +18,10 @@ router.get('/', isAuthenticated, function(req, res, next) {
   res.render('index', { title: 'TimeAssembly' });
 });
 
+router.get('/checkEmail', function(req, res, next) {
+  res.render('checkEmail', { title: 'checkEmail' });
+});
+
 router.get('/credits', function(req, res, next) {
   res.render('credits', { title: 'Credits' });
 });
@@ -121,6 +125,7 @@ router.post('/emailSend', (req, res, next) => {
         if(err) throw error;
         if(user) { // user is verified
           // create resetPassword token
+          let userEmail = user.email;
           let resetToken = generateEmailToken();
           let expirationDate = generateExpirationDate();
           ResetPasswordToken.create({
@@ -131,6 +136,27 @@ router.post('/emailSend', (req, res, next) => {
             if(err) throw error;
             // token has been created
             console.log('reset token', token);
+            let host = req.get('host');
+            let protocol = req.protocol;
+            let link = protocol + "://" + host + "/resetPassword?resetToken=" + resetToken;
+            console.log('link', link);
+            let mailOptions = {
+              from: user, // sender address
+              to: userEmail, // list of receivers
+              subject: 'Please confirm your Email account', // Subject line
+              text: 'Email confirmation', // plain text body
+              html: `<p>Welcome new timeAssembly user</p><br> 
+              <p>Please Confirm your email address</p>
+              <p>Please Click on the link to verify your email.</p>
+              <br><a href="${link}">Click here to verify</a>" 
+              <p>If you received this email by mistake, simply delete it.</p>` 
+            };
+            // transporter.sendMail(mailOptions, (err, res) => {
+            //   if(err) {
+            //     throw error;
+            //   }
+            //   res.render('send');
+            // })
           });
           res.json({
             confirmation: 'success',
