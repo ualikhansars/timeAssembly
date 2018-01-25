@@ -40,7 +40,8 @@ class EmailSendForm extends React.Component {
                 <div className="row titleContainer">
                     <div className="col-md-12 ">
                         <span className="title">
-                            Sign In to TimeAssembly
+                           Enter your email address and we will
+                           send you a link to reset your password 
                         </span>
                     </div>
                 </div>
@@ -68,7 +69,7 @@ class EmailSendForm extends React.Component {
                         <div className="col-md-10 offset-md-1">
                             <div className="form-group">
                                 <button className="btn btn-primary btn-lg btn-block">
-                                    Sign In
+                                    send password reset email
                                 </button>
                             </div>
                         </div>

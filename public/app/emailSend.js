@@ -72350,7 +72350,7 @@ var EmailSendPage = function (_React$Component) {
                 { className: 'row' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'col-md-4 offset-md-4 EmailSendForm' },
+                    { className: 'col-md-4 offset-md-4 loginPage' },
                     _react2.default.createElement(_EmailSendForm2.default, null)
                 )
             );
@@ -72495,7 +72495,7 @@ var EmailSendForm = function (_React$Component) {
                         _react2.default.createElement(
                             'span',
                             { className: 'title' },
-                            'Sign In to TimeAssembly'
+                            'Enter your email address and we will send you a link to reset your password'
                         )
                     )
                 ),
@@ -72555,7 +72555,7 @@ var EmailSendForm = function (_React$Component) {
                                 _react2.default.createElement(
                                     'button',
                                     { className: 'btn btn-primary btn-lg btn-block' },
-                                    'Sign In'
+                                    'send password reset email'
                                 )
                             )
                         )
