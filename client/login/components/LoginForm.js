@@ -71,7 +71,7 @@ class LoginForm extends React.Component {
                 <div className="row titleContainer">
                     <div className="col-md-12 ">
                         <span className="title">
-                            Sign In to TimeAssembly
+                            Sign In to Time Assembly
                         </span>
                     </div>
                 </div>
@@ -138,7 +138,7 @@ class LoginForm extends React.Component {
                     <div className="col-md-10 offset-md-1">
                         <h6>
                             <a href="/signup">
-                                Don't have an account. Register
+                                Don't have an account. Sign Up
                             </a>
                         </h6>
                     </div>

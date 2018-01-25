@@ -104,7 +104,7 @@ class SignUpForm extends React.Component {
                 <div className="row titleContainer">
                     <div className="col-md-12 ">
                         <span className="title">
-                            Create an account TimeAssembly
+                            Create an account Time Assembly
                         </span>
                     </div>
                 </div>
@@ -173,7 +173,7 @@ class SignUpForm extends React.Component {
                     <div className="col-md-12">
                         <h6>
                             <a href="/signin">
-                                Already have an account, Signin
+                                Already have an account. Sign In
                             </a>
                         </h6>
                     </div>

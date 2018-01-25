@@ -82099,6 +82099,8 @@ var _propTypes = __webpack_require__(16);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _displayAction = __webpack_require__(568);
+
 var _timeCalc = __webpack_require__(274);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -82121,6 +82123,8 @@ var SelectedTask = function (_React$Component) {
     _createClass(SelectedTask, [{
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             var _props$selectedTask = this.props.selectedTask,
                 category = _props$selectedTask.category,
                 day = _props$selectedTask.day,
@@ -82244,7 +82248,22 @@ var SelectedTask = function (_React$Component) {
                         )
                     )
                 ),
-                descriptionContent
+                descriptionContent,
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-12' },
+                        _react2.default.createElement(
+                            'button',
+                            { onClick: function onClick() {
+                                    return _this2.props.displaySlots();
+                                }, className: 'btn btn-default' },
+                            'Exit'
+                        )
+                    )
+                )
             );
         }
     }]);
@@ -82259,7 +82278,13 @@ var mapStateToProps = function mapStateToProps(state) {
     };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(SelectedTask);
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({
+        displaySlots: _displayAction.displaySlots
+    }, dispatch);
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SelectedTask);
 
 /***/ }),
 /* 637 */

@@ -76968,7 +76968,7 @@ var LoginForm = function (_React$Component) {
                         _react2.default.createElement(
                             'span',
                             { className: 'title' },
-                            'Sign In to TimeAssembly'
+                            'Sign In to Time Assembly'
                         )
                     )
                 ),
@@ -77087,7 +77087,7 @@ var LoginForm = function (_React$Component) {
                             _react2.default.createElement(
                                 'a',
                                 { href: '/signup' },
-                                'Don\'t have an account. Register'
+                                'Don\'t have an account. Sign Up'
                             )
                         )
                     )

@@ -2,6 +2,7 @@ import React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import {displaySlots} from '../../../actions/displayAction';
 
 import {
     convertDurationToHours,
@@ -67,6 +68,11 @@ class SelectedTask extends React.Component {
                     </div>
                 </div>
                 {descriptionContent}
+                <div className="row">
+                    <div className="col-md-12">
+                        <button onClick={() => this.props.displaySlots()} className="btn btn-default">Exit</button>
+                    </div>
+                </div>
             </div>
         )
     }
@@ -79,4 +85,12 @@ const mapStateToProps = (state) => {
     };
 }
 
-export default connect(mapStateToProps, null)(SelectedTask);
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+            displaySlots
+        }, 
+        dispatch
+    );
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SelectedTask);

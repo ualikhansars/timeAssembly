@@ -24358,7 +24358,7 @@ var SignUpForm = function (_React$Component) {
                         _react2.default.createElement(
                             'span',
                             { className: 'title' },
-                            'Create an account TimeAssembly'
+                            'Create an account Time Assembly'
                         )
                     )
                 ),
@@ -24483,7 +24483,7 @@ var SignUpForm = function (_React$Component) {
                             _react2.default.createElement(
                                 'a',
                                 { href: '/signin' },
-                                'Already have an account, Signin'
+                                'Already have an account. Sign In'
                             )
                         )
                     )

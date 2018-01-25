@@ -184,7 +184,6 @@ router.post('/emailSend', (req, res, next) => {
       });
     }
   });
-
 });
 
 module.exports = router;
