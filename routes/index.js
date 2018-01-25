@@ -67,7 +67,12 @@ router.post('/sendEmailVerificationToken', function(req, res, next) {
       <p>Please Confirm your email address</p>
       <p>Please Click on the link to verify your email.</p>
       <br><a href="${link}">Click here to verify</a>" 
-      <p>If you received this email by mistake, simply delete it.</p>` 
+      <p>Thanks.</p>
+      <p>Time Assembly Team.</p>
+      <br><br>
+      <p>If you received this email by mistake, simply delete it.</p>
+      
+      ` 
     };
     // transporter.sendMail(mailOptions, (err, res) => {
     //   if(err) {
@@ -143,19 +148,21 @@ router.post('/emailSend', (req, res, next) => {
             let mailOptions = {
               from: user, // sender address
               to: userEmail, // list of receivers
-              subject: 'Please confirm your Email account', // Subject line
-              text: 'Email confirmation', // plain text body
-              html: `<p>Welcome new timeAssembly user</p><br> 
-              <p>Please Confirm your email address</p>
-              <p>Please Click on the link to verify your email.</p>
-              <br><a href="${link}">Click here to verify</a>" 
-              <p>If you received this email by mistake, simply delete it.</p>` 
+              subject: 'Reset password Time Assembly', // Subject line
+              text: 'Reset password', // plain text body
+              html: `<p>We've received a request to reset your password</p><br> 
+              <p>You can reset your password by clicking the link below</p>
+              <br><a href="${link}">Click here to reset password</a>" 
+              <p>Thanks.</p>
+              <p>Time Assembly Team.</p>
+              <br><br>
+              <p>If you received this email by mistake, simply delete it.</p>
+              ` 
             };
             // transporter.sendMail(mailOptions, (err, res) => {
             //   if(err) {
             //     throw error;
             //   }
-            //   res.render('send');
             // })
           });
           res.json({
