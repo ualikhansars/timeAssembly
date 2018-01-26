@@ -200,7 +200,10 @@ router.get('/resetPassword', (req, res, next) => {
       console.log('currentDate', currentDate);
       if(isDueDate(currentDate, expirationDate)) {
         // resetPassword token is expired
-  
+        res.json({
+          confirmation: 'error',
+          message: 'reset password token is expired'
+        });
       } else {
         // reset Password token is valid
         // fetch user
@@ -210,13 +213,18 @@ router.get('/resetPassword', (req, res, next) => {
           // save userId in cookie
           res.clearCookie('resetPasswordUserId');
           res.cookie('resetPasswordUserId', userId, { maxAge: 900000});
+          res.render('resetPassword', {title: 'reset password'});
         });
       }
     } else {
       // token not found
+      res.json({
+        confirmation: 'error',
+        message: 'reset password token not found'
+      });
     }
   });
-  res.render('resetPassword', {title: 'reset password'});
+  
 });
 
 router.post('/resetPassword', (req, res, next) => {
