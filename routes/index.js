@@ -90,7 +90,7 @@ router.get('/verifyEmail', (req, res, next) => {
   let protocol = req.protocol;
   let host =  req.get('host');
   console.log(req.protocol + ':/' + req.get('host'));
-  //if((protocol + '://' + host) == url) {
+  if((protocol + '://' + host) == url) {
     //console.log("Domain is matched. Information is from Authentic email");
     // get Token By id
     let emailToken = req.query.emailToken;
@@ -112,7 +112,7 @@ router.get('/verifyEmail', (req, res, next) => {
         });
       });
     });
-  //} 
+  } 
 });
 
 router.post('/emailSend', (req, res, next) => {
@@ -271,40 +271,41 @@ router.post('/resetPassword', (req, res, next) => {
             } else {
               // reset Password token is valid
               // fetch user
-              // User.findById(userId, (err, user) => {
-              //   if(err) throw err;
-              //   if(user) {
-              //     let isActive = user.active;
-              //     console.error('isActive', isActive);
-              //     if(isActive) {
-              //       // user is verified
-
-              //     } else {
-              //       // user not verified
-              //       res.json({
-              //         confirmation: 'error',
-              //         message: 'email is not verified'
-              //       });
-              //     }
-              //   }
-              // });
-              bcrypt.hash(password, 10, function(err, hash) { 
-                // hash the password
+              User.findById(userId, (err, user) => {
                 if(err) throw err;
-                console.log('hash', hash);
-                // change user password
-                User.findByIdAndUpdate(userId, {password: hash}, {new: true}, (err, user) => {
-                  if(err) throw err;
-                  // remove token
-                  ResetPasswordToken.findOneAndRemove({token: resetToken}, (err, token) => {
-                    if(err) throw err;
-                    // remove cookie
-                    res.clearCookie('resetToken');
-                    
-                  });
-                });
+                if(user) {
+                  let isActive = user.active;
+                  console.error('isActive', isActive);
+                  if(isActive) {
+                    // user is verified
+                    bcrypt.hash(password, 10, function(err, hash) { 
+                      // hash the password
+                      if(err) throw err;
+                      console.log('hash', hash);
+                      // change user password
+                      User.findByIdAndUpdate(userId, {password: hash}, {new: true}, (err, user) => {
+                        if(err) throw err;
+                        // remove token
+                        ResetPasswordToken.findOneAndRemove({token: resetToken}, (err, token) => {
+                          if(err) throw err;
+                          // remove cookie
+                          res.clearCookie('resetToken');
+                          res.json({
+                            confirmation: 'success',
+                            message: 'password has been successfully changed'
+                          })
+                        });
+                      });
+                    });
+                  } else {
+                    // user not verified
+                    res.json({
+                      confirmation: 'error',
+                      message: 'email is not verified'
+                    });
+                  }
+                }
               });
-              
             }
           } else {
             // token not found
