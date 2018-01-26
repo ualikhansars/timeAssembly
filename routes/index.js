@@ -55,7 +55,7 @@ router.post('/sendEmailVerificationToken', function(req, res, next) {
     let host = req.get('host');
     let protocol = req.protocol;
     let token = emailToken.token;
-    let link = protocol + "://" + host + "/verify?emailToken=" + token;
+    let link = protocol + "://" + host + "/verifyEmail?emailToken=" + token;
     console.log('link', link);
     let mailOptions = {
       from: user, // sender address
@@ -90,25 +90,29 @@ router.get('/verifyEmail', (req, res, next) => {
   let protocol = req.protocol;
   let host =  req.get('host');
   console.log(req.protocol + ':/' + req.get('host'));
-  if((protocol + '://' + host) == url) {
-    console.log("Domain is matched. Information is from Authentic email");
+  //if((protocol + '://' + host) == url) {
+    //console.log("Domain is matched. Information is from Authentic email");
     // get Token By id
-    let tokenId = req.query.emailToken;
-    EmailVerificationToken.findById(tokenId, (err, token) => {
-      if(err) throw error;
+    let emailToken = req.query.emailToken;
+    EmailVerificationToken.findOne({token: emailToken}, (err, token) => {
+      if(err) throw err;
       // token found
       let userId = token.userId;
       // find user by token' userId
       User.findByIdAndUpdate(userId, {active: true}, {new: true}, (err, user) => {
-        if(err) throw error;
+        if(err) throw err;
         // now user is active
         // remove the token
-        EmailVerificationToken.findByIdAndRemove(tokenId, (err, token) => {
-          if(err) throw error;
+        EmailVerificationToken.findOneAndRemove({token: emailToken}, (err, token) => {
+          if(err) throw err;
+          res.json({
+            confirmation: 'success',
+            message: 'your email has been successfully verified'
+          })
         });
       });
     });
-  } 
+  //} 
 });
 
 router.post('/emailSend', (req, res, next) => {
