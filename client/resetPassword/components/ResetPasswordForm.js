@@ -47,7 +47,7 @@ class ResetPasswordForm extends React.Component {
                 <div className="row titleContainer">
                     <div className="col-md-12 ">
                         <span className="title">
-                            Create an account TimeAssembly
+                            Reset Password TimeAssembly
                         </span>
                     </div>
                 </div>
@@ -55,7 +55,7 @@ class ResetPasswordForm extends React.Component {
                     <div className="row">
                         <div className="col-md-10 offset-md-1">
                             <div className={classnames("form-group", {"has-danger": passwordErrorMsg})}>
-                                <label className="form-control-label">Password</label>
+                                <label className="form-control-label newPassword">New Password</label>
                                 <input 
                                     value={this.state.password}
                                     onChange={this.onChange.bind(this)}
@@ -71,7 +71,7 @@ class ResetPasswordForm extends React.Component {
                     <div className="row">
                         <div className="col-md-10 offset-md-1">
                             <div className={classnames("form-group", {"has-danger": passwordConfirmationErrorMsg})}>
-                                <label className="form-control-label">Password confirmation</label>
+                                <label className="form-control-label">Repeat New Password</label>
                                 <input 
                                     value={this.state.passwordConfirmation}
                                     onChange={this.onChange.bind(this)}
@@ -89,7 +89,7 @@ class ResetPasswordForm extends React.Component {
                         <div className="col-md-10 offset-md-1">
                             <div className="form-group">
                                 <button className="btn btn-primary btn-lg btn-block">
-                                    Sign Up
+                                   Reset password
                                 </button>
                             </div>
                         </div>

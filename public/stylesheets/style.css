@@ -514,7 +514,7 @@ div.signUpPage .btn, div.loginPage .btn {
  background-color: #154e14;
 }
 
-div.signUpPage .emailLabel, div.loginPage .emailLabel {
+div.signUpPage .emailLabel, div.signUpPage .newPassword, div.loginPage .emailLabel {
   margin-top: 10px;
 }
 
