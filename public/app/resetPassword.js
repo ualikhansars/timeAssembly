@@ -24225,8 +24225,6 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 var _logDev = __webpack_require__(132);
 
-var _getCookie = __webpack_require__(711);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -24264,18 +24262,30 @@ var ResetPasswordForm = function (_React$Component) {
     }, {
         key: 'onSubmit',
         value: function onSubmit(e) {
+            var _this2 = this;
+
             e.preventDefault();
             this.setState({
                 errors: []
+            });
+            var password = this.state.password;
+            _axios2.default.post('/resetPassword', { password: password }).then(function (res) {
+                console.error('response', res);
+                var updatedErrors = Object.assign([], _this2.state.errors);
+                if (res.data.confirmation === 'validation error') {
+                    updatedErrors = res.data.errors;
+                    _this2.setState({
+                        errors: updatedErrors
+                    });
+                } else if (res.data.confirmation === 'success') {
+                    console.log('success');
+                    // window.location.href = "/emailVerificationPage";
+                }
             });
         }
     }, {
         key: 'render',
         value: function render() {
-            var c = document.cookie;
-            var userId = (0, _getCookie.getCookie)('resetPasswordUserId');
-            console.error('userId', userId);
-            console.log('cookie = ', c);
             var errors = this.state.errors;
             var passwordErrors = null;
             var passwordConfirmationErrors = null;
@@ -24444,68 +24454,6 @@ var ResetPasswordApp = function (_React$Component) {
 }(_react2.default.Component);
 
 (0, _reactDom.render)(_react2.default.createElement(ResetPasswordApp, null), document.getElementById("resetPassword"));
-
-/***/ }),
-/* 665 */,
-/* 666 */,
-/* 667 */,
-/* 668 */,
-/* 669 */,
-/* 670 */,
-/* 671 */,
-/* 672 */,
-/* 673 */,
-/* 674 */,
-/* 675 */,
-/* 676 */,
-/* 677 */,
-/* 678 */,
-/* 679 */,
-/* 680 */,
-/* 681 */,
-/* 682 */,
-/* 683 */,
-/* 684 */,
-/* 685 */,
-/* 686 */,
-/* 687 */,
-/* 688 */,
-/* 689 */,
-/* 690 */,
-/* 691 */,
-/* 692 */,
-/* 693 */,
-/* 694 */,
-/* 695 */,
-/* 696 */,
-/* 697 */,
-/* 698 */,
-/* 699 */,
-/* 700 */,
-/* 701 */,
-/* 702 */,
-/* 703 */,
-/* 704 */,
-/* 705 */,
-/* 706 */,
-/* 707 */,
-/* 708 */,
-/* 709 */,
-/* 710 */,
-/* 711 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var getCookie = exports.getCookie = function getCookie(name) {
-    var value = "; " + document.cookie;
-    var parts = value.split("; " + name + "=");
-    if (parts.length == 2) return parts.pop().split(";").shift();
-};
 
 /***/ })
 /******/ ]);

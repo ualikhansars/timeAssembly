@@ -212,7 +212,7 @@ router.get('/resetPassword', (req, res, next) => {
           // user is found
           // save userId in cookie
           res.clearCookie('resetPasswordUserId');
-          res.cookie('resetPasswordUserId', userId, { maxAge: 900000});
+          res.cookie('resetPasswordUserId', userId, { maxAge: 900000, httpOnly: true});
           res.render('resetPassword', {title: 'reset password'});
         });
       }
@@ -228,7 +228,24 @@ router.get('/resetPassword', (req, res, next) => {
 });
 
 router.post('/resetPassword', (req, res, next) => {
-  
+  let resetPasswordUserId = req.cookies.resetPasswordUserId;
+  let {password} = req.body; 
+  console.log('password', password);
+  console.log('resetPasswordUserId', resetPasswordUserId);
+  req.checkBody('password', 'Password cannot be less than 4 characters').isLength({min: 4});
+  req.checkBody('password', 'Password is required').notEmpty();
+  req.checkBody('passwordConfirmation', 'Passwords do not match').equals(password);
+  req.getValidationResult()
+    .then(response => {
+      let errors = response.array();
+      if(errors.length > 0) {
+        res.json({
+          confirmation: 'validation error',
+          errors: errors
+        });
+      }
+    });
+
 });
 
 module.exports = router;

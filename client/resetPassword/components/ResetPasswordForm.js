@@ -3,7 +3,6 @@ import axios from 'axios';
 import classnames from 'classnames';
 
 import {logDev} from '../../../utils/logDev';
-import {getCookie} from '../../utils/getCookie';
 
 class ResetPasswordForm extends React.Component {
     constructor(props) {
@@ -28,13 +27,26 @@ class ResetPasswordForm extends React.Component {
         this.setState({
             errors: []
         });
+        let password = this.state.password;
+        axios.post('/resetPassword', {password: password})
+        .then(res => {
+            console.error('response', res);
+            let updatedErrors = Object.assign([], this.state.errors);
+            if(res.data.confirmation === 'validation error') {
+                updatedErrors = res.data.errors;
+                this.setState({
+                    errors: updatedErrors
+                });
+            }
+        
+            else if(res.data.confirmation === 'success') {
+                console.log('success');
+                // window.location.href = "/emailVerificationPage";
+            }
+        });
     }
 
     render() {
-        let c = document.cookie;
-        let userId = getCookie('resetPasswordUserId');
-        console.error('userId', userId);
-        console.log('cookie = ', c);
         let errors = this.state.errors;
         let passwordErrors = null;
         let passwordConfirmationErrors = null;
