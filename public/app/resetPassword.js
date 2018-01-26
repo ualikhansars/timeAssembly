@@ -24268,8 +24268,7 @@ var ResetPasswordForm = function (_React$Component) {
             this.setState({
                 errors: []
             });
-            var password = this.state.password;
-            _axios2.default.post('/resetPassword', { password: password }).then(function (res) {
+            _axios2.default.post('/resetPassword', this.state).then(function (res) {
                 console.error('response', res);
                 var updatedErrors = Object.assign([], _this2.state.errors);
                 if (res.data.confirmation === 'validation error') {

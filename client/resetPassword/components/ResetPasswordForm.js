@@ -27,8 +27,7 @@ class ResetPasswordForm extends React.Component {
         this.setState({
             errors: []
         });
-        let password = this.state.password;
-        axios.post('/resetPassword', {password: password})
+        axios.post('/resetPassword', this.state)
         .then(res => {
             console.error('response', res);
             let updatedErrors = Object.assign([], this.state.errors);

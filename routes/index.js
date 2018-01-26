@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
 var jwtConfig = require('../config/jwtConfig');
+var bcrypt = require('bcrypt');
 import {user} from '../config/account';
 import {url} from '../config/url';
 // import {transporter} from '../utils/sendMail';
@@ -211,8 +212,8 @@ router.get('/resetPassword', (req, res, next) => {
           if(err) throw error;
           // user is found
           // save userId in cookie
-          res.clearCookie('resetPasswordUserId');
-          res.cookie('resetPasswordUserId', userId, { maxAge: 900000, httpOnly: true});
+          res.clearCookie('resetToken');
+          res.cookie('resetToken', resetToken, { maxAge: 900000, httpOnly: true});
           res.render('resetPassword', {title: 'reset password'});
         });
       }
@@ -228,13 +229,11 @@ router.get('/resetPassword', (req, res, next) => {
 });
 
 router.post('/resetPassword', (req, res, next) => {
-  let resetPasswordUserId = req.cookies.resetPasswordUserId;
-  let {password} = req.body; 
-  console.log('password', password);
-  console.log('resetPasswordUserId', resetPasswordUserId);
+  let resetToken = req.cookies.resetToken;
+  console.log('resetToken', resetToken);
   req.checkBody('password', 'Password cannot be less than 4 characters').isLength({min: 4});
   req.checkBody('password', 'Password is required').notEmpty();
-  req.checkBody('passwordConfirmation', 'Passwords do not match').equals(password);
+  req.checkBody('passwordConfirmation', 'Passwords do not match').equals(req.body.password);
   req.getValidationResult()
     .then(response => {
       let errors = response.array();
@@ -242,6 +241,74 @@ router.post('/resetPassword', (req, res, next) => {
         res.json({
           confirmation: 'validation error',
           errors: errors
+        });
+      } else {
+        // no validation errors
+        let {password} = req.body;
+        console.log('password', password);
+        ResetPasswordToken.findOne({token: resetToken}, (err, token) => {
+          if(err) throw error;
+          
+          if(token) {
+            // token is fetched
+            console.log('token', token);
+            let userId = token.userId;
+            console.log('userId', userId); 
+            let currentDate = getCurrentDate();
+            let expirationDate = token.expirationDate;
+            console.log('expirationDate', expirationDate);
+            console.log('currentDate', currentDate);
+            if(isDueDate(currentDate, expirationDate)) {
+              // resetPassword token is expired
+              res.json({
+                confirmation: 'error',
+                message: 'reset password token is expired'
+              });
+            } else {
+              // reset Password token is valid
+              // fetch user
+              // User.findById(userId, (err, user) => {
+              //   if(err) throw err;
+              //   if(user) {
+              //     let isActive = user.active;
+              //     console.error('isActive', isActive);
+              //     if(isActive) {
+              //       // user is verified
+
+              //     } else {
+              //       // user not verified
+              //       res.json({
+              //         confirmation: 'error',
+              //         message: 'email is not verified'
+              //       });
+              //     }
+              //   }
+              // });
+              bcrypt.hash(password, 10, function(err, hash) { 
+                // hash the password
+                if(err) throw err;
+                console.log('hash', hash);
+                // change user password
+                User.findByIdAndUpdate(userId, {password: hash}, {new: true}, (err, user) => {
+                  if(err) throw err;
+                  // remove token
+                  ResetPasswordToken.findOneAndRemove({token: resetToken}, (err, token) => {
+                    if(err) throw err;
+                    // remove cookie
+                    res.clearCookie('resetToken');
+                    
+                  });
+                });
+              });
+              
+            }
+          } else {
+            // token not found
+            res.json({
+              confirmation: 'error',
+              message: 'reset password token not found'
+            });
+          }
         });
       }
     });
