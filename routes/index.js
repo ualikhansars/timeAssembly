@@ -12,6 +12,8 @@ import User from '../models/user';
 import {isAuthenticated} from '../middlewares/authenticate';
 import {generateEmailToken} from '../utils/emailUserToken';
 import {generateExpirationDate} from '../utils/generateExpirationDate';
+import {getCurrentDate} from '../utils/getCurrentDate';
+import {isDueDate} from '../utils/checkDate';
 
 /* GET home page. */
 router.get('/', isAuthenticated, function(req, res, next) {
@@ -28,10 +30,6 @@ router.get('/credits', function(req, res, next) {
 
 router.get('/emailSend', function(req, res, next) {
   res.render('emailSend', {title: 'enter email'});
-});
-
-router.get('/resetPassword', function(req, res, next) {
-  res.render('resetPassword', {title: 'reset password'});
 });
 
 router.get('/signin', function(req, res, next) {
@@ -184,6 +182,45 @@ router.post('/emailSend', (req, res, next) => {
       });
     }
   });
+});
+
+router.get('/resetPassword', (req, res, next) => {
+  let resetToken = req.query.resetToken;
+  ResetPasswordToken.findOne({token: resetToken}, (err, token) => {
+    if(err) throw error;
+    
+    if(token) {
+      // token is fetched
+      console.log('token', token);
+      let userId = token.userId;
+      console.log('userId', userId); 
+      let currentDate = getCurrentDate();
+      let expirationDate = token.expirationDate;
+      console.log('expirationDate', expirationDate);
+      console.log('currentDate', currentDate);
+      if(isDueDate(currentDate, expirationDate)) {
+        // resetPassword token is expired
+  
+      } else {
+        // reset Password token is valid
+        // fetch user
+        User.findById(userId, (err, user) => {
+          if(err) throw error;
+          // user is found
+          // save userId in cookie
+          res.clearCookie('resetPasswordUserId');
+          res.cookie('resetPasswordUserId', userId, { maxAge: 900000});
+        });
+      }
+    } else {
+      // token not found
+    }
+  });
+  res.render('resetPassword', {title: 'reset password'});
+});
+
+router.post('/resetPassword', (req, res, next) => {
+  
 });
 
 module.exports = router;
