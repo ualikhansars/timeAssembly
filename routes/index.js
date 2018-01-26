@@ -131,7 +131,7 @@ router.post('/emailSend', (req, res, next) => {
     } else {
       User.findOne({email: req.body.email}, (err, user) => {
         if(err) throw error;
-        if(user) { // user is verified
+        if(user && user.active) { // user is verified
           // create resetPassword token
           let userEmail = user.email;
           let resetToken = generateEmailToken();
@@ -175,7 +175,7 @@ router.post('/emailSend', (req, res, next) => {
         } else { // email not found
           let error = {
             param: 'email',
-            msg: 'Email not found', 
+            msg: 'Email not found or not verified', 
             value: req.body.email
           }
           errors.push(error);
@@ -216,9 +216,17 @@ router.get('/resetPassword', (req, res, next) => {
           if(err) throw error;
           // user is found
           // save userId in cookie
-          res.clearCookie('resetToken');
-          res.cookie('resetToken', resetToken, { maxAge: 900000, httpOnly: true});
-          res.render('resetPassword', {title: 'reset password'});
+          let isActive = user.active;
+          if(isActive) {
+            res.clearCookie('resetToken');
+            res.cookie('resetToken', resetToken, { maxAge: 900000, httpOnly: true});
+            res.render('resetPassword', {title: 'reset password'});
+          } else {
+            res.json({
+              confirmation: 'error',
+              message: 'email is not verified'
+            });
+          }
         });
       }
     } else {
