@@ -76918,8 +76918,8 @@ var LoginForm = function (_React$Component) {
                         errors: updatedErrors
                     });
                 }
-                if (res.data.confirmation === 'failed' && res.data.message === 'Invalid email address or password') {
-                    _this2.setState({
+                if (res.data.confirmation === 'failed') {
+                    if (res.data.message === 'Invalid email address or password') _this2.setState({
                         formError: res.data.message
                     });
                 }
@@ -76934,7 +76934,9 @@ var LoginForm = function (_React$Component) {
     }, {
         key: 'onChange',
         value: function onChange(e) {
-            this.setState(_defineProperty({}, e.target.name, e.target.value));
+            var _setState;
+
+            this.setState((_setState = {}, _defineProperty(_setState, e.target.name, e.target.value), _defineProperty(_setState, 'errors', []), _defineProperty(_setState, 'formError', ''), _setState));
             _logDev.logDev.default('state', this.state);
         }
     }, {

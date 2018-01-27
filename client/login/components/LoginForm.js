@@ -32,7 +32,8 @@ class LoginForm extends React.Component {
                     errors: updatedErrors
                 });
             }
-            if(res.data.confirmation === 'failed' && res.data.message==='Invalid email address or password') {
+            if(res.data.confirmation === 'failed') {
+                if(res.data.message ==='Invalid email address or password')
                 this.setState({
                     formError: res.data.message
                 });
@@ -47,7 +48,11 @@ class LoginForm extends React.Component {
     }
 
     onChange(e) {
-        this.setState({[e.target.name]: e.target.value});
+        this.setState({
+            [e.target.name]: e.target.value,
+            errors: [],
+            formError: ''
+        });
         logDev.default('state', this.state);
     }
 
