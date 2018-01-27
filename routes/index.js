@@ -88,9 +88,8 @@ router.post('/sendEmailVerificationToken', (req, res, next) => {
     };
     // transporter.sendMail(mailOptions, (err, res) => {
     //   if(err) {
-    //     throw error;
+    //     throw err;
     //   }
-    //   res.render('send');
     // })
   });
 });
@@ -177,7 +176,7 @@ router.post('/emailSend', (req, res, next) => {
             };
             // transporter.sendMail(mailOptions, (err, res) => {
             //   if(err) {
-            //     throw error;
+            //     throw err;
             //   }
             // })
           });

@@ -1,10 +1,10 @@
-import EmailVerificationToken from '../models/emailVerificationToken';
+import ResetPasswordToken from '../models/resetPasswordToken';
 import {getCurrentDate} from './getCurrentDate';
 import {isDueDate} from './checkDate';
 
-export const removeExpiredEmailTokens = () => {
+export const removeExpiredResetPasswordTokens = () => {
     let currentDate = getCurrentDate();
-    EmailVerificationToken.find({}, (err, tokens) => {
+    ResetPasswordToken.find({}, (err, tokens) => {
         if(err) {
             throw err;
         }
