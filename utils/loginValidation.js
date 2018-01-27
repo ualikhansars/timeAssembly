@@ -26,25 +26,34 @@ module.exports =  function loginValidation(req, res) {
                 return;
             }
             if(user) {
-                console.log('user', user);
-                if(bcrypt.compareSync(password, user.password)) {
-                    // success
-                    const token = jwt.sign(
-                    {
-                        id: user.id,
-                        email: user.email // payload
-                    },
-                    jwtConfig.jwtSecret);
-                    res.json({
-                        confirmation: 'success',
-                        token
-                    });
+                if(user.active) {
+                    // user is verified
+                    if(bcrypt.compareSync(password, user.password)) {
+                        // success
+                        const token = jwt.sign(
+                        {
+                            id: user.id,
+                            email: user.email // payload
+                        },
+                        jwtConfig.jwtSecret);
+                        res.json({
+                            confirmation: 'success',
+                            token
+                        });
+                    } else {
+                        res.json({
+                            confirmation: 'failed',
+                            message: 'Invalid email address or password'
+                        });
+                    }
                 } else {
+                     // user is not verified
                     res.json({
                         confirmation: 'failed',
                         message: 'Invalid email address or password'
                     });
                 }
+                
             } else {
                 res.json({
                     confirmation: 'failed',
