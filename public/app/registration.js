@@ -24682,9 +24682,16 @@ var EmailConfirmationPage = function (_React$Component) {
     }
 
     _createClass(EmailConfirmationPage, [{
-        key: 'onSubmit',
-        value: function onSubmit(e) {
-            e.preventDefault();
+        key: 'onResend',
+        value: function onResend() {
+            var userId = localStorage.getItem('userId');
+            var userEmail = localStorage.getItem('userEmail');
+            var data = {
+                userId: userId,
+                userEmail: userEmail
+            };
+            console.error('data', data);
+            _axios2.default.post('/sendEmailVerificationToken', data);
         }
     }, {
         key: 'goBackToSignUpForm',
@@ -24732,7 +24739,9 @@ var EmailConfirmationPage = function (_React$Component) {
                         ),
                         _react2.default.createElement(
                             'button',
-                            { className: 'btn btn-default' },
+                            { onClick: function onClick() {
+                                    return _this2.onResend();
+                                }, className: 'btn btn-default' },
                             'Resend'
                         )
                     )

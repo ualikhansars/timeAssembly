@@ -3,14 +3,22 @@ import axios from 'axios';
 
 class EmailConfirmationPage extends React.Component {
 
-    onSubmit(e) {
-        e.preventDefault();
+    onResend() {
+        let userId = localStorage.getItem('userId');
+        let userEmail = localStorage.getItem('userEmail');
+        let data = {
+            userId,
+            userEmail
+        }
+        console.error('data', data);
+        axios.post('/sendEmailVerificationToken', data);
     }
 
     goBackToSignUpForm() {
         this.props.setFormSubmittedToFalse();
         this.props.setUser(null, null);
     }
+
     render() {
         return (
             <div className="container send">
@@ -24,7 +32,7 @@ class EmailConfirmationPage extends React.Component {
                 <div className="row">
                     <div className="col-md-12">
                         <span>Didn't receive a link:</span>
-                        <button className="btn btn-default">
+                        <button onClick={() => this.onResend()} className="btn btn-default">
                             Resend
                         </button>
                     </div>
