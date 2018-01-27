@@ -15,6 +15,12 @@ class SignUpPage extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        localStorage.removeItem('formSubmitted');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('userEmail');
+    }
+
     setFormSubmittedToTrue(){
         this.setState({
             formSubmitted: true
@@ -40,11 +46,11 @@ class SignUpPage extends React.Component {
 
 
     render() {
-        if(this.state.formSubmitted) {
+        let formSubmitted = this.state.formSubmitted;
+        if(formSubmitted == 'true' || formSubmitted == true) {
             return (
                 <EmailConfirmationPage setFormSubmittedToTrue={this.state.setFormSubmittedToTrue} setFormSubmittedToFalse={this.state.setFormSubmittedToFalse} setUser={this.state.setUser}/>
             );
-            
         } else {
             return (
                 <div className="row signUpPage">

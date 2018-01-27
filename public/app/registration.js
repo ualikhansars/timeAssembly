@@ -24158,6 +24158,13 @@ var SignUpPage = function (_React$Component) {
     }
 
     _createClass(SignUpPage, [{
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            localStorage.removeItem('formSubmitted');
+            localStorage.removeItem('userId');
+            localStorage.removeItem('userEmail');
+        }
+    }, {
         key: 'setFormSubmittedToTrue',
         value: function setFormSubmittedToTrue() {
             this.setState({
@@ -24186,7 +24193,8 @@ var SignUpPage = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            if (this.state.formSubmitted) {
+            var formSubmitted = this.state.formSubmitted;
+            if (formSubmitted == 'true' || formSubmitted == true) {
                 return _react2.default.createElement(_EmailConfirmationPage2.default, { setFormSubmittedToTrue: this.state.setFormSubmittedToTrue, setFormSubmittedToFalse: this.state.setFormSubmittedToFalse, setUser: this.state.setUser });
             } else {
                 return _react2.default.createElement(
