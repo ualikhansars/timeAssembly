@@ -15,6 +15,7 @@ import {generateEmailToken} from '../utils/emailUserToken';
 import {generateExpirationDate} from '../utils/generateExpirationDate';
 import {getCurrentDate} from '../utils/getCurrentDate';
 import {isDueDate} from '../utils/checkDate';
+import {notAuthenticated} from '../middlewares/authenticate';
 
 /* GET home page. */
 router.get('/', isAuthenticated, function(req, res, next) {
@@ -29,15 +30,15 @@ router.get('/credits', function(req, res, next) {
   res.render('credits', { title: 'Credits' });
 });
 
-router.get('/emailSend', function(req, res, next) {
+router.get('/emailSend', notAuthenticated, function(req, res, next) {
   res.render('emailSend', {title: 'enter email'});
 });
 
-router.get('/signin', function(req, res, next) {
+router.get('/signin', notAuthenticated, function(req, res, next) {
   res.render('signin', { title: 'Signin' });
 });
 
-router.get('/signup', function(req, res, next) {
+router.get('/signup', notAuthenticated, function(req, res, next) {
   res.render('signup', { title: 'Signup' });
 });
 
@@ -189,7 +190,7 @@ router.post('/emailSend', (req, res, next) => {
   });
 });
 
-router.get('/resetPassword', (req, res, next) => {
+router.get('/resetPassword', notAuthenticated, (req, res, next) => {
   let resetToken = req.query.resetToken;
   ResetPasswordToken.findOne({token: resetToken}, (err, token) => {
     if(err) throw error;
