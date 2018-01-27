@@ -51,7 +51,7 @@ router.post('/sendEmailVerificationToken', (req, res, next) => {
   let userEmail = req.body.userEmail;
   console.log('userId', userId);
   EmailVerificationToken.findOne({userId: userId}, (err, emailToken) => {
-    if(err) throw error;
+    if(err) throw new Error(err);
     console.log('emailToken', emailToken);
     let host = req.get('host');
     let protocol = req.protocol;
@@ -96,16 +96,16 @@ router.get('/verifyEmail', (req, res, next) => {
     // get Token By id
     let emailToken = req.query.emailToken;
     EmailVerificationToken.findOne({token: emailToken}, (err, token) => {
-      if(err) throw err;
+      if(err) throw new Error(err);
       // token found
       let userId = token.userId;
       // find user by token' userId
       User.findByIdAndUpdate(userId, {active: true}, {new: true}, (err, user) => {
-        if(err) throw err;
+        if(err) throw new Error(err);
         // now user is active
         // remove the token
         EmailVerificationToken.findOneAndRemove({token: emailToken}, (err, token) => {
-          if(err) throw err;
+          if(err) throw new Error(err);
           res.json({
             confirmation: 'success',
             message: 'your email has been successfully verified'
@@ -131,7 +131,7 @@ router.post('/emailSend', (req, res, next) => {
       });
     } else {
       User.findOne({email: req.body.email}, (err, user) => {
-        if(err) throw error;
+        if(err) throw new Error(err);
         if(user && user.active) { // user is verified
           // create resetPassword token
           let userEmail = user.email;
@@ -142,7 +142,7 @@ router.post('/emailSend', (req, res, next) => {
             expirationDate: expirationDate,
             userId: user._id
           }, (err, token) => {
-            if(err) throw error;
+            if(err) throw new Error(err);;
             // token has been created
             console.log('reset token', token);
             let host = req.get('host');
@@ -193,7 +193,7 @@ router.post('/emailSend', (req, res, next) => {
 router.get('/resetPassword', notAuthenticated, (req, res, next) => {
   let resetToken = req.query.resetToken;
   ResetPasswordToken.findOne({token: resetToken}, (err, token) => {
-    if(err) throw error;
+    if(err) throw new Error(err);
     
     if(token) {
       // token is fetched
@@ -214,7 +214,7 @@ router.get('/resetPassword', notAuthenticated, (req, res, next) => {
         // reset Password token is valid
         // fetch user
         User.findById(userId, (err, user) => {
-          if(err) throw error;
+          if(err) throw new Error(err);
           // user is found
           // save userId in cookie
           let isActive = user.active;
@@ -260,7 +260,7 @@ router.post('/resetPassword', (req, res, next) => {
         let {password} = req.body;
         console.log('password', password);
         ResetPasswordToken.findOne({token: resetToken}, (err, token) => {
-          if(err) throw error;
+          if(err) throw new Error(err);
           
           if(token) {
             // token is fetched
@@ -281,7 +281,7 @@ router.post('/resetPassword', (req, res, next) => {
               // reset Password token is valid
               // fetch user
               User.findById(userId, (err, user) => {
-                if(err) throw err;
+                if(err) throw new Error(err);
                 if(user) {
                   let isActive = user.active;
                   console.error('isActive', isActive);
@@ -289,14 +289,14 @@ router.post('/resetPassword', (req, res, next) => {
                     // user is verified
                     bcrypt.hash(password, 10, function(err, hash) { 
                       // hash the password
-                      if(err) throw err;
+                      if(err) throw new Error(err);
                       console.log('hash', hash);
                       // change user password
                       User.findByIdAndUpdate(userId, {password: hash}, {new: true}, (err, user) => {
-                        if(err) throw err;
+                        if(err) throw new Error(err);
                         // remove token
                         ResetPasswordToken.findOneAndRemove({token: resetToken}, (err, token) => {
-                          if(err) throw err;
+                          if(err) throw new Error(err);
                           // remove cookie
                           res.clearCookie('resetToken');
                           res.json({
