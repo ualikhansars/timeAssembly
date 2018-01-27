@@ -13,10 +13,6 @@ import Footer from '../footer/Footer';
 import setAuthToken from '../../../utils/setAuthToken';
 import {setCurrentUser} from '../../actions/userAction';
 
-import {authenticate} from '../../../../middlewares/authenticate';
-
-
-
 class Home extends React.Component {
 
     componentDidMount() {

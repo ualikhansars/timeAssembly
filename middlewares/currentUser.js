@@ -1,8 +1,9 @@
-import { error } from 'util';
 import { request } from 'https';
 
 var jwt = require('jsonwebtoken');
 var jwtConfig = require('../config/jwtConfig');
+
+import User from '../models/user';
 
 // prevent update task and slot by other users
 export const updateByCurrentUser = (req, res, next) => {

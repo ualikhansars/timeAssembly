@@ -1,6 +1,7 @@
 var jwt = require('jsonwebtoken');
 var jwtConfig = require('../config/jwtConfig');
 
+
 export const isAuthenticated = (req, res, next) => {
     let token;
     if(req.cookies.jwtToken) {

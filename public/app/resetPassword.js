@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "/public/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 665);
+/******/ 	return __webpack_require__(__webpack_require__.s = 663);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -24114,7 +24114,7 @@ var _react = __webpack_require__(10);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ResetPasswordForm = __webpack_require__(664);
+var _ResetPasswordForm = __webpack_require__(662);
 
 var _ResetPasswordForm2 = _interopRequireDefault(_ResetPasswordForm);
 
@@ -24198,9 +24198,7 @@ exports.default = ResetPasswordPage;
 /* 659 */,
 /* 660 */,
 /* 661 */,
-/* 662 */,
-/* 663 */,
-/* 664 */
+/* 662 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24403,7 +24401,7 @@ var ResetPasswordForm = function (_React$Component) {
 exports.default = ResetPasswordForm;
 
 /***/ }),
-/* 665 */
+/* 663 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

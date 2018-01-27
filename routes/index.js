@@ -10,12 +10,14 @@ import EmailVerificationToken from '../models/emailVerificationToken';
 import ResetPasswordToken from '../models/resetPasswordToken';
 import User from '../models/user';
 
-import {isAuthenticated} from '../middlewares/authenticate';
 import {generateEmailToken} from '../utils/emailUserToken';
 import {generateExpirationDate} from '../utils/generateExpirationDate';
 import {getCurrentDate} from '../utils/getCurrentDate';
 import {isDueDate} from '../utils/checkDate';
-import {notAuthenticated} from '../middlewares/authenticate';
+import {
+  isAuthenticated,
+  notAuthenticated
+} from '../middlewares/authenticated';
 
 /* GET home page. */
 router.get('/', isAuthenticated, function(req, res, next) {
