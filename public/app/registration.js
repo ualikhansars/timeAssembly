@@ -24706,16 +24706,46 @@ var EmailConfirmationPage = function (_React$Component) {
                             'h4',
                             null,
                             'Please, check your email, we\'ve sent you a verification link'
+                        )
+                    )
+                ),
+                _react2.default.createElement('br', null),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-12' },
+                        _react2.default.createElement(
+                            'span',
+                            null,
+                            'Didn\'t receive a link:'
                         ),
                         _react2.default.createElement(
-                            'h4',
+                            'button',
+                            { className: 'btn btn-default' },
+                            'Resend'
+                        )
+                    )
+                ),
+                _react2.default.createElement('br', null),
+                _react2.default.createElement('br', null),
+                _react2.default.createElement('br', null),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-12' },
+                        _react2.default.createElement(
+                            'button',
+                            { className: 'btn btn-default' },
+                            'Go to Sign Up Page'
+                        ),
+                        _react2.default.createElement(
+                            'small',
                             null,
-                            'Didn\'t receive a link,',
-                            _react2.default.createElement(
-                                'button',
-                                { className: 'btn btn-success' },
-                                'Resend'
-                            )
+                            'You won\'t be able to resend a verification link'
                         )
                     )
                 )

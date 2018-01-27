@@ -12,11 +12,24 @@ class EmailConfirmationPage extends React.Component {
                     <div className="col-md-12">
                         <h4>Thanks for creating account timeAssembly</h4>
                         <h4>Please, check your email, we've sent you a verification link</h4>
-                        <h4>Didn't receive a link, 
-                            <button className="btn btn-success">
-                                Resend
-                            </button>
-                        </h4>
+                    </div>
+                </div>
+                <br/>
+                <div className="row">
+                    <div className="col-md-12">
+                        <span>Didn't receive a link:</span>
+                        <button className="btn btn-default">
+                            Resend
+                        </button>
+                    </div>
+                </div>
+                <br/><br/><br/>
+                <div className="row">
+                    <div className="col-md-12">
+                        <button className="btn btn-default">
+                            Go to Sign Up Page
+                        </button>
+                        <small>You won't be able to resend a verification link</small>
                     </div>
                 </div>
             </div>
