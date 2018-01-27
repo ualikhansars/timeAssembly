@@ -76,7 +76,8 @@ class SignUpForm extends React.Component {
                         userId: userId
                     }
                 );
-                window.location.href = "/emailVerificationPage";
+                this.props.setUser(userId, email);
+                this.props.changeFormSubmitted();
             }
             logDev.default('state', this.state);
         });
@@ -98,7 +99,6 @@ class SignUpForm extends React.Component {
         if(passwordErrors) passwordErrorMsg = passwordErrors.msg;
         if(passwordConfirmationErrors) passwordConfirmationErrorMsg = passwordConfirmationErrors.msg;
     
-       
         return (
             <div className="container">
                 <div className="row titleContainer">

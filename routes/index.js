@@ -45,7 +45,7 @@ router.get('/logout', function(req, res, next) {
   res.redirect('/signin');
 });
 
-router.post('/sendEmailVerificationToken', function(req, res, next) {
+router.post('/sendEmailVerificationToken', (req, res, next) => {
   let userId = req.body.userId;
   let userEmail = req.body.userEmail;
   console.log('userId', userId);

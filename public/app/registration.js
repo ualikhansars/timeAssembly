@@ -24126,6 +24126,10 @@ var _SignUpForm = __webpack_require__(661);
 
 var _SignUpForm2 = _interopRequireDefault(_SignUpForm);
 
+var _EmailConfirmationPage = __webpack_require__(712);
+
+var _EmailConfirmationPage2 = _interopRequireDefault(_EmailConfirmationPage);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24137,24 +24141,54 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var SignUpPage = function (_React$Component) {
     _inherits(SignUpPage, _React$Component);
 
-    function SignUpPage() {
+    function SignUpPage(props) {
         _classCallCheck(this, SignUpPage);
 
-        return _possibleConstructorReturn(this, (SignUpPage.__proto__ || Object.getPrototypeOf(SignUpPage)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (SignUpPage.__proto__ || Object.getPrototypeOf(SignUpPage)).call(this, props));
+
+        _this.state = {
+            formSubmitted: false,
+            userId: null,
+            userEmail: null,
+            changeFormSubmitted: _this.changeFormSubmitted.bind(_this),
+            setUser: _this.setUser.bind(_this)
+        };
+        return _this;
     }
 
     _createClass(SignUpPage, [{
+        key: 'changeFormSubmitted',
+        value: function changeFormSubmitted() {
+            this.setState({
+                formSubmitted: !this.state.formSubmitted
+            });
+        }
+    }, {
+        key: 'setUser',
+        value: function setUser(id, email) {
+            this.setState({
+                userId: id,
+                userEmail: email
+            });
+            console.log('setUser');
+            console.log('state', this.state);
+        }
+    }, {
         key: 'render',
         value: function render() {
-            return _react2.default.createElement(
-                'div',
-                { className: 'row signUpPage' },
-                _react2.default.createElement(
+            if (this.state.formSubmitted) {
+                return _react2.default.createElement(_EmailConfirmationPage2.default, null);
+            } else {
+                return _react2.default.createElement(
                     'div',
-                    { className: 'col-md-6 offset-md-3' },
-                    _react2.default.createElement(_SignUpForm2.default, null)
-                )
-            );
+                    { className: 'row signUpPage' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-6 offset-md-3' },
+                        _react2.default.createElement(_SignUpForm2.default, { changeFormSubmitted: this.state.changeFormSubmitted, setUser: this.state.setUser })
+                    )
+                );
+            }
         }
     }]);
 
@@ -24321,7 +24355,8 @@ var SignUpForm = function (_React$Component) {
                         userEmail: email,
                         userId: userId
                     });
-                    window.location.href = "/emailVerificationPage";
+                    _this3.props.setUser(userId, email);
+                    _this3.props.changeFormSubmitted();
                 }
                 _logDev.logDev.default('state', _this3.state);
             });
@@ -24548,6 +24583,141 @@ var RegistrationApp = function (_React$Component) {
 }(_react2.default.Component);
 
 (0, _reactDom.render)(_react2.default.createElement(RegistrationApp, null), document.getElementById("registration"));
+
+/***/ }),
+/* 663 */,
+/* 664 */,
+/* 665 */,
+/* 666 */,
+/* 667 */,
+/* 668 */,
+/* 669 */,
+/* 670 */,
+/* 671 */,
+/* 672 */,
+/* 673 */,
+/* 674 */,
+/* 675 */,
+/* 676 */,
+/* 677 */,
+/* 678 */,
+/* 679 */,
+/* 680 */,
+/* 681 */,
+/* 682 */,
+/* 683 */,
+/* 684 */,
+/* 685 */,
+/* 686 */,
+/* 687 */,
+/* 688 */,
+/* 689 */,
+/* 690 */,
+/* 691 */,
+/* 692 */,
+/* 693 */,
+/* 694 */,
+/* 695 */,
+/* 696 */,
+/* 697 */,
+/* 698 */,
+/* 699 */,
+/* 700 */,
+/* 701 */,
+/* 702 */,
+/* 703 */,
+/* 704 */,
+/* 705 */,
+/* 706 */,
+/* 707 */,
+/* 708 */,
+/* 709 */,
+/* 710 */,
+/* 711 */,
+/* 712 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(10);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _axios = __webpack_require__(84);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var EmailConfirmationPage = function (_React$Component) {
+    _inherits(EmailConfirmationPage, _React$Component);
+
+    function EmailConfirmationPage() {
+        _classCallCheck(this, EmailConfirmationPage);
+
+        return _possibleConstructorReturn(this, (EmailConfirmationPage.__proto__ || Object.getPrototypeOf(EmailConfirmationPage)).apply(this, arguments));
+    }
+
+    _createClass(EmailConfirmationPage, [{
+        key: 'onSubmit',
+        value: function onSubmit(e) {
+            e.preventDefault();
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                { className: 'container send' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-md-12' },
+                        _react2.default.createElement(
+                            'h4',
+                            null,
+                            'Thanks for creating account timeAssembly'
+                        ),
+                        _react2.default.createElement(
+                            'h4',
+                            null,
+                            'Please, check your email, we\'ve sent you a verification link'
+                        ),
+                        _react2.default.createElement(
+                            'h4',
+                            null,
+                            'Didn\'t receive a link,',
+                            _react2.default.createElement(
+                                'button',
+                                { className: 'btn btn-success' },
+                                'Resend'
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return EmailConfirmationPage;
+}(_react2.default.Component);
+
+exports.default = EmailConfirmationPage;
 
 /***/ })
 /******/ ]);
