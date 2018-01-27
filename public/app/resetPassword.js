@@ -24278,8 +24278,7 @@ var ResetPasswordForm = function (_React$Component) {
                         errors: updatedErrors
                     });
                 } else if (res.data.confirmation === 'success') {
-                    console.log('success');
-                    // window.location.href = "/emailVerificationPage";
+                    window.location.href = "/passwordChanged";
                 }
             });
         }

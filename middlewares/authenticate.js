@@ -9,7 +9,7 @@ export const isAuthenticated = (req, res, next) => {
     if(token) {
         jwt.verify(token, jwtConfig.jwtSecret, function(err, decoded) {
             if(err) {
-                res.redirect('/signin');
+                throw err;
             }
             return next();
         });

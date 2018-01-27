@@ -13,7 +13,7 @@ export const updateByCurrentUser = (req, res, next) => {
     if(token) {
         jwt.verify(token, jwtConfig.jwtSecret, function(err, decoded) {
             if(err) {
-                throw error;
+                throw err;
             } 
             let resource = req.params.resource;
             let userId = decoded.id;
@@ -21,15 +21,13 @@ export const updateByCurrentUser = (req, res, next) => {
             if(resource === 'task' || resource === 'slot') {
                 if(userId === taskUser) {
                     next();
-                } else {
-                    throw error;
-                }
+                } 
             } else {
-                 throw error; // cannot update user via application
+                return res.send({ error: 'cannot update user via application' });; // cannot update user via application
             }
         });
     } else {
-        throw error;
+        return res.send({ error: 'No token found' });
     }
 }
 
@@ -42,7 +40,7 @@ export const deleteByCurrentUser = (req, res, next) => {
     if(token) {
         jwt.verify(token, jwtConfig.jwtSecret, function(err, decoded) {
             if(err) {
-                throw error;
+                throw err;
             } 
             let resource = req.params.resource;
             let userId = decoded.id;
@@ -50,15 +48,13 @@ export const deleteByCurrentUser = (req, res, next) => {
             if(resource === 'task' || resource === 'slot') {
                 if(userId === taskUser) {
                     next();
-                } else {
-                    throw error;
-                }
+                } 
             } else {
-                 throw error; // cannot delete user via application
+                return res.send({ error: 'cannot delete user via application' });; // cannot delete user via application
             }
         });
     } else {
-        throw error;
+        return res.send({ error: 'No token found' });
     }
 }
 

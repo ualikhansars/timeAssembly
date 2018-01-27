@@ -39,8 +39,7 @@ class ResetPasswordForm extends React.Component {
             }
         
             else if(res.data.confirmation === 'success') {
-                console.log('success');
-                // window.location.href = "/emailVerificationPage";
+                window.location.href = "/passwordChanged";
             }
         });
     }

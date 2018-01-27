@@ -34,6 +34,14 @@ router.get('/emailSend', notAuthenticated, function(req, res, next) {
   res.render('emailSend', {title: 'enter email'});
 });
 
+router.get('/emailVerified', notAuthenticated, function(req, res, next) {
+  res.render('emailVerified', {title: 'email is verified'});
+});
+
+router.get('/passwordChanged', notAuthenticated, function(req, res, next) {
+  res.render('passwordChanged', {title: 'password is changed'});
+});
+
 router.get('/signin', notAuthenticated, function(req, res, next) {
   res.render('signin', { title: 'Signin' });
 });
@@ -106,10 +114,7 @@ router.get('/verifyEmail', (req, res, next) => {
         // remove the token
         EmailVerificationToken.findOneAndRemove({token: emailToken}, (err, token) => {
           if(err) throw new Error(err);
-          res.json({
-            confirmation: 'success',
-            message: 'your email has been successfully verified'
-          })
+          res.redirect('/emailVerified');
         });
       });
     });
