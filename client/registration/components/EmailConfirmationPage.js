@@ -2,8 +2,14 @@ import React from 'react';
 import axios from 'axios';
 
 class EmailConfirmationPage extends React.Component {
+
     onSubmit(e) {
         e.preventDefault();
+    }
+
+    goBackToSignUpForm() {
+        this.props.setFormSubmittedToFalse();
+        this.props.setUser(null, null);
     }
     render() {
         return (
@@ -26,7 +32,7 @@ class EmailConfirmationPage extends React.Component {
                 <br/><br/><br/>
                 <div className="row">
                     <div className="col-md-12">
-                        <button className="btn btn-default">
+                        <button onClick={() => this.goBackToSignUpForm()} className="btn btn-default">
                             Go to Sign Up Page
                         </button>
                         <small>You won't be able to resend a verification link</small>

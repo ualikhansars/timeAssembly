@@ -24151,6 +24151,7 @@ var SignUpPage = function (_React$Component) {
             userId: localStorage.getItem('userId'),
             userEmail: localStorage.getItem('userEmail'),
             setFormSubmittedToTrue: _this.setFormSubmittedToTrue.bind(_this),
+            setFormSubmittedToFalse: _this.setFormSubmittedToFalse.bind(_this),
             setUser: _this.setUser.bind(_this)
         };
         return _this;
@@ -24186,7 +24187,7 @@ var SignUpPage = function (_React$Component) {
         key: 'render',
         value: function render() {
             if (this.state.formSubmitted) {
-                return _react2.default.createElement(_EmailConfirmationPage2.default, null);
+                return _react2.default.createElement(_EmailConfirmationPage2.default, { setFormSubmittedToTrue: this.state.setFormSubmittedToTrue, setFormSubmittedToFalse: this.state.setFormSubmittedToFalse, setUser: this.state.setUser });
             } else {
                 return _react2.default.createElement(
                     'div',
@@ -24686,8 +24687,16 @@ var EmailConfirmationPage = function (_React$Component) {
             e.preventDefault();
         }
     }, {
+        key: 'goBackToSignUpForm',
+        value: function goBackToSignUpForm() {
+            this.props.setFormSubmittedToFalse();
+            this.props.setUser(null, null);
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             return _react2.default.createElement(
                 'div',
                 { className: 'container send' },
@@ -24739,7 +24748,9 @@ var EmailConfirmationPage = function (_React$Component) {
                         { className: 'col-md-12' },
                         _react2.default.createElement(
                             'button',
-                            { className: 'btn btn-default' },
+                            { onClick: function onClick() {
+                                    return _this2.goBackToSignUpForm();
+                                }, className: 'btn btn-default' },
                             'Go to Sign Up Page'
                         ),
                         _react2.default.createElement(
