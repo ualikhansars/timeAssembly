@@ -80,8 +80,10 @@ router.post('/sendEmailVerificationToken', (req, res, next) => {
       <p>Thanks.</p>
       <p>Time Assembly Team.</p>
       <br><br>
-      <p>If you received this email by mistake, simply delete it.</p>
-      
+      <p>You're receiving this email because you recently created 
+      a new timeAssembly account. If this wasn't you, 
+      please ignore this email
+      </p>
       ` 
     };
     // transporter.sendMail(mailOptions, (err, res) => {
@@ -167,7 +169,10 @@ router.post('/emailSend', (req, res, next) => {
               <p>Thanks.</p>
               <p>Time Assembly Team.</p>
               <br><br>
-              <p>If you received this email by mistake, simply delete it.</p>
+              <p>You're receiving this email because you recently created 
+              a new timeAssembly account. If this wasn't you, 
+              please ignore this email
+              </p>
               ` 
             };
             // transporter.sendMail(mailOptions, (err, res) => {
