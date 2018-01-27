@@ -6,18 +6,26 @@ class SignUpPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            formSubmitted: false,
-            userId: null,
-            userEmail: null,
-            changeFormSubmitted: this.changeFormSubmitted.bind(this),
+            formSubmitted: localStorage.getItem('formSubmitted'),
+            userId: localStorage.getItem('userId'),
+            userEmail: localStorage.getItem('userEmail'),
+            setFormSubmittedToTrue: this.setFormSubmittedToTrue.bind(this),
             setUser: this.setUser.bind(this)
         }
     }
 
-    changeFormSubmitted(){
+    setFormSubmittedToTrue(){
         this.setState({
-            formSubmitted: !this.state.formSubmitted
+            formSubmitted: true
         });
+        localStorage.setItem('formSubmitted', true);
+    }
+
+    setFormSubmittedToFalse(){
+        this.setState({
+            formSubmitted: false
+        });
+        localStorage.setItem('formSubmitted', false);
     }
 
     setUser(id, email) {
@@ -25,8 +33,8 @@ class SignUpPage extends React.Component {
             userId: id,
             userEmail: email
         });
-        console.log('setUser');
-        console.log('state', this.state);
+        localStorage.setItem('userId', id);
+        localStorage.setItem('userEmail', email);
     }
 
 
@@ -40,7 +48,7 @@ class SignUpPage extends React.Component {
             return (
                 <div className="row signUpPage">
                     <div className="col-md-6 offset-md-3">
-                        <SignUpForm changeFormSubmitted={this.state.changeFormSubmitted} setUser={this.state.setUser}/>
+                        <SignUpForm setFormSubmittedToTrue={this.state.setFormSubmittedToTrue} setFormSubmittedToFalse={this.state.setFormSubmittedToFalse} setUser={this.state.setUser}/>
                     </div>
                 </div>
             );

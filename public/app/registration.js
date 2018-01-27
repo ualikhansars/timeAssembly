@@ -24147,21 +24147,30 @@ var SignUpPage = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (SignUpPage.__proto__ || Object.getPrototypeOf(SignUpPage)).call(this, props));
 
         _this.state = {
-            formSubmitted: false,
-            userId: null,
-            userEmail: null,
-            changeFormSubmitted: _this.changeFormSubmitted.bind(_this),
+            formSubmitted: localStorage.getItem('formSubmitted'),
+            userId: localStorage.getItem('userId'),
+            userEmail: localStorage.getItem('userEmail'),
+            setFormSubmittedToTrue: _this.setFormSubmittedToTrue.bind(_this),
             setUser: _this.setUser.bind(_this)
         };
         return _this;
     }
 
     _createClass(SignUpPage, [{
-        key: 'changeFormSubmitted',
-        value: function changeFormSubmitted() {
+        key: 'setFormSubmittedToTrue',
+        value: function setFormSubmittedToTrue() {
             this.setState({
-                formSubmitted: !this.state.formSubmitted
+                formSubmitted: true
             });
+            localStorage.setItem('formSubmitted', true);
+        }
+    }, {
+        key: 'setFormSubmittedToFalse',
+        value: function setFormSubmittedToFalse() {
+            this.setState({
+                formSubmitted: false
+            });
+            localStorage.setItem('formSubmitted', false);
         }
     }, {
         key: 'setUser',
@@ -24170,8 +24179,8 @@ var SignUpPage = function (_React$Component) {
                 userId: id,
                 userEmail: email
             });
-            console.log('setUser');
-            console.log('state', this.state);
+            localStorage.setItem('userId', id);
+            localStorage.setItem('userEmail', email);
         }
     }, {
         key: 'render',
@@ -24185,7 +24194,7 @@ var SignUpPage = function (_React$Component) {
                     _react2.default.createElement(
                         'div',
                         { className: 'col-md-6 offset-md-3' },
-                        _react2.default.createElement(_SignUpForm2.default, { changeFormSubmitted: this.state.changeFormSubmitted, setUser: this.state.setUser })
+                        _react2.default.createElement(_SignUpForm2.default, { setFormSubmittedToTrue: this.state.setFormSubmittedToTrue, setFormSubmittedToFalse: this.state.setFormSubmittedToFalse, setUser: this.state.setUser })
                     )
                 );
             }
@@ -24356,7 +24365,7 @@ var SignUpForm = function (_React$Component) {
                         userId: userId
                     });
                     _this3.props.setUser(userId, email);
-                    _this3.props.changeFormSubmitted();
+                    _this3.props.setFormSubmittedToTrue();
                 }
                 _logDev.logDev.default('state', _this3.state);
             });

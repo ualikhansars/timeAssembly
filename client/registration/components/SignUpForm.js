@@ -77,7 +77,7 @@ class SignUpForm extends React.Component {
                     }
                 );
                 this.props.setUser(userId, email);
-                this.props.changeFormSubmitted();
+                this.props.setFormSubmittedToTrue();
             }
             logDev.default('state', this.state);
         });
