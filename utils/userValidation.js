@@ -12,7 +12,7 @@ module.exports =  function validateUser(req, res) {
 
     req.checkBody('email', 'Enter correct email address').isEmail();
     req.checkBody('email', 'Email is required').notEmpty();
-    req.checkBody('password', 'Password cannot be less than 4 characters').isLength({min: 4});
+    req.checkBody('password', 'Password cannot be less than 6 characters').isLength({min: 6});
     req.checkBody('password', 'Password is required').notEmpty();
     req.checkBody('passwordConfirmation', 'Passwords do not match').equals(req.body.password);
 

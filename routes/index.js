@@ -249,7 +249,7 @@ router.get('/resetPassword', notAuthenticated, (req, res, next) => {
 router.post('/resetPassword', (req, res, next) => {
   let resetToken = req.cookies.resetToken;
   console.log('resetToken', resetToken);
-  req.checkBody('password', 'Password cannot be less than 4 characters').isLength({min: 4});
+  req.checkBody('password', 'Password cannot be less than 6 characters').isLength({min: 6});
   req.checkBody('password', 'Password is required').notEmpty();
   req.checkBody('passwordConfirmation', 'Passwords do not match').equals(req.body.password);
   req.getValidationResult()
