@@ -6,6 +6,8 @@
     "test": "mocha --compilers js:babel-core/register",
     "start": "nodemon ./bin/www --exec babel-node --presets es2015,stage-2,react"
   },
+  "author": "Ualikhan Sarsenbayev",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.16.2",
     "bcrypt": "^1.0.3",
@@ -49,5 +51,8 @@
     "redux-devtools-dock-monitor": "^1.1.2",
     "redux-devtools-log-monitor": "^1.3.0",
     "webpack": "^2.6.1"
+  },
+  "engines": {
+    "node": "6.12.3"
   }
 }
