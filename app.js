@@ -10,20 +10,29 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var expressHbs = require('express-handlebars');
 var validator = require('express-validator');
+
 import {removeExpiredEmailTokens} from './utils/removeExpiredEmailTokens';
-process.env.NODE_ENV = 'development';
+process.env.NODE_ENV = 'production';
 
 
 // establish database connection
 var dbUrl = 'mongodb://localhost/timetable';
-mongoose.connect(dbUrl, function(err, res) {
+const options = {
+  useMongoClient: true,
+  autoIndex: false, // Don't build indexes
+  reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
+  poolSize: 10, // Maintain up to 10 socket connections
+  // If not connected, return errors immediately rather than waiting for reconnect
+  bufferMaxEntries: 0
+};
+
+mongoose.connect(dbUrl, options, function(err, res) {
   if(err) {
     console.log('DB connection failed' + err);
   } else {
-    console.log('DB connection success' + dbUrl);
+    console.log('DB connection success ' + dbUrl);
   }
 });
-
 
 var index = require('./routes/index');
 var users = require('./routes/users');
