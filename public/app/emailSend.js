@@ -72467,7 +72467,6 @@ var EmailSendForm = function (_React$Component) {
                 errors: []
             });
             var email = this.state.email;
-            console.log('email', email);
             _axios2.default.post('/emailSend', { email: email }).then(function (res) {
                 console.error('response', res);
                 var updatedErrors = Object.assign([], _this2.state.errors);
@@ -72485,7 +72484,6 @@ var EmailSendForm = function (_React$Component) {
         key: 'onChange',
         value: function onChange(e) {
             this.setState(_defineProperty({}, e.target.name, e.target.value));
-            console.log('state', this.state);
         }
     }, {
         key: 'render',

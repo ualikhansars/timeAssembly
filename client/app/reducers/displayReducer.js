@@ -32,7 +32,6 @@ const displayReducer = (state=initialState, action) => {
                showUpdateTaskForm: false
           });
         case 'SHOW_UPDATE_TASK_FORM':
-            console.log('SHOW_UPDATE_TASK_FORM');
             return Object.assign({}, state, {
                 displaySlots: false,
                 displaySettings: false,

@@ -24509,7 +24509,6 @@ var SignUpForm = function (_React$Component) {
                     _this3.props.setUser(userId, email);
                     _this3.props.setFormSubmittedToTrue();
                 }
-                _logDev.logDev.default('state', _this3.state);
             });
         }
     }, {

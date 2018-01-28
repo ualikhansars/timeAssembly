@@ -11,10 +11,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/getUserEmail/:email', function(req, res, next) {
-  console.log('getUserEmail')
-  console.log('req.params', req.params);
   let email = req.params.email;
-  console.log('email', email);
   User.findOne({email: email}, function(err, user) {
     if(err) {
       res.json({
@@ -23,7 +20,6 @@ router.get('/getUserEmail/:email', function(req, res, next) {
       });
       return;
     }
-    console.log('user', user);
     if(user !== null) {
       res.json({
         confirmation: 'success',

@@ -59,15 +59,12 @@ router.get('/logout', function(req, res, next) {
 router.post('/sendEmailVerificationToken', (req, res, next) => {
   let userId = req.body.userId;
   let userEmail = req.body.userEmail;
-  console.log('userId', userId);
   EmailVerificationToken.findOne({userId: userId}, (err, emailToken) => {
     if(err) throw new Error(err);
-    console.log('emailToken', emailToken);
     let host = req.get('host');
     let protocol = req.protocol;
     let token = emailToken.token;
     let link = protocol + "://" + host + "/verifyEmail?emailToken=" + token;
-    console.log('link', link);
     let mailOptions = {
       from: user, // sender address
       to: userEmail, // list of receivers
@@ -101,9 +98,7 @@ router.get('/emailVerificationPage', (req, res, next) => {
 router.get('/verifyEmail', (req, res, next) => {
   let protocol = req.protocol;
   let host =  req.get('host');
-  console.log(req.protocol + ':/' + req.get('host'));
   if((protocol + '://' + host) == url) {
-    //console.log("Domain is matched. Information is from Authentic email");
     // get Token By id
     let emailToken = req.query.emailToken;
     EmailVerificationToken.findOne({token: emailToken}, (err, token) => {
@@ -125,7 +120,6 @@ router.get('/verifyEmail', (req, res, next) => {
 });
 
 router.post('/emailSend', (req, res, next) => {
-  console.log('req.body', req.body);
   req.checkBody('email', 'Enter correct email address').isEmail();
   req.checkBody('email', 'Email is required').notEmpty();
   
@@ -152,11 +146,9 @@ router.post('/emailSend', (req, res, next) => {
           }, (err, token) => {
             if(err) throw new Error(err);;
             // token has been created
-            console.log('reset token', token);
             let host = req.get('host');
             let protocol = req.protocol;
             let link = protocol + "://" + host + "/resetPassword?resetToken=" + resetToken;
-            console.log('link', link);
             let mailOptions = {
               from: user, // sender address
               to: userEmail, // list of receivers
@@ -208,13 +200,9 @@ router.get('/resetPassword', notAuthenticated, (req, res, next) => {
     
     if(token) {
       // token is fetched
-      console.log('token', token);
       let userId = token.userId;
-      console.log('userId', userId); 
       let currentDate = getCurrentDate();
       let expirationDate = token.expirationDate;
-      console.log('expirationDate', expirationDate);
-      console.log('currentDate', currentDate);
       if(isDueDate(currentDate, expirationDate)) {
         // resetPassword token is expired
         res.json({
@@ -254,7 +242,6 @@ router.get('/resetPassword', notAuthenticated, (req, res, next) => {
 
 router.post('/resetPassword', (req, res, next) => {
   let resetToken = req.cookies.resetToken;
-  console.log('resetToken', resetToken);
   req.checkBody('password', 'Password cannot be less than 6 characters').isLength({min: 6});
   req.checkBody('password', 'Password is required').notEmpty();
   req.checkBody('passwordConfirmation', 'Passwords do not match').equals(req.body.password);
@@ -269,19 +256,14 @@ router.post('/resetPassword', (req, res, next) => {
       } else {
         // no validation errors
         let {password} = req.body;
-        console.log('password', password);
         ResetPasswordToken.findOne({token: resetToken}, (err, token) => {
           if(err) throw new Error(err);
           
           if(token) {
             // token is fetched
-            console.log('token', token);
             let userId = token.userId;
-            console.log('userId', userId); 
             let currentDate = getCurrentDate();
             let expirationDate = token.expirationDate;
-            console.log('expirationDate', expirationDate);
-            console.log('currentDate', currentDate);
             if(isDueDate(currentDate, expirationDate)) {
               // resetPassword token is expired
               res.json({
@@ -295,13 +277,11 @@ router.post('/resetPassword', (req, res, next) => {
                 if(err) throw new Error(err);
                 if(user) {
                   let isActive = user.active;
-                  console.error('isActive', isActive);
                   if(isActive) {
                     // user is verified
                     bcrypt.hash(password, 10, function(err, hash) { 
                       // hash the password
                       if(err) throw new Error(err);
-                      console.log('hash', hash);
                       // change user password
                       User.findByIdAndUpdate(userId, {password: hash}, {new: true}, (err, user) => {
                         if(err) throw new Error(err);

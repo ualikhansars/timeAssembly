@@ -10882,28 +10882,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 132 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* WEBPACK VAR INJECTION */(function(process) {const logDev = {
-    default: (text) => {
-        if(process.env.NODE_ENV === 'development') {
-            console.log(text);
-        }
-    },
-    red: (text) => {
-        if(process.env.NODE_ENV === 'development') {
-            console.error(text);
-        }
-    }
-}
-/* harmony export (immutable) */ __webpack_exports__["logDev"] = logDev;
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
-
-/***/ }),
+/* 132 */,
 /* 133 */,
 /* 134 */,
 /* 135 */,
@@ -24222,8 +24201,6 @@ var _classnames = __webpack_require__(167);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _logDev = __webpack_require__(132);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -24256,7 +24233,6 @@ var ResetPasswordForm = function (_React$Component) {
             var _setState;
 
             this.setState((_setState = {}, _defineProperty(_setState, e.target.name, e.target.value), _defineProperty(_setState, 'errors', []), _setState));
-            console.error('this.state', this.state);
         }
     }, {
         key: 'onSubmit',
@@ -24268,7 +24244,6 @@ var ResetPasswordForm = function (_React$Component) {
                 errors: []
             });
             _axios2.default.post('/resetPassword', this.state).then(function (res) {
-                console.error('response', res);
                 var updatedErrors = Object.assign([], _this2.state.errors);
                 if (res.data.confirmation === 'validation error') {
                     updatedErrors = res.data.errors;

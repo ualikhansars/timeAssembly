@@ -2,8 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import classnames from 'classnames';
 
-import {logDev} from '../../../utils/logDev';
-
 class ResetPasswordForm extends React.Component {
     constructor(props) {
         super(props);
@@ -19,7 +17,6 @@ class ResetPasswordForm extends React.Component {
             [e.target.name]: e.target.value,
             errors: []
         });
-        console.error('this.state', this.state);
     }
 
     onSubmit(e) {
@@ -29,7 +26,6 @@ class ResetPasswordForm extends React.Component {
         });
         axios.post('/resetPassword', this.state)
         .then(res => {
-            console.error('response', res);
             let updatedErrors = Object.assign([], this.state.errors);
             if(res.data.confirmation === 'validation error') {
                 updatedErrors = res.data.errors;

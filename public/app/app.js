@@ -79326,7 +79326,7 @@ exports.default = store;
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "development", function() { return development; });
-let development = true;
+let development = false;
 
 /***/ }),
 /* 621 */
@@ -79685,10 +79685,6 @@ var CreateSlotForm = function (_React$Component) {
                     )
                 );
 
-                // dueDate = <div className="form-group row dueDate">
-                //             <label htmlFor="dueDate" className="col-md-12">Due Date</label>
-                //             <input value={this.state.dueDate} onChange={this.onChange.bind(this)} type="date" className="form-control col-md-12" id="dueDate" name="dueDate" min={currentDate}/>
-                //         </div>
                 total = _react2.default.createElement(
                     'div',
                     { className: 'form-group row total' },
@@ -79830,8 +79826,6 @@ var _taskCalc = __webpack_require__(603);
 
 var _vars = __webpack_require__(654);
 
-var _logDev = __webpack_require__(132);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -79893,7 +79887,6 @@ var CreateTaskForm = function (_React$Component) {
             this.setState(_defineProperty({}, event.target.id, event.target.value), function () {
                 this.onCheckValidation();
             });
-            _logDev.logDev.red('state:', this.state);
         }
     }, {
         key: 'onCheckValidation',
@@ -80002,8 +79995,6 @@ var CreateTaskForm = function (_React$Component) {
                 durationMins = Number(this.state.durationMins);
             }
             duration = (0, _timeCalc.calcMins)(durationHours, durationMins);
-            _logDev.logDev.red('CreateTaskForm');
-            _logDev.logDev.default('duration', duration);
             // process startTime
             var startTimeHours = Number(this.state.task.startTimeHours);
             var startTimeMinutes = this.state.task.startTimeMinutes; // do not convert to number
@@ -80017,16 +80008,15 @@ var CreateTaskForm = function (_React$Component) {
             var _calcFinishTime2 = (0, _timeCalc.calcFinishTime)(startTimeHours, startTimeMinutes, duration),
                 finishHour = _calcFinishTime2.finishHour,
                 finishMin = _calcFinishTime2.finishMin;
-
-            _logDev.logDev.red('finishHour:', finishHour + ':' + finishMin);
             // if hour is less than 24, then save task
+
+
             if (this.isFinishHourValidated()) {
                 if (!this.isDurationValidated()) {
                     this.setState({
                         errors: 'Please, assign duration time for your task'
                     });
                 } else {
-                    console.log('description', this.state.description);
                     var updatedTask = Object.assign({}, this.state.task, {
                         finishTimeHours: finishHour,
                         finishTimeMinutes: finishMin,
@@ -80050,8 +80040,6 @@ var CreateTaskForm = function (_React$Component) {
                 startTimeHours = _props$taskInfo2.startTimeHours,
                 startTimeMinutes = _props$taskInfo2.startTimeMinutes,
                 tasks = _props$taskInfo2.tasks;
-
-            _logDev.logDev.default('tasks', tasks);
             var _props$preferences = this.props.preferences,
                 meridien = _props$preferences.meridien,
                 timeFormat = _props$preferences.timeFormat;
@@ -80261,8 +80249,6 @@ var _reactRedux = __webpack_require__(42);
 var _propTypes = __webpack_require__(16);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _os = __webpack_require__(676);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -83710,7 +83696,6 @@ var displayReducer = function displayReducer() {
                 showUpdateTaskForm: false
             });
         case 'SHOW_UPDATE_TASK_FORM':
-            console.log('SHOW_UPDATE_TASK_FORM');
             return Object.assign({}, state, {
                 displaySlots: false,
                 displaySettings: false,
@@ -83851,9 +83836,6 @@ exports.default = preferencesInfo;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-
-var _logDev = __webpack_require__(132);
-
 var initialState = {
     slots: [],
     slotsRequest: {
@@ -83968,7 +83950,6 @@ var SlotInfo = function SlotInfo() {
                 displayUpdateSlotForm: true
             });
         case 'UPDATE_SLOT_SUCCESS':
-            _logDev.logDev.default('UPDATE_SLOT');
             var slotsBeforeUpdate = Object.assign([], state.slots);
             for (var i = 0; i < slotsBeforeUpdate.length; ++i) {
                 if (slotsBeforeUpdate[i]._id === action.slot._id) {
@@ -83981,8 +83962,6 @@ var SlotInfo = function SlotInfo() {
                 slots: slotsBeforeUpdate
             });
         case 'DECREMENT_SLOT_FREE':
-            _logDev.logDev.default('DECREMENT_SLOT_FREE');
-            _logDev.logDev.default('free', action.updatedSlot.free);
             var freeTasks = action.updatedSlot.free;
             var slotsBeforeDecrFree = Object.assign([], state.slots);
             if (freeTasks > 0) {
@@ -83996,7 +83975,6 @@ var SlotInfo = function SlotInfo() {
                 slots: slotsBeforeDecrFree
             });
         case 'INCREMENT_SLOT_FREE':
-            _logDev.logDev.default('INCREMENT_SLOT_FREE');
             var slotsBeforeIncFree = Object.assign([], state.slots);
             for (var _i2 = 0; _i2 < slotsBeforeIncFree.length; ++_i2) {
                 if (slotsBeforeIncFree[_i2]._id == action.updatedSlot._id) {
@@ -84015,7 +83993,6 @@ var SlotInfo = function SlotInfo() {
                 slots: updatedSlots
             });
         case 'SLOT_DELETED_SUCCESS':
-            _logDev.logDev.default('REMOVE_SLOT');
             var slotsBeforeDeletion = Object.assign([], state.slots);
             var deletedSlotId = action.deletedSlotId;
             // if id == slot.id then delete it from slots array 
@@ -84773,57 +84750,7 @@ function isObjectLike(value) {
 
 
 /***/ }),
-/* 676 */
-/***/ (function(module, exports) {
-
-exports.endianness = function () { return 'LE' };
-
-exports.hostname = function () {
-    if (typeof location !== 'undefined') {
-        return location.hostname
-    }
-    else return '';
-};
-
-exports.loadavg = function () { return [] };
-
-exports.uptime = function () { return 0 };
-
-exports.freemem = function () {
-    return Number.MAX_VALUE;
-};
-
-exports.totalmem = function () {
-    return Number.MAX_VALUE;
-};
-
-exports.cpus = function () { return [] };
-
-exports.type = function () { return 'Browser' };
-
-exports.release = function () {
-    if (typeof navigator !== 'undefined') {
-        return navigator.appVersion;
-    }
-    return '';
-};
-
-exports.networkInterfaces
-= exports.getNetworkInterfaces
-= function () { return {} };
-
-exports.arch = function () { return 'javascript' };
-
-exports.platform = function () { return 'browser' };
-
-exports.tmpdir = exports.tmpDir = function () {
-    return '/tmp';
-};
-
-exports.EOL = '\n';
-
-
-/***/ }),
+/* 676 */,
 /* 677 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

@@ -21,7 +21,6 @@ class EmailSendForm extends React.Component {
             errors: []
         });
         let email = this.state.email;
-        console.log('email', email);
         axios.post('/emailSend', {email: email})
         .then(res => {
             console.error('response', res);
@@ -41,7 +40,6 @@ class EmailSendForm extends React.Component {
 
     onChange(e) {
         this.setState({[e.target.name]: e.target.value});
-        console.log('state', this.state);
     }
 
 

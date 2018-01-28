@@ -130,11 +130,6 @@ class CreateSlotForm extends React.Component {
                             
                         </div>
            
-
-            // dueDate = <div className="form-group row dueDate">
-            //             <label htmlFor="dueDate" className="col-md-12">Due Date</label>
-            //             <input value={this.state.dueDate} onChange={this.onChange.bind(this)} type="date" className="form-control col-md-12" id="dueDate" name="dueDate" min={currentDate}/>
-            //         </div>
             total = <div className="form-group row total">
                         <span className="col-md-12">Total: 1</span>
                     </div>

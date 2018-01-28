@@ -1,5 +1,3 @@
-import {logDev} from '../../../utils/logDev';
-
 const initialState = {
     slots: [],
     slotsRequest: {
@@ -111,7 +109,6 @@ const SlotInfo = (state = initialState, action) => {
                 displayUpdateSlotForm: true,
             });
         case 'UPDATE_SLOT_SUCCESS':
-            logDev.default('UPDATE_SLOT');
             let slotsBeforeUpdate = Object.assign([], state.slots);
             for(let i = 0; i < slotsBeforeUpdate.length; ++i) {
                 if(slotsBeforeUpdate[i]._id === action.slot._id) {
@@ -124,8 +121,6 @@ const SlotInfo = (state = initialState, action) => {
                 slots: slotsBeforeUpdate
             });
         case 'DECREMENT_SLOT_FREE':
-            logDev.default('DECREMENT_SLOT_FREE');
-            logDev.default('free',  action.updatedSlot.free);
             let freeTasks =  action.updatedSlot.free;
             let slotsBeforeDecrFree = Object.assign([], state.slots);
             if(freeTasks > 0) {
@@ -139,7 +134,6 @@ const SlotInfo = (state = initialState, action) => {
                 slots: slotsBeforeDecrFree
             }); 
         case 'INCREMENT_SLOT_FREE':
-            logDev.default('INCREMENT_SLOT_FREE');
             let slotsBeforeIncFree = Object.assign([], state.slots);
             for(let i = 0; i < slotsBeforeIncFree.length; ++i) {
                 if(slotsBeforeIncFree[i]._id == action.updatedSlot._id) {
@@ -158,7 +152,6 @@ const SlotInfo = (state = initialState, action) => {
                 slots: updatedSlots
             });
         case 'SLOT_DELETED_SUCCESS':
-            logDev.default('REMOVE_SLOT');
             let slotsBeforeDeletion = Object.assign([], state.slots); 
             let deletedSlotId = action.deletedSlotId;
             // if id == slot.id then delete it from slots array 
