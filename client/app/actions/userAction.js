@@ -12,7 +12,6 @@ export const setCurrentUser = (user) => {
 export const logout = () => {
     return dispatch => {
         localStorage.removeItem('jwtToken');
-        deleteCookie()
-        axios.get(`/logout`);
+        deleteCookie();
     }
 }

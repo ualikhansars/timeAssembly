@@ -3,9 +3,9 @@ var router = express.Router();
 var jwt = require('jsonwebtoken');
 var jwtConfig = require('../config/jwtConfig');
 var bcrypt = require('bcrypt');
-import {user} from '../config/account';
+import {account} from '../config/account';
 import {url} from '../config/url';
-// import {transporter} from '../utils/sendMail';
+import {transporter} from '../utils/sendMail';
 import EmailVerificationToken from '../models/emailVerificationToken';
 import ResetPasswordToken from '../models/resetPasswordToken';
 import User from '../models/user';
@@ -53,27 +53,28 @@ router.get('/signup', notAuthenticated, function(req, res, next) {
 });
 
 router.get('/logout', function(req, res, next) {
-  res.redirect('/signin');
+  res.render('signin', {});
 });
 
 router.post('/sendEmailVerificationToken', (req, res, next) => {
   let userId = req.body.userId;
   let userEmail = req.body.userEmail;
+
   EmailVerificationToken.findOne({userId: userId}, (err, emailToken) => {
     if(err) throw new Error(err);
-    let host = req.get('host');
-    let protocol = req.protocol;
     let token = emailToken.token;
-    let link = protocol + "://" + host + "/verifyEmail?emailToken=" + token;
+    let link = "https://timeassembly.com/verifyEmail?emailToken=" + token;
     let mailOptions = {
-      from: user, // sender address
+      from: account.user, // sender address
       to: userEmail, // list of receivers
       subject: 'Please confirm your Email account', // Subject line
       text: 'Email confirmation', // plain text body
       html: `<p>Welcome new timeAssembly user</p><br> 
       <p>Please Confirm your email address</p>
       <p>Please Click on the link to verify your email.</p>
-      <br><a href="${link}">Click here to verify</a>" 
+      <br><a href="${link}">Click here to verify</a> 
+      <p>Link not working?. Paste the following link
+      into your browser ${link}</p>
       <p>Thanks.</p>
       <p>Time Assembly Team.</p>
       <br><br>
@@ -83,11 +84,14 @@ router.post('/sendEmailVerificationToken', (req, res, next) => {
       </p>
       ` 
     };
-    // transporter.sendMail(mailOptions, (err, res) => {
-    //   if(err) {
-    //     throw err;
-    //   }
-    // })
+     transporter.sendMail(mailOptions, (err, res) => {
+       if(err) {
+         res.json({
+		confirmation: 'failed',
+		error: 'cannot send email'
+	});
+       }
+     })
   });
 });
 
@@ -98,7 +102,7 @@ router.get('/emailVerificationPage', (req, res, next) => {
 router.get('/verifyEmail', (req, res, next) => {
   let protocol = req.protocol;
   let host =  req.get('host');
-  if((protocol + '://' + host) == url) {
+  //if((protocol + '://' + host) == url) {
     // get Token By id
     let emailToken = req.query.emailToken;
     EmailVerificationToken.findOne({token: emailToken}, (err, token) => {
@@ -116,7 +120,7 @@ router.get('/verifyEmail', (req, res, next) => {
         });
       });
     });
-  } 
+  //} 
 });
 
 router.post('/emailSend', (req, res, next) => {
@@ -150,13 +154,15 @@ router.post('/emailSend', (req, res, next) => {
             let protocol = req.protocol;
             let link = protocol + "://" + host + "/resetPassword?resetToken=" + resetToken;
             let mailOptions = {
-              from: user, // sender address
+              from: account.user, // sender address
               to: userEmail, // list of receivers
               subject: 'Reset password Time Assembly', // Subject line
               text: 'Reset password', // plain text body
               html: `<p>We've received a request to reset your password</p><br> 
               <p>You can reset your password by clicking the link below</p>
               <br><a href="${link}">Click here to reset password</a>" 
+              <p>Link not working?. Paste the following link
+              into your browser ${link}</p>
               <p>Thanks.</p>
               <p>Time Assembly Team.</p>
               <br><br>
@@ -166,11 +172,11 @@ router.post('/emailSend', (req, res, next) => {
               </p>
               ` 
             };
-            // transporter.sendMail(mailOptions, (err, res) => {
-            //   if(err) {
-            //     throw err;
-            //   }
-            // })
+             transporter.sendMail(mailOptions, (err, res) => {
+               if(err) {
+                 throw err;
+               }
+             })
           });
           res.json({
             confirmation: 'success',

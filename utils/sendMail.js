@@ -1,18 +1,15 @@
 const nodemailer = require('nodemailer');
 
-import {
-    user,
-    password
-} from '../config/account';
+import {account} from '../config/account';
 import {url} from '../config/url';
 
 // create reusable transporter object using the default SMTP transport
-let transporter = nodemailer.createTransport({
+export let transporter = nodemailer.createTransport({
     service: "Gmail",
     host: "smtp.gmail.com",
     auth: {
-        user: user,
-        pass: password
+        user: account.user,
+        pass: account.password
     }
 });
 

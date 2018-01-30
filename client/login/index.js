@@ -1,7 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom'
 import {render} from 'react-dom';
-import {BrowserRouter, Route, Redirect} from 'react-router-dom';
 
 import LoginPage from './components/LoginPage';
 
@@ -14,8 +13,4 @@ import LoginPage from './components/LoginPage';
 }
 
 
-ReactDOM.render((
-     <BrowserRouter>
-       <LoginApp/>
-     </BrowserRouter>
-), document.getElementById("login"))
+render(<LoginApp/>, document.getElementById("login"));

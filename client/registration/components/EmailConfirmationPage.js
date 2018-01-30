@@ -10,7 +10,6 @@ class EmailConfirmationPage extends React.Component {
             userId,
             userEmail
         }
-        console.error('data', data);
         axios.post('/sendEmailVerificationToken', data);
     }
 
