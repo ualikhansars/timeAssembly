@@ -1,1 +1,1 @@
-export let development = false;
+export let development = true;
