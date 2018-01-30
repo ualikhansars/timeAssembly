@@ -7,6 +7,7 @@ import EmailVerificationToken from '../models/emailVerificationToken';
 
 import {generateEmailToken} from './emailUserToken';
 import {generateExpirationDate} from '../utils/generateExpirationDate';
+import {getCurrentDate} from './getCurrentDate';
 
 module.exports =  function validateUser(req, res) {
 
@@ -42,9 +43,12 @@ module.exports =  function validateUser(req, res) {
           } else { // email not found
             bcrypt.hash(password, 10, function(err, hash) {
               if(err) throw err;
+              let currentDate = getCurrentDate();
               User.create({
                 email: email,
-                password: hash
+                password: hash,
+                dateOfCreation: currentDate,
+                lastUpdate: currentDate
               }, function(err, result) {
                if(err) {
                  res.json({
