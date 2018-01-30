@@ -115,27 +115,34 @@ router.get('/verifyEmail', (req, res, next) => {
       });
     }
     // token found
-    let userId = token.userId;
-    // find user by token' userId
-    User.findByIdAndUpdate(userId, {active: true}, {new: true}, (err, user) => {
-      if(err) {
-        res.json({
-          confirmation: 'failed',
-          error: err
-        });
-      }
-      // now user is active
-      // remove the token
-      EmailVerificationToken.findOneAndRemove({token: emailToken}, (err, token) => {
+    if(token) {
+      let userId = token.userId;
+      // find user by token' userId
+      User.findByIdAndUpdate(userId, {active: true}, {new: true}, (err, user) => {
         if(err) {
           res.json({
             confirmation: 'failed',
             error: err
           });
         }
-        res.redirect('/emailVerified');
+        // now user is active
+        // remove the token
+        EmailVerificationToken.findOneAndRemove({token: emailToken}, (err, token) => {
+          if(err) {
+            res.json({
+              confirmation: 'failed',
+              error: err
+            });
+          }
+          res.redirect('/emailVerified');
+        });
       });
-    });
+    } else {
+      res.json({
+        confirmation: 'failed',
+        error: 'cannot find email verification token' + err
+      });
+    }
   });
 });
 
