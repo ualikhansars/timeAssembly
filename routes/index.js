@@ -61,7 +61,12 @@ router.post('/sendEmailVerificationToken', (req, res, next) => {
   let userEmail = req.body.userEmail;
 
   EmailVerificationToken.findOne({userId: userId}, (err, emailToken) => {
-    if(err) throw new Error(err);
+    if(err) {
+      res.json({
+        confirmation: 'failed',
+        error: 'cannot send email verification token'
+      });
+    }
     let token = emailToken.token;
     let link = "https://timeassembly.com/verifyEmail?emailToken=" + token;
     let mailOptions = {
@@ -87,9 +92,9 @@ router.post('/sendEmailVerificationToken', (req, res, next) => {
      transporter.sendMail(mailOptions, (err, res) => {
        if(err) {
          res.json({
-		confirmation: 'failed',
-		error: 'cannot send email'
-	});
+          confirmation: 'failed',
+          error: 'cannot send email'
+	      });
        }
      })
   });
@@ -100,27 +105,38 @@ router.get('/emailVerificationPage', (req, res, next) => {
 });
 
 router.get('/verifyEmail', (req, res, next) => {
-  let protocol = req.protocol;
-  let host =  req.get('host');
-  //if((protocol + '://' + host) == url) {
-    // get Token By id
-    let emailToken = req.query.emailToken;
-    EmailVerificationToken.findOne({token: emailToken}, (err, token) => {
-      if(err) throw new Error(err);
-      // token found
-      let userId = token.userId;
-      // find user by token' userId
-      User.findByIdAndUpdate(userId, {active: true}, {new: true}, (err, user) => {
-        if(err) throw new Error(err);
-        // now user is active
-        // remove the token
-        EmailVerificationToken.findOneAndRemove({token: emailToken}, (err, token) => {
-          if(err) throw new Error(err);
-          res.redirect('/emailVerified');
+  // get Token By id
+  let emailToken = req.query.emailToken;
+  EmailVerificationToken.findOne({token: emailToken}, (err, token) => {
+    if(err) {
+      res.json({
+        confirmation: 'failed',
+        error: 'cannot find email verification token' + err
+      });
+    }
+    // token found
+    let userId = token.userId;
+    // find user by token' userId
+    User.findByIdAndUpdate(userId, {active: true}, {new: true}, (err, user) => {
+      if(err) {
+        res.json({
+          confirmation: 'failed',
+          error: err
         });
+      }
+      // now user is active
+      // remove the token
+      EmailVerificationToken.findOneAndRemove({token: emailToken}, (err, token) => {
+        if(err) {
+          res.json({
+            confirmation: 'failed',
+            error: err
+          });
+        }
+        res.redirect('/emailVerified');
       });
     });
-  //} 
+  });
 });
 
 router.post('/emailSend', (req, res, next) => {
