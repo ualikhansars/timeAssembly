@@ -58783,7 +58783,7 @@ var addTask = exports.addTask = function addTask(id) {
         }).catch(function (error) {
             dispatch({
                 type: 'LOAD_SLOT_FAIL',
-                slotErrors: result.message
+                slotErrors: error
             });
         });
     };

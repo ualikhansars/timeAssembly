@@ -50,7 +50,7 @@ export const addTask = (id) => {
             .catch(error => {
                 dispatch({
                     type: 'LOAD_SLOT_FAIL',
-                    slotErrors: result.message
+                    slotErrors: error
                 });
             });
     }
