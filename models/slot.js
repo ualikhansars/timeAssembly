@@ -3,7 +3,7 @@ var User = require('./user');
 
 var slotSchema = mongoose.Schema({
     title: {type: String, required: true},
-    category: {type: String},
+    category: {type: String, required: true},
     total: {
         type: Number,
         min: 1,

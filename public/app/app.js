@@ -80871,8 +80871,9 @@ var SlotInfo = function SlotInfo() {
             });
         case 'DECREMENT_SLOT_FREE':
             var freeTasks = action.updatedSlot.free;
+            console.error('freeTasks', freeTasks);
             var slotsBeforeDecrFree = Object.assign([], state.slots);
-            if (freeTasks > 0) {
+            if (freeTasks >= 0) {
                 for (var _i = 0; _i < slotsBeforeDecrFree.length; ++_i) {
                     if (slotsBeforeDecrFree[_i]._id == action.updatedSlot._id) {
                         slotsBeforeDecrFree[_i].free -= 1;

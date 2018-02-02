@@ -122,8 +122,9 @@ const SlotInfo = (state = initialState, action) => {
             });
         case 'DECREMENT_SLOT_FREE':
             let freeTasks =  action.updatedSlot.free;
+            console.error('freeTasks', freeTasks);
             let slotsBeforeDecrFree = Object.assign([], state.slots);
-            if(freeTasks > 0) {
+            if(freeTasks >= 0) {
                 for(let i = 0; i < slotsBeforeDecrFree.length; ++i) {
                     if(slotsBeforeDecrFree[i]._id == action.updatedSlot._id) {
                             slotsBeforeDecrFree[i].free -= 1;
